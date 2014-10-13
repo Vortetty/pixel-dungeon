@@ -25,10 +25,14 @@ import com.watabou.utils.Bundle;
 public class GamesInProgress {
 
 	private static HashMap<HeroClass, Info> state = new HashMap<HeroClass, Info>();
+	private static HashMap<HeroClass, Info> t_state = new HashMap<HeroClass, Info>();
 	
 	public static Info check( HeroClass cl ) {
 		
-		if (state.containsKey( cl )) {
+		if(Dungeon.isTutorial && t_state.containsKey( cl )){
+			return t_state.get( cl );
+		}
+		else if (!Dungeon.isTutorial && state.containsKey( cl )) {
 			
 			return state.get( cl );
 			
@@ -44,8 +48,12 @@ public class GamesInProgress {
 			} catch (Exception e) {
 				info = null;
 			}
-			
-			state.put( cl, info );
+			if(Dungeon.isTutorial){
+				t_state.put( cl, info );
+			}
+			else{
+				state.put( cl, info );
+			}
 			return info;
 			
 		}
@@ -56,15 +64,30 @@ public class GamesInProgress {
 		info.depth = depth;
 		info.level = level;
 		info.armor = armor;
-		state.put( cl, info );
+		if(Dungeon.isTutorial){
+			t_state.put( cl, info );
+		}
+		else{
+			state.put( cl, info );
+		}
 	}
 	
 	public static void setUnknown( HeroClass cl ) {
-		state.remove( cl );
+		if(Dungeon.isTutorial){
+			t_state.remove(cl);
+		}
+		else{
+			state.remove(cl);
+		}
 	}
 	
 	public static void delete( HeroClass cl ) {
-		state.put( cl, null );
+		if(Dungeon.isTutorial){
+			t_state.put( cl, null );
+		}
+		else{
+			state.put( cl, null );
+		}
 	}
 	
 	public static class Info {

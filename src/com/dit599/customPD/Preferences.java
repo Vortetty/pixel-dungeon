@@ -31,6 +31,7 @@ enum Preferences {
 	public static final String KEY_SOUND_FX		= "soundfx";
 	public static final String KEY_ZOOM			= "zoom";
 	public static final String KEY_LAST_CLASS	= "last_class";
+	public static final String KEY_T_LAST_CLASS	= "tutorial_last_class";
 	public static final String KEY_DONATED		= "donated";
 	public static final String KEY_INTRO		= "intro";
 	public static final String KEY_BRIGHTNESS	= "brightness";

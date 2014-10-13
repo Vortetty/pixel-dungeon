@@ -181,11 +181,21 @@ public class PixelDungeon extends Game {
 	}
 	
 	public static void lastClass( int value ) {
-		Preferences.INSTANCE.put( Preferences.KEY_LAST_CLASS, value );
+		if(Dungeon.isTutorial){
+			Preferences.INSTANCE.put( Preferences.KEY_T_LAST_CLASS, value );
+		}
+		else{
+			Preferences.INSTANCE.put( Preferences.KEY_LAST_CLASS, value );
+		}
 	}
 	
 	public static int lastClass() {
-		return Preferences.INSTANCE.getInt( Preferences.KEY_LAST_CLASS, 0 );
+		if(Dungeon.isTutorial){
+			return Preferences.INSTANCE.getInt( Preferences.KEY_T_LAST_CLASS, 0 );
+		}
+		else{
+			return Preferences.INSTANCE.getInt( Preferences.KEY_LAST_CLASS, 0 );
+		}
 	}
 	
 	public static void intro( boolean value ) {

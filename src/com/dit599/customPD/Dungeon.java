@@ -133,6 +133,8 @@ public class Dungeon {
 	
 	public static boolean nightMode;
 	
+	public static boolean isTutorial;
+	
 	public static void init() {
 
 		Actor.clear();
@@ -355,6 +357,18 @@ public class Dungeon {
 	private static final String RN_GAME_FILE	= "ranger.dat";
 	private static final String RN_DEPTH_FILE	= "ranger%d.dat";
 	
+	private static final String T_RG_GAME_FILE	= "tutorial_game.dat";
+	private static final String T_RG_DEPTH_FILE	= "tutorial_depth%d.dat";
+	
+	private static final String T_WR_GAME_FILE	= "tutorial_warrior.dat";
+	private static final String T_WR_DEPTH_FILE	= "tutorial_warrior%d.dat";
+	
+	private static final String T_MG_GAME_FILE	= "tutorial_mage.dat";
+	private static final String T_MG_DEPTH_FILE	= "tutorial_mage%d.dat";
+	
+	private static final String T_RN_GAME_FILE	= "tutorial_ranger.dat";
+	private static final String T_RN_DEPTH_FILE	= "tutorial_ranger%d.dat";
+	
 	private static final String VERSION		= "version";
 	private static final String HERO		= "hero";
 	private static final String GOLD		= "gold";
@@ -373,26 +387,66 @@ public class Dungeon {
 	public static String gameFile( HeroClass cl ) {
 		switch (cl) {
 		case WARRIOR:
-			return WR_GAME_FILE;
+			if(isTutorial){
+				return T_WR_GAME_FILE;
+			}
+			else{
+				return WR_GAME_FILE;
+			}
 		case MAGE:
-			return MG_GAME_FILE;
+			if(isTutorial){
+				return T_MG_GAME_FILE;
+			}
+			else{
+				return MG_GAME_FILE;
+			}
 		case HUNTRESS:
-			return RN_GAME_FILE;
+			if(isTutorial){
+				return T_RN_GAME_FILE;
+			}
+			else{
+				return RN_GAME_FILE;
+			}
 		default:
-			return RG_GAME_FILE;
+			if(isTutorial){
+				return T_RG_GAME_FILE;
+			}
+			else{
+				return RG_GAME_FILE;
+			}
 		}
 	}
 	
 	private static String depthFile( HeroClass cl ) {
 		switch (cl) {
 		case WARRIOR:
-			return WR_DEPTH_FILE;
+			if(isTutorial){
+				return T_WR_DEPTH_FILE;
+			}
+			else{
+				return WR_DEPTH_FILE;
+			}
 		case MAGE:
-			return MG_DEPTH_FILE;
+			if(isTutorial){
+				return T_MG_DEPTH_FILE;
+			}
+			else{
+				return MG_DEPTH_FILE;
+			}
 		case HUNTRESS:
-			return RN_DEPTH_FILE;
+			if(isTutorial){
+				return T_RN_DEPTH_FILE;
+			}
+			else{
+				return RN_DEPTH_FILE;
+			}
 		default:
-			return RG_DEPTH_FILE;
+			if(isTutorial){
+				return T_RG_DEPTH_FILE;
+			}
+			else{
+				return RG_DEPTH_FILE;
+			}
 		}
 	}
 	

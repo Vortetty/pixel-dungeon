@@ -175,6 +175,7 @@ public class Badges {
 	}
 	
 	private static final String BADGES_FILE	= "badges.dat";
+	private static final String T_BADGES_FILE	= "tutorial_badges.dat";
 	private static final String BADGES		= "badges";
 	
 	private static HashSet<Badge> restore( Bundle bundle ) {
@@ -212,7 +213,13 @@ public class Badges {
 	public static void loadGlobal() {
 		if (global == null) {
 			try {
-				InputStream input = Game.instance.openFileInput( BADGES_FILE );
+				InputStream input;
+				if(Dungeon.isTutorial){
+					input = Game.instance.openFileInput( T_BADGES_FILE );
+				}
+				else{
+				input = Game.instance.openFileInput( BADGES_FILE );
+				}
 				Bundle bundle = Bundle.read( input );
 				input.close();
 				
@@ -231,7 +238,13 @@ public class Badges {
 			store( bundle, global );
 			
 			try {
-				OutputStream output = Game.instance.openFileOutput( BADGES_FILE, Game.MODE_PRIVATE );
+				OutputStream output;
+				if(Dungeon.isTutorial){
+					output = Game.instance.openFileOutput( T_BADGES_FILE, Game.MODE_PRIVATE );
+				}
+				else{
+					output = Game.instance.openFileOutput( BADGES_FILE, Game.MODE_PRIVATE );
+				}
 				Bundle.write( bundle, output );
 				output.close();
 				saveNeeded = false;

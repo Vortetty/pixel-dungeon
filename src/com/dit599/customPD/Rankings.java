@@ -39,6 +39,8 @@ public enum Rankings {
 	
 	public static final String RANKINGS_FILE = "rankings.dat";
 	public static final String DETAILS_FILE = "game_%d.dat";
+	public static final String T_RANKINGS_FILE = "tutorial_rankings.dat";
+	public static final String T_DETAILS_FILE = "tutorial_game_%d.dat";
 	
 	public ArrayList<Record> records;
 	public int lastRecord;
@@ -55,8 +57,13 @@ public enum Rankings {
 		rec.heroClass	= Dungeon.hero.heroClass;
 		rec.armorTier	= Dungeon.hero.tier();
 		rec.score	= score( win );
-		
-		String gameFile = Utils.format( DETAILS_FILE, SystemTime.now );
+		String gameFile;
+		if(Dungeon.isTutorial){
+			gameFile = Utils.format( T_DETAILS_FILE, SystemTime.now );
+		}
+		else{
+			gameFile = Utils.format( DETAILS_FILE, SystemTime.now );
+		}
 		try {
 			Dungeon.saveGame( gameFile );
 			rec.gameFile = gameFile;
@@ -107,7 +114,13 @@ public enum Rankings {
 		bundle.put( TOTAL, totalNumber );
 		
 		try {
-			OutputStream output = Game.instance.openFileOutput( RANKINGS_FILE, Game.MODE_PRIVATE );
+			OutputStream output;
+			if(Dungeon.isTutorial){
+				output = Game.instance.openFileOutput( T_RANKINGS_FILE, Game.MODE_PRIVATE );
+			}
+			else{
+				output = Game.instance.openFileOutput( RANKINGS_FILE, Game.MODE_PRIVATE );
+			}
 			Bundle.write( bundle, output );
 			output.close();
 		} catch (Exception e) {
@@ -123,7 +136,13 @@ public enum Rankings {
 		records = new ArrayList<Rankings.Record>();
 		
 		try {
-			InputStream input = Game.instance.openFileInput( RANKINGS_FILE );
+			InputStream input;
+			if(Dungeon.isTutorial){
+				input = Game.instance.openFileInput( T_RANKINGS_FILE );
+			}
+			else{
+				input = Game.instance.openFileInput( RANKINGS_FILE );
+			}
 			Bundle bundle = Bundle.read( input );
 			input.close();
 			

@@ -1,6 +1,7 @@
 package com.dit599.customPD.scenes;
 
 import com.dit599.customPD.Assets;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.ui.Archs;
@@ -51,6 +52,7 @@ public class GameModeScene extends PixelScene {
 		DashboardItem btnCustom = new DashboardItem( TXT_CUSTOM, 0 ) {
 			@Override
 			protected void onClick() {
+				Dungeon.isTutorial = false;
 				Game.switchScene( StartScene.class );
 			}
 		};
@@ -60,6 +62,7 @@ public class GameModeScene extends PixelScene {
 		DashboardItem btnEditor = new DashboardItem( TXT_MAP_EDITOR, 0 ) {
 			@Override
 			protected void onClick() {
+				Dungeon.isTutorial = false;
 				Game.switchScene( StartScene.class );
 			}
 		};
@@ -69,6 +72,7 @@ public class GameModeScene extends PixelScene {
 		DashboardItem btnStandard = new DashboardItem( TXT_STANDARD, 0 ) {
 			@Override
 			protected void onClick() {
+				Dungeon.isTutorial = false;
 				Game.switchScene( StartScene.class );
 			}
 		};
@@ -78,6 +82,7 @@ public class GameModeScene extends PixelScene {
 		DashboardItem btnTutorial = new DashboardItem( TXT_TUTORIAL, 0 ) {
 			@Override
 			protected void onClick() {
+				Dungeon.isTutorial = true;
 				Game.switchScene( StartScene.class );
 			}
 		};
