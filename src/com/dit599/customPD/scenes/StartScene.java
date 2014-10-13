@@ -352,7 +352,7 @@ public class StartScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		Game.switchScene( TitleScene.class );
+		Game.switchScene( GameModeScene.class );
 	}
 	
 	private static class Avatar extends Image {
