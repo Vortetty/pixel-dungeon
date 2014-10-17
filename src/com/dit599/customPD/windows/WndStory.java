@@ -76,10 +76,10 @@ public class WndStory extends Window {
 		"Very few adventurers have ever descended this far..." );
 	};
 	static {
-	T_CHAPTERS.put(0, "Welcome to the tutorial! On this floor there is a hidden door, use the search button to find it!");
-	T_CHAPTERS.put(1, "equipment");
-	T_CHAPTERS.put(2, "combat");
-	T_CHAPTERS.put(3, "boss");
+	T_CHAPTERS.put(1, "Seeds & Potions");
+	T_CHAPTERS.put(2, "Equipment");
+	T_CHAPTERS.put(3, "Combat");
+	T_CHAPTERS.put(4, "Boss");
 	};
 	
 	private BitmapTextMultiline tf;
