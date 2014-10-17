@@ -304,7 +304,7 @@ public class Blacksmith extends Mob.NPC {
 		}
 		
 		public static void spawn( Collection<Room> rooms ) {
-			if (!spawned && Dungeon.depth > 11 && Random.Int( 15 - Dungeon.depth ) == 0) {
+			if (!Dungeon.isTutorial && !spawned && Dungeon.depth > 11 && Random.Int( 15 - Dungeon.depth ) == 0) {
 				
 				Room blacksmith = null;
 				for (Room r : rooms) {

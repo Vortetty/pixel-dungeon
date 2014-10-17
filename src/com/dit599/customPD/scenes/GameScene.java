@@ -273,22 +273,11 @@ public class GameScene extends PixelScene {
 			Chasm.heroLand();
 			break;
 		case DESCEND:
-			switch (Dungeon.depth) {
-			case 1:
-				WndStory.showChapter( WndStory.ID_SEWERS );
-				break;
-			case 6:
-				WndStory.showChapter( WndStory.ID_PRISON );
-				break;
-			case 11:
-				WndStory.showChapter( WndStory.ID_CAVES );
-				break;
-			case 16:
-				WndStory.showChapter( WndStory.ID_METROPOLIS );
-				break;
-			case 22:
-				WndStory.showChapter( WndStory.ID_HALLS );
-				break;
+			if(Dungeon.isTutorial){
+				tutorialLayout();
+			}
+			else{
+				standardLayout();
 			}
 			if (Dungeon.hero.isAlive() && Dungeon.depth != 22) {
 				Badges.validateNoKilling();
@@ -301,6 +290,29 @@ public class GameScene extends PixelScene {
 		fadeIn();
 	}
 	
+	private void tutorialLayout(){
+		WndStory.showChapter(Dungeon.depth);
+	}
+	
+	private void standardLayout(){
+		switch (Dungeon.depth) {
+		case 1:
+			WndStory.showChapter( WndStory.ID_SEWERS );
+			break;
+		case 6:
+			WndStory.showChapter( WndStory.ID_PRISON );
+			break;
+		case 11:
+			WndStory.showChapter( WndStory.ID_CAVES );
+			break;
+		case 16:
+			WndStory.showChapter( WndStory.ID_METROPOLIS );
+			break;
+		case 22:
+			WndStory.showChapter( WndStory.ID_HALLS );
+			break;
+		}
+	}
 	public void destroy() {
 		
 		scene = null;

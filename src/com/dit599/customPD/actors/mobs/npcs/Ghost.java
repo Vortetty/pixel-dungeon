@@ -258,7 +258,7 @@ public class Ghost extends Mob.NPC {
 		}
 		
 		public static void spawn( SewerLevel level ) {
-			if (!spawned && Dungeon.depth > 1 && Random.Int( 5 - Dungeon.depth ) == 0) {
+			if (!Dungeon.isTutorial && !spawned && Dungeon.depth > 1 && Random.Int( 5 - Dungeon.depth ) == 0) {
 				
 				Ghost ghost = new Ghost();
 				do {

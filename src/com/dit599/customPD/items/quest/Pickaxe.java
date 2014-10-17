@@ -28,6 +28,8 @@ import com.dit599.customPD.actors.mobs.Bat;
 import com.dit599.customPD.effects.CellEmitter;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.items.weapon.Weapon;
+import com.dit599.customPD.levels.CavesBossLevel;
+import com.dit599.customPD.levels.CavesLevel;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Terrain;
 import com.dit599.customPD.scenes.GameScene;
@@ -76,7 +78,8 @@ public class Pickaxe extends Weapon {
 		
 		if (action == AC_MINE) {
 			
-			if (Dungeon.depth < 11 || Dungeon.depth > 15) {
+			//if (Dungeon.depth < 11 || Dungeon.depth > 15) {
+			if (Dungeon.level instanceof CavesLevel || Dungeon.level instanceof CavesBossLevel) {
 				GLog.w( TXT_NO_VEIN );
 				return;
 			}

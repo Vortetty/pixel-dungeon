@@ -215,7 +215,7 @@ public class Wandmaker extends Mob.NPC {
 		}
 		
 		public static void spawn( PrisonLevel level, Room room ) {
-			if (!spawned && Dungeon.depth > 6 && Random.Int( 10 - Dungeon.depth ) == 0) {
+			if (!Dungeon.isTutorial && !spawned && Dungeon.depth > 6 && Random.Int( 10 - Dungeon.depth ) == 0) {
 				
 				Wandmaker npc = new Wandmaker();
 				do {

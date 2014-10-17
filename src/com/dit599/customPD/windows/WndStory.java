@@ -44,6 +44,8 @@ public class WndStory extends Window {
 	
 	private static final SparseArray<String> CHAPTERS = new SparseArray<String>();
 	
+	private static final SparseArray<String> T_CHAPTERS = new SparseArray<String>();
+	
 	static {
 		CHAPTERS.put( ID_SEWERS, 
 		"The Dungeon lies right beneath the City, its upper levels actually constitute the City's sewer system. " +
@@ -72,6 +74,12 @@ public class WndStory extends Window {
 		"dwarves were too weakened to clear them of remaining demons. Gradually demons have tightened their grip on this place " +
 		"and now it's called Demon Halls.\n\n" +
 		"Very few adventurers have ever descended this far..." );
+	};
+	static {
+	T_CHAPTERS.put(0, "Welcome to the tutorial! On this floor there is a hidden door, use the search button to find it!");
+	T_CHAPTERS.put(1, "equipment");
+	T_CHAPTERS.put(2, "combat");
+	T_CHAPTERS.put(3, "boss");
 	};
 	
 	private BitmapTextMultiline tf;
@@ -117,8 +125,13 @@ public class WndStory extends Window {
 		if (Dungeon.chapters.contains( id )) {
 			return;
 		}
-		
-		String text = CHAPTERS.get( id );
+		String text;
+		if(Dungeon.isTutorial){
+			text = T_CHAPTERS.get( id );
+		}
+		else{
+			text = CHAPTERS.get( id );
+		}
 		if (text != null) {
 			WndStory wnd = new WndStory( text );
 			if ((wnd.delay = 0.6f) > 0) {
