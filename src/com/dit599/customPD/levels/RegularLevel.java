@@ -32,7 +32,8 @@ import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.scrolls.ScrollOfUpgrade;
 import com.dit599.customPD.levels.Room.Type;
-import com.dit599.customPD.levels.painters.*;
+import com.dit599.customPD.levels.painters.Painter;
+import com.dit599.customPD.levels.template.LevelTemplate;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
@@ -179,7 +180,9 @@ public abstract class RegularLevel extends Level {
 					r.width() > 3 && r.height() > 3 &&
 					Random.Int( specialRooms * specialRooms + 2 ) == 0) {
 
-					if (pitRoomNeeded) {
+					if (specialRooms == 0 && LevelTemplate.currentLevelTemplate() != null) {
+						r.type = LevelTemplate.currentLevelTemplate().requiredSpecialRoom;
+					} else if (pitRoomNeeded) {
 
 						r.type = Type.PIT;
 						pitRoomNeeded = false;
@@ -526,7 +529,11 @@ public abstract class RegularLevel extends Level {
 	
 	@Override
 	public int nMobs() {
-		return 2 + Dungeon.depth % 5 + Random.Int( 3 );
+		if (LevelTemplate.currentLevelTemplate() != null) {
+			return LevelTemplate.currentLevelTemplate().maxMobs;
+		} else {
+			return 2 + Dungeon.depth % 5 + Random.Int(3);
+		}
 	}
 	
 	@Override

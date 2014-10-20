@@ -57,7 +57,15 @@ import com.dit599.customPD.levels.features.Chasm;
 import com.dit599.customPD.levels.features.Door;
 import com.dit599.customPD.levels.features.HighGrass;
 import com.dit599.customPD.levels.painters.Painter;
-import com.dit599.customPD.levels.traps.*;
+import com.dit599.customPD.levels.template.LevelTemplate;
+import com.dit599.customPD.levels.traps.AlarmTrap;
+import com.dit599.customPD.levels.traps.FireTrap;
+import com.dit599.customPD.levels.traps.GrippingTrap;
+import com.dit599.customPD.levels.traps.LightningTrap;
+import com.dit599.customPD.levels.traps.ParalyticTrap;
+import com.dit599.customPD.levels.traps.PoisonTrap;
+import com.dit599.customPD.levels.traps.SummoningTrap;
+import com.dit599.customPD.levels.traps.ToxicTrap;
 import com.dit599.customPD.mechanics.ShadowCaster;
 import com.dit599.customPD.plants.Plant;
 import com.dit599.customPD.scenes.GameScene;
@@ -86,7 +94,7 @@ public abstract class Level implements Bundlable {
 	public static final int[] NEIGHBOURS8 = {+1, -1, +WIDTH, -WIDTH, +1+WIDTH, +1-WIDTH, -1+WIDTH, -1-WIDTH};
 	public static final int[] NEIGHBOURS9 = {0, +1, -1, +WIDTH, -WIDTH, +1+WIDTH, +1-WIDTH, -1+WIDTH, -1-WIDTH};
 	
-	protected static final float TIME_TO_RESPAWN	= 50;
+    protected static float TIME_TO_RESPAWN = 50;
 	
 	private static final String TXT_HIDDEN_PLATE_CLICKS = "A hidden pressure plate clicks!";
 	
@@ -372,6 +380,9 @@ public abstract class Level implements Bundlable {
 							mob.beckon( Dungeon.hero.pos );
 						}
 					}
+				}
+				if (LevelTemplate.currentLevelTemplate() != null) {
+					TIME_TO_RESPAWN = LevelTemplate.currentLevelTemplate().timeToRespawn;
 				}
 				spend( Dungeon.nightMode || Statistics.amuletObtained ? TIME_TO_RESPAWN / 2 : TIME_TO_RESPAWN );
 				return true;

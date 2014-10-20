@@ -54,6 +54,7 @@ import com.dit599.customPD.levels.PrisonLevel;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.SewerBossLevel;
 import com.dit599.customPD.levels.SewerLevel;
+import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.StartScene;
 import com.dit599.customPD.utils.BArray;
@@ -125,6 +126,7 @@ public class Dungeon {
 	
 	public static Hero hero;
 	public static Level level;
+	public static DungeonTemplate template = new DungeonTemplate();
 	
 	// Either Item or Class<? extends Item>
 	public static Object quickslot;
@@ -340,7 +342,7 @@ public class Dungeon {
 		
 		Actor respawner = level.respawner();
 		if (respawner != null) {
-			Actor.add( level.respawner() );
+            Actor.add(respawner);
 		}
 		
 		hero.pos = pos != -1 ? pos : level.exit;
