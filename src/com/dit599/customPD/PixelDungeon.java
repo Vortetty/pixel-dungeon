@@ -20,8 +20,10 @@ package com.dit599.customPD;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.style.SuperscriptSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -29,11 +31,13 @@ import android.view.View;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.PixelScene;
 import com.dit599.customPD.scenes.TitleScene;
+import com.dit599.customPD.windows.WundGameMapeditor;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 
 public class PixelDungeon extends Game {
+	public static PixelDungeon self;
 	
 	public PixelDungeon() {
 		super( TitleScene.class );
@@ -92,6 +96,7 @@ public class PixelDungeon extends Game {
 		com.watabou.utils.Bundle.addAlias( 
 			com.dit599.customPD.plants.Dreamweed.Seed.class,
 			"com.dit599.customPD.plants.Blindweed$Seed" );
+		self = this;
 	}
 	
 	@Override
@@ -286,4 +291,11 @@ public class PixelDungeon extends Game {
 	public static void reportException( Exception e ) {
 		Log.e( "PD", Log.getStackTraceString( e ) ); 
 	}
+
+	public void editMaps() {
+		startActivity(new Intent ("com.dit599.editorUI.FloorsListActivity"));
+	}
+	
+
+
 }

@@ -1,5 +1,9 @@
 package com.dit599.customPD.scenes;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.text.method.HideReturnsTransformationMethod;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.PixelDungeon;
@@ -8,6 +12,11 @@ import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
 import com.dit599.customPD.ui.PrefsButton;
+import com.dit599.customPD.ui.RedButton;
+import com.dit599.customPD.windows.WndGame;
+import com.dit599.customPD.windows.WndMapEditor;
+import com.dit599.customPD.windows.WndSettings;
+import com.dit599.customPD.windows.WundGameMapeditor;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -16,13 +25,14 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
 
-public class GameModeScene extends PixelScene {
+
+public class GameModeScene extends PixelScene{
 
 	private static final String TXT_STANDARD		= "Standard";
-	private static final String TXT_CUSTOM	= "Custom";
+	private static final String TXT_CUSTOM			= "Custom";
 	private static final String TXT_MAP_EDITOR		= "Map Editor";
 	private static final String TXT_TUTORIAL		= "Tutorial";
-
+	
 	@Override
 	public void create() {
 
@@ -62,11 +72,20 @@ public class GameModeScene extends PixelScene {
 		add( btnCustom );
 
 		DashboardItem btnEditor = new DashboardItem( TXT_MAP_EDITOR, 0 ) {
+		
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-				PixelDungeon.switchNoFade( StartScene.class );
+			
+				
+				PixelDungeon.self.editMaps();
+				
+				//Game.switchScenemap( WundGameMapeditor.class );
+				//WndGame.( new WndSettings( true ) );
+				//GameScene.show(new WundGameMapeditor());
+				//PixelDungeon.switchNoFade( MapEditorscence.class );
 			}
+
 		};
 		btnEditor.setPos( w / 2, (h + height) / 2 - DashboardItem.SIZE );
 		add( btnEditor );
