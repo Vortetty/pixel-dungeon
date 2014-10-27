@@ -63,7 +63,6 @@ import com.dit599.customPD.windows.WndBag;
 import com.dit599.customPD.windows.WndGame;
 import com.dit599.customPD.windows.WndStory;
 import com.dit599.customPD.windows.WndBag.Mode;
-import com.dit599.customPD.windows.WundGameMapeditor;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
