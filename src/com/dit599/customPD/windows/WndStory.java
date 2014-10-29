@@ -145,4 +145,15 @@ public class WndStory extends Window {
 			Dungeon.chapters.add( id );
 		}
 	}
+	public static void showChapter( String custom ) {
+		
+		if (custom != null) {
+			WndStory wnd = new WndStory( custom );
+			if ((wnd.delay = 0.6f) > 0) {
+				wnd.chrome.visible = wnd.tf.visible = false;
+			}
+			
+			Game.scene().add( wnd );
+		}
+	}
 }

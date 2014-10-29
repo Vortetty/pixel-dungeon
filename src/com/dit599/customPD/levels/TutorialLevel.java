@@ -24,9 +24,11 @@ import java.util.List;
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.DungeonTilemap;
+import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.items.DewVial;
 import com.dit599.customPD.levels.Room.Type;
 import com.dit599.customPD.scenes.GameScene;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.particles.Emitter;
@@ -362,6 +364,14 @@ public class TutorialLevel extends RegularLevel {
 			speed.set( Random.Float( -2, +2 ), 0 );
 
 			left = lifespan = 0.5f;
+		}
+	}
+	@Override
+	public void press( int cell, Char ch ) {
+		super.press(cell, ch);
+		if(this.room(cell)!= null && !this.room(cell).enteredRoom){
+			this.room(cell).enteredRoom = true;
+			this.room(cell).type.prompt();
 		}
 	}
 }

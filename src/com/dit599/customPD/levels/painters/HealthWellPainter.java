@@ -57,4 +57,7 @@ public class HealthWellPainter extends Painter {
 	public static String tip() {
 		return "This is a well of health, drink it to heal yourself, or throw in your dew vial to fully charge it!";
 	}
+	public static String prompt() {
+		return "Dew Vial Charging Room";
+	}
 }

@@ -489,7 +489,7 @@ public class Hero extends Char {
 				if(Dungeon.level instanceof RegularLevel){
 					Room r = ((RegularLevel) (Dungeon.level)).room(pos);
 					if(r!= null){
-					r.type.tip(Dungeon.level, r);
+					r.type.tip();
 					}
 				}
 				else{

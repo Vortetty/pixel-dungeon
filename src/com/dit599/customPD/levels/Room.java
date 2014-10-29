@@ -31,6 +31,7 @@ import com.dit599.customPD.PixelDungeon;
 import com.dit599.customPD.levels.painters.*;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.windows.WndMessage;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
@@ -45,6 +46,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	
 	public int distance;
 	public int price = 1;
+	public boolean enteredRoom = false;
 	
 	public static enum Type {
 		NULL( null ),
@@ -76,6 +78,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		
 		private Method paint;
 		private Method tip;
+		private Method prompt;
 		
 		private Type( Class<? extends Painter> painter ) {
 			try {
@@ -85,8 +88,10 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 			}
 			try {//Separate trycatches so paint does not reset to null.
 				tip = painter.getMethod("tip", null);
+				prompt = painter.getMethod("prompt", null);
 			} catch (Exception e) {
 				tip = null;
+				prompt = null;
 			}
 		}
 		
@@ -98,13 +103,23 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 			}
 		}
 		
-		public void tip( Level level, Room room ) {
+		public void tip() {
 			try {
 				String s = (String) tip.invoke(null, null);
 				GameScene.show(new WndMessage(s));
 			} catch (Exception e) {
 				Log.d("isnull", "tip method got set to null on first fail");
 				GameScene.show( new WndMessage( Dungeon.tip() ) );
+			}
+		}
+		
+		public void prompt() {
+			try {
+				String s = (String) prompt.invoke(null, null);
+				WndStory.showChapter(s);
+			} catch (Exception e) {
+				Log.d("isnull", "prompt method got set to null on first fail");
+				WndStory.showChapter(null);
 			}
 		}
 	};
@@ -208,6 +223,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		bundle.put( "top", top );
 		bundle.put( "right", right );
 		bundle.put( "bottom", bottom );
+		bundle.put( "enteredRoom", enteredRoom );
 		bundle.put( "type", type.toString() );
 	}
 	
@@ -217,6 +233,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		top = bundle.getInt( "top" );
 		right = bundle.getInt( "right" );
 		bottom = bundle.getInt( "bottom" );		
+		enteredRoom = bundle.getBoolean("enteredRoom");
 		type = Type.valueOf( bundle.getString( "type" ) );
 	}
 	

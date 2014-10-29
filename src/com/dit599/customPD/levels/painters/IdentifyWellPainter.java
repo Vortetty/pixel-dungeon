@@ -60,4 +60,7 @@ public class IdentifyWellPainter extends Painter {
 				"Drinking will also reveal the current floor's map. You can also instead throw in a single item (including scrolls and " +
 				"potions), to identify. This can be used to avoid the risk of equipping a cursed item just to identify it.";
 	}
+	public static String prompt() {
+		return "Equipment Identification Room";
+	}
 }
