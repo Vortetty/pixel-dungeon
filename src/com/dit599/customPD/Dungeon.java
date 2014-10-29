@@ -54,6 +54,8 @@ import com.dit599.customPD.levels.PrisonLevel;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.SewerBossLevel;
 import com.dit599.customPD.levels.SewerLevel;
+import com.dit599.customPD.levels.TutorialBossLevel;
+import com.dit599.customPD.levels.TutorialLevel;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.StartScene;
 import com.dit599.customPD.utils.BArray;
@@ -106,10 +108,13 @@ public class Dungeon {
 	};
 	
 	private static final String[] T_TIPS = { 
-		"Floor1",
-		"Floor2",
-		"Floor3",
-		"Floor4"
+		"Use '?' to get more information about anything you see in the game. Doors may be hidden, " +
+		"so don't forget to use search (left of '?')from time to time.",
+		"Make sure to investigate wells with '?' to see what type they are, and try to not use them " +
+		"until you have an item that benefits.",
+		"Remember to change equipment depending on the situation!",
+		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for" +
+		"this difficult fight."
 	};
 	
 	private static final String TXT_DEAD_END = 
@@ -213,10 +218,10 @@ public class Dungeon {
 			case 1:
 			case 2:
 			case 3:
-				level = new SewerLevel();
+				level = new TutorialLevel();
 				break;
 			case 4:
-				level = new SewerBossLevel();
+				level = new TutorialBossLevel();
 				break;
 			default:
 				level = new DeadEndLevel();

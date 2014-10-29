@@ -32,6 +32,7 @@ import com.dit599.customPD.items.scrolls.ScrollOfPsionicBlast;
 import com.dit599.customPD.items.weapon.enchantments.Death;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.SewerBossLevel;
+import com.dit599.customPD.levels.TutorialBossLevel;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.sprites.GooSprite;
@@ -142,7 +143,12 @@ public class Goo extends Mob {
 	
 	@Override
 	public void move( int step ) {
+		try{
 		((SewerBossLevel)Dungeon.level).seal();
+		}
+		catch(Exception e){
+			((TutorialBossLevel)Dungeon.level).seal();
+		}
 		super.move( step );
 	}
 	
@@ -150,8 +156,12 @@ public class Goo extends Mob {
 	public void die( Object cause ) {
 		
 		super.die( cause );
-		
+		try{
 		((SewerBossLevel)Dungeon.level).unseal();
+		}
+		catch(Exception e){
+			((TutorialBossLevel)Dungeon.level).unseal();
+		}
 		
 		GameScene.bossSlain();
 		Dungeon.level.drop( new SkeletonKey(), pos ).sprite.drop();

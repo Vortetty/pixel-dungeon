@@ -82,6 +82,8 @@ import com.dit599.customPD.items.wands.Wand;
 import com.dit599.customPD.items.weapon.melee.MeleeWeapon;
 import com.dit599.customPD.items.weapon.missiles.MissileWeapon;
 import com.dit599.customPD.levels.Level;
+import com.dit599.customPD.levels.RegularLevel;
+import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 import com.dit599.customPD.levels.features.AlchemyPot;
 import com.dit599.customPD.levels.features.Chasm;
@@ -484,7 +486,15 @@ public class Hero extends Char {
 			
 		} else {
 			if (Dungeon.level.map[pos] == Terrain.SIGN) {
-				GameScene.show( new WndMessage( Dungeon.tip() ) );
+				if(Dungeon.level instanceof RegularLevel){
+					Room r = ((RegularLevel) (Dungeon.level)).room(pos);
+					if(r!= null){
+					r.type.tip(Dungeon.level, r);
+					}
+				}
+				else{
+					GameScene.show( new WndMessage( Dungeon.tip() ) );
+				}
 			}
 			ready();
 			return false;

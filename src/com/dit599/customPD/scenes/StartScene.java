@@ -246,7 +246,7 @@ public class StartScene extends PixelScene {
 		Dungeon.hero = null;
 		InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 		
-		if (PixelDungeon.intro()) {
+		if (!Dungeon.isTutorial && PixelDungeon.intro()) {
 			PixelDungeon.intro( false );
 			Game.switchScene( IntroScene.class );
 		} else {

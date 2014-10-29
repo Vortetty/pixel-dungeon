@@ -24,8 +24,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import android.util.Log;
+
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.PixelDungeon;
 import com.dit599.customPD.levels.painters.*;
+import com.dit599.customPD.scenes.GameScene;
+import com.dit599.customPD.windows.WndMessage;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
@@ -43,6 +48,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	
 	public static enum Type {
 		NULL( null ),
+		T_WELL_IDENTIFY (HealthWellPainter.class ),
+		T_WELL_HEALTH (IdentifyWellPainter.class ),
 		STANDARD	( StandardPainter.class ),
 		ENTRANCE	( EntrancePainter.class ),
 		EXIT		( ExitPainter.class ),
@@ -68,12 +75,18 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		PIT			( PitPainter.class );
 		
 		private Method paint;
+		private Method tip;
 		
 		private Type( Class<? extends Painter> painter ) {
 			try {
 				paint = painter.getMethod( "paint", Level.class, Room.class );
 			} catch (Exception e) {
 				paint = null;
+			}
+			try {//Separate trycatches so paint does not reset to null.
+				tip = painter.getMethod("tip", null);
+			} catch (Exception e) {
+				tip = null;
 			}
 		}
 		
@@ -84,12 +97,37 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 				PixelDungeon.reportException( e );
 			}
 		}
+		
+		public void tip( Level level, Room room ) {
+			try {
+				String s = (String) tip.invoke(null, null);
+				GameScene.show(new WndMessage(s));
+			} catch (Exception e) {
+				Log.d("isnull", "tip method got set to null on first fail");
+				GameScene.show( new WndMessage( Dungeon.tip() ) );
+			}
+		}
 	};
 	
 	public static final ArrayList<Type> SPECIALS = new ArrayList<Type>( Arrays.asList(
 		Type.WEAK_FLOOR, Type.MAGIC_WELL, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.ARMORY,
 		Type.TREASURY, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.LABORATORY, Type.VAULT
 	) );
+	
+	
+	public static final ArrayList<Type> T_FLOOR1 = new ArrayList<Type>( Arrays.asList(
+			Type.LIBRARY, Type.TREASURY, Type.STORAGE, Type.LABORATORY
+		) );
+	
+	
+	public static final ArrayList<Type> T_FLOOR2 = new ArrayList<Type>( Arrays.asList(
+			Type.T_WELL_HEALTH, Type.GARDEN, Type.ARMORY, Type.T_WELL_IDENTIFY
+		) );
+	
+	
+	public static final ArrayList<Type> T_FLOOR3 = new ArrayList<Type>( Arrays.asList(
+			Type.CRYPT, Type.POOL, Type.STATUE, Type.VAULT
+		) );
 	
 	public Type type = Type.NULL;
 	

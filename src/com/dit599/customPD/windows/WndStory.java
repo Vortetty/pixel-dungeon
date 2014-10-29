@@ -76,10 +76,12 @@ public class WndStory extends Window {
 		"Very few adventurers have ever descended this far..." );
 	};
 	static {
-	T_CHAPTERS.put(1, "Seeds & Potions");
-	T_CHAPTERS.put(2, "Equipment");
-	T_CHAPTERS.put(3, "Combat");
-	T_CHAPTERS.put(4, "Boss");
+	T_CHAPTERS.put(1, "Welcome to the tutorial! On this floor, you can learn about the various potions and seeds " +
+			"available in the game.");
+	T_CHAPTERS.put(2, "On this floor, you can learn about equipment identification, resting and how to use magic wells.");
+	T_CHAPTERS.put(3, "On this floor, you must learn how to fight effectively against both enemies that are hard to hit and " +
+			"enemies that hit hard.");
+	T_CHAPTERS.put(4, "Now, use what you have learned to defeat the Goo!");
 	};
 	
 	private BitmapTextMultiline tf;
