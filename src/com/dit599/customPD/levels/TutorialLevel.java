@@ -26,7 +26,9 @@ import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.DungeonTilemap;
 import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.items.DewVial;
+import com.dit599.customPD.items.bags.SeedPouch;
 import com.dit599.customPD.levels.Room.Type;
+import com.dit599.customPD.plants.Firebloom;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.windows.WndStory;
 import com.watabou.noosa.Game;
@@ -141,7 +143,7 @@ public class TutorialLevel extends RegularLevel {
 					r.connected.size() == 1) {
 
 				if (specials.size() > 0 &&
-						r.width() > 3 && r.height() > 3) {
+						r.width() >= 3 && r.height() >= 3) {
 					int n = specials.size();
 					r.type = specials.get( Math.min( Random.Int( n ), Random.Int( n ) ) );			
 					Room.useType( r.type );
@@ -260,7 +262,12 @@ public class TutorialLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {//Possibly spawn more floorspecific items?
-		if (Dungeon.dewVial && Dungeon.depth == 2) {
+		if(Dungeon.depth == 1){
+			for (int i = 0; i< 2; i++){
+				addItemToSpawn( new Firebloom.Seed() );
+			}
+		}
+		else if (Dungeon.dewVial && Dungeon.depth == 2) {
 			addItemToSpawn( new DewVial() );
 			Dungeon.dewVial = false;
 		}
