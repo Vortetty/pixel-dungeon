@@ -20,6 +20,7 @@ package com.dit599.customPD.levels.painters;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.mobs.Brute;
 import com.dit599.customPD.actors.mobs.Piranha;
+import com.dit599.customPD.actors.mobs.Skeleton;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
@@ -69,12 +70,12 @@ public class HardHittingRoomPainter extends Painter {
 		set( level, pos, Terrain.SIGN );
 		
 		for (int i=0; i < NMOBS; i++) {
-			Brute brute = new Brute();
+			Skeleton skeleton = new Skeleton();
 			do {
-				brute.pos = room.random();
-			} while (level.map[brute.pos] != Terrain.WATER|| Actor.findChar( brute.pos ) != null);
-			level.mobs.add( brute );
-			Actor.occupyCell( brute );
+				skeleton.pos = room.random();
+			} while (level.map[skeleton.pos] != Terrain.WATER|| Actor.findChar( skeleton.pos ) != null);
+			level.mobs.add( skeleton );
+			Actor.occupyCell( skeleton );
 		}
 	}
 	public static String tip() {

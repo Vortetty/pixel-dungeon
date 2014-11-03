@@ -38,7 +38,7 @@ public class IdentifyWellPainter extends Painter {
 		
 		Point c = room.center();
 		set( level, c.x, c.y, Terrain.WELL );
-		set( level, c.x, c.y-1, Terrain.SIGN );
+		//set( level, c.x, c.y-1, Terrain.SIGN );
 		
 		
 		Class<? extends WellWater> waterClass = WaterOfAwareness.class;
@@ -53,6 +53,12 @@ public class IdentifyWellPainter extends Painter {
 		water.seed( c.x + Level.WIDTH * c.y, 1 );
 		level.blobs.put( waterClass, water );
 		
+		int pos;
+		do {
+			pos = room.random();
+		} while (
+				!Level.passable[pos] && !Level.avoid[pos]);
+		set(level, pos, Terrain.SIGN);
 		room.entrance().set( Room.Door.Type.HIDDEN );
 	}
 	public static String tip() {
