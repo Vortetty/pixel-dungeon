@@ -52,7 +52,7 @@ public class HealthWellPainter extends Painter {
 		water.seed( c.x + Level.WIDTH * c.y, 1 );
 		level.blobs.put( waterClass, water );
 		
-		room.entrance().set( Room.Door.Type.REGULAR );
+		room.entrance().set( Room.Door.Type.HIDDEN );
 	}
 	public static String tip() {
 		return "This is a well of health, drink it to heal yourself, or throw in your dew vial to fully charge it!";

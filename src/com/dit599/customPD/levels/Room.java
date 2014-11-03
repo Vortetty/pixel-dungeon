@@ -56,6 +56,12 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		T_SCROLL_ROOM (ScrollRoomPainter.class ),
 		T_SEED_ROOM (SeedRoomPainter.class ),
 		T_BAG_ROOM (BagRoomPainter.class ),
+		T_ARMOR_ROOM (ArmorRoomPainter.class ),
+		T_WEAPON_ROOM (WeaponRoomPainter.class ),
+		T_GARDEN_ROOM (TutorialGardenPainter.class ),
+		T_STATUE_ROOM (TutorialStatuePainter.class ),
+		T_HARDHITTING_ROOM (HardHittingRoomPainter.class ),
+		T_HARD_TO_HIT_ROOM (HardToHitRoomPainter.class ),
 		//End of tutorial rooms
 		STANDARD	( StandardPainter.class ),
 		ENTRANCE	( EntrancePainter.class ),
@@ -141,12 +147,12 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	
 	
 	public static final ArrayList<Type> T_FLOOR2 = new ArrayList<Type>( Arrays.asList(
-			Type.T_WELL_HEALTH, Type.VAULT, Type.ARMORY, Type.T_WELL_IDENTIFY
+			Type.T_WELL_HEALTH, Type.T_WEAPON_ROOM, Type.T_ARMOR_ROOM, Type.T_WELL_IDENTIFY
 		) );
 	
 	
 	public static final ArrayList<Type> T_FLOOR3 = new ArrayList<Type>( Arrays.asList(
-			Type.GARDEN, Type.POOL, Type.STATUE, Type.CRYPT
+			Type.T_GARDEN_ROOM, Type.T_HARDHITTING_ROOM, Type.T_STATUE_ROOM, Type.T_HARD_TO_HIT_ROOM
 		) );
 	
 	public Type type = Type.NULL;

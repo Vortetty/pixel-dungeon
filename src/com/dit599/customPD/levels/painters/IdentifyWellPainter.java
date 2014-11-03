@@ -53,7 +53,7 @@ public class IdentifyWellPainter extends Painter {
 		water.seed( c.x + Level.WIDTH * c.y, 1 );
 		level.blobs.put( waterClass, water );
 		
-		room.entrance().set( Room.Door.Type.REGULAR );
+		room.entrance().set( Room.Door.Type.HIDDEN );
 	}
 	public static String tip() {
 		return "This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +
