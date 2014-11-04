@@ -63,6 +63,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
+				Dungeon.firePrompt = true;
 				PixelDungeon.switchNoFade(  StartScene.class );
 			}
 		};
@@ -74,7 +75,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-			
+				Dungeon.firePrompt = true;
 				
 				PixelDungeon.self.editMaps();
 				
@@ -92,6 +93,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
+				Dungeon.firePrompt = true;
 				PixelDungeon.switchNoFade( StartScene.class );
 			}
 		};
@@ -102,6 +104,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = true;
+				Dungeon.firePrompt = false;
 				PixelDungeon.switchNoFade(  StartScene.class );
 			}
 		};

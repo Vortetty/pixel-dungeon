@@ -148,6 +148,7 @@ public class Dungeon {
 	
 	public static boolean nightMode;
 	public static boolean isTutorial;
+	public static boolean firePrompt;
 	
 	public static void init() {
 
@@ -539,6 +540,9 @@ public class Dungeon {
 			Badges.saveLocal( badges );
 			bundle.put( BADGES, badges );
 			
+			bundle.put("tutorial", isTutorial);
+			bundle.put("firePrompt", firePrompt);
+			
 			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle.write( bundle, output );
 			output.close();
@@ -606,6 +610,8 @@ public class Dungeon {
 		arcaneStyli = bundle.getInt( AS );
 		dewVial = bundle.getBoolean( DV );
 		transmutation = bundle.getInt( WT );
+		isTutorial = bundle.getBoolean("tutorial");
+		firePrompt = bundle.getBoolean("firePrompt");
 		
 		if (fullLoad) {
 			chapters = new HashSet<Integer>();
