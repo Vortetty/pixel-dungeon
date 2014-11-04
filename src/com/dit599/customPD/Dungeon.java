@@ -108,8 +108,9 @@ public class Dungeon {
 	};
 	
 	private static final String[] T_TIPS = { 
-		"Use '?' to get more information about anything you see in the game. In order to enter one" +
-		"of the rooms on this floor, you will need to find something that creates fire!",
+		"Use '?' to get more information about anything you see in the game. In order to enter one " +
+		"of the rooms on this floor, you will need to find something that creates fire! Keep an eye " +
+		"out for signs.",
 		"Make sure to investigate wells with '?' to see what type they are. From now on, doors may be " +
 		"hidden, so don't forget to use search (left of '?') from time to time.",
 		"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
