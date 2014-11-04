@@ -101,7 +101,9 @@ public class PotionRoomPainter extends Painter {
 				String entry = entries.nextElement();
 				if (entry.contains("PotionOf")){
 					Class<?> c = classLoader.loadClass(entry);
-					heap.drop((Item)c.newInstance());
+					Potion p = (Potion) c.newInstance();
+					p.setKnown();
+					heap.drop((Item) p);
 				}
 			}
 		}
@@ -110,9 +112,10 @@ public class PotionRoomPainter extends Painter {
 		}
 	}
 	public static String tip() {
-		return "This room contains 1 of every potion in the game, but you will have to use each one to find out its " +
-				"effect! Potions can be either drunk or thrown, and which colour gives which effect is randomized each " +
-				"new game. 3 seeds of any colour can be used in a pot to brew a potion.";
+		return "This room contains 1 of every potion in the game, press them in your inventory to learn " +
+				"what they do. Potions can be either drunk or thrown, and which colour gives which effect is " +
+				"randomized each new game (and in the real game the potions are unidentifed until used). " +
+				"3 seeds of any colour can be used in an alchemy pot to brew a potion.";
 	}
 	public static String prompt() {
 		return "Potion Brewery";

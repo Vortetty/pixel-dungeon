@@ -89,7 +89,7 @@ public class SeedRoomPainter extends Painter {
 		}
 	}
 	public static String tip() {
-		return "This room contains 1 of every seed in the game! Inspect them with '?' to learn what effect they have. " +
+		return "This room contains 1 of every seed in the game! press them in your inventory to learn what effect they have. " +
 				"Seeds can be planted where you stand, or throw-planted on another square. Someone then has to step on " +
 				"the plant to activate it, and for some plants you have to stay standing on that spot to recieve the effect!";
 	}

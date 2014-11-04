@@ -37,6 +37,7 @@ import com.dit599.customPD.items.Item;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.utils.GLog;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -276,7 +277,9 @@ public abstract class Mob extends Char {
 		} else {
 			attack( enemy );
 		}
-				
+		if(Dungeon.isTutorial && !Dungeon.encounteredMob){
+			WndStory.showChapter("Attack the monster by pressing it!");
+		}
 		spend( attackDelay() );
 		
 		return !visible;

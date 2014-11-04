@@ -103,8 +103,10 @@ public class ScrollRoomPainter extends Painter {
 			while (entries.hasMoreElements()) {
 				String entry = entries.nextElement();
 				if (entry.contains("ScrollOf")){
-					Class<?> c = classLoader.loadClass(entry);
-					heap.drop((Item)c.newInstance());
+					Class<?> c = (classLoader.loadClass(entry));
+					Scroll s = (Scroll) c.newInstance();
+					s.setKnown();
+					heap.drop((Item) s);
 				}
 			}
 		}
@@ -113,8 +115,9 @@ public class ScrollRoomPainter extends Painter {
 		}
 	}
 	public static String tip() {
-		return "This room contains 1 of every scroll in the game, but you will have to use each one to find out its " +
-				"effect! Which scroll name gives which effect is randomized each new game. Beware cathing fire " +
+		return "This room contains 1 of every scroll in the game, press them in your inventory to learn " +
+				"what they do. Which scroll rune gives which effect is randomized each new game, and in " +
+				"the real game these scrolls are unidentified until you use them. Beware cathing fire " +
 				"while carrying scrolls, since they may be destroyed!";
 	}
 	public static String prompt() {

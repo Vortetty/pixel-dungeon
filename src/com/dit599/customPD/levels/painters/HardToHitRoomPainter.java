@@ -64,13 +64,14 @@ public class HardToHitRoomPainter extends Painter {
 		set(level, new Point(cx, cy), Terrain.SIGN);
 	}
 	public static String tip() {
-		return "Tombstones spawn ghosts in a '+' pattern in epmpty squares around the player. " +
+		return "Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +
 				"Position yourself accordingly before activating them. Ghosts are easiest to kill " +
-				"by exploiting the 1 guaranteed hit when the enemy enters a doorway. This guaranteed" +
-				"chance of 1 hit works even for weapons that are too heavy.";
+				"by exploiting the 1 guaranteed hit when the enemy enters a doorway (this is a sneak attack). " +
+				"This sneak attack works even for weapons that are too heavy (which otherwise are " +
+				"almost guaranteed to miss).";
 	}
 	public static String prompt() {
 		return "Hard-To-Hit\n\n" +
-				"Try and get the enemy into a dorway, so that your next attack is guaranteed to hit!";
+				"Try and get the enemy into a doorway, so that your next attack is guaranteed to hit!";
 	}
 }
