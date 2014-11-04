@@ -26,10 +26,12 @@ import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.items.EquipableItem;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.armor.glyphs.*;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.HeroSprite;
 import com.dit599.customPD.sprites.ItemSprite;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
+import com.dit599.customPD.windows.WndMessage;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -96,6 +98,10 @@ public class Armor extends EquipableItem {
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( TXT_EQUIP_CURSED, toString() );
+				if(Dungeon.isTutorial){
+					GameScene.show( new WndMessage( "You have equipped a cursed item! You will need to use " +
+							"a scroll of Upgrade or Remove Curse on it before you can unequip the item." ) );
+				}
 			}
 			
 			((HeroSprite)hero.sprite).updateArmor();
