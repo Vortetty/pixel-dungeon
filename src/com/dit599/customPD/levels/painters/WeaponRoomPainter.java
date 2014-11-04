@@ -79,7 +79,7 @@ public class WeaponRoomPainter extends Painter {
 	}
 	public static String tip() {
 		return "This room contains several unidentified weapons. You can't see if the weapons are up/degraded at the " +
-				"moment. Up/degrade means the required strength to use them efficiently could be less or more than the default " +
+				"moment. The required strength to use them efficiently could be less or more than the default " +
 				"number displayed on them. Be careful when equipping unidentified weapons as they may be cursed, making you " +
 				"unable to take them off until they are uncursed.";
 	}

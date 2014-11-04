@@ -76,7 +76,7 @@ public class ArmorRoomPainter extends Painter {
 	}
 	public static String tip() {
 		return "This room contains several unidentified armors. You can't see if the armor is upgraded/degraded at the " +
-				"moment. Up/degrade means the required strength to use them efficiently could be less or more than the default " +
+				"moment. The required strength to use them efficiently could be less or more than the default " +
 				"number displayed on them. Be careful when equipping unidentified armor as it may be cursed, making you " +
 				"unable to take it off until it is uncursed.";
 	}

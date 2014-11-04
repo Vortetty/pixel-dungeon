@@ -110,13 +110,15 @@ public class Dungeon {
 	private static final String[] T_TIPS = { 
 		"Use '?' to get more information about anything you see in the game. In order to enter one " +
 		"of the rooms on this floor, you will need to find something that creates fire! Keep an eye " +
-		"out for signs.",
-		"Make sure to investigate wells with '?' to see what type they are. From now on, doors may be " +
-		"hidden, so don't forget to use search (left of '?') from time to time.",
+		"out for more signs.",
+		"From now on, doors may be hidden, so don't forget to use search (left of '?') from time to time. " +
+		"There are two different magical wells on this floor. Make sure to investigate wells with '?' to " +
+		"see what type they are. ",
 		"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
 		"resting place on this floor.",
-		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for" +
-		"this difficult fight!"
+		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for " +
+		"this difficult fight! If you need a reminder on the available types of potions and scrolls, " +
+		"press the player portrait in the upper left corner"
 	};
 	
 	private static final String TXT_DEAD_END = 
@@ -149,6 +151,7 @@ public class Dungeon {
 	public static boolean nightMode;
 	public static boolean isTutorial;
 	public static boolean firePrompt;
+	public static boolean encounteredMob;
 	
 	public static void init() {
 
@@ -542,6 +545,7 @@ public class Dungeon {
 			
 			bundle.put("tutorial", isTutorial);
 			bundle.put("firePrompt", firePrompt);
+			bundle.put("encountered", encounteredMob);
 			
 			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle.write( bundle, output );
@@ -612,6 +616,7 @@ public class Dungeon {
 		transmutation = bundle.getInt( WT );
 		isTutorial = bundle.getBoolean("tutorial");
 		firePrompt = bundle.getBoolean("firePrompt");
+		encounteredMob = bundle.getBoolean("encountered");
 		
 		if (fullLoad) {
 			chapters = new HashSet<Integer>();
