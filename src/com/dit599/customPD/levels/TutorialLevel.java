@@ -253,6 +253,13 @@ public class TutorialLevel extends RegularLevel {
 				break;
 			}
 		}
+		while (true) {
+			int pos = roomExit.random();
+			if (pos != exit) {
+				map[pos] = Terrain.SIGN;
+				break;
+			}
+		}
 	}
 
 	@Override

@@ -35,14 +35,6 @@ public class ExitPainter extends Painter {
 
 		level.exit = room.random( 1 );
 		set( level, level.exit, Terrain.EXIT );
-		if(Dungeon.isTutorial){
-			int pos;
-			do {
-				pos = room.random();
-			} while (
-					Dungeon.level.map[pos] == Terrain.EXIT);
-			set(level, pos, Terrain.SIGN);
-		}
 	}
 	public static String tip() {
 		return "It is recommended to explore each floor fully before going to the next one. " +
