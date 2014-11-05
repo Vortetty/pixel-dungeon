@@ -80,11 +80,6 @@ public class GameModeScene extends PixelScene{
 				Dungeon.encounteredMob = true;
 				
 				PixelDungeon.self.editMaps();
-				
-				//Game.switchScenemap( WundGameMapeditor.class );
-				//WndGame.( new WndSettings( true ) );
-				//GameScene.show(new WundGameMapeditor());
-				//PixelDungeon.switchNoFade( MapEditorscence.class );
 			}
 
 		};
@@ -103,7 +98,7 @@ public class GameModeScene extends PixelScene{
 		btnStandard.setPos( w / 2 - btnStandard.width(), btnEditor.top() - DashboardItem.SIZE );
 		add( btnStandard );
 
-		DashboardItem btnTutorial = new DashboardItem( TXT_TUTORIAL, 0 ) {
+		DashboardItem btnTutorial = new DashboardItem( TXT_TUTORIAL, 1 ) {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = true;
@@ -162,7 +157,7 @@ public class GameModeScene extends PixelScene{
 		protected void createChildren() {
 			super.createChildren();
 
-			image = new Image( Assets.DASHBOARD );
+			image = new Image( Assets.TUTORIAL );
 			add( image );
 
 			label = createText( 9 );

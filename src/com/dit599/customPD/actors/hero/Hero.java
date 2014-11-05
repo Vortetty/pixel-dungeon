@@ -91,6 +91,7 @@ import com.dit599.customPD.plants.Earthroot;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.InterlevelScene;
 import com.dit599.customPD.scenes.SurfaceScene;
+import com.dit599.customPD.scenes.TutorialEndScene;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.sprites.HeroSprite;
 import com.dit599.customPD.ui.AttackIndicator;
@@ -710,7 +711,7 @@ public class Hero extends Char {
 
 			if(Dungeon.isTutorial && Dungeon.depth == 4){
 				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
-				Game.switchScene( SurfaceScene.class );
+				Game.switchScene( TutorialEndScene.class );
 			}
 			else{
 				curAction = null;

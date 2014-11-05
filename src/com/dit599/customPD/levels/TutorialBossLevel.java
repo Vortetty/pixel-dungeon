@@ -115,20 +115,6 @@ public class TutorialBossLevel extends RegularLevel {
 				r.type = Type.TUNNEL; 
 			}
 		}
-		/**
-		ArrayList<Room> candidates = new ArrayList<Room>();
-		for (Room r : roomExit.neigbours) {
-			if (!roomExit.connected.containsKey( r ) &&
-				(roomExit.left == r.right || roomExit.right == r.left || roomExit.bottom == r.top)) {
-				candidates.add( r );
-			}
-		}
-		if (candidates.size() > 0) {
-			Room kingsRoom = Random.element( candidates );
-			kingsRoom.connect( roomExit );
-			kingsRoom.type = Room.Type.RAT_KING;
-		}
-		**/
 		paint();
 		
 		paintWater();
