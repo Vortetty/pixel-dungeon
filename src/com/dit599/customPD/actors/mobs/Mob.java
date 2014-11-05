@@ -278,7 +278,8 @@ public abstract class Mob extends Char {
 			attack( enemy );
 		}
 		if(Dungeon.isTutorial && !Dungeon.encounteredMob){
-			WndStory.showChapter("Attack the monster by pressing it!");
+			Dungeon.encounteredMob = true;
+			WndStory.showChapter("Attack the monster by pressing it (or on the red icon in the lower right)!");
 		}
 		spend( attackDelay() );
 		

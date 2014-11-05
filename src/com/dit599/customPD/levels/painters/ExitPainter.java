@@ -17,6 +17,7 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
@@ -27,13 +28,28 @@ public class ExitPainter extends Painter {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
-		
+
 		for (Room.Door door : room.connected.values()) {
 			door.set( Room.Door.Type.REGULAR );
 		}
-		
+
 		level.exit = room.random( 1 );
 		set( level, level.exit, Terrain.EXIT );
+		if(Dungeon.isTutorial){
+			int pos;
+			do {
+				pos = room.random();
+			} while (
+					Dungeon.level.map[pos] == Terrain.EXIT);
+			set(level, pos, Terrain.SIGN);
+		}
 	}
-	
+	public static String tip() {
+		return "It is recommended to explore each floor fully before going to the next one. " +
+				"Tip: zoom out to check if the map is fully explored.";
+	}
+	public static String prompt() {
+		return "Stairs To Next Floor";
+	}
+
 }

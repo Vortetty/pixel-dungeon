@@ -76,12 +76,7 @@ public class TutorialLevel extends RegularLevel {
 		} while (distance < minDistance);
 
 		roomEntrance.type = Type.ENTRANCE;
-		if(Dungeon.depth == 1){
-			roomExit.type = Type.T_EXIT;
-		}
-		else{
-			roomExit.type = Type.EXIT;
-		}
+		roomExit.type = Type.EXIT;
 
 		HashSet<Room> connected = new HashSet<Room>();
 		connected.add( roomEntrance );

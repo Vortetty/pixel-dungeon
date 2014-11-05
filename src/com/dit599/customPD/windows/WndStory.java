@@ -77,10 +77,10 @@ public class WndStory extends Window {
 	};
 	static {
 	T_CHAPTERS.put(1, "Welcome to the tutorial dungeon! On this floor, you can learn about the various potions, scrolls and seeds " +
-			"available in the game. Now start exploring!");
+			"available in the game. Now start exploring by tapping where you want to go!");
 	T_CHAPTERS.put(2, "On this floor, you can learn about equipment identification and how to use magic wells.");
 	T_CHAPTERS.put(3, "On this floor, you must learn how to fight effectively against both enemies that are hard to hit and " +
-			"enemies that hit hard.");
+			"enemies that hit hard!");
 	T_CHAPTERS.put(4, "Now, use what you have learned to defeat the Goo!");
 	};
 	

@@ -62,7 +62,6 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		T_STATUE_ROOM (TutorialStatuePainter.class ),
 		T_HARDHITTING_ROOM (HardHittingRoomPainter.class ),
 		T_HARD_TO_HIT_ROOM (HardToHitRoomPainter.class ),
-		T_EXIT (TutorialExitPainter.class ),
 		//End of tutorial rooms
 		STANDARD	( StandardPainter.class ),
 		ENTRANCE	( EntrancePainter.class ),
