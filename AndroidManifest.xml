@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-   package="com.dit599.editorUI"
+   package="com.dit599.customPD.editorUI"
     android:installLocation="auto"
     android:versionCode="61"
     android:versionName="1.7.2a" >
@@ -35,23 +35,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-   <activity android:name=".FloorsListActivity">
+   <activity android:name="com.dit599.customPD.editorUI.FloorsListActivity">
             <intent-filter>
-                <action android:name="com.dit599.editorUI.FloorsListActivity" />
+                <action android:name="com.dit599.customPD.editorUI.FloorsListActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
              
         </activity>
-        <activity android:name=".ItemTypesActivity">
+        <activity android:name="com.dit599.customPD.editorUI.ItemTypesActivity">
         <intent-filter>
-                <action android:name="com.dit599.editorUI.ItemTypesActivity"/>
+                <action android:name="com.dit599.customPD.editorUI.ItemTypesActivity"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
               </activity>
               
-        <activity android:name=".FloorItemsActivity">
+        <activity android:name="com.dit599.customPD.editorUI.FloorItemsActivity">
         <intent-filter>
-                <action android:name="com.dit599.editorUI.FloorItemsActivity" />
+                <action android:name="com.dit599.customPD.editorUI.FloorItemsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
               </activity>

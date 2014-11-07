@@ -1,25 +1,12 @@
-package com.dit599.editorUI;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+package com.dit599.customPD.editorUI;
 
-import android.app.Activity;
+import java.util.ArrayList;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -47,7 +34,7 @@ public class FloorsListActivity extends ListActivity {
   protected void onListItemClick(ListView l, View v,final int position, long id) {
 	  final String item = (String) getListAdapter().getItem(position);
 	  Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
-	  Intent openStart = new Intent("com.dit599.editorUI.FloorItemsActivity");
+	  Intent openStart = new Intent("com.dit599.customPD.editorUI.FloorItemsActivity");
 	    startActivity(openStart);
 	    
   }

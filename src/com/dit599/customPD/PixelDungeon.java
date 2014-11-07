@@ -23,7 +23,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.style.SuperscriptSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -292,7 +291,7 @@ public class PixelDungeon extends Game {
 	}
 
 	public void editMaps() {
-		startActivity(new Intent ("com.dit599.editorUI.FloorsListActivity"));
+		startActivity(new Intent ("com.dit599.customPD.editorUI.FloorsListActivity"));
 	}
 	
 
