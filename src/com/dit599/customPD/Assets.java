@@ -37,6 +37,7 @@ public class Assets {
 	public static final String XP_BAR	= "exp_bar.png";
 	public static final String TOOLBAR	= "toolbar.png";
 	public static final String TUTORIAL	= "tutorial.png";
+	public static final String TITLE	= "title.png";
 	
 	public static final String WARRIOR	= "warrior.png";
 	public static final String MAGE		= "mage.png";

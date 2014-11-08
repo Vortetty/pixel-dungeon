@@ -109,12 +109,12 @@ public class AboutScene extends PixelScene {
 		};
 		add( gplHotArea );
 		
-		Image wata = Icons.WATA.get();
-		wata.x = align( upperText.x + (upperText.width() - wata.width) / 2 );
-		wata.y = upperText.y - wata.height - 8;
-		add( wata );
+		Image title = Icons.TITLE.get();
+		title.x = align( upperText.x + (upperText.width() - title.width) / 2 );
+		title.y = upperText.y - title.height - 8;
+		add( title );
 		
-		new Flare( 7, 64 ).color( 0x112233, true ).show( wata, 0 ).angularSpeed = +20;
+		new Flare( 7, 64 ).color( 0x112233, true ).show( title, 0 ).angularSpeed = +20;
 		
 		Archs archs = new Archs();
 		archs.setSize( Camera.main.width, Camera.main.height );
