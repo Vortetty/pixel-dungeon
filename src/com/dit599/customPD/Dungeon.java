@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD;
 
 import java.io.IOException;
@@ -152,6 +155,7 @@ public class Dungeon {
 	public static boolean isTutorial;
 	public static boolean firePrompt;
 	public static boolean encounteredMob;
+	public static boolean firstHeap;
 	
 	public static void init() {
 
@@ -546,6 +550,7 @@ public class Dungeon {
 			bundle.put("tutorial", isTutorial);
 			bundle.put("firePrompt", firePrompt);
 			bundle.put("encountered", encounteredMob);
+			bundle.put("firstHeap", firstHeap);
 			
 			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle.write( bundle, output );
@@ -617,6 +622,7 @@ public class Dungeon {
 		isTutorial = bundle.getBoolean("tutorial");
 		firePrompt = bundle.getBoolean("firePrompt");
 		encounteredMob = bundle.getBoolean("encountered");
+		firstHeap = bundle.getBoolean("firstHeap");
 		
 		if (fullLoad) {
 			chapters = new HashSet<Integer>();

@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.actors.hero;
 
 import java.util.ArrayList;
@@ -100,6 +103,7 @@ import com.dit599.customPD.ui.QuickSlot;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.windows.WndMessage;
 import com.dit599.customPD.windows.WndResurrect;
+import com.dit599.customPD.windows.WndStory;
 import com.dit599.customPD.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -573,7 +577,12 @@ public class Hero extends Char {
 		if (pos == dst) {
 			
 			Heap heap = Dungeon.level.heaps.get( pos );
-			if (heap != null) {				
+			if (heap != null) {
+				if(Dungeon.isTutorial && !Dungeon.firstHeap && heap.size() > 1){
+					Dungeon.firstHeap = true;
+					WndStory.showChapter("Items can be stacked ontop of each other. Press the blue icon in the upper " +
+							"right to pick up the next item in the stack.");
+				}
 				Item item = heap.pickUp();
 				if (item.doPickUp( this )) {
 					
