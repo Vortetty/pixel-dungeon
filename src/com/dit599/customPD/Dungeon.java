@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 
+import android.util.Log;
+
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.actors.buffs.Amok;
@@ -362,7 +364,7 @@ public class Dungeon {
 		
 		Light light = hero.buff( Light.class );
 		hero.viewDistance = light == null ? level.viewDistance : Math.max( Light.DISTANCE, level.viewDistance );
-		
+		Log.d("In Dungeon", "END OF SAVE/NEW/SWITCH");
 		observe();
 	}
 	

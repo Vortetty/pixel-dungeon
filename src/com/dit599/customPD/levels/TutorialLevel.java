@@ -157,7 +157,8 @@ public class TutorialLevel extends RegularLevel {
 					HashSet<Room> neigbours = new HashSet<Room>();
 					for (Room n : r.neigbours) {
 						if (!r.connected.containsKey( n ) && 
-								!Room.SPECIALS.contains( n.type ) &&
+								!(Room.SPECIALS.contains( n.type ) || Room.T_FLOOR1.contains( n.type ) ||
+								  Room.T_FLOOR2.contains( n.type ) || Room.T_FLOOR3.contains( n.type ))  &&
 								n.type != Type.PIT) {
 
 							neigbours.add( n );
@@ -251,14 +252,14 @@ public class TutorialLevel extends RegularLevel {
 
 		while (true) {
 			int pos = roomEntrance.random();
-			if (pos != entrance) {
+			if (pos != Terrain.ENTRANCE) {
 				map[pos] = Terrain.SIGN;
 				break;
 			}
 		}
 		while (true) {
 			int pos = roomExit.random();
-			if (pos != exit) {
+			if (pos != Terrain.EXIT) {
 				map[pos] = Terrain.SIGN;
 				break;
 			}
