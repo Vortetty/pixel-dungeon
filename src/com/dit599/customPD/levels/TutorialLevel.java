@@ -65,11 +65,11 @@ public class TutorialLevel extends RegularLevel {
 		do {
 			do {
 				roomEntrance = Random.element( rooms );
-			} while (roomEntrance.width() <= 3 || roomEntrance.height() <= 3);
+			} while (roomEntrance.width() < 4 || roomEntrance.height() < 4);
 			Log.d("TUTORIAL BUILD", "DO ENTRANCE" );
 			do {
 				roomExit = Random.element( rooms );
-			} while (roomExit == roomEntrance || roomExit.width() <= 3 || roomExit.height() <= 3);
+			} while (roomExit == roomEntrance || roomExit.width() < 4 || roomExit.height() < 4);
 
 			Graph.buildDistanceMap( rooms, roomExit );
 			distance = roomEntrance.distance();
@@ -156,7 +156,7 @@ public class TutorialLevel extends RegularLevel {
 					r.connected.size() == 1) {
 
 				if (specials.size() > 0 &&
-						r.width() >= 3 && r.height() >= 3) {
+						r.width() > 3 && r.height() > 3) {
 					int n = specials.size();
 					r.type = specials.get( Math.min( Random.Int( n ), Random.Int( n ) ) );			
 					Room.useType( r.type );
