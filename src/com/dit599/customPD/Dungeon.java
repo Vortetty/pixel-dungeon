@@ -220,8 +220,9 @@ public class Dungeon {
 				Statistics.completedWithNoKilling = false;
 			}
 		}
-		
+		Log.d("DUNGEON NEWLEVEL", "BEFORE FILL" );
 		Arrays.fill( visible, false );
+		Log.d("DUNGEON NEWLEVEL", "AFTER FILL" );
 		
 		Level level;
 		if(isTutorial){
@@ -230,7 +231,9 @@ public class Dungeon {
 			case 1:
 			case 2:
 			case 3:
+				Log.d("DUNGEON NEWLEVEL", "BEFORE NEW" );
 				level = new TutorialLevel();
+				Log.d("DUNGEON NEWLEVEL", "AFTER NEW" );
 				break;
 			case 4:
 				level = new TutorialBossLevel();
@@ -297,8 +300,9 @@ public class Dungeon {
 				Statistics.deepestFloor--;
 			}
 		}
-		
+		Log.d("DUNGEON NEWLEVEL", "BFORE CREATE" );
 		level.create();
+		Log.d("DUNGEON NEWLEVEL", "AFTER CREATE" );
 		
 		Statistics.qualifiedForNoKilling = !bossLevel();
 		

@@ -25,6 +25,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import android.util.Log;
+
 import com.dit599.customPD.Bones;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Actor;
@@ -394,18 +396,24 @@ public abstract class RegularLevel extends Level {
 		
 		for (Room r : rooms) {
 			if (r.type != Type.NULL) {
+				Log.d("REGULARLEVEL PAINT", "BEFORE placing" );
 				placeDoors( r );
-				r.type.paint( this, r );
+				Log.d("REGULARLEVEL PAINT", "BEFORE PAINTING" );
+				r.type.paint( this, r );			
+				Log.d("REGULARLEVEL PAINT", "AFTER PAINTING" );
 			} else {
 				if (feeling == Feeling.CHASM && Random.Int( 2 ) == 0) {
+					Log.d("REGULARLEVEL PAINT", "BEFORE Filling" );
 					Painter.fill( this, r, Terrain.WALL );
+					Log.d("REGULARLEVEL PAINT", "AFTER Filling" );
 				}
 			}
 		}
-		
+		Log.d("REGULARLEVEL PAINT", "AFTER FOR1" );
 		for (Room r : rooms) {
 			paintDoors( r );
 		}
+		Log.d("REGULARLEVEL PAINT", "AFTER FOR2" );
 	}
 	
 	private void placeDoors( Room r ) {

@@ -23,6 +23,8 @@ package com.dit599.customPD.actors.hero;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import android.util.Log;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
 import com.dit599.customPD.Bones;
@@ -715,9 +717,10 @@ public class Hero extends Char {
 	}
 	
 	private boolean actDescend( HeroAction.Descend action ) {
+		Log.d("HERO DESCEND", "START");
 		int stairs = action.dst;
 		if (pos == stairs && pos == Dungeon.level.exit) {
-
+			Log.d("HERO DESCEND", "IF");
 			if(Dungeon.isTutorial && Dungeon.depth == 4){
 				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
 				Game.switchScene( TutorialEndScene.class );
@@ -729,9 +732,10 @@ public class Hero extends Char {
 				if (hunger != null && !hunger.isStarving()) {
 					hunger.satisfy( -Hunger.STARVING / 10 );
 				}
-
 				InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+				Log.d("HERO DESCEND", "BEFORE SWITCHSCENE INTERLEVEL");
 				Game.switchScene( InterlevelScene.class );
+				Log.d("HERO DESCEND", "AFTER SWITCHSCENE INTERLEVEL");
 			}
 			return false;
 		} else if (getCloser( stairs )) {

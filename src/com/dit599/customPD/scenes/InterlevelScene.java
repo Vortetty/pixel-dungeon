@@ -257,16 +257,20 @@ public class InterlevelScene extends PixelScene {
 			}
 		} else {
 			Dungeon.saveLevel();
+			Log.d("INTERLEVEL DESCEND", "AFTER SAVE" );
 		}
 		
 		Level level;
 		if (Dungeon.depth >= Statistics.deepestFloor) {
 			level = Dungeon.newLevel();
+			Log.d("INTERLEVEL DESCEND", "AFTER NEWLEVEL" );
 		} else {
 			Dungeon.depth++;
 			level = Dungeon.loadLevel( Dungeon.hero.heroClass );
+			Log.d("INTERLEVEL DESCEND", "AFTER LOADLEVEL" );
 		}
 		Dungeon.switchLevel( level, level.entrance );
+		Log.d("INTERLEVEL DESCEND", "AFTER SWITCH" );
 	}
 	
 	private void fall() throws Exception {

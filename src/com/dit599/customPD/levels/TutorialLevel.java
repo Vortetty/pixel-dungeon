@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import android.util.Log;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.DungeonTilemap;
@@ -52,39 +54,41 @@ public class TutorialLevel extends RegularLevel {
 
 	@Override
 	protected boolean build() {
-
+		Log.d("TUTORIAL BUILD", "INSIDE BUILD" );
 		if (!initRooms()) {
 			return false;
 		}
-
+		Log.d("TUTORIAL BUILD", "AFTER INITROOMS" );
 		int distance;
 		int retry = 0;
 		int minDistance = (int)Math.sqrt( rooms.size() );
 		do {
 			do {
 				roomEntrance = Random.element( rooms );
-			} while (roomEntrance.width() < 4 || roomEntrance.height() < 4);
-
+			} while (roomEntrance.width() <= 3 || roomEntrance.height() <= 3);
+			Log.d("TUTORIAL BUILD", "DO ENTRANCE" );
 			do {
 				roomExit = Random.element( rooms );
-			} while (roomExit == roomEntrance || roomExit.width() < 4 || roomExit.height() < 4);
+			} while (roomExit == roomEntrance || roomExit.width() <= 3 || roomExit.height() <= 3);
 
 			Graph.buildDistanceMap( rooms, roomExit );
 			distance = roomEntrance.distance();
-
+			Log.d("TUTORIAL BUILD", "DO EXIT" );
 			if (retry++ > 10) {
 				return false;
 			}
 
 		} while (distance < minDistance);
-
+		Log.d("TUTORIAL BUILD", "DISTANCE<MINDISTANCE" );
 		roomEntrance.type = Type.ENTRANCE;
 		roomExit.type = Type.EXIT;
 
 		HashSet<Room> connected = new HashSet<Room>();
 		connected.add( roomEntrance );
-
+		
+		Log.d("TUTORIAL BUILD", "BEFORE DISTANCEMAP1" );
 		Graph.buildDistanceMap( rooms, roomExit );
+		Log.d("TUTORIAL BUILD", "BEFORE BUILDPATH1" );
 		List<Room> path = Graph.buildPath( rooms, roomEntrance, roomExit );
 
 		Room room = roomEntrance;
@@ -95,8 +99,9 @@ public class TutorialLevel extends RegularLevel {
 		}
 
 		Graph.setPrice( path, roomEntrance.distance );
-
+		Log.d("TUTORIAL BUILD", "BEFORE DISTANCEMAP2" );
 		Graph.buildDistanceMap( rooms, roomExit );
+		Log.d("TUTORIAL BUILD", "BEFORE BUILDPATH2" );
 		path = Graph.buildPath( rooms, roomEntrance, roomExit );
 
 		room = roomEntrance;
@@ -107,6 +112,7 @@ public class TutorialLevel extends RegularLevel {
 		}
 
 		int nConnected = (int)(rooms.size() * Random.Float( 0.5f, 0.7f ));
+		Log.d("TUTORIAL BUILD", "BEFORE connected size while" );
 		while (connected.size() < nConnected) {
 
 			Room cr = Random.element( connected );
@@ -117,6 +123,7 @@ public class TutorialLevel extends RegularLevel {
 				connected.add( or );
 			}
 		}
+		Log.d("TUTORIAL BUILD", "AFTER connected size while" );
 		switch(Dungeon.depth){
 		case 1:
 			specials = new ArrayList<Room.Type>( Room.T_FLOOR1);
@@ -128,14 +135,17 @@ public class TutorialLevel extends RegularLevel {
 			specials = new ArrayList<Room.Type>( Room.T_FLOOR3 );
 			break;
 		}
+		Log.d("TUTORIAL BUILD", "BEFORE ROOMTYPE" );
 		assignRoomType();
-
+		Log.d("TUTORIAL BUILD", "AFTER ROOMTYPE" );
 		paint();
+		Log.d("TUTORIAL BUILD", "AFTER paint" );
 		paintWater();
+		Log.d("TUTORIAL BUILD", "AFTER paint water" );
 		paintGrass();
-
+		Log.d("TUTORIAL BUILD", "AFTER paintgrass" );
 		placeTraps();
-
+		Log.d("TUTORIAL BUILD", "AFTER placecetraps" );
 		return true;
 	}
 	@Override
