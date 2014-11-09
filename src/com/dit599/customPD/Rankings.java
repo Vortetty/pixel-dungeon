@@ -132,9 +132,9 @@ public enum Rankings {
 	
 	public void load() {
 		
-		if (records != null) {
+	/*	if (records != null) {
 			return;
-		}
+		}*/
 		
 		records = new ArrayList<Rankings.Record>();
 		

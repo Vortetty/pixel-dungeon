@@ -18,6 +18,7 @@
 package com.dit599.customPD.scenes;
 
 import com.dit599.customPD.Assets;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.PixelDungeon;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
@@ -70,6 +71,7 @@ public class TitleScene extends PixelScene {
 		DashboardItem btnBadges = new DashboardItem( TXT_BADGES, 3 ) {
 			@Override
 			protected void onClick() {
+				Dungeon.isTutorial = false;
 				PixelDungeon.switchNoFade( BadgesScene.class );
 			}
 		};
@@ -88,6 +90,7 @@ public class TitleScene extends PixelScene {
 		DashboardItem btnPlay = new DashboardItem( TXT_PLAY, 0 ) {
 			@Override
 			protected void onClick() {
+				Dungeon.isTutorial = false;
 				PixelDungeon.switchNoFade( GameModeScene.class );
 			}
 		};
@@ -97,6 +100,7 @@ public class TitleScene extends PixelScene {
 		DashboardItem btnHighscores = new DashboardItem( TXT_HIGHSCORES, 2 ) {
 			@Override
 			protected void onClick() {
+				Dungeon.isTutorial = false;
 				PixelDungeon.switchNoFade( RankingsScene.class );
 			}
 		};

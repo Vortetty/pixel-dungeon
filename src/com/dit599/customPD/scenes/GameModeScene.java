@@ -23,6 +23,7 @@ package com.dit599.customPD.scenes;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.method.HideReturnsTransformationMethod;
+import android.util.Log;
 
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
@@ -127,6 +128,9 @@ public class GameModeScene extends PixelScene{
 				Dungeon.firePrompt = false;
 				Dungeon.encounteredMob = false;
 				Dungeon.firstHeap = false;
+				for(String f : Game.instance.fileList()){
+					Log.d("FILES", f);
+				}
 				PixelDungeon.switchNoFade(  StartScene.class );
 			}
 		};

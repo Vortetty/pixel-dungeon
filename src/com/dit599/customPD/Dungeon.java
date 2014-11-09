@@ -154,10 +154,10 @@ public class Dungeon {
 	public static boolean[] visible = new boolean[Level.LENGTH];
 	
 	public static boolean nightMode;
-	public static boolean isTutorial;
-	public static boolean firePrompt;
-	public static boolean encounteredMob;
-	public static boolean firstHeap;
+	public static boolean isTutorial = false;
+	public static boolean firePrompt = false;
+	public static boolean encounteredMob = false;
+	public static boolean firstHeap = false;
 	
 	public static void init() {
 
@@ -503,6 +503,7 @@ public class Dungeon {
 	
 	public static void saveGame( String fileName ) throws IOException {
 		try {
+			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle bundle = new Bundle();
 			
 			bundle.put( VERSION, Game.version );
@@ -554,9 +555,9 @@ public class Dungeon {
 			bundle.put("encountered", encounteredMob);
 			bundle.put("firstHeap", firstHeap);
 			
-			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle.write( bundle, output );
 			output.close();
+			Log.d("SAVING", "Sucessfully saved character.");
 			
 		} catch (Exception e) {
 
@@ -577,10 +578,11 @@ public class Dungeon {
 		if (hero.isAlive()) {
 			
 			Actor.fixTime();
-			saveGame( gameFile( hero.heroClass ) );
-			saveLevel();
 			
 			GamesInProgress.set( hero.heroClass, depth, hero.lvl );
+			
+			saveGame( gameFile( hero.heroClass ) );
+			saveLevel();
 			
 		} else if (WndResurrect.instance != null) {
 			
