@@ -139,7 +139,7 @@ public class TutorialLevel extends RegularLevel {
 		assignRoomType();
 		Log.d("TUTORIAL BUILD", "AFTER ROOMTYPE" );
 		paint();
-		Log.d("TUTORIAL BUILD", "AFTER paint" );
+		Log.d("TUTORIAL BUILD", "AFTER Paint" );
 		paintWater();
 		Log.d("TUTORIAL BUILD", "AFTER paint water" );
 		paintGrass();
