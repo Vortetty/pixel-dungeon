@@ -18,6 +18,8 @@
 package com.dit599.customPD.editorUI;
 import java.util.ArrayList;
 
+import com.dit599.customPD.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.SparseArray;

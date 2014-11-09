@@ -17,6 +17,8 @@
 */
 package com.dit599.customPD.editorUI;
 
+import com.dit599.customPD.R;
+
 import android.app.Activity;
 import android.util.SparseArray;
 import android.view.LayoutInflater;

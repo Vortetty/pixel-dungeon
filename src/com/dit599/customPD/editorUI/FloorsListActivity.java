@@ -18,6 +18,9 @@
 package com.dit599.customPD.editorUI;
 
 import java.util.ArrayList;
+
+import com.dit599.customPD.R;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
