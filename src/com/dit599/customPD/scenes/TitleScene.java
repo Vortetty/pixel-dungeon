@@ -18,8 +18,9 @@
 package com.dit599.customPD.scenes;
 
 import com.dit599.customPD.Assets;
+import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.ui.Archs;
@@ -71,8 +72,9 @@ public class TitleScene extends PixelScene {
 		DashboardItem btnBadges = new DashboardItem( TXT_BADGES, 3 ) {
 			@Override
 			protected void onClick() {
+				Badges.reset();
 				Dungeon.isTutorial = false;
-				PixelDungeon.switchNoFade( BadgesScene.class );
+				CustomPD.switchNoFade( BadgesScene.class );
 			}
 		};
 		btnBadges.setPos( w / 2 - btnBadges.width(), (h + height) / 2 - DashboardItem.SIZE );
@@ -81,7 +83,7 @@ public class TitleScene extends PixelScene {
 		DashboardItem btnAbout = new DashboardItem( TXT_ABOUT, 1 ) {
 			@Override
 			protected void onClick() {
-				PixelDungeon.switchNoFade( AboutScene.class );
+				CustomPD.switchNoFade( AboutScene.class );
 			}
 		};
 		btnAbout.setPos( w / 2, (h + height) / 2 - DashboardItem.SIZE );
@@ -91,7 +93,7 @@ public class TitleScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-				PixelDungeon.switchNoFade( GameModeScene.class );
+				CustomPD.switchNoFade( GameModeScene.class );
 			}
 		};
 		btnPlay.setPos( w / 2 - btnPlay.width(), btnAbout.top() - DashboardItem.SIZE );
@@ -101,7 +103,7 @@ public class TitleScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-				PixelDungeon.switchNoFade( RankingsScene.class );
+				CustomPD.switchNoFade( RankingsScene.class );
 			}
 		};
 		btnHighscores.setPos( w / 2, btnPlay.top() );

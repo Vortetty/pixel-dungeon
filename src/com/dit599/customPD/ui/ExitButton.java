@@ -18,7 +18,7 @@
 package com.dit599.customPD.ui;
 
 import com.dit599.customPD.Assets;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.scenes.TitleScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -68,7 +68,7 @@ public class ExitButton extends Button {
 		if (Game.scene() instanceof TitleScene) {
 			Game.instance.finish();
 		} else {
-			PixelDungeon.switchNoFade( TitleScene.class );
+			CustomPD.switchNoFade( TitleScene.class );
 		}
 	}
 }

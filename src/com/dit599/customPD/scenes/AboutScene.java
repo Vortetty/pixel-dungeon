@@ -23,7 +23,7 @@ package com.dit599.customPD.scenes;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.effects.Flare;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
@@ -129,6 +129,6 @@ public class AboutScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		PixelDungeon.switchNoFade( TitleScene.class );
+		CustomPD.switchNoFade( TitleScene.class );
 	}
 }

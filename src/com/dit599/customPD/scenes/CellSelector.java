@@ -18,7 +18,7 @@
 package com.dit599.customPD.scenes;
 
 import com.dit599.customPD.DungeonTilemap;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.watabou.input.Touchscreen.Touch;
 import com.watabou.noosa.TouchArea;
 import com.watabou.utils.GameMath;
@@ -100,7 +100,7 @@ public class CellSelector extends TouchArea {
 			
 			int zoom = Math.round( camera.zoom );
 			camera.zoom( zoom );
-			PixelDungeon.zoom( (int)(zoom - PixelScene.defaultZoom) );
+			CustomPD.zoom( (int)(zoom - PixelScene.defaultZoom) );
 
 			dragging = true;
 			if (t == touch) {

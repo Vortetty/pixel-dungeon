@@ -20,7 +20,7 @@ package com.dit599.customPD.windows;
 import java.util.ArrayList;
 
 import com.dit599.customPD.Challenges;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.scenes.PixelScene;
 import com.dit599.customPD.ui.CheckBox;
 import com.dit599.customPD.ui.Window;
@@ -81,7 +81,7 @@ public class WndChallenges extends Window {
 					value |= Challenges.MASKS[i];
 				}
 			}	
-			PixelDungeon.challenges( value );
+			CustomPD.challenges( value );
 		}
 		
 		super.onBackPressed();

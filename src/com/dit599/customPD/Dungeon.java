@@ -161,7 +161,7 @@ public class Dungeon {
 	
 	public static void init() {
 
-		challenges = PixelDungeon.challenges();
+		challenges = CustomPD.challenges();
 		
 		Actor.clear();
 		

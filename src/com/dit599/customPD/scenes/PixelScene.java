@@ -23,7 +23,7 @@ import android.opengl.GLES20;
 
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.effects.BadgeBanner;
 import com.watabou.input.Touchscreen;
 import com.watabou.noosa.BitmapText;
@@ -76,7 +76,7 @@ public class PixelScene extends Scene {
 			Game.height / defaultZoom >= MIN_WIDTH && 
 			Game.width / defaultZoom >= MIN_HEIGHT;
 			
-		if (PixelDungeon.scaleUp()) {
+		if (CustomPD.scaleUp()) {
 			while ((Game.width / (defaultZoom + 1) >= MIN_WIDTH && Game.height / (defaultZoom + 1) >= MIN_HEIGHT)) {
 				defaultZoom++;
 			}	

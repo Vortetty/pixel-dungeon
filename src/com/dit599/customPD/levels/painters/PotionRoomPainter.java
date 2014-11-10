@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.actors.blobs.Alchemy;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Heap;
@@ -97,7 +97,7 @@ public class PotionRoomPainter extends Painter {
 		}
 
 		try{
-			DexFile dex = new DexFile(PixelDungeon.self.getApplicationContext().getApplicationInfo().sourceDir);
+			DexFile dex = new DexFile(CustomPD.self.getApplicationContext().getApplicationInfo().sourceDir);
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			Enumeration<String> entries = dex.entries();
 			while (entries.hasMoreElements()) {

@@ -27,7 +27,7 @@ import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.DungeonTilemap;
 import com.dit599.customPD.FogOfWar;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.Statistics;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.blobs.Blob;
@@ -121,10 +121,10 @@ public class GameScene extends PixelScene {
 		Music.INSTANCE.play( Assets.TUNE, true );
 		Music.INSTANCE.volume( 1f );
 		
-		PixelDungeon.lastClass( Dungeon.hero.heroClass.ordinal() );
+		CustomPD.lastClass( Dungeon.hero.heroClass.ordinal() );
 		
 		super.create();
-		Camera.main.zoom( defaultZoom + PixelDungeon.zoom() );
+		Camera.main.zoom( defaultZoom + CustomPD.zoom() );
 		
 		scene = this;
 		
@@ -190,7 +190,7 @@ public class GameScene extends PixelScene {
 		fog.updateVisibility( Dungeon.visible, Dungeon.level.visited, Dungeon.level.mapped );
 		add( fog );
 		
-		brightness( PixelDungeon.brightness() );
+		brightness( CustomPD.brightness() );
 		
 		spells = new Group();
 		add( spells );

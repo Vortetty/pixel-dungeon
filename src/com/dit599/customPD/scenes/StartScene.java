@@ -23,7 +23,7 @@ import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.GamesInProgress;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.actors.hero.HeroClass;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Speck;
@@ -184,7 +184,7 @@ public class StartScene extends PixelScene {
 		add( btnExit );
 		
 		curClass = null;
-		updateClass( HeroClass.values()[PixelDungeon.lastClass()] );
+		updateClass( HeroClass.values()[CustomPD.lastClass()] );
 		
 		fadeIn();
 	}
@@ -246,8 +246,8 @@ public class StartScene extends PixelScene {
 		Dungeon.hero = null;
 		InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 		
-		if (!Dungeon.isTutorial && PixelDungeon.intro()) {
-			PixelDungeon.intro( false );
+		if (!Dungeon.isTutorial && CustomPD.intro()) {
+			CustomPD.intro( false );
 			Game.switchScene( IntroScene.class );
 		} else {
 			Game.switchScene( InterlevelScene.class );
@@ -256,7 +256,7 @@ public class StartScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		PixelDungeon.switchNoFade( GameModeScene.class );
+		CustomPD.switchNoFade( GameModeScene.class );
 	}
 	
 	private static class GameButton extends RedButton {
@@ -417,7 +417,7 @@ public class StartScene extends PixelScene {
 			
 			super.createChildren();
 			
-			image = Icons.get( PixelDungeon.challenges() > 0 ? Icons.CHALLENGE_ON :Icons.CHALLENGE_OFF );
+			image = Icons.get( CustomPD.challenges() > 0 ? Icons.CHALLENGE_ON :Icons.CHALLENGE_OFF );
 			add( image );
 		}
 		
@@ -433,10 +433,10 @@ public class StartScene extends PixelScene {
 		@Override
 		protected void onClick() {
 			if (Badges.isUnlocked( Badges.Badge.VICTORY )) {
-				add( new WndChallenges( PixelDungeon.challenges(), true ) {
+				add( new WndChallenges( CustomPD.challenges(), true ) {
 					public void onBackPressed() {
 						super.onBackPressed();
-						image.copy( Icons.get( PixelDungeon.challenges() > 0 ? 
+						image.copy( Icons.get( CustomPD.challenges() > 0 ? 
 							Icons.CHALLENGE_ON :Icons.CHALLENGE_OFF ) );
 					};
 				} );

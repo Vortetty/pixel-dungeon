@@ -22,7 +22,7 @@ package com.dit599.customPD.levels.painters;
 
 import java.util.Enumeration;
 
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.items.Gold;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
@@ -76,7 +76,7 @@ public class SeedRoomPainter extends Painter {
 
 		try{
 			String dir = "com.dit599.customPD.plants.Plant";
-			DexFile dex = new DexFile(PixelDungeon.self.getApplicationContext().getApplicationInfo().sourceDir);
+			DexFile dex = new DexFile(CustomPD.self.getApplicationContext().getApplicationInfo().sourceDir);
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			Enumeration<String> entries = dex.entries();
 			while (entries.hasMoreElements()) {

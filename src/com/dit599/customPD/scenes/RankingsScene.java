@@ -18,7 +18,7 @@
 package com.dit599.customPD.scenes;
 
 import com.dit599.customPD.Assets;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.Rankings;
 import com.dit599.customPD.effects.Flare;
 import com.dit599.customPD.sprites.ItemSprite;
@@ -120,7 +120,7 @@ public class RankingsScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		PixelDungeon.switchNoFade( TitleScene.class );
+		CustomPD.switchNoFade( TitleScene.class );
 	}
 	
 	public static class Record extends Button {

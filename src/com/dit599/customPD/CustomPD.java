@@ -37,10 +37,10 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 
-public class PixelDungeon extends Game {
-	public static PixelDungeon self;
+public class CustomPD extends Game {
+	public static CustomPD self;
 	
-	public PixelDungeon() {
+	public CustomPD() {
 		super( TitleScene.class );
 		
 		com.watabou.utils.Bundle.addAlias( 

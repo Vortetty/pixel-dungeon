@@ -27,7 +27,7 @@ import android.util.Log;
 
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.ui.Archs;
@@ -87,7 +87,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.firstHeap = true;
-				PixelDungeon.switchNoFade(  StartScene.class );
+				CustomPD.switchNoFade(  StartScene.class );
 			}
 		};
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );
@@ -101,7 +101,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.firstHeap = true;
-				PixelDungeon.self.editMaps();
+				CustomPD.self.editMaps();
 			}
 
 		};
@@ -115,7 +115,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.firstHeap = true;
-				PixelDungeon.switchNoFade( StartScene.class );
+				CustomPD.switchNoFade( StartScene.class );
 			}
 		};
 		btnStandard.setPos( w / 2 - btnStandard.width(), btnEditor.top() - DashboardItem.SIZE );
@@ -131,7 +131,7 @@ public class GameModeScene extends PixelScene{
 				for(String f : Game.instance.fileList()){
 					Log.d("FILES", f);
 				}
-				PixelDungeon.switchNoFade(  StartScene.class );
+				CustomPD.switchNoFade(  StartScene.class );
 			}
 		};
 		btnTutorial.setPos( w / 2, btnStandard.top() );

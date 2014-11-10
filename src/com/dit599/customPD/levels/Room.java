@@ -30,7 +30,7 @@ import java.util.HashSet;
 import android.util.Log;
 
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.levels.painters.*;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.windows.WndMessage;
@@ -114,7 +114,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 				Log.d("ROOM paint", room.type.name());
 				paint.invoke( null, level, room );
 			} catch (Exception e) {
-				PixelDungeon.reportException( e );
+				CustomPD.reportException( e );
 			}
 		}
 		

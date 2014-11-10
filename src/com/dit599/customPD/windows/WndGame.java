@@ -20,7 +20,7 @@ package com.dit599.customPD.windows;
 import java.io.IOException;
 
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.InterlevelScene;
 import com.dit599.customPD.scenes.RankingsScene;
@@ -75,7 +75,7 @@ public class WndGame extends Window {
 				@Override
 				protected void onClick() {
 					Dungeon.hero = null;
-					PixelDungeon.challenges( Dungeon.challenges );
+					CustomPD.challenges( Dungeon.challenges );
 					InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 					InterlevelScene.noStory = true;
 					Game.switchScene( InterlevelScene.class );
