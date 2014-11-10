@@ -262,14 +262,14 @@ public class TutorialLevel extends RegularLevel {
 
 		while (true) {
 			int pos = roomEntrance.random();
-			if (pos != Terrain.ENTRANCE) {
+			if (pos != entrance) {
 				map[pos] = Terrain.SIGN;
 				break;
 			}
 		}
 		while (true) {
 			int pos = roomExit.random();
-			if (pos != Terrain.EXIT) {
+			if (pos != exit) {
 				map[pos] = Terrain.SIGN;
 				break;
 			}

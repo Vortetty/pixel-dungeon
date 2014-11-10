@@ -59,7 +59,7 @@ public class HealthWellPainter extends Painter {
 		do {
 			pos = room.random();
 		} while (
-				!Level.passable[pos] && !Level.avoid[pos]);
+				level.map[pos] == Terrain.WELL);
 		set(level, pos, Terrain.SIGN);
 		room.entrance().set( Room.Door.Type.HIDDEN );
 	}

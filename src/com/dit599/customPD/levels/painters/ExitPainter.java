@@ -35,8 +35,9 @@ public class ExitPainter extends Painter {
 		for (Room.Door door : room.connected.values()) {
 			door.set( Room.Door.Type.REGULAR );
 		}
-
+		do{
 		level.exit = room.random( 1 );
+		}while (level.map[level.exit] == Terrain.SIGN);
 		set( level, level.exit, Terrain.EXIT );
 	}
 	public static String tip() {

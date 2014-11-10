@@ -111,6 +111,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		
 		public void paint( Level level, Room room ) {
 			try {
+				Log.d("ROOM paint", room.type.name());
 				paint.invoke( null, level, room );
 			} catch (Exception e) {
 				PixelDungeon.reportException( e );
