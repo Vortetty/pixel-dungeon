@@ -82,7 +82,7 @@ public class HardHittingRoomPainter extends Painter {
 		}
 	}
 	public static String tip() {
-		return "The best way to take reduced damage is to wear good armor and to stand in a position where as few" +
+		return "The best way to take reduced damage is to wear good armor and to stand in a position where as few " +
 				"enemies as possible can attack you at the same time. The penalty for wearing too heavy armor (getting " +
 				"hungry faster and taking more turns for every movement) are only activated when moving, so while standing still " +
 				"there is no downside. However, armor does nothing against magical damage.";

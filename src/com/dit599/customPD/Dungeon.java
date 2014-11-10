@@ -718,7 +718,7 @@ public class Dungeon {
 		InputStream input = Game.instance.openFileInput( fileName );
 		Bundle bundle = Bundle.read( input );
 		input.close();
-		
+		boolean b = bundle != null;
 		return bundle;
 	}
 	

@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels.painters;
 
 import com.dit599.customPD.items.Generator;
@@ -37,34 +37,20 @@ public class HardToHitRoomPainter extends Painter {
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
 
-		Point c = room.center();
-		int cx = c.x;
-		int cy = c.y;
-		
+		set( level, room.center(), Terrain.SIGN );
+
 		Room.Door entrance = room.entrance();
-		
+
 		entrance.set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
-		
-		if (entrance.x == room.left) {
-			level.drop( new Gold(50), room.right-1 + room.top+1  * Level.WIDTH ).type = Type.TOMB;
-			level.drop( new Gold(50), room.right-1 + room.bottom-1  * Level.WIDTH ).type = Type.TOMB;
-			cx = room.right - 2;
-		} else if (entrance.x == room.right) {
-			level.drop( new Gold(50), room.left+1 + room.top+1  * Level.WIDTH ).type = Type.TOMB;
-			level.drop( new Gold(50), room.left+1 + room.bottom-1  * Level.WIDTH ).type = Type.TOMB;
-			cx = room.left + 2;
-		} else if (entrance.y == room.top) {
-			level.drop( new Gold(50), room.left+1 + room.bottom-1 * Level.WIDTH ).type = Type.TOMB;
-			level.drop( new Gold(50), room.right-1 + room.bottom-1 * Level.WIDTH ).type = Type.TOMB;
-			cy = room.bottom - 2;
-		} else if (entrance.y == room.bottom) {
-			level.drop( new Gold(50), room.left+1 + room.top+1 * Level.WIDTH ).type = Type.TOMB;
-			level.drop( new Gold(50), room.right-1 + room.top+1 * Level.WIDTH ).type = Type.TOMB;
-			cy = room.top + 2;
+
+		int pos;
+		for (int i = 0; i < 2; i++){
+			do {
+				pos = room.random();
+			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+			level.drop( new Gold(50), pos).type = Type.TOMB;
 		}
-		
-		set(level, new Point(cx, cy), Terrain.SIGN);
 	}
 	public static String tip() {
 		return "Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +
