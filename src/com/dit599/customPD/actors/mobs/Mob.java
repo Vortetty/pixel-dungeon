@@ -38,9 +38,12 @@ import com.dit599.customPD.effects.Wound;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.levels.Level;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.utils.GLog;
+import com.dit599.customPD.windows.WndOptions;
 import com.dit599.customPD.windows.WndStory;
+import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -282,7 +285,8 @@ public abstract class Mob extends Char {
 		}
 		if(Dungeon.isTutorial && !Dungeon.encounteredMob){
 			Dungeon.encounteredMob = true;
-			WndStory.showChapter("Attack the monster by pressing it (or on the red icon in the lower right)!");
+			GameScene.show( 
+					new WndTutorialOptions("Attack the monster by pressing it (or on the red icon in the lower right)!"));
 		}
 		spend( attackDelay() );
 		

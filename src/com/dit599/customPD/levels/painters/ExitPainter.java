@@ -44,8 +44,4 @@ public class ExitPainter extends Painter {
 		return "It is recommended to explore each floor fully before going to the next one. " +
 				"Tip: zoom out to check if the map is fully explored.";
 	}
-	public static String prompt() {
-		return "Stairs To Next Floor";
-	}
-
 }

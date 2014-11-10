@@ -27,6 +27,7 @@ import com.dit599.customPD.actors.blobs.Fire;
 import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.windows.WndStory;
+import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.noosa.audio.Sample;
 
 public class PotionOfLiquidFlame extends Potion {
@@ -63,8 +64,10 @@ public class PotionOfLiquidFlame extends Potion {
 		boolean b = super.doPickUp(hero);
 		if(b && Dungeon.isTutorial && !Dungeon.firePrompt){
 			Dungeon.firePrompt = true;
-			WndStory.showChapter("You have found an item that creates fire! Now look for a pile of wood or a " +
-					"lone bookcase to burn down.");
+			GameScene.show( 
+					new WndTutorialOptions(
+							"You have found an item that creates fire! Now look for a pile of wood or a " +
+							"lone bookcase to burn down." ));
 		}
 		return b;
 	}

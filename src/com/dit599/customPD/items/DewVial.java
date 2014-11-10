@@ -34,6 +34,7 @@ import com.dit599.customPD.sprites.ItemSprite.Glowing;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
 import com.dit599.customPD.windows.WndStory;
+import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
@@ -86,9 +87,11 @@ public class DewVial extends Item {
 		
 		if(Dungeon.isTutorial && !found){
 			found = true;
-			WndStory.showChapter("This is a Dew Vial. if you collect 10 dewdrops (found in grass) it will " +
-					"automatically bring you back from death (reseting the counter to 0/10). However, " +
-					"dewdrops can only be picked up when your health is full.");
+			GameScene.show( 
+					new WndTutorialOptions(
+							"This is a Dew Vial. if you collect 10 dewdrops (found in grass) it will " +
+							"automatically bring you back from death (reseting the counter to 0/10). However, " +
+							"dewdrops can only be picked up when your health is full."));
 		}
 		return super.doPickUp(hero);
 	}

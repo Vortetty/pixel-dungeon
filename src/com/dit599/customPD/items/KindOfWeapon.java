@@ -29,6 +29,7 @@ import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.ui.QuickSlot;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.windows.WndMessage;
+import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.utils.Random;
 
 public class KindOfWeapon extends EquipableItem {
@@ -69,8 +70,10 @@ public class KindOfWeapon extends EquipableItem {
 				equipCursed( hero );
 				GLog.n( TXT_EQUIP_CURSED, name() );
 				if(Dungeon.isTutorial){
-					GameScene.show( new WndMessage( "You have equipped a cursed item! You will need to use " +
-							"a scroll of Upgrade or Remove Curse on it before you can unequip the item." ) );
+					GameScene.show( 
+							new WndTutorialOptions(
+									"You have equipped a cursed item! You will need to use " +
+									"a scroll of Upgrade or Remove Curse on it before you can unequip the item."));
 				}
 			}
 			

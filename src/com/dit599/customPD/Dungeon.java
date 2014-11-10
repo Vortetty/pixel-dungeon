@@ -158,6 +158,7 @@ public class Dungeon {
 	public static boolean firePrompt = false;
 	public static boolean encounteredMob = false;
 	public static boolean firstHeap = false;
+	public static boolean promptShowing = false;
 	
 	public static void init() {
 
@@ -558,6 +559,7 @@ public class Dungeon {
 			bundle.put("firePrompt", firePrompt);
 			bundle.put("encountered", encounteredMob);
 			bundle.put("firstHeap", firstHeap);
+			bundle.put("promptShowing", promptShowing);
 			
 			Bundle.write( bundle, output );
 			output.close();
@@ -631,6 +633,7 @@ public class Dungeon {
 		firePrompt = bundle.getBoolean("firePrompt");
 		encounteredMob = bundle.getBoolean("encountered");
 		firstHeap = bundle.getBoolean("firstHeap");
+		promptShowing = bundle.getBoolean("promptShowing");
 		
 		if (fullLoad) {
 			chapters = new HashSet<Integer>();
