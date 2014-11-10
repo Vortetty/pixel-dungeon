@@ -19,6 +19,7 @@ package com.dit599.customPD.actors.mobs;
 
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Char;
+import com.dit599.customPD.levels.template.LevelTemplate;
 import com.watabou.utils.Random;
 
 public class Bestiary {
@@ -27,12 +28,7 @@ public class Bestiary {
 	public static Mob mob( int depth ) {
 		
 		Class<? extends Mob> cl;
-		if(Dungeon.isTutorial){
-			cl = (Class<? extends Mob>)tutorialMobClass( depth );
-		}
-		else{
-			cl = (Class<? extends Mob>)mobClass( depth );
-		}
+		cl = (Class<? extends Mob>) mobClass(depth);
 		try {
 			return cl.newInstance();
 		} catch (Exception e) {
@@ -40,10 +36,10 @@ public class Bestiary {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Mob mutable( int depth ) {
-		@SuppressWarnings("unchecked")
-		Class<? extends Mob> cl = (Class<? extends Mob>)mobClass( depth );
 
+		Class<? extends Mob> cl = (Class<? extends Mob>)mobClass( depth );
 		if (Random.Int( 30 ) == 0) {
 			if (cl == Rat.class) {
 				cl = Albino.class;
@@ -65,7 +61,13 @@ public class Bestiary {
 		}
 	}
 
-	private static Class<?> mobClass( int depth ) {
+	@SuppressWarnings("unchecked")
+	private static Class<?> mobClass(int depth) {
+		if (Dungeon.isTutorial) {
+			return (Class<? extends Mob>) tutorialMobClass(depth);
+		} else if (Dungeon.template != null) {
+			return LevelTemplate.currentLevelTemplate().getRandomMob();
+		}
 
 		float[] chances;
 		Class<?>[] classes;
