@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels;
 
 import java.util.ArrayList;
@@ -52,8 +52,11 @@ public class TutorialLevel extends RegularLevel {
 		color2 = 0x59994a;
 	}
 
+	private boolean allRoomsPlaced;
+
 	@Override
 	protected boolean build() {
+		allRoomsPlaced = false;
 		Log.d("TUTORIAL BUILD", "INSIDE BUILD" );
 		if (!initRooms()) {
 			return false;
@@ -85,7 +88,7 @@ public class TutorialLevel extends RegularLevel {
 
 		HashSet<Room> connected = new HashSet<Room>();
 		connected.add( roomEntrance );
-		
+
 		Log.d("TUTORIAL BUILD", "BEFORE DISTANCEMAP1" );
 		Graph.buildDistanceMap( rooms, roomExit );
 		Log.d("TUTORIAL BUILD", "BEFORE BUILDPATH1" );
@@ -137,15 +140,15 @@ public class TutorialLevel extends RegularLevel {
 		}
 		Log.d("TUTORIAL BUILD", "BEFORE ROOMTYPE" );
 		assignRoomType();
+		if(!allRoomsPlaced){
+			return false;
+		}
 		Log.d("TUTORIAL BUILD", "AFTER ROOMTYPE" );
 		paint();
 		Log.d("TUTORIAL BUILD", "AFTER Paint" );
 		paintWater();
-		Log.d("TUTORIAL BUILD", "AFTER paint water" );
 		paintGrass();
-		Log.d("TUTORIAL BUILD", "AFTER paintgrass" );
 		placeTraps();
-		Log.d("TUTORIAL BUILD", "AFTER placecetraps" );
 		return true;
 	}
 	@Override
@@ -168,8 +171,8 @@ public class TutorialLevel extends RegularLevel {
 					for (Room n : r.neigbours) {
 						if (!r.connected.containsKey( n ) && 
 								!(Room.SPECIALS.contains( n.type ) || Room.T_FLOOR1.contains( n.type ) ||
-								  Room.T_FLOOR2.contains( n.type ) || Room.T_FLOOR3.contains( n.type ))  &&
-								n.type != Type.PIT) {
+										Room.T_FLOOR2.contains( n.type ) || Room.T_FLOOR3.contains( n.type ))  &&
+										n.type != Type.PIT) {
 
 							neigbours.add( n );
 						}
@@ -180,27 +183,29 @@ public class TutorialLevel extends RegularLevel {
 				}
 			}
 		}
+		if(specials.size() == 0){
+			allRoomsPlaced = true;
+			int count = 0;
+			for (Room r : rooms) {
+				if (r.type == Type.NULL) {
+					int connections = r.connected.size();
+					if (connections == 0) {
 
-		int count = 0;
-		for (Room r : rooms) {
-			if (r.type == Type.NULL) {
-				int connections = r.connected.size();
-				if (connections == 0) {
-
-				} else if (Random.Int( connections * connections ) == 0) {
-					r.type = Type.STANDARD;
-					count++;
-				} else {
-					r.type = Type.TUNNEL; 
+					} else if (Random.Int( connections * connections ) == 0) {
+						r.type = Type.STANDARD;
+						count++;
+					} else {
+						r.type = Type.TUNNEL; 
+					}
 				}
 			}
-		}
 
-		while (count < 4) {
-			Room r = randomRoom( Type.TUNNEL, 1 );
-			if (r != null) {
-				r.type = Type.STANDARD;
-				count++;
+			while (count < 4) {
+				Room r = randomRoom( Type.TUNNEL, 1 );
+				if (r != null) {
+					r.type = Type.STANDARD;
+					count++;
+				}
 			}
 		}
 	}
