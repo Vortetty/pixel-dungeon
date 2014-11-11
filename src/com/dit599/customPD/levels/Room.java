@@ -105,8 +105,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 				tip = painter.getMethod("tip", null);
 				prompt = painter.getMethod("prompt", null);
 			} catch (Exception e) {
-				tip = null;
-				prompt = null;
+				//tip = null;
+				//prompt = null;
 			}
 		}
 		

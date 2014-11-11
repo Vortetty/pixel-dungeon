@@ -355,7 +355,12 @@ public class Dungeon {
 	@SuppressWarnings("deprecation")
 	public static void switchLevel( final Level level, int pos ) {
 		
-		nightMode = new Date().getHours() < 7;
+		if(Dungeon.isTutorial){
+			nightMode = false;
+		}
+		else{
+			nightMode = new Date().getHours() < 7;
+		}
 		
 		Dungeon.level = level;
 		Actor.init();
