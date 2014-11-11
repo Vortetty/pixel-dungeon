@@ -43,7 +43,7 @@ public class FloorsListActivity extends ListActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.main);
+    setContentView(R.layout.main2);
      
     adapter=new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_1,
@@ -54,7 +54,7 @@ public class FloorsListActivity extends ListActivity {
   protected void onListItemClick(ListView l, View v,final int position, long id) {
 	  final String item = (String) getListAdapter().getItem(position);
 	  Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
-	  Intent openStart = new Intent("com.dit599.customPD.editorUI.FloorItemsActivity");
+	  Intent openStart = new Intent("com.dit599.customPD.editorUI.ItemTypesActivity");
 	    startActivity(openStart);
 	    
   }

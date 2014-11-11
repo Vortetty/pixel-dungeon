@@ -294,7 +294,7 @@ public class CustomPD extends Game {
 	}
 
 	public void editMaps() {
-		startActivity(new Intent ("com.dit599.customPD.editorUI.MapEditorMainActivity"));
+		startActivity(new Intent ("com.dit599.customPD.editorUI.FloorsListActivity"));
 	}
 	
 
