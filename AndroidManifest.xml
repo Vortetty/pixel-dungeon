@@ -48,13 +48,19 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
               </activity>
-              
-        <activity android:name="com.dit599.customPD.editorUI.FloorItemsActivity">
-        <intent-filter>
-                <action android:name="com.dit599.customPD.editorUI.FloorItemsActivity" />
+        <activity android:name="com.dit599.customPD.editorUI.MapEditorMainActivity">
+            <intent-filter>
+                <action android:name="com.dit599.customPD.editorUI.MapEditorMainActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-              </activity>
+             
+        </activity>
+        <activity android:name="com.dit599.customPD.editorUI.FloorItemActivity">
+            <intent-filter>
+                <action android:name="com.dit599.customPD.editorUI.FloorItemActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
