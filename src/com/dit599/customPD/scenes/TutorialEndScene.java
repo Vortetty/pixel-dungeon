@@ -52,7 +52,6 @@ public class TutorialEndScene extends PixelScene {
 	
 	private static final int WIDTH	= 80;
 	private static final int HEIGHT	= 112;
-	private Image a;
 	
 	private Camera viewport;
 	@Override
@@ -85,10 +84,10 @@ public class TutorialEndScene extends PixelScene {
 		add( window );
 		
 
-		a = new Image( Dungeon.hero.heroClass );
-		a.frame( HeroClass.ROGUE.ordinal() * 24, 0, 24, 28 );
+		Avatar a = new Avatar( Dungeon.hero.heroClass );
+		a.frame( Dungeon.hero.heroClass.ordinal() * 24, 0, 24, 28 );
 		a.scale.set( 3 );
-		a.x = PixelScene.align( (WIDTH - a.width) / 6 );
+		a.x = PixelScene.align( (WIDTH - a.width) / 8 );
 		a.y = PixelScene.align(HEIGHT - a.height());
 
 		a.scale.set(3);
@@ -121,5 +120,16 @@ public class TutorialEndScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
+	}
+	
+	private static class Avatar extends Image {
+		
+		private static final int WIDTH	= 24;
+		private static final int HEIGHT	= 28;
+		
+		public Avatar( HeroClass cl ) {
+			super( Assets.AVATARS );
+			frame( new TextureFilm( texture, WIDTH, HEIGHT ).get( cl.ordinal() ) );
+		}
 	}
 }

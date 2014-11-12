@@ -35,6 +35,7 @@ import com.dit599.customPD.sprites.ItemSprite;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
 import com.dit599.customPD.windows.WndMessage;
+import com.dit599.customPD.windows.WndStory;
 import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -103,10 +104,9 @@ public class Armor extends EquipableItem {
 				equipCursed( hero );
 				GLog.n( TXT_EQUIP_CURSED, toString() );
 				if(Dungeon.isTutorial){
-					GameScene.show( 
-							new WndTutorialOptions( 
+					WndStory.showChapter( 
 									"You have equipped a cursed item! You will need to use " +
-									"a scroll of Upgrade or Remove Curse on it before you can unequip the item."));
+									"a scroll of Upgrade or Remove Curse on it before you can unequip the item.");
 				}
 			}
 			

@@ -283,7 +283,9 @@ public class TutorialLevel extends RegularLevel {
 
 	@Override
 	protected void createMobs() {
-		super.createMobs();
+		if(!Dungeon.isTutorial){
+			super.createMobs();
+		}
 	}
 
 	@Override

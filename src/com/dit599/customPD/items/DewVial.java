@@ -87,11 +87,10 @@ public class DewVial extends Item {
 		
 		if(Dungeon.isTutorial && !found){
 			found = true;
-			GameScene.show( 
-					new WndTutorialOptions(
+			WndStory.showChapter(
 							"This is a Dew Vial. if you collect 10 dewdrops (found in grass) it will " +
 							"automatically bring you back from death (reseting the counter to 0/10). However, " +
-							"dewdrops can only be picked up when your health is full."));
+							"dewdrops can only be picked up when your health is full.");
 		}
 		return super.doPickUp(hero);
 	}
