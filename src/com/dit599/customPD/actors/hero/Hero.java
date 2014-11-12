@@ -107,7 +107,6 @@ import com.dit599.customPD.windows.WndMessage;
 import com.dit599.customPD.windows.WndResurrect;
 import com.dit599.customPD.windows.WndStory;
 import com.dit599.customPD.windows.WndTradeItem;
-import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
@@ -583,10 +582,9 @@ public class Hero extends Char {
 			if (heap != null) {
 				if(Dungeon.isTutorial && !Dungeon.firstHeap && heap.size() > 1){
 					Dungeon.firstHeap = true;
-					GameScene.show( 
-							new WndTutorialOptions(
+					WndStory.showChapter(
 									"Items can be stacked ontop of each other. Press the blue icon in the upper " +
-											"right to pick up the next item in the stack."));
+											"right to pick up the next item in the stack.");
 				}
 				Item item = heap.pickUp();
 				if (item.doPickUp( this )) {

@@ -31,7 +31,6 @@ import com.dit599.customPD.items.potions.PotionOfLiquidFlame;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.ItemSpriteSheet;
 import com.dit599.customPD.windows.WndStory;
-import com.dit599.customPD.windows.WndTutorialOptions;
 
 public class Firebloom extends Plant {
 
@@ -79,9 +78,9 @@ public class Firebloom extends Plant {
 			boolean b = super.doPickUp(hero);
 			if(b && Dungeon.isTutorial && !Dungeon.firePrompt){
 				Dungeon.firePrompt = true;
-				GameScene.show(new WndTutorialOptions( 
+				WndStory.showChapter( 
 						"You have found an item that creates fire! Now look for a pile of wood or a " +
-								"lone bookcase to burn down."));
+								"lone bookcase to burn down.");
 			}
 			return b;
 		}

@@ -159,6 +159,7 @@ public class Dungeon {
 	public static boolean encounteredMob = false;
 	public static boolean firstHeap = false;
 	public static boolean promptShowing = false;
+	public static long timeStamp = 0;
 	
 	public static void init() {
 
@@ -639,6 +640,7 @@ public class Dungeon {
 		encounteredMob = bundle.getBoolean("encountered");
 		firstHeap = bundle.getBoolean("firstHeap");
 		promptShowing = bundle.getBoolean("promptShowing");
+		timeStamp = 0;
 		
 		if (fullLoad) {
 			chapters = new HashSet<Integer>();

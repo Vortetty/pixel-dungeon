@@ -53,13 +53,14 @@ public class Window extends Group implements Signal.Listener<Key> {
 			
 	public Window( int width, int height, NinePatch chrome ) {
 		super();
-		
+		Dungeon.timeStamp = System.currentTimeMillis();
 		blocker = new TouchArea( 0, 0, PixelScene.uiCamera.width, PixelScene.uiCamera.height ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				if (!Dungeon.promptShowing && !Window.this.chrome.overlapsScreenPoint( 
+				if (!Window.this.chrome.overlapsScreenPoint( 
 					(int)touch.current.x, 
-					(int)touch.current.y )) {
+					(int)touch.current.y ) && 
+					System.currentTimeMillis() - Dungeon.timeStamp >= 500) {
 					
 					onBackPressed();
 				}

@@ -35,7 +35,6 @@ import com.dit599.customPD.levels.painters.*;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.windows.WndMessage;
 import com.dit599.customPD.windows.WndStory;
-import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
@@ -132,7 +131,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		public void prompt() {
 			try {
 				String s = (String) prompt.invoke(null, null);
-				GameScene.show(new WndTutorialOptions(s));
+				WndStory.showChapter(s);
 			} catch (Exception e) {
 				Log.d("isnull", "prompt method got set to null on first fail");
 			}

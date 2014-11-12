@@ -106,11 +106,12 @@ public class WndStory extends Window {
 		tf.bm = -bgB;
 		tf.x = MARGIN;
 		add( tf );
-		
 		add( new TouchArea( chrome ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				hide();
+				if (System.currentTimeMillis() - Dungeon.timeStamp >= 500) {
+					hide();
+				}
 			}
 		} );
 		
@@ -153,11 +154,9 @@ public class WndStory extends Window {
 		
 		if (custom != null) {
 			WndStory wnd = new WndStory( custom );
-			if ((wnd.delay = 0.6f) > 0) {
-				wnd.chrome.visible = wnd.tf.visible = false;
-			}
-			
 			Game.scene().add( wnd );
+
+			Dungeon.timeStamp = System.currentTimeMillis();
 		}
 	}
 }
