@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.dit599.customPD.Chrome;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.scenes.PixelScene;
 import com.watabou.input.Keys;
 import com.watabou.input.Keys.Key;
@@ -52,13 +53,14 @@ public class Window extends Group implements Signal.Listener<Key> {
 			
 	public Window( int width, int height, NinePatch chrome ) {
 		super();
-		
+		Dungeon.timeStamp = System.currentTimeMillis();
 		blocker = new TouchArea( 0, 0, PixelScene.uiCamera.width, PixelScene.uiCamera.height ) {
 			@Override
 			protected void onClick( Touch touch ) {
 				if (!Window.this.chrome.overlapsScreenPoint( 
 					(int)touch.current.x, 
-					(int)touch.current.y )) {
+					(int)touch.current.y ) && 
+					System.currentTimeMillis() - Dungeon.timeStamp >= 500) {
 					
 					onBackPressed();
 				}

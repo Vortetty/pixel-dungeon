@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD;
 
 import java.io.IOException;
@@ -23,6 +26,8 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+
+import android.util.Log;
 
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.Char;
@@ -54,6 +59,8 @@ import com.dit599.customPD.levels.PrisonLevel;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.SewerBossLevel;
 import com.dit599.customPD.levels.SewerLevel;
+import com.dit599.customPD.levels.TutorialBossLevel;
+import com.dit599.customPD.levels.TutorialLevel;
 import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.StartScene;
@@ -107,10 +114,17 @@ public class Dungeon {
 	};
 	
 	private static final String[] T_TIPS = { 
-		"Floor1",
-		"Floor2",
-		"Floor3",
-		"Floor4"
+		"Use '?' to get more information about anything you see in the game. In order to enter one " +
+		"of the rooms on this floor, you will need to find something that creates fire! Keep an eye " +
+		"out for more signs.",
+		"From now on, doors may be hidden, so don't forget to use search (left of '?') from time to time. " +
+		"There are two different magical wells on this floor. Make sure to investigate wells with '?' to " +
+		"see what type they are. ",
+		"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
+		"resting place on this floor.",
+		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for " +
+		"this difficult fight! If you need a reminder on the available types of potions and scrolls, " +
+		"press the player portrait in the upper left corner"
 	};
 	
 	private static final String TXT_DEAD_END = 
@@ -126,7 +140,7 @@ public class Dungeon {
 	
 	public static Hero hero;
 	public static Level level;
-	public static DungeonTemplate template = new DungeonTemplate();
+    public static DungeonTemplate template = null; // = new DungeonTemplate();
 	
 	// Either Item or Class<? extends Item>
 	public static Object quickslot;
@@ -142,11 +156,16 @@ public class Dungeon {
 	public static boolean[] visible = new boolean[Level.LENGTH];
 	
 	public static boolean nightMode;
-	public static boolean isTutorial;
+	public static boolean isTutorial = false;
+	public static boolean firePrompt = false;
+	public static boolean encounteredMob = false;
+	public static boolean firstHeap = false;
+	public static boolean promptShowing = false;
+	public static long timeStamp = 0;
 	
 	public static void init() {
 
-		challenges = PixelDungeon.challenges();
+		challenges = CustomPD.challenges();
 		
 		Actor.clear();
 		
@@ -205,8 +224,9 @@ public class Dungeon {
 				Statistics.completedWithNoKilling = false;
 			}
 		}
-		
+		Log.d("DUNGEON NEWLEVEL", "BEFORE FILL" );
 		Arrays.fill( visible, false );
+		Log.d("DUNGEON NEWLEVEL", "AFTER FILL" );
 		
 		Level level;
 		if(isTutorial){
@@ -215,10 +235,12 @@ public class Dungeon {
 			case 1:
 			case 2:
 			case 3:
-				level = new SewerLevel();
+				Log.d("DUNGEON NEWLEVEL", "BEFORE NEW" );
+				level = new TutorialLevel();
+				Log.d("DUNGEON NEWLEVEL", "AFTER NEW" );
 				break;
 			case 4:
-				level = new SewerBossLevel();
+				level = new TutorialBossLevel();
 				break;
 			default:
 				level = new DeadEndLevel();
@@ -282,8 +304,9 @@ public class Dungeon {
 				Statistics.deepestFloor--;
 			}
 		}
-		
+		Log.d("DUNGEON NEWLEVEL", "BFORE CREATE" );
 		level.create();
+		Log.d("DUNGEON NEWLEVEL", "AFTER CREATE" );
 		
 		Statistics.qualifiedForNoKilling = !bossLevel();
 		
@@ -335,7 +358,12 @@ public class Dungeon {
 	@SuppressWarnings("deprecation")
 	public static void switchLevel( final Level level, int pos ) {
 		
-		nightMode = new Date().getHours() < 7;
+		if(Dungeon.isTutorial){
+			nightMode = false;
+		}
+		else{
+			nightMode = new Date().getHours() < 7;
+		}
 		
 		Dungeon.level = level;
 		Actor.init();
@@ -349,7 +377,7 @@ public class Dungeon {
 		
 		Light light = hero.buff( Light.class );
 		hero.viewDistance = light == null ? level.viewDistance : Math.max( Light.DISTANCE, level.viewDistance );
-		
+		Log.d("In Dungeon", "END OF SAVE/NEW/SWITCH");
 		observe();
 	}
 	
@@ -488,6 +516,7 @@ public class Dungeon {
 	
 	public static void saveGame( String fileName ) throws IOException {
 		try {
+			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle bundle = new Bundle();
 			
 			bundle.put( VERSION, Game.version );
@@ -534,9 +563,15 @@ public class Dungeon {
 			Badges.saveLocal( badges );
 			bundle.put( BADGES, badges );
 			
-			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
+			bundle.put("tutorial", isTutorial);
+			bundle.put("firePrompt", firePrompt);
+			bundle.put("encountered", encounteredMob);
+			bundle.put("firstHeap", firstHeap);
+			bundle.put("promptShowing", promptShowing);
+			
 			Bundle.write( bundle, output );
 			output.close();
+			Log.d("SAVING", "Sucessfully saved character.");
 			
 		} catch (Exception e) {
 
@@ -557,10 +592,11 @@ public class Dungeon {
 		if (hero.isAlive()) {
 			
 			Actor.fixTime();
-			saveGame( gameFile( hero.heroClass ) );
-			saveLevel();
 			
 			GamesInProgress.set( hero.heroClass, depth, hero.lvl );
+			
+			saveGame( gameFile( hero.heroClass ) );
+			saveLevel();
 			
 		} else if (WndResurrect.instance != null) {
 			
@@ -601,6 +637,12 @@ public class Dungeon {
 		arcaneStyli = bundle.getInt( AS );
 		dewVial = bundle.getBoolean( DV );
 		transmutation = bundle.getInt( WT );
+		isTutorial = bundle.getBoolean("tutorial");
+		firePrompt = bundle.getBoolean("firePrompt");
+		encounteredMob = bundle.getBoolean("encountered");
+		firstHeap = bundle.getBoolean("firstHeap");
+		promptShowing = bundle.getBoolean("promptShowing");
+		timeStamp = 0;
 		
 		if (fullLoad) {
 			chapters = new HashSet<Integer>();
@@ -688,7 +730,7 @@ public class Dungeon {
 		InputStream input = Game.instance.openFileInput( fileName );
 		Bundle bundle = Bundle.read( input );
 		input.close();
-		
+		boolean b = bundle != null;
 		return bundle;
 	}
 	

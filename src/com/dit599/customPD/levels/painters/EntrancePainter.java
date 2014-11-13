@@ -17,6 +17,7 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
@@ -24,16 +25,22 @@ import com.dit599.customPD.levels.Terrain;
 public class EntrancePainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
-		
+
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
-		
+
 		for (Room.Door door : room.connected.values()) {
-			door.set( Room.Door.Type.REGULAR );
+			if(Dungeon.isTutorial && Dungeon.depth == 2){
+				door.set( Room.Door.Type.HIDDEN );
+			}
+			else{
+				door.set( Room.Door.Type.REGULAR );
+			}
 		}
-		
-		level.entrance = room.random( 1 );
+		do{
+			level.entrance = room.random( 1 );
+		}while (level.map[level.entrance] == Terrain.SIGN);
 		set( level, level.entrance, Terrain.ENTRANCE );
 	}
-	
+
 }

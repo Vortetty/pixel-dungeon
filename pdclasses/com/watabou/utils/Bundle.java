@@ -33,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.util.Log;
+
 public class Bundle {
 
 	private static final String CLASS_NAME = "__className";
@@ -288,11 +290,16 @@ public class Bundle {
 		
 		try {
 			BufferedReader reader = new BufferedReader( new InputStreamReader( stream ) );
-			JSONObject json = (JSONObject)new JSONTokener( reader.readLine() ).nextValue();
+			String line = reader.readLine();
+			Log.d("BUNDLE READ", line);
+			JSONTokener t = new JSONTokener( line );
+			boolean b = t !=null;
+			JSONObject json = (JSONObject)t.nextValue();
 			reader.close();
 			
 			return new Bundle( json );
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.windows;
 
 import com.dit599.customPD.Chrome;
@@ -76,10 +79,13 @@ public class WndStory extends Window {
 		"Very few adventurers have ever descended this far..." );
 	};
 	static {
-	T_CHAPTERS.put(1, "Seeds & Potions");
-	T_CHAPTERS.put(2, "Equipment");
-	T_CHAPTERS.put(3, "Combat");
-	T_CHAPTERS.put(4, "Boss");
+	T_CHAPTERS.put(1, "Welcome to the tutorial dungeon! On this floor, you can learn about the various potions, scrolls and seeds " +
+			"available in the game. Now start exploring by tapping where you want to go!");
+	T_CHAPTERS.put(2, "On this floor, you can learn about equipment identification and how to use magic wells. To get out of the " +
+			"first room, you will need to use the search button (left of '?') to find the hidden doors!");
+	T_CHAPTERS.put(3, "On this floor, you must learn how to fight effectively against both enemies that are hard to hit and " +
+			"enemies that hit hard!");
+	T_CHAPTERS.put(4, "Now, use what you have learned to defeat the Goo!");
 	};
 	
 	private BitmapTextMultiline tf;
@@ -100,11 +106,12 @@ public class WndStory extends Window {
 		tf.bm = -bgB;
 		tf.x = MARGIN;
 		add( tf );
-		
 		add( new TouchArea( chrome ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				hide();
+				if (System.currentTimeMillis() - Dungeon.timeStamp >= 500) {
+					hide();
+				}
 			}
 		} );
 		
@@ -141,6 +148,15 @@ public class WndStory extends Window {
 			Game.scene().add( wnd );
 			
 			Dungeon.chapters.add( id );
+		}
+	}
+	public static void showChapter( String custom ) {
+		
+		if (custom != null) {
+			WndStory wnd = new WndStory( custom );
+			Game.scene().add( wnd );
+
+			Dungeon.timeStamp = System.currentTimeMillis();
 		}
 	}
 }

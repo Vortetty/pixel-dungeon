@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,25 +12,29 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.items;
 
 import java.util.ArrayList;
 
 import com.dit599.customPD.Assets;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.effects.particles.ShaftParticle;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.sprites.ItemSpriteSheet;
 import com.dit599.customPD.sprites.ItemSprite.Glowing;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
+import com.dit599.customPD.windows.WndStory;
+import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
@@ -57,6 +64,7 @@ public class DewVial extends Item {
 	}
 	
 	private int volume = 0;
+	private boolean found = false;
 	
 	private static final String VOLUME	= "volume";
 	
@@ -64,12 +72,27 @@ public class DewVial extends Item {
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( VOLUME, volume );
+		bundle.put( "vialFound", found );
 	}
 	
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		volume	= bundle.getInt( VOLUME );
+		found = bundle.getBoolean("vialFound");
+	}
+	
+	@Override
+	public boolean doPickUp( Hero hero ) {
+		
+		if(Dungeon.isTutorial && !found){
+			found = true;
+			WndStory.showChapter(
+							"This is a Dew Vial. if you collect 10 dewdrops (found in grass) it will " +
+							"automatically bring you back from death (reseting the counter to 0/10). However, " +
+							"dewdrops can only be picked up when your health is full.");
+		}
+		return super.doPickUp(hero);
 	}
 	
 	@Override

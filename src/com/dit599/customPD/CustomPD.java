@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,17 +12,18 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD;
 
 import javax.microedition.khronos.opengles.GL10;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -33,9 +37,10 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 
-public class PixelDungeon extends Game {
+public class CustomPD extends Game {
+	public static CustomPD self;
 	
-	public PixelDungeon() {
+	public CustomPD() {
 		super( TitleScene.class );
 		
 		com.watabou.utils.Bundle.addAlias( 
@@ -92,6 +97,7 @@ public class PixelDungeon extends Game {
 		com.watabou.utils.Bundle.addAlias( 
 			com.dit599.customPD.plants.Dreamweed.Seed.class,
 			"com.dit599.customPD.plants.Blindweed$Seed" );
+		self = this;
 	}
 	
 	@Override
@@ -286,4 +292,11 @@ public class PixelDungeon extends Game {
 	public static void reportException( Exception e ) {
 		Log.e( "PD", Log.getStackTraceString( e ) ); 
 	}
+
+	public void editMaps() {
+		startActivity(new Intent ("com.dit599.customPD.editorUI.FloorsListActivity"));
+	}
+	
+
+
 }

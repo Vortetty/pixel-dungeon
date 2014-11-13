@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,16 +12,18 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.actors.hero;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import android.util.Log;
 
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
@@ -82,6 +87,8 @@ import com.dit599.customPD.items.wands.Wand;
 import com.dit599.customPD.items.weapon.melee.MeleeWeapon;
 import com.dit599.customPD.items.weapon.missiles.MissileWeapon;
 import com.dit599.customPD.levels.Level;
+import com.dit599.customPD.levels.RegularLevel;
+import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 import com.dit599.customPD.levels.features.AlchemyPot;
 import com.dit599.customPD.levels.features.Chasm;
@@ -89,6 +96,7 @@ import com.dit599.customPD.plants.Earthroot;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.InterlevelScene;
 import com.dit599.customPD.scenes.SurfaceScene;
+import com.dit599.customPD.scenes.TutorialEndScene;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.sprites.HeroSprite;
 import com.dit599.customPD.ui.AttackIndicator;
@@ -97,6 +105,7 @@ import com.dit599.customPD.ui.QuickSlot;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.windows.WndMessage;
 import com.dit599.customPD.windows.WndResurrect;
+import com.dit599.customPD.windows.WndStory;
 import com.dit599.customPD.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -484,7 +493,15 @@ public class Hero extends Char {
 			
 		} else {
 			if (Dungeon.level.map[pos] == Terrain.SIGN) {
-				GameScene.show( new WndMessage( Dungeon.tip() ) );
+				if(Dungeon.level instanceof RegularLevel){
+					Room r = ((RegularLevel) (Dungeon.level)).room(pos);
+					if(r!= null){
+					r.type.tip();
+					}
+				}
+				else{
+					GameScene.show( new WndMessage( Dungeon.tip() ) );
+				}
 			}
 			ready();
 			return false;
@@ -562,7 +579,13 @@ public class Hero extends Char {
 		if (pos == dst) {
 			
 			Heap heap = Dungeon.level.heaps.get( pos );
-			if (heap != null) {				
+			if (heap != null) {
+				if(Dungeon.isTutorial && !Dungeon.firstHeap && heap.size() > 1){
+					Dungeon.firstHeap = true;
+					WndStory.showChapter(
+									"Items can be stacked ontop of each other. Press the blue icon in the upper " +
+											"right to pick up the next item in the stack.");
+				}
 				Item item = heap.pickUp();
 				if (item.doPickUp( this )) {
 					
@@ -695,12 +718,13 @@ public class Hero extends Char {
 	}
 	
 	private boolean actDescend( HeroAction.Descend action ) {
+		Log.d("HERO DESCEND", "START");
 		int stairs = action.dst;
 		if (pos == stairs && pos == Dungeon.level.exit) {
-
+			Log.d("HERO DESCEND", "IF");
 			if(Dungeon.isTutorial && Dungeon.depth == 4){
 				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
-				Game.switchScene( SurfaceScene.class );
+				Game.switchScene( TutorialEndScene.class );
 			}
 			else{
 				curAction = null;
@@ -709,9 +733,10 @@ public class Hero extends Char {
 				if (hunger != null && !hunger.isStarving()) {
 					hunger.satisfy( -Hunger.STARVING / 10 );
 				}
-
 				InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+				Log.d("HERO DESCEND", "BEFORE SWITCHSCENE INTERLEVEL");
 				Game.switchScene( InterlevelScene.class );
+				Log.d("HERO DESCEND", "AFTER SWITCHSCENE INTERLEVEL");
 			}
 			return false;
 		} else if (getCloser( stairs )) {

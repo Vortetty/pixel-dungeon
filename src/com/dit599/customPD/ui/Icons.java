@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.ui;
 
 import com.dit599.customPD.Assets;
@@ -23,6 +26,7 @@ import com.watabou.noosa.Image;
 
 public enum Icons {
 
+	TITLE,
 	SKULL,
 	BUSY,
 	COMPASS,
@@ -57,6 +61,10 @@ public enum Icons {
 	public static Image get( Icons type ) {
 		Image icon = new Image( Assets.ICONS );
 		switch (type) {
+		case TITLE:
+			icon = new Image( Assets.TITLE );
+			icon.frame( icon.texture.uvRect(0,0,101,12 ) );
+			break;
 		case SKULL:
 			icon.frame( icon.texture.uvRect( 0, 0, 8, 8 ) );
 			break;

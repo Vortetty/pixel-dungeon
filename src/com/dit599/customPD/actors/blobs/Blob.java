@@ -20,7 +20,7 @@ package com.dit599.customPD.actors.blobs;
 import java.util.Arrays;
 
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.effects.BlobEmitter;
 import com.dit599.customPD.levels.Level;
@@ -205,7 +205,7 @@ public class Blob extends Actor {
 			return gas;
 			
 		} catch (Exception e) {
-			PixelDungeon.reportException( e );
+			CustomPD.reportException( e );
 			return null;
 		}
 	}

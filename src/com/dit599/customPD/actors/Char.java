@@ -50,9 +50,11 @@ import com.dit599.customPD.effects.particles.PoisonParticle;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Terrain;
 import com.dit599.customPD.levels.features.Door;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -170,6 +172,11 @@ public abstract class Char extends Actor {
 						
 					} else {
 						if (Bestiary.isUnique( this )) {
+							if(Dungeon.isTutorial && name.equals("Goo")){
+								WndStory.showChapter("Regrettably you were defeated by the Goo, " +
+										"but if you go play the standard game you can get your revenge on depth " +
+										"5!");
+							}
 							Dungeon.fail( Utils.format( ResultDescriptions.BOSS, name, Dungeon.depth ) );
 						} else {
 							Dungeon.fail( Utils.format( ResultDescriptions.MOB, 

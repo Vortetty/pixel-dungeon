@@ -1,13 +1,41 @@
+/*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
+ * Pixel Dungeon
+ * Copyright (C) 2012-2014 Oleg Dolya
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.scenes;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.text.method.HideReturnsTransformationMethod;
+import android.util.Log;
 
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
 import com.dit599.customPD.ui.PrefsButton;
+import com.dit599.customPD.ui.RedButton;
+import com.dit599.customPD.windows.WndGame;
+import com.dit599.customPD.windows.WndSettings;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -16,13 +44,14 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
 
-public class GameModeScene extends PixelScene {
+
+public class GameModeScene extends PixelScene{
 
 	private static final String TXT_STANDARD		= "Standard";
-	private static final String TXT_CUSTOM	= "Custom";
+	private static final String TXT_CUSTOM			= "Custom";
 	private static final String TXT_MAP_EDITOR		= "Map Editor";
 	private static final String TXT_TUTORIAL		= "Tutorial";
-
+	
 	@Override
 	public void create() {
 
@@ -55,18 +84,26 @@ public class GameModeScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-				PixelDungeon.switchNoFade(  StartScene.class );
+				Dungeon.firePrompt = true;
+				Dungeon.encounteredMob = true;
+				Dungeon.firstHeap = true;
+				CustomPD.switchNoFade(  StartScene.class );
 			}
 		};
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );
 		add( btnCustom );
 
 		DashboardItem btnEditor = new DashboardItem( TXT_MAP_EDITOR, 0 ) {
+		
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-				PixelDungeon.switchNoFade( StartScene.class );
+				Dungeon.firePrompt = true;
+				Dungeon.encounteredMob = true;
+				Dungeon.firstHeap = true;
+				CustomPD.self.editMaps();
 			}
+
 		};
 		btnEditor.setPos( w / 2, (h + height) / 2 - DashboardItem.SIZE );
 		add( btnEditor );
@@ -75,17 +112,26 @@ public class GameModeScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-				PixelDungeon.switchNoFade( StartScene.class );
+				Dungeon.firePrompt = true;
+				Dungeon.encounteredMob = true;
+				Dungeon.firstHeap = true;
+				CustomPD.switchNoFade( StartScene.class );
 			}
 		};
 		btnStandard.setPos( w / 2 - btnStandard.width(), btnEditor.top() - DashboardItem.SIZE );
 		add( btnStandard );
 
-		DashboardItem btnTutorial = new DashboardItem( TXT_TUTORIAL, 0 ) {
+		DashboardItem btnTutorial = new DashboardItem( TXT_TUTORIAL, 1 ) {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = true;
-				PixelDungeon.switchNoFade(  StartScene.class );
+				Dungeon.firePrompt = false;
+				Dungeon.encounteredMob = false;
+				Dungeon.firstHeap = false;
+				for(String f : Game.instance.fileList()){
+					Log.d("FILES", f);
+				}
+				CustomPD.switchNoFade(  StartScene.class );
 			}
 		};
 		btnTutorial.setPos( w / 2, btnStandard.top() );
@@ -138,7 +184,7 @@ public class GameModeScene extends PixelScene {
 		protected void createChildren() {
 			super.createChildren();
 
-			image = new Image( Assets.DASHBOARD );
+			image = new Image( Assets.TUTORIAL );
 			add( image );
 
 			label = createText( 9 );

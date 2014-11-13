@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.levels;
 
 import java.lang.reflect.Method;
@@ -24,8 +27,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import com.dit599.customPD.PixelDungeon;
+import android.util.Log;
+
+import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.levels.painters.*;
+import com.dit599.customPD.scenes.GameScene;
+import com.dit599.customPD.windows.WndMessage;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
@@ -40,9 +49,23 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	
 	public int distance;
 	public int price = 1;
+	public boolean enteredRoom = false;
 	
 	public static enum Type {
 		NULL( null ),
+		T_WELL_IDENTIFY (HealthWellPainter.class ),
+		T_WELL_HEALTH (IdentifyWellPainter.class ),
+		T_POTION_ROOM (PotionRoomPainter.class ),
+		T_SCROLL_ROOM (ScrollRoomPainter.class ),
+		T_SEED_ROOM (SeedRoomPainter.class ),
+		T_BAG_ROOM (BagRoomPainter.class ),
+		T_ARMOR_ROOM (ArmorRoomPainter.class ),
+		T_WEAPON_ROOM (WeaponRoomPainter.class ),
+		T_GARDEN_ROOM (TutorialGardenPainter.class ),
+		T_STATUE_ROOM (TutorialStatuePainter.class ),
+		T_HARDHITTING_ROOM (HardHittingRoomPainter.class ),
+		T_HARD_TO_HIT_ROOM (HardToHitRoomPainter.class ),
+		//End of tutorial rooms
 		STANDARD	( StandardPainter.class ),
 		ENTRANCE	( EntrancePainter.class ),
 		EXIT		( ExitPainter.class ),
@@ -68,6 +91,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		PIT			( PitPainter.class );
 		
 		private Method paint;
+		private Method tip;
+		private Method prompt;
 		
 		private Type( Class<? extends Painter> painter ) {
 			try {
@@ -75,13 +100,40 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 			} catch (Exception e) {
 				paint = null;
 			}
+			try {//Separate trycatches so paint does not reset to null.
+				tip = painter.getMethod("tip", null);
+				prompt = painter.getMethod("prompt", null);
+			} catch (Exception e) {
+				//tip = null;
+				//prompt = null;
+			}
 		}
 		
 		public void paint( Level level, Room room ) {
 			try {
+				Log.d("ROOM paint", room.type.name());
 				paint.invoke( null, level, room );
 			} catch (Exception e) {
-				PixelDungeon.reportException( e );
+				CustomPD.reportException( e );
+			}
+		}
+		
+		public void tip() {
+			try {
+				String s = (String) tip.invoke(null, null);
+				GameScene.show(new WndMessage(s));
+			} catch (Exception e) {
+				Log.d("isnull", "tip method got set to null on first fail");
+				GameScene.show( new WndMessage( Dungeon.tip() ) );
+			}
+		}
+		
+		public void prompt() {
+			try {
+				String s = (String) prompt.invoke(null, null);
+				WndStory.showChapter(s);
+			} catch (Exception e) {
+				Log.d("isnull", "prompt method got set to null on first fail");
 			}
 		}
 	};
@@ -90,6 +142,21 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		Type.WEAK_FLOOR, Type.MAGIC_WELL, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.ARMORY,
 		Type.TREASURY, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.LABORATORY, Type.VAULT
 	) );
+	
+	
+	public static final ArrayList<Type> T_FLOOR1 = new ArrayList<Type>( Arrays.asList(
+			Type.T_SCROLL_ROOM, Type.T_SEED_ROOM, Type.T_BAG_ROOM, Type.T_POTION_ROOM
+		) );
+	
+	
+	public static final ArrayList<Type> T_FLOOR2 = new ArrayList<Type>( Arrays.asList(
+			Type.T_WELL_HEALTH, Type.T_WEAPON_ROOM, Type.T_ARMOR_ROOM, Type.T_WELL_IDENTIFY
+		) );
+	
+	
+	public static final ArrayList<Type> T_FLOOR3 = new ArrayList<Type>( Arrays.asList(
+			Type.T_GARDEN_ROOM, Type.T_HARDHITTING_ROOM, Type.T_STATUE_ROOM, Type.T_HARD_TO_HIT_ROOM
+		) );
 	
 	public Type type = Type.NULL;
 	
@@ -170,6 +237,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		bundle.put( "top", top );
 		bundle.put( "right", right );
 		bundle.put( "bottom", bottom );
+		bundle.put( "enteredRoom", enteredRoom );
 		bundle.put( "type", type.toString() );
 	}
 	
@@ -179,6 +247,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		top = bundle.getInt( "top" );
 		right = bundle.getInt( "right" );
 		bottom = bundle.getInt( "bottom" );		
+		enteredRoom = bundle.getBoolean("enteredRoom");
 		type = Type.valueOf( bundle.getString( "type" ) );
 	}
 	

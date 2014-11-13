@@ -33,6 +33,7 @@ public class MagicWellPainter extends Painter {
 	private static final Class<?>[] WATERS = 
 		{WaterOfAwareness.class, WaterOfHealth.class, WaterOfTransmutation.class};
 	
+	@SuppressWarnings("unchecked")
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
@@ -41,8 +42,10 @@ public class MagicWellPainter extends Painter {
 		Point c = room.center();
 		set( level, c.x, c.y, Terrain.WELL );
 		
-		@SuppressWarnings("unchecked")
-		Class<? extends WellWater> waterClass = 
+		
+		Class<? extends WellWater> waterClass;
+
+		waterClass = 
 			Dungeon.depth >= Dungeon.transmutation ?
 			WaterOfTransmutation.class :		
 			(Class<? extends WellWater>)Random.element( WATERS );
@@ -50,7 +53,6 @@ public class MagicWellPainter extends Painter {
 		if (waterClass == WaterOfTransmutation.class) {
 			Dungeon.transmutation = Integer.MAX_VALUE;
 		}
-		
 		WellWater water = (WellWater)level.blobs.get( waterClass );
 		if (water == null) {
 			try {

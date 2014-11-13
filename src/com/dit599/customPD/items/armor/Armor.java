@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.items.armor;
 
 import java.util.ArrayList;
@@ -26,10 +29,14 @@ import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.items.EquipableItem;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.armor.glyphs.*;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.HeroSprite;
 import com.dit599.customPD.sprites.ItemSprite;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
+import com.dit599.customPD.windows.WndMessage;
+import com.dit599.customPD.windows.WndStory;
+import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -96,6 +103,11 @@ public class Armor extends EquipableItem {
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( TXT_EQUIP_CURSED, toString() );
+				if(Dungeon.isTutorial){
+					WndStory.showChapter( 
+									"You have equipped a cursed item! You will need to use " +
+									"a scroll of Upgrade or Remove Curse on it before you can unequip the item.");
+				}
 			}
 			
 			((HeroSprite)hero.sprite).updateArmor();

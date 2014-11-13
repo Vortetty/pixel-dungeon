@@ -1,26 +1,29 @@
 /*
- * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+* CustomPD
+* Copyright (C) 2014 CustomPD team
+* This is a modification of source code from: 
+* Pixel Dungeon
+* Copyright (C) 2012-2014 Oleg Dolya
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.scenes;
 
 import android.content.Intent;
 import android.net.Uri;
 
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.effects.Flare;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
@@ -35,51 +38,83 @@ import com.watabou.noosa.TouchArea;
 
 public class AboutScene extends PixelScene {
 
-	private static final String TXT = 
-		"Code & graphics: Watabou\n" +
+	private static final String TXT_UPPER = "This is a modification of Pixel Dungeon, " +
+			"which can be found here:\n";
+	
+	private static final String TXT_LOWER = 
+		"\n\nCode & graphics: Watabou\n" +
 		"Music: Cube_Code\n\n" + 
+		"Additional modifications & coding: CustomPD team\n\n" +
 		"This game is inspired by Brian Walker's Brogue. " +
 		"Try it on Windows, Mac OS or Linux - it's awesome! ;)\n\n" +
-		"Please visit official website for additional info:";
+		"License and warranty can be found here:";
 	
-	private static final String LNK = "pixeldungeon.watabou.ru";
+	private static final String PD_LNK = "play.google.com/store/apps/details?id=com.watabou.pixeldungeon";
+	private static final String GPL_LNK = "gnu.org/copyleft/gpl.html";
 	
 	@Override
 	public void create() {
 		super.create();
 		
-		BitmapTextMultiline text = createMultiline( TXT, 8 );
-		text.maxWidth = Math.min( Camera.main.width, 120 );
-		text.measure();
-		add( text );
+		BitmapTextMultiline upperText = createMultiline( TXT_UPPER, 8 );
+		upperText.maxWidth = Math.min( Camera.main.width, 120 );
+		upperText.measure();
+		add( upperText );
 		
-		text.x = align( (Camera.main.width - text.width()) / 2 );
-		text.y = align( (Camera.main.height - text.height()) / 2 );
+		BitmapTextMultiline pdLink = createMultiline( PD_LNK, 8 );
+		pdLink.maxWidth = Math.min( Camera.main.width, 120 );
+		pdLink.measure();
+		pdLink.hardlight( Window.TITLE_COLOR );
+		add( pdLink );
 		
-		BitmapTextMultiline link = createMultiline( LNK, 8 );
-		link.maxWidth = Math.min( Camera.main.width, 120 );
-		link.measure();
-		link.hardlight( Window.TITLE_COLOR );
-		add( link );
+		BitmapTextMultiline lowerText = createMultiline( TXT_LOWER, 8 );
+		lowerText.maxWidth = Math.min( Camera.main.width, 120 );
+		lowerText.measure();
+		add( lowerText );
 		
-		link.x = text.x;
-		link.y = text.y + text.height();
+		BitmapTextMultiline gplLink = createMultiline( GPL_LNK, 8 );
+		gplLink.maxWidth = Math.min( Camera.main.width, 120 );
+		gplLink.measure();
+		gplLink.hardlight( Window.TITLE_COLOR );
+		add( gplLink );
 		
-		TouchArea hotArea = new TouchArea( link ) {
+		upperText.x = align( (Camera.main.width - upperText.width()) / 2 );
+		upperText.y = align( (Camera.main.height - (upperText.height() + pdLink.height() + 
+													lowerText.height() + gplLink.height())) / 2 );
+		
+		pdLink.x = upperText.x;
+		pdLink.y = upperText.y + upperText.height();
+		
+		lowerText.x = upperText.x;
+		lowerText.y = pdLink.y + pdLink.height();
+		
+		gplLink.x = upperText.x;
+		gplLink.y = lowerText.y + lowerText.height();
+		
+		TouchArea pdHotArea = new TouchArea( pdLink ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://" + LNK ) );
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://" + PD_LNK ) );
 				Game.instance.startActivity( intent );
 			}
 		};
-		add( hotArea );
+		add( pdHotArea );
 		
-		Image wata = Icons.WATA.get();
-		wata.x = align( text.x + (text.width() - wata.width) / 2 );
-		wata.y = text.y - wata.height - 8;
-		add( wata );
+		TouchArea gplHotArea = new TouchArea( gplLink ) {
+			@Override
+			protected void onClick( Touch touch ) {
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://" + GPL_LNK ) );
+				Game.instance.startActivity( intent );
+			}
+		};
+		add( gplHotArea );
 		
-		new Flare( 7, 64 ).color( 0x112233, true ).show( wata, 0 ).angularSpeed = +20;
+		Image title = Icons.TITLE.get();
+		title.x = align( upperText.x + (upperText.width() - title.width) / 2 );
+		title.y = upperText.y - title.height - 8;
+		add( title );
+		
+		new Flare( 7, 64 ).color( 0x112233, true ).show( title, 0 ).angularSpeed = +20;
 		
 		Archs archs = new Archs();
 		archs.setSize( Camera.main.width, Camera.main.height );
@@ -94,6 +129,6 @@ public class AboutScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		PixelDungeon.switchNoFade( TitleScene.class );
+		CustomPD.switchNoFade( TitleScene.class );
 	}
 }

@@ -92,7 +92,7 @@ public class WndHero extends WndTabbed {
 	
 	private class StatsTab extends Group {
 		
-		private static final String TXT_TITLE		= "Level %d %s";
+		private static final String TXT_TITLE		= "CustomPD Level %d %s";
 		private static final String TXT_CATALOGUS	= "Catalogus";
 		private static final String TXT_JOURNAL		= "Journal";
 		

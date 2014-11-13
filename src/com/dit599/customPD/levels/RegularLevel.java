@@ -1,6 +1,9 @@
 /*
+ * CustomPD
+ * Copyright (C) 2014 CustomPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,18 +12,20 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.levels;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
+import android.util.Log;
 
 import com.dit599.customPD.Bones;
 import com.dit599.customPD.Dungeon;
@@ -394,18 +399,24 @@ public abstract class RegularLevel extends Level {
 		
 		for (Room r : rooms) {
 			if (r.type != Type.NULL) {
+				Log.d("REGULARLEVEL PAINT", "BEFORE placing" );
 				placeDoors( r );
-				r.type.paint( this, r );
+				Log.d("REGULARLEVEL PAINT", "BEFORE PAINTING" );
+				r.type.paint( this, r );			
+				Log.d("REGULARLEVEL PAINT", "AFTER PAINTING" );
 			} else {
 				if (feeling == Feeling.CHASM && Random.Int( 2 ) == 0) {
+					Log.d("REGULARLEVEL PAINT", "BEFORE Filling" );
 					Painter.fill( this, r, Terrain.WALL );
+					Log.d("REGULARLEVEL PAINT", "AFTER Filling" );
 				}
 			}
 		}
-		
+		Log.d("REGULARLEVEL PAINT", "AFTER FOR1" );
 		for (Room r : rooms) {
 			paintDoors( r );
 		}
+		Log.d("REGULARLEVEL PAINT", "AFTER FOR2" );
 	}
 	
 	private void placeDoors( Room r ) {

@@ -18,7 +18,7 @@
 package com.dit599.customPD.scenes;
 
 import com.dit599.customPD.Assets;
-import com.dit599.customPD.PixelDungeon;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.Rankings;
 import com.dit599.customPD.effects.Flare;
 import com.dit599.customPD.sprites.ItemSprite;
@@ -39,7 +39,7 @@ import com.watabou.noosa.ui.Button;
 
 public class RankingsScene extends PixelScene {
 	
-	private static final String TXT_TITLE		= "Top Rankings";
+	private static final String TXT_TITLE		= "CustomPD Top Rankings";
 	private static final String TXT_TOTAL		= "Total games played: %d";
 	private static final String TXT_NO_GAMES	= "No games have been played yet.";
 	
@@ -120,7 +120,7 @@ public class RankingsScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		PixelDungeon.switchNoFade( TitleScene.class );
+		CustomPD.switchNoFade( TitleScene.class );
 	}
 	
 	public static class Record extends Button {
