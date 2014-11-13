@@ -165,7 +165,10 @@ public abstract class Level implements Bundlable {
 		blobs = new HashMap<Class<? extends Blob>,Blob>();
 		plants = new SparseArray<Plant>();
 		
-		if (!Dungeon.bossLevel()) {
+		if (Dungeon.template != null) {
+			feeling = LevelTemplate.currentLevelTemplate().feeling;
+		}
+		if (!Dungeon.bossLevel() && Dungeon.template == null) {
 			addItemToSpawn( Generator.random( Generator.Category.FOOD ) );
 			if (Dungeon.posNeeded()) {
 				addItemToSpawn( new PotionOfStrength() );

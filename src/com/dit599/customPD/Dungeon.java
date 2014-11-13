@@ -62,6 +62,7 @@ import com.dit599.customPD.levels.SewerLevel;
 import com.dit599.customPD.levels.TutorialBossLevel;
 import com.dit599.customPD.levels.TutorialLevel;
 import com.dit599.customPD.levels.template.DungeonTemplate;
+import com.dit599.customPD.levels.template.LevelTemplate;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.StartScene;
 import com.dit599.customPD.utils.BArray;
@@ -140,7 +141,7 @@ public class Dungeon {
 	
 	public static Hero hero;
 	public static Level level;
-    public static DungeonTemplate template = null; // = new DungeonTemplate();
+	public static DungeonTemplate template = null; // = new DungeonTemplate();
 	
 	// Either Item or Class<? extends Item>
 	public static Object quickslot;
@@ -228,8 +229,14 @@ public class Dungeon {
 		Arrays.fill( visible, false );
 		Log.d("DUNGEON NEWLEVEL", "AFTER FILL" );
 		
-		Level level;
-		if(isTutorial){
+		Level level = null;
+		if (template != null) {
+			try {
+				level = LevelTemplate.currentLevelTemplate().theme.newInstance();
+			} catch (InstantiationException e) {
+			} catch (IllegalAccessException e) {
+			}
+		} else if (isTutorial) {
 			switch (depth) {
 
 			case 1:
@@ -246,8 +253,7 @@ public class Dungeon {
 				level = new DeadEndLevel();
 				Statistics.deepestFloor--;
 			}
-		}
-		else{
+		} else {
 			switch (depth) {
 			case 1:
 			case 2:

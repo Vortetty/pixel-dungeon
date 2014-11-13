@@ -7,6 +7,7 @@ import com.dit599.customPD.actors.mobs.Bandit;
 import com.dit599.customPD.actors.mobs.Gnoll;
 import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.levels.Level;
+import com.dit599.customPD.levels.Level.Feeling;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Room.Type;
 import com.dit599.customPD.levels.SewerLevel;
@@ -19,6 +20,9 @@ public class LevelTemplate {
 	public int maxMobs = 2;
 	/** Default 50 */
 	public float timeToRespawn = 100;
+
+	public Class<? extends Level> theme = SewerLevel.class;
+	public Feeling feeling = Feeling.NONE;
 
 	public Room.Type requiredSpecialRoom = Type.MAGIC_WELL;
 
@@ -43,7 +47,7 @@ public class LevelTemplate {
 		}
 		int rnd = Random.Int(totalWeight);
 		int index = 0;
-		while (rnd > 0) {
+		while (rnd >= mobs.get(index).weight) {
 			rnd -= mobs.get(index).weight;
 			index++;
 		}
