@@ -941,6 +941,9 @@ public class Hero extends Char {
 				if (Level.passable[target] || Level.avoid[target]) {
 					step = target;
 				}
+				else if (Dungeon.isTutorial && Dungeon.level.map[target] == Terrain.BARRICADE){
+					WndStory.showChapter("You have found a barricade. Perhaps you can burn it down?");
+				}
 			}
 			
 		} else {
