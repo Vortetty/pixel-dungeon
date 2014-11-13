@@ -361,7 +361,7 @@ public abstract class Level implements Bundlable {
 		return new Actor() {	
 			@Override
 			protected boolean act() {
-				if (!Dungeon.isTutorial && mobs.size() < nMobs()) {
+				if (mobs.size() < nMobs()) {
 
 					Mob mob = Bestiary.mutable( Dungeon.depth );
 					mob.state = mob.WANDERING;
