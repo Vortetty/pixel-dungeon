@@ -44,6 +44,7 @@ public class ScrollOfMagicMapping extends Scroll {
 		int[] map = Dungeon.level.map;
 		boolean[] mapped = Dungeon.level.mapped;
 		boolean[] discoverable = Level.discoverable;
+		Terrain.mappingScroll = true;
 		
 		boolean noticed = false;
 		
@@ -82,6 +83,7 @@ public class ScrollOfMagicMapping extends Scroll {
 		setKnown();
 		
 		curUser.spendAndNext( TIME_TO_READ );
+		Terrain.mappingScroll = false;
 	}
 	
 	@Override

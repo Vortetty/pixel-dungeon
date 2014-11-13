@@ -123,7 +123,7 @@ public class Dungeon {
 		"resting place on this floor.",
 		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for " +
 		"this difficult fight! If you need a reminder on the available types of potions and scrolls, " +
-		"press the player portrait in the upper left corner"
+		"press the player portrait in the upper left corner."
 	};
 	
 	private static final String TXT_DEAD_END = 

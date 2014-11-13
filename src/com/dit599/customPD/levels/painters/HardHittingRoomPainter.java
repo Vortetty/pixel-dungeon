@@ -89,6 +89,6 @@ public class HardHittingRoomPainter extends Painter {
 	}
 	public static String prompt() {
 		return "Hard-Hitting Enemies\n\n" +
-				"Equip your heaviest armor to survive!";
+				"Equip your heaviest armor and use your powerful seeds/potions/scrolls to survive!";
 	}
 }

@@ -17,8 +17,13 @@
  */
 package com.dit599.customPD.levels;
 
+import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.windows.WndStory;
+
 public class Terrain {
 
+	public static boolean mappingScroll = false;
+	
 	public static final int CHASM			= 0;
 	public static final int EMPTY			= 1;
 	public static final int GRASS			= 2;
@@ -143,6 +148,9 @@ public class Terrain {
 	public static int discover( int terr ) {
 		switch (terr) {
 		case SECRET_DOOR:
+			if(Dungeon.isTutorial && !Terrain.mappingScroll){
+				WndStory.showChapter("You have found a hidden door!");
+			}
 			return DOOR;
 		case SECRET_FIRE_TRAP:
 			return FIRE_TRAP;
