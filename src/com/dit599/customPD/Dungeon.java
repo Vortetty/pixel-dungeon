@@ -141,7 +141,7 @@ public class Dungeon {
 	
 	public static Hero hero;
 	public static Level level;
-	public static DungeonTemplate template = null; // = new DungeonTemplate();
+	public static DungeonTemplate template = null;
 	
 	// Either Item or Class<? extends Item>
 	public static Object quickslot;
