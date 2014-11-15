@@ -103,13 +103,14 @@ public class Toolbar extends Component {
 			private GoldIndicator gold;
 			@Override
 			protected void onClick() {
+				GameScene.show( new WndBag( Dungeon.hero.belongings.backpack, null, WndBag.Mode.ALL, null ) );
+				
 				if(Dungeon.isTutorial && !Dungeon.invOpened){
 					Dungeon.invOpened = true;
 					WndStory.showChapter("This is your inventory. press on an item to get options for what " +
 							"to do with it. if you long press the item is assigned to the quickslot, giving you " +
 							"faster access to it!");
 				}
-				GameScene.show( new WndBag( Dungeon.hero.belongings.backpack, null, WndBag.Mode.ALL, null ) );
 			}
 			protected boolean onLongClick() {
 				GameScene.show( new WndCatalogus() );

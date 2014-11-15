@@ -53,7 +53,9 @@ public class BagRoomPainter extends Painter {
 		}
 		
 		room.entrance().set( Room.Door.Type.BARRICADE );
-		level.addItemToSpawn( new PotionOfLiquidFlame() );
+		PotionOfLiquidFlame p = new PotionOfLiquidFlame();
+		p.setKnown();
+		level.addItemToSpawn(p);
 	}
 	public static String tip() {
 		return " Having multiple bags increases the total amount of items you can carry.";
