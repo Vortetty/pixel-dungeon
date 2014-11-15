@@ -20,6 +20,8 @@
 */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.actors.Actor;
+import com.dit599.customPD.actors.mobs.Rat;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.armor.LeatherArmor;
@@ -66,25 +68,32 @@ public class ArmorRoomPainter extends Painter {
 		armors[2].degrade();
 		armors[2].degrade();
 		armors[2].cursed = true;
-		for (int i=0; i < 3; i++) {
+		for (int i=0; i < 6; i++) {
 			int pos;
 			do {
 				pos = room.random();
 			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop(armors[i], pos );
+			if(i < 3){
+				level.drop(armors[i], pos );
+			}
+			else{
+				Rat rat = new Rat();
+				rat.pos = pos;
+				level.mobs.add( rat );
+				Actor.occupyCell( rat );
+			}
 		}
 		
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 	}
 	public static String tip() {
-		return "This room contains several unidentified armors. You can't see if the armor is upgraded/degraded at the " +
-				"moment. The required strength to use them efficiently could be less or more than the default " +
-				"number displayed on them. Be careful when equipping unidentified armor as it may be cursed, making you " +
-				"unable to take it off until it is uncursed.";
+		return "Be careful when equipping unidentified armor as it may be cursed, making you " +
+				"unable to take it off until it is uncursed. Too heavy armor makes you move slower.";
 	}
 	public static String prompt() {
 		return "Armor Room\n\n" +
-				"Plate > Scale > Mail > Leather > Cloth";
+				"This room contains several unidentified armors. You can't see if the armor is upgraded/degraded at the " +
+				"moment. The required strength to use them efficiently could be less or more than the default " +
+				"number displayed on them.";
 	}
 }

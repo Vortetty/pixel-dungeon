@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels.painters;
 
 import java.io.File;
@@ -33,6 +33,9 @@ import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.potions.Potion;
+import com.dit599.customPD.items.potions.PotionOfExperience;
+import com.dit599.customPD.items.potions.PotionOfHealing;
+import com.dit599.customPD.items.potions.PotionOfStrength;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
@@ -76,8 +79,7 @@ public class PotionRoomPainter extends Painter {
 				level.heaps.get( pos ) != null);
 		dropAll(level.heaps, pos);
 
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 	}
 	private static void dropAll(SparseArray<Heap> heaps, int cell){
 		Heap heap = heaps.get( cell );
@@ -95,33 +97,24 @@ public class PotionRoomPainter extends Painter {
 			dropAll( heaps, n );
 			return;
 		}
-
-		try{
-			DexFile dex = new DexFile(CustomPD.self.getApplicationContext().getApplicationInfo().sourceDir);
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			Enumeration<String> entries = dex.entries();
-			while (entries.hasMoreElements()) {
-				String entry = entries.nextElement();
-				if (entry.contains("PotionOf")){
-					Class<?> c = classLoader.loadClass(entry);
-					Potion p = (Potion) c.newInstance();
-					p.setKnown();
-					heap.drop((Item) p);
-				}
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
+		Potion [] potions = {
+			new PotionOfExperience(), new PotionOfExperience(), new PotionOfHealing(), new PotionOfHealing(),
+			new PotionOfStrength(), new PotionOfStrength()
+		};
+		
+		for (Potion p : potions){
+			p.setKnown();
+			heap.drop(p);
 		}
 	}
 	public static String tip() {
-		return "This room contains 1 of every potion in the game, press them in your inventory to learn " +
-				"what they do. Potions can be either drunk or thrown, and which colour gives which effect is " +
-				"randomized each new game (and in the real game the potions are unidentifed until used). " +
-				"3 seeds of any colour can be used in an alchemy pot to brew a potion.";
+		return "3 seeds of any colour can be used in an alchemy pot to brew a potion.";
 	}
 	public static String prompt() {
-		return "Potion Brewery";
+		return "Potion Brewery\n\n " +
+				"This room contains a few copies of the most useful potions in the game, press them in your inventory to learn " +
+				"what they do. Potions can be either drunk or thrown, and which colour gives which effect is " +
+				"randomized each new game (and in the real game the potions are unidentifed until used). ";
 	}
 }
 

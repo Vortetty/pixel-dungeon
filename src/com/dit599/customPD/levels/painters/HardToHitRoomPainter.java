@@ -41,26 +41,23 @@ public class HardToHitRoomPainter extends Painter {
 
 		Room.Door entrance = room.entrance();
 
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 
 		int pos;
-		for (int i = 0; i < 2; i++){
-			do {
-				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop( new Gold(50), pos).type = Type.TOMB;
-		}
+		do {
+			pos = room.random();
+		} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+		level.drop( new Gold(50), pos).type = Type.TOMB;
 	}
 	public static String tip() {
-		return "Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +
-				"Position yourself accordingly before activating them. Ghosts are easiest to kill " +
-				"by exploiting the 1 guaranteed hit when the enemy enters a doorway (this is a sneak attack). " +
-				"This sneak attack works even for weapons that are too heavy (which otherwise are " +
-				"almost guaranteed to miss).";
+		return "Sneak attacks work even for weapons that are too heavy (which otherwise are " +
+				"almost guaranteed to miss). Besides sneak attacks, items that cause magical " +
+				"damage are also more likely to hit than normal weapon damage.";
 	}
 	public static String prompt() {
 		return "Hard-To-Hit\n\n" +
-				"Try and get the enemy into a doorway, so that your next attack is guaranteed to hit!";
+				"Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +
+				"Position yourself accordingly before activating them. Ghosts are easiest to kill " +
+				"by exploiting the 1 guaranteed hit when the enemy enters a doorway (this is a sneak attack).";
 	}
 }

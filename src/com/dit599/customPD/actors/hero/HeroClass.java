@@ -24,6 +24,7 @@ import com.dit599.customPD.items.TomeOfMastery;
 import com.dit599.customPD.items.armor.ClothArmor;
 import com.dit599.customPD.items.food.Food;
 import com.dit599.customPD.items.potions.PotionOfStrength;
+import com.dit599.customPD.items.rings.RingOfDetection;
 import com.dit599.customPD.items.rings.RingOfShadows;
 import com.dit599.customPD.items.scrolls.ScrollOfIdentify;
 import com.dit599.customPD.items.scrolls.ScrollOfMagicMapping;
@@ -111,6 +112,7 @@ public enum HeroClass {
 	
 	private static void initCommon( Hero hero ) {
 		(hero.belongings.armor = new ClothArmor()).identify();
+		(hero.belongings.ring2 = new RingOfDetection()).upgrade().identify();
 		new Food().identify().collect();
 	}
 	

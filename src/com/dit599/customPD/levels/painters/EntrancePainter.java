@@ -20,6 +20,7 @@ package com.dit599.customPD.levels.painters;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.potions.PotionOfExperience;
 import com.dit599.customPD.items.potions.PotionOfHealing;
+import com.dit599.customPD.items.potions.PotionOfStrength;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
@@ -49,7 +50,10 @@ public class EntrancePainter extends Painter {
 			do{
 				pos = room.random(0);
 			}while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			if(Dungeon.depth == 3){
+			if(Dungeon.depth == 2){
+			level.drop(new PotionOfStrength(), pos );
+			}
+			else if(Dungeon.depth == 3){
 			level.drop(new PotionOfHealing(), pos );
 			}
 			else if (Dungeon.depth == 4){

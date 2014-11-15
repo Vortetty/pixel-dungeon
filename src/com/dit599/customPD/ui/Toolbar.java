@@ -37,6 +37,7 @@ import com.dit599.customPD.windows.WndInfoItem;
 import com.dit599.customPD.windows.WndInfoMob;
 import com.dit599.customPD.windows.WndInfoPlant;
 import com.dit599.customPD.windows.WndMessage;
+import com.dit599.customPD.windows.WndStory;
 import com.dit599.customPD.windows.WndTradeItem;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Gizmo;
@@ -102,6 +103,12 @@ public class Toolbar extends Component {
 			private GoldIndicator gold;
 			@Override
 			protected void onClick() {
+				if(Dungeon.isTutorial && !Dungeon.invOpened){
+					Dungeon.invOpened = true;
+					WndStory.showChapter("This is your inventory. press on an item to get options for what " +
+							"to do with it. if you long press the item is assigned to the quickslot, giving you " +
+							"faster access to it!");
+				}
 				GameScene.show( new WndBag( Dungeon.hero.belongings.backpack, null, WndBag.Mode.ALL, null ) );
 			}
 			protected boolean onLongClick() {

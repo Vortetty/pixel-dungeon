@@ -17,15 +17,20 @@
  */
 package com.dit599.customPD.plants;
 
+import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.actors.buffs.Buff;
+import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.effects.CellEmitter;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.effects.particles.ShaftParticle;
 import com.dit599.customPD.items.potions.PotionOfHealing;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.ItemSpriteSheet;
 import com.dit599.customPD.ui.BuffIndicator;
+import com.dit599.customPD.windows.WndStory;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 public class Sungrass extends Plant {
@@ -69,6 +74,23 @@ public class Sungrass extends Plant {
 		@Override
 		public String desc() {
 			return TXT_DESC;
+		}
+		
+		@Override
+		public boolean doPickUp( Hero hero ) {
+			if (collect( hero.belongings.backpack )) {
+				if(Dungeon.isTutorial){
+					WndStory.showChapter("You have picked up a sungrass seed. Plant it " +
+							"then stand on it to slowly recover health!");			
+				}
+				GameScene.pickUp( this );
+				Sample.INSTANCE.play( Assets.SND_ITEM );
+				hero.spendAndNext( TIME_TO_PICK_UP );
+				return true;
+				
+			} else {
+				return false;
+			}
 		}
 	}
 	

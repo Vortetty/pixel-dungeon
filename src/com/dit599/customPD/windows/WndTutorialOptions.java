@@ -29,7 +29,6 @@ public class WndTutorialOptions extends Window {
 
 	public WndTutorialOptions(String message) {
 		super();
-		Dungeon.promptShowing = true;
 		BitmapTextMultiline tfMesage = PixelScene.createMultiline( message + "\n\nClick to close.", 8 );
 		tfMesage.maxWidth = WIDTH;
 		tfMesage.measure();
@@ -55,6 +54,5 @@ public class WndTutorialOptions extends Window {
 	}
 
 	protected void onSelect() {
-		Dungeon.promptShowing = false;
 	};
 }

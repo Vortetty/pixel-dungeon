@@ -20,6 +20,7 @@ package com.dit599.customPD.items.scrolls;
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.buffs.Invisibility;
+import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.effects.CellEmitter;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.effects.SpellSprite;
@@ -27,6 +28,7 @@ import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Terrain;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.utils.GLog;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfMagicMapping extends Scroll {
@@ -101,5 +103,22 @@ public class ScrollOfMagicMapping extends Scroll {
 	
 	public static void discover( int cell ) {
 		CellEmitter.get( cell ).start( Speck.factory( Speck.DISCOVER ), 0.1f, 4 );
+	}
+	
+	@Override
+	public boolean doPickUp( Hero hero ) {
+		if (collect( hero.belongings.backpack )) {
+			if(Dungeon.isTutorial){
+				WndStory.showChapter("You have picked up a scroll of mapping. Use it to " +
+						"reveal the map of the floor you are on!");			
+			}
+			GameScene.pickUp( this );
+			Sample.INSTANCE.play( Assets.SND_ITEM );
+			hero.spendAndNext( TIME_TO_PICK_UP );
+			return true;
+			
+		} else {
+			return false;
+		}
 	}
 }

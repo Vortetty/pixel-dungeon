@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels.painters;
 
 import java.util.Enumeration;
@@ -31,8 +31,11 @@ import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
-import com.dit599.customPD.plants.Firebloom.Seed;
+import com.dit599.customPD.plants.Earthroot;
+import com.dit599.customPD.plants.Icecap;
 import com.dit599.customPD.plants.Plant;
+import com.dit599.customPD.plants.Plant.Seed;
+import com.dit599.customPD.plants.Sungrass;
 import com.dit599.customPD.scenes.GameScene;
 import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
@@ -45,17 +48,16 @@ public class SeedRoomPainter extends Painter {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
-		
+
 		set( level, room.center(), Terrain.SIGN );
-		
+
 		int pos;
 		do {
 			pos = room.random();
 		} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
 		dropAll(level.heaps, pos);
 
-		room.entrance().set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		room.entrance().set( Room.Door.Type.REGULAR );
 	}
 	private static void dropAll(SparseArray<Heap> heaps, int cell){
 		Heap heap = heaps.get( cell );
@@ -73,30 +75,20 @@ public class SeedRoomPainter extends Painter {
 			dropAll( heaps, n );
 			return;
 		}
-
-		try{
-			String dir = "com.dit599.customPD.plants.Plant";
-			DexFile dex = new DexFile(CustomPD.self.getApplicationContext().getApplicationInfo().sourceDir);
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			Enumeration<String> entries = dex.entries();
-			while (entries.hasMoreElements()) {
-				String entry = entries.nextElement();
-				if (entry.contains("$Seed") && !entry.contains(dir)){
-					Class<?> c = classLoader.loadClass(entry);
-					heap.drop((Item) c.newInstance());
-				}
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
+		Seed [] seeds = {
+				new Earthroot.Seed(), new Earthroot.Seed(), new Sungrass.Seed(), new Icecap.Seed()
+		};
+		for(Seed s : seeds){
+			heap.drop(s);
 		}
 	}
 	public static String tip() {
-		return "This room contains 1 of every seed in the game! press them in your inventory to learn what effect they have. " +
-				"Seeds can be planted where you stand, or throw-planted on another square. Someone then has to step on " +
-				"the plant to activate it, and for some plants you have to stay standing on that spot to recieve the effect!";
+		return "Something has to step on the plant (or an item must be thrown ontop) in order to activate it. " +
+				"For some plants you have to stay standing ontop to recieve the effect!";
 	}
 	public static String prompt() {
-		return "Seed Room";
+		return "Seed Room\n\n" +
+				"This room contains a few copies of the most useful seeds in the game! press them in your inventory to learn what effect they have. " +
+				"Seeds can be planted where you stand, or throw-planted on another square.";
 	}
 }

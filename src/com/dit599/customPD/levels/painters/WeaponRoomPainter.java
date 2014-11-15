@@ -17,6 +17,9 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.actors.Actor;
+import com.dit599.customPD.actors.mobs.Crab;
+import com.dit599.customPD.actors.mobs.Rat;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.armor.LeatherArmor;
@@ -66,26 +69,33 @@ public class WeaponRoomPainter extends Painter {
 		weapons[2].degrade();
 		weapons[2].degrade();
 		weapons[2].cursed = true;
-		for (int i=0; i < 3; i++) {
+		for (int i=0; i < 6; i++) {
 			int pos;
 			do {
 				pos = room.random();
 			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop(weapons[i], pos );
+			if(i < 3){
+				level.drop(weapons[i], pos );
+			}
+			else{
+				Rat rat = new Rat();
+				rat.pos = pos;
+				level.mobs.add( rat );
+				Actor.occupyCell( rat );
+			}
 		}
 		
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 	}
 	public static String tip() {
-		return "This room contains several unidentified weapons. You can't see if the weapons are up/degraded at the " +
-				"moment. The required strength to use them efficiently could be less or more than the default " +
-				"number displayed on them. Be careful when equipping unidentified weapons as they may be cursed, making you " +
-				"unable to take them off until they are uncursed.";
+		return "Be careful when equipping unidentified weapons as they may be cursed, making you " +
+				"unable to take them off until they are uncursed. Too heavy weapons will make you " +
+				"miss with your attacks.";
 	}
 	public static String prompt() {
 		return "Weapon Room\n\n" +
-				"Weapons have 5 tiers (5th = best). Weapons with fast/accurate modifier are as good as regular weapons " +
-				"of 1 tier above.";
+				"This room contains several unidentified weapons. You can't see if the weapons are up/degraded at the " +
+				"moment. The required strength to use them efficiently could be less or more than the default " +
+				"number displayed on them. Weapons have 5 tiers (5th = best).";
 	}
 }

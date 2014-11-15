@@ -26,6 +26,7 @@ import com.dit599.customPD.items.rings.RingOfSatiety;
 import com.dit599.customPD.ui.BuffIndicator;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -84,12 +85,18 @@ public class Hunger extends Buff implements Hero.Doom {
 					
 					GLog.n( TXT_STARVING );
 					statusUpdated = true;
-					
+					if(Dungeon.isTutorial && !Dungeon.starvingNotified){
+						WndStory.showChapter("You are now starving, which means you will slowly lose health " +
+								"instead of receiving it. Perhaps you have some food in your inventory?");
+					}
 					hero.interrupt();
 					
 				} else if (newLevel >= HUNGRY && level < HUNGRY) {
 					
 					GLog.w( TXT_HUNGRY );
+					if(Dungeon.isTutorial && !Dungeon.hungerNotified){
+						WndStory.showChapter("You are starting to get hungry, but this is nothing to worry about.");
+					}
 					statusUpdated = true;
 					
 				}

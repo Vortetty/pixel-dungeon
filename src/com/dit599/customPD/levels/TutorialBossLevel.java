@@ -123,8 +123,6 @@ public class TutorialBossLevel extends RegularLevel {
 		paintWater();
 		paintGrass();
 		
-		placeTraps();
-		
 		return true;
 	}
 		

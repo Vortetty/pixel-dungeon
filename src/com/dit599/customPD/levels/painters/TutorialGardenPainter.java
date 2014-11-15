@@ -37,7 +37,7 @@ public class TutorialGardenPainter extends Painter {
 		fill( level, room, 1, Terrain.HIGH_GRASS );
 		fill( level, room, 2, Terrain.GRASS );
 		
-		room.entrance().set( Room.Door.Type.HIDDEN );
+		room.entrance().set( Room.Door.Type.REGULAR );
 		
 		int bushes = Random.Int( 3 ) == 0 ? (Random.Int( 5 ) == 0 ? 2 : 1) : 0;
 		for (int i=0; i < bushes; i++) {
@@ -58,12 +58,12 @@ public class TutorialGardenPainter extends Painter {
 		level.drop(new Pasty(), room.center().x + (room.center().y-1) * Level.WIDTH);
 	}
 	public static String tip() {
-		return "In gardens you can safely rest (hold down the icon in the lower-left corner) " +
-				"as long as you are not starving. Resting speeds up your natural health regeneration, " +
+		return "Resting speeds up your natural health regeneration, " +
 				"but also makes you hungry faster.";
 	}
 	public static String prompt() {
 		return "Garden Of Resting\n\n" +
-				"Enemies will not find you in here.";
+				"In gardens you can safely rest (hold down the icon in the lower-left corner) " +
+				"as long as you are not starving. Enemies will not find you in here.";
 	}
 }

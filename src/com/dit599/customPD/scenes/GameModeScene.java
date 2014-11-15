@@ -86,7 +86,11 @@ public class GameModeScene extends PixelScene{
 				Dungeon.isTutorial = false;
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
-				Dungeon.firstHeap = true;
+				Dungeon.foundHeap = true;
+				Dungeon.foundItem = true;
+				Dungeon.invOpened = true;
+				Dungeon.hungerNotified = true;
+				Dungeon.starvingNotified = true;
 				CustomPD.switchNoFade(  StartScene.class );
 			}
 		};
@@ -100,7 +104,11 @@ public class GameModeScene extends PixelScene{
 				Dungeon.isTutorial = false;
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
-				Dungeon.firstHeap = true;
+				Dungeon.foundHeap = true;
+				Dungeon.foundItem = true;
+				Dungeon.invOpened = true;
+				Dungeon.hungerNotified = true;
+				Dungeon.starvingNotified = true;
 				CustomPD.self.editMaps();
 			}
 
@@ -114,7 +122,11 @@ public class GameModeScene extends PixelScene{
 				Dungeon.isTutorial = false;
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
-				Dungeon.firstHeap = true;
+				Dungeon.foundHeap = true;
+				Dungeon.foundItem = true;
+				Dungeon.invOpened = true;
+				Dungeon.hungerNotified = true;
+				Dungeon.starvingNotified = true;
 				CustomPD.switchNoFade( StartScene.class );
 			}
 		};
@@ -127,7 +139,11 @@ public class GameModeScene extends PixelScene{
 				Dungeon.isTutorial = true;
 				Dungeon.firePrompt = false;
 				Dungeon.encounteredMob = false;
-				Dungeon.firstHeap = false;
+				Dungeon.foundHeap = false;
+				Dungeon.foundItem = false;
+				Dungeon.invOpened = false;
+				Dungeon.hungerNotified = false;
+				Dungeon.starvingNotified = false;
 				for(String f : Game.instance.fileList()){
 					Log.d("FILES", f);
 				}

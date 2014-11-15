@@ -62,14 +62,15 @@ public class IdentifyWellPainter extends Painter {
 		} while (
 				level.map[pos] == Terrain.WELL);
 		set(level, pos, Terrain.SIGN);
-		room.entrance().set( Room.Door.Type.HIDDEN );
+		room.entrance().set( Room.Door.Type.REGULAR );
 	}
 	public static String tip() {
-		return "This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +
-				"Drinking will also reveal the current floor's map. You can also instead throw in a single item (including scrolls and " +
+		return "You can also instead throw in a single item (including scrolls and " +
 				"potions), to identify. This can be used to avoid the risk of equipping a cursed item just to identify it.";
 	}
 	public static String prompt() {
-		return "Equipment Identification Room";
+		return "Equipment Identification Room\n\n " +
+				"This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +
+				"Drinking will also reveal the current floor's map. ";
 	}
 }

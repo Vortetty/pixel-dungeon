@@ -580,8 +580,13 @@ public class Hero extends Char {
 			
 			Heap heap = Dungeon.level.heaps.get( pos );
 			if (heap != null) {
-				if(Dungeon.isTutorial && !Dungeon.firstHeap && heap.size() > 1){
-					Dungeon.firstHeap = true;
+				if(Dungeon.isTutorial && !Dungeon.foundItem){
+					Dungeon.foundItem = true;
+					WndStory.showChapter("You have picked up an item and stored it in your inventory! " +
+							"Press the bag icon to open your inventory.");
+				}
+				if(Dungeon.isTutorial && !Dungeon.foundHeap && heap.size() > 1){
+					Dungeon.foundHeap = true;
 					WndStory.showChapter(
 									"Items can be stacked ontop of each other. Press the blue icon in the upper " +
 											"right to pick up the next item in the stack.");
@@ -1166,6 +1171,18 @@ public class Hero extends Char {
 		if (isAlive()) {
 			new Flare( 8, 32 ).color( 0xFFFF66, true ).show( sprite, 2f ) ;
 			return;
+		}
+		else if(Dungeon.isTutorial){
+			if(Dungeon.depth < 4){
+				Dungeon.hero.HP = Dungeon.hero.HT;
+				WndStory.showChapter("Since this is a tutorial, you have been revived after dying. Beware however " +
+						"that if you die in the actual game you will have to start from the beginning.");
+				return;
+			}
+			else{
+				WndStory.showChapter("Regrettably you have died on the bonus floor of the tutorial, but you should still " +
+						"be ready to start playing the standard game!");
+			}
 		}
 		
 		Actor.fixTime();

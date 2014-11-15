@@ -79,13 +79,13 @@ public class WndStory extends Window {
 		"Very few adventurers have ever descended this far..." );
 	};
 	static {
-	T_CHAPTERS.put(1, "Welcome to the tutorial dungeon! On this floor, you can learn about the various potions, scrolls and seeds " +
+	T_CHAPTERS.put(1, "Welcome to the tutorial dungeon! On this floor, you can learn about useful potions, scrolls and seeds " +
 			"available in the game. Now start exploring by tapping where you want to go!");
 	T_CHAPTERS.put(2, "On this floor, you can learn about equipment identification and how to use magic wells. To get out of the " +
-			"first room, you will need to use the search button (left of '?') to find the hidden doors!");
+			"first room, you will need to use the magnifying glass button to find the hidden doors!");
 	T_CHAPTERS.put(3, "On this floor, you must learn how to fight effectively against both enemies that are hard to hit and " +
 			"enemies that hit hard!");
-	T_CHAPTERS.put(4, "Now, use what you have learned to defeat the Goo!");
+	T_CHAPTERS.put(4, "Welcome to the bonus level, now use what you have learned and the items you have found to defeat the Goo!");
 	};
 	
 	private BitmapTextMultiline tf;

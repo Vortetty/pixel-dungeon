@@ -17,7 +17,12 @@
  */
 package com.dit599.customPD.items.potions;
 
+import com.dit599.customPD.Assets;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.hero.Hero;
+import com.dit599.customPD.scenes.GameScene;
+import com.dit599.customPD.windows.WndStory;
+import com.watabou.noosa.audio.Sample;
 
 public class PotionOfExperience extends Potion {
 
@@ -41,5 +46,22 @@ public class PotionOfExperience extends Potion {
 	@Override
 	public int price() {
 		return isKnown() ? 80 * quantity : super.price();
+	}
+	
+	@Override
+	public boolean doPickUp( Hero hero ) {
+		if (collect( hero.belongings.backpack )) {
+			if(Dungeon.isTutorial){
+				WndStory.showChapter("You have picked up a potion of experience. Use it to " +
+						"level up!");			
+			}
+			GameScene.pickUp( this );
+			Sample.INSTANCE.play( Assets.SND_ITEM );
+			hero.spendAndNext( TIME_TO_PICK_UP );
+			return true;
+			
+		} else {
+			return false;
+		}
 	}
 }

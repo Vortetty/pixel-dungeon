@@ -17,13 +17,18 @@
  */
 package com.dit599.customPD.items.scrolls;
 
+import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.weapon.Weapon;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.windows.WndBag;
+import com.dit599.customPD.windows.WndStory;
+import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfWeaponUpgrade extends InventoryScroll {
 
@@ -56,5 +61,22 @@ public class ScrollOfWeaponUpgrade extends InventoryScroll {
 			"This scroll will upgrade a melee weapon, improving its quality. In contrast to a regular Scroll of Upgrade, " +
 			"this specialized version will never destroy an enchantment on a weapon. On the contrary, it is able to imbue " +
 			"an unenchanted weapon with a random enchantment.";
+	}
+	@Override
+	public boolean doPickUp( Hero hero ) {
+		if (collect( hero.belongings.backpack )) {
+			if(Dungeon.isTutorial){
+				WndStory.showChapter("You have picked up a scroll of weapon upgrade. Use it to upgrade " +
+						"a weapon of your choice. The weapon will also gain a magical effect if it did not " +
+						"already have one.");			
+			}
+			GameScene.pickUp( this );
+			Sample.INSTANCE.play( Assets.SND_ITEM );
+			hero.spendAndNext( TIME_TO_PICK_UP );
+			return true;
+			
+		} else {
+			return false;
+		}
 	}
 }

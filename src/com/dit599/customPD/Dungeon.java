@@ -116,7 +116,7 @@ public class Dungeon {
 		"Use '?' to get more information about anything you see in the game. In order to enter one " +
 		"of the rooms on this floor, you will need to find something that creates fire! Keep an eye " +
 		"out for more signs.",
-		"From now on, doors may be hidden, so don't forget to use search (left of '?') from time to time. " +
+		"From now on, doors may be hidden, so don't forget to use the magnifying glass button from time to time. " +
 		"There are two different magical wells on this floor. Make sure to investigate wells with '?' to " +
 		"see what type they are. ",
 		"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
@@ -157,8 +157,11 @@ public class Dungeon {
 	public static boolean isTutorial = false;
 	public static boolean firePrompt = false;
 	public static boolean encounteredMob = false;
-	public static boolean firstHeap = false;
-	public static boolean promptShowing = false;
+	public static boolean foundHeap = false;
+	public static boolean foundItem = false;
+	public static boolean invOpened = false;
+	public static boolean hungerNotified = false;
+	public static boolean starvingNotified = false;
 	public static long timeStamp = 0;
 	
 	public static void init() {
@@ -564,8 +567,11 @@ public class Dungeon {
 			bundle.put("tutorial", isTutorial);
 			bundle.put("firePrompt", firePrompt);
 			bundle.put("encountered", encounteredMob);
-			bundle.put("firstHeap", firstHeap);
-			bundle.put("promptShowing", promptShowing);
+			bundle.put("foundHeap", foundHeap);
+			bundle.put("foundItem", foundItem);
+			bundle.put("invOpened", invOpened);
+			bundle.put("hungerNotified", hungerNotified);
+			bundle.put("starvingNotified", starvingNotified);
 			
 			Bundle.write( bundle, output );
 			output.close();
@@ -638,8 +644,11 @@ public class Dungeon {
 		isTutorial = bundle.getBoolean("tutorial");
 		firePrompt = bundle.getBoolean("firePrompt");
 		encounteredMob = bundle.getBoolean("encountered");
-		firstHeap = bundle.getBoolean("firstHeap");
-		promptShowing = bundle.getBoolean("promptShowing");
+		foundHeap = bundle.getBoolean("foundHeap");
+		foundItem = bundle.getBoolean("foundItem");
+		invOpened = bundle.getBoolean("invOpened");
+		hungerNotified = bundle.getBoolean("hungerNotified");
+		starvingNotified = bundle.getBoolean("starvingNotified");
 		timeStamp = 0;
 		
 		if (fullLoad) {

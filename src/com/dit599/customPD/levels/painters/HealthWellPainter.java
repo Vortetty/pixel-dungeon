@@ -61,12 +61,13 @@ public class HealthWellPainter extends Painter {
 		} while (
 				level.map[pos] == Terrain.WELL);
 		set(level, pos, Terrain.SIGN);
-		room.entrance().set( Room.Door.Type.HIDDEN );
+		room.entrance().set( Room.Door.Type.REGULAR );
 	}
 	public static String tip() {
 		return "This is a well of health, drink it to heal yourself, or throw in your dew vial to fully charge it!";
 	}
 	public static String prompt() {
-		return "Dew Vial Charging Room";
+		return "Dew Vial Charging Room\n\n " +
+				"This is a well of health, drink it to heal yourself, or throw in your dew vial to fully charge it!";
 	}
 }

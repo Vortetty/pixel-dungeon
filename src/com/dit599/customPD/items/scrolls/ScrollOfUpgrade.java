@@ -17,13 +17,17 @@
  */
 package com.dit599.customPD.items.scrolls;
 
+import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.items.Item;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.windows.WndBag;
+import com.dit599.customPD.windows.WndStory;
+import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfUpgrade extends InventoryScroll {
 
@@ -60,5 +64,22 @@ public class ScrollOfUpgrade extends InventoryScroll {
 			"or find its mark more frequently; a suit of armor will deflect additional blows; " +
 			"the effect of a ring on its wearer will intensify. Weapons and armor will also " +
 			"require less strength to use, and any curses on the item will be lifted.";
+	}
+	@Override
+	public boolean doPickUp( Hero hero ) {
+		if (collect( hero.belongings.backpack )) {
+			if(Dungeon.isTutorial){
+				WndStory.showChapter("You have picked up a scroll of upgrade. Use it to upgrade " +
+						"a weapon or armor of your choice. This will improve the item's " +
+						"statistics as well as reducing its strength requirement!");			
+			}
+			GameScene.pickUp( this );
+			Sample.INSTANCE.play( Assets.SND_ITEM );
+			hero.spendAndNext( TIME_TO_PICK_UP );
+			return true;
+			
+		} else {
+			return false;
+		}
 	}
 }

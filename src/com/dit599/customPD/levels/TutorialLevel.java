@@ -148,7 +148,6 @@ public class TutorialLevel extends RegularLevel {
 		Log.d("TUTORIAL BUILD", "AFTER Paint" );
 		paintWater();
 		paintGrass();
-		placeTraps();
 		return true;
 	}
 	@Override

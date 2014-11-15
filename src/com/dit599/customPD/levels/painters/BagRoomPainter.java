@@ -56,11 +56,11 @@ public class BagRoomPainter extends Painter {
 		level.addItemToSpawn( new PotionOfLiquidFlame() );
 	}
 	public static String tip() {
-		return "This room contains bags for your scrolls and seeds! These bags extend your inventory with " +
-				"additional tabs, where items of the specific type will be automatically placed. This also " +
-				"increases the amount of items you can carry.";
+		return " Having multiple bags increases the total amount of items you can carry.";
 	}
 	public static String prompt() {
-		return "Bag Storage";
+		return "Bag Storage\n\n" +
+				"This room contains bags for your scrolls and seeds! These bags extend your inventory with " +
+				"additional tabs, where items of the specific type will be automatically placed.";
 	}
 }
