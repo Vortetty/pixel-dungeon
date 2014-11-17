@@ -20,22 +20,16 @@
 */
 package com.dit599.customPD.scenes;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.text.method.HideReturnsTransformationMethod;
 import android.util.Log;
 
 import com.dit599.customPD.Assets;
-import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.CustomPD;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
 import com.dit599.customPD.ui.PrefsButton;
-import com.dit599.customPD.ui.RedButton;
-import com.dit599.customPD.windows.WndGame;
-import com.dit599.customPD.windows.WndSettings;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -80,7 +74,7 @@ public class GameModeScene extends PixelScene{
 		placeTorch( title.x + 18, title.y + 20 );
 		placeTorch( title.x + title.width - 18, title.y + 20 );
 
-		DashboardItem btnCustom = new DashboardItem( TXT_CUSTOM, 0 ) {
+        DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 2, false) {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
@@ -91,13 +85,13 @@ public class GameModeScene extends PixelScene{
 				Dungeon.invOpened = true;
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
-				CustomPD.switchNoFade(  StartScene.class );
+                // CustomPD.switchNoFade( StartScene.class );
 			}
 		};
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );
 		add( btnCustom );
 
-		DashboardItem btnEditor = new DashboardItem( TXT_MAP_EDITOR, 0 ) {
+        DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 2, false) {
 		
 			@Override
 			protected void onClick() {
@@ -109,7 +103,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.invOpened = true;
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
-				CustomPD.self.editMaps();
+                // CustomPD.self.editMaps();
 			}
 
 		};
@@ -185,6 +179,7 @@ public class GameModeScene extends PixelScene{
 
 		private Image image;
 		private BitmapText label;
+        private boolean enabled = true;
 
 		public DashboardItem( String text, int index ) {
 			super();
@@ -195,6 +190,11 @@ public class GameModeScene extends PixelScene{
 
 			setSize( SIZE, SIZE );
 		}
+
+        public DashboardItem(String text, int index, boolean enabled) {
+            this(text, index);
+            this.enabled = enabled;
+        }
 
 		@Override
 		protected void createChildren() {
@@ -220,8 +220,10 @@ public class GameModeScene extends PixelScene{
 
 		@Override
 		protected void onTouchDown() {
-			image.brightness( 1.5f );
-			Sample.INSTANCE.play( Assets.SND_CLICK, 1, 1, 0.8f );
+            if (enabled) {
+                image.brightness(1.5f);
+                Sample.INSTANCE.play(Assets.SND_CLICK, 1, 1, 0.8f);
+            }
 		}
 
 		@Override
