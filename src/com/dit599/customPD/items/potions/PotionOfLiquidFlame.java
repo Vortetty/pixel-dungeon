@@ -63,9 +63,10 @@ public class PotionOfLiquidFlame extends Potion {
 		boolean b = super.doPickUp(hero);
 		if(b && Dungeon.isTutorial && !Dungeon.firePrompt){
 			Dungeon.firePrompt = true;
-			WndStory.showChapter(
-							"You have found an item that creates fire! Now look for a pile of wood or a " +
-							"lone bookcase to burn down." );
+			WndStory.showChapter( 
+					"You have found an item that creates fire! Now look for a pile of wood or a " +
+							"lone bookcase to burn down. If you manage to set yourself on fire, " +
+							"go stand in water!");
 		}
 		return b;
 	}

@@ -57,7 +57,8 @@ public class HardToHitRoomPainter extends Painter {
 	public static String prompt() {
 		return "Hard-To-Hit\n\n" +
 				"Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +
-				"Position yourself accordingly before activating them. Ghosts are easiest to kill " +
-				"by exploiting the 1 guaranteed hit when the enemy enters a doorway (this is a sneak attack).";
+				"Position yourself accordingly before activating them. To kill the ghosts, you will" +
+				"need to exploit the 1 guaranteed hit when the enemy enters a doorway (this is a sneak attack). " +
+				"Keep moving around to bait them into such a position!";
 	}
 }

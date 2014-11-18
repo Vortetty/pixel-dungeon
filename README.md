@@ -1,4 +1,4 @@
-CustomPD
+YourPD
 =============
 
 This is a modified version of the open-source game Pixel Dungeon, which 

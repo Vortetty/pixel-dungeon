@@ -80,7 +80,8 @@ public class Firebloom extends Plant {
 				Dungeon.firePrompt = true;
 				WndStory.showChapter( 
 						"You have found an item that creates fire! Now look for a pile of wood or a " +
-								"lone bookcase to burn down.");
+								"lone bookcase to burn down. If you manage to set yourself on fire, " +
+								"go stand in water!");
 			}
 			return b;
 		}
