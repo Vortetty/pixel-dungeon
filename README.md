@@ -16,4 +16,6 @@ https://play.google.com/store/apps/details?id=com.dit599.customPD
 And the source code of the original game is available here:
 https://github.com/watabou/pixel-dungeon
 
-
+In order to use the source code you will need to right click on the project in eclipse, 
+choose build path then link source tab, then add a new source that targets the pdclasses
+folder.
