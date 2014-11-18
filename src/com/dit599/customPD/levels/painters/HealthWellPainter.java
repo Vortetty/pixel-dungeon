@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -64,7 +64,7 @@ public class HealthWellPainter extends Painter {
 		room.entrance().set( Room.Door.Type.REGULAR );
 	}
 	public static String tip() {
-		return "This is a well of health, drink it to heal yourself, or throw in your dew vial to fully charge it!";
+		return "This is a well of health, drink it to heal yourself, or throw in your dew vial (found on floor 1) to fully charge it!";
 	}
 	public static String prompt() {
 		return "Dew Vial Charging Room\n\n " +

@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
- */
+*/
 package com.dit599.customPD.levels.painters;
 
 import java.util.Enumeration;
