@@ -56,8 +56,8 @@ public class PotionOfExperience extends Potion {
 		if (collect( hero.belongings.backpack )) {
 			if(Dungeon.isTutorial){
 				WndStory.showChapter("You have picked up a potion of experience. Drink it now " +
-						"to increase your level by 1! This will increase your chance to hit " +
-						"enemies and to avoid their attacks.");			
+						"to increase your level by 1! This will increase your max health, chance to hit " +
+						"enemies and chance to avoid enemy attacks.");			
 			}
 			GameScene.pickUp( this );
 			Sample.INSTANCE.play( Assets.SND_ITEM );
