@@ -293,8 +293,6 @@ public class TutorialLevel extends RegularLevel {
 			for (int i = 0; i< 2; i++){
 				addItemToSpawn( new Firebloom.Seed() );
 			}
-		}
-		else if (Dungeon.dewVial && Dungeon.depth == 1) {
 			addItemToSpawn( new DewVial() );
 			Dungeon.dewVial = false;
 		}
