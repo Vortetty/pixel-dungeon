@@ -112,7 +112,10 @@ public enum HeroClass {
 	
 	private static void initCommon( Hero hero ) {
 		(hero.belongings.armor = new ClothArmor()).identify();
-		(hero.belongings.ring2 = new RingOfDetection()).upgrade().identify();
+		if(Dungeon.isTutorial){
+			(hero.belongings.ring2 = new RingOfDetection()).upgrade().identify();
+			hero.belongings.ring2.activate( hero );
+		}
 		new Food().identify().collect();
 	}
 	

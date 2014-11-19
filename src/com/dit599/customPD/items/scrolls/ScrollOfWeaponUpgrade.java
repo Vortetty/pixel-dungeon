@@ -61,7 +61,7 @@ public class ScrollOfWeaponUpgrade extends InventoryScroll {
 	@Override
 	public String desc() {
 		return
-			"This scroll will upgrade a melee weapon, improving its quality. In contrast to a regular Scroll of Upgrade, " +
+			"This scroll will upgrade a weapon, improving its quality. In contrast to a regular Scroll of Upgrade, " +
 			"this specialized version will never destroy an enchantment on a weapon. On the contrary, it is able to imbue " +
 			"an unenchanted weapon with a random enchantment.";
 	}

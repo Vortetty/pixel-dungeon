@@ -76,7 +76,7 @@ public class WeaponRoomPainter extends Painter {
 			int pos;
 			do {
 				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null);
 			if(i < 3){
 				level.drop(weapons[i], pos );
 			}

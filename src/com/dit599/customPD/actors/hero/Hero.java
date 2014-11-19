@@ -72,6 +72,7 @@ import com.dit599.customPD.items.keys.GoldenKey;
 import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.keys.Key;
 import com.dit599.customPD.items.keys.SkeletonKey;
+import com.dit599.customPD.items.potions.Potion;
 import com.dit599.customPD.items.potions.PotionOfStrength;
 import com.dit599.customPD.items.rings.RingOfAccuracy;
 import com.dit599.customPD.items.rings.RingOfDetection;
@@ -80,6 +81,7 @@ import com.dit599.customPD.items.rings.RingOfEvasion;
 import com.dit599.customPD.items.rings.RingOfHaste;
 import com.dit599.customPD.items.rings.RingOfShadows;
 import com.dit599.customPD.items.rings.RingOfThorns;
+import com.dit599.customPD.items.scrolls.Scroll;
 import com.dit599.customPD.items.scrolls.ScrollOfMagicMapping;
 import com.dit599.customPD.items.scrolls.ScrollOfRecharging;
 import com.dit599.customPD.items.scrolls.ScrollOfUpgrade;
@@ -580,11 +582,6 @@ public class Hero extends Char {
 			
 			Heap heap = Dungeon.level.heaps.get( pos );
 			if (heap != null) {
-				if(Dungeon.isTutorial && !Dungeon.foundItem){
-					Dungeon.foundItem = true;
-					WndStory.showChapter("You have picked up an item and stored it in your inventory! " +
-							"Press the bag icon to open your inventory.");
-				}
 				if(Dungeon.isTutorial && !Dungeon.foundHeap && heap.size() > 1){
 					Dungeon.foundHeap = true;
 					WndStory.showChapter(
@@ -592,6 +589,22 @@ public class Hero extends Char {
 											"right to pick up the next item in the stack.");
 				}
 				Item item = heap.pickUp();
+				
+
+				if(Dungeon.isTutorial && !Dungeon.foundItem && !(item instanceof Dewdrop)){
+					Dungeon.foundItem = true;
+					WndStory.showChapter("You have picked up an item and stored it in your inventory! " +
+							"Press the bag icon to open your inventory.");
+				}
+				if(Dungeon.isTutorial && item instanceof Scroll && !((Scroll) item).isKnown()){
+					WndStory.showChapter("You have picked up an unknown scroll. " +
+							"you will need to use it to find out what it does!");
+				}
+				else if(Dungeon.isTutorial && item instanceof Potion && !((Potion) item).isKnown()){
+					WndStory.showChapter("You have picked up an unknown potion. " +
+							"you will need to use it to find out what it does!");
+				}
+				
 				if (item.doPickUp( this )) {
 					
 					if (item instanceof Dewdrop) {
@@ -1221,8 +1234,9 @@ public class Hero extends Char {
 				}
 			}
 		}
-		
-		Bones.leave();
+		if(!Dungeon.isTutorial){
+			Bones.leave();
+		}
 		
 		Dungeon.observe();
 				

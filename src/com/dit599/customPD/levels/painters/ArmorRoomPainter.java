@@ -72,7 +72,7 @@ public class ArmorRoomPainter extends Painter {
 			int pos;
 			do {
 				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null);
 			if(i < 3){
 				level.drop(armors[i], pos );
 			}
@@ -92,7 +92,7 @@ public class ArmorRoomPainter extends Painter {
 	}
 	public static String prompt() {
 		return "Armor Room\n\n" +
-				"This room contains several unidentified armors. You can't see if the armor is upgraded/degraded at the " +
+				"This room contains several unidentified pieces of armor. You can't see if the armor is upgraded/degraded at the " +
 				"moment. The required strength to use them efficiently could be less or more than the default " +
 				"number displayed on them.";
 	}

@@ -37,7 +37,7 @@ public class WndGame extends Window {
 	private static final String TXT_RANKINGS	= "Rankings";
 	private static final String TXT_START		= "Start New Game";
 	private static final String TXT_MENU		= "Main Menu";
-	private static final String TXT_EXIT		= "Exit Pixel Dungeon";
+	private static final String TXT_EXIT		= "Exit Game";
 	private static final String TXT_RETURN		= "Return to Game";
 	
 	private static final int WIDTH		= 120;

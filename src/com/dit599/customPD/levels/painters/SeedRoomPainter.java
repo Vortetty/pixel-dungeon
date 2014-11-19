@@ -84,7 +84,7 @@ public class SeedRoomPainter extends Painter {
 	}
 	public static String tip() {
 		return "Something has to step on the plant (or an item must be thrown ontop) in order to activate it. " +
-				"For some plants you have to stay standing ontop to recieve the effect!";
+				"For some plants you have to stay standing ontop to receive the effect!";
 	}
 	public static String prompt() {
 		return "Seed Room\n\n" +

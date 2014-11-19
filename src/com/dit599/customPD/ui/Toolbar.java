@@ -111,7 +111,7 @@ public class Toolbar extends Component {
 				if(Dungeon.isTutorial && !Dungeon.invOpened){
 					Dungeon.invOpened = true;
 					WndStory.showChapter("This is your inventory. press on an item to get options for what " +
-							"to do with it. if you long press the item is assigned to the quickslot, giving you " +
+							"to do with it. if you long press the item, it will be assigned to the quickslot (bottom right), giving you " +
 							"faster access to it!");
 				}
 			}

@@ -59,7 +59,7 @@ public class TutorialGardenPainter extends Painter {
 	}
 	public static String tip() {
 		return "Resting speeds up your natural health regeneration, " +
-				"but also makes you hungry faster.";
+				"but also makes you go hungry faster.";
 	}
 	public static String prompt() {
 		return "Garden Of Resting\n\n" +

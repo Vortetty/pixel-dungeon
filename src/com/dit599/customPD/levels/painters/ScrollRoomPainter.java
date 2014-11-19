@@ -114,14 +114,14 @@ public class ScrollRoomPainter extends Painter {
 		}
 	}
 	public static String tip() {
-		return "Which scroll rune gives which effect is randomized each new game, and in " +
-				"the real game these scrolls are unidentified until you use them. Beware cathing fire " +
+		return "Beware catching fire " +
 				"while carrying scrolls, since they may be destroyed!";
 	}
 	public static String prompt() {
 		return "Scroll Library\n\n " +
 				"This room contains a few copies of the most useful scrolls in the game, press them in your inventory to learn " +
-				"what they do. ";
+				"what they do. Which scroll rune gives which effect is randomized each new game, and in " +
+				"the real game all scroll types are unidentified until you use them.";
 	}
 }
 

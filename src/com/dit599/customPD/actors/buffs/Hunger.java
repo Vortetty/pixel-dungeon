@@ -90,7 +90,7 @@ public class Hunger extends Buff implements Hero.Doom {
 					statusUpdated = true;
 					if(Dungeon.isTutorial && !Dungeon.starvingNotified){
 						WndStory.showChapter("You are now starving, which means you will slowly lose health " +
-								"instead of receiving it. Perhaps you have some food in your inventory?");
+								"instead of slowly regenerating it. Perhaps you have some food in your inventory?");
 					}
 					hero.interrupt();
 					

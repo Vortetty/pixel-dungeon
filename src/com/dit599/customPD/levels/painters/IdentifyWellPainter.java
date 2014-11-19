@@ -71,6 +71,6 @@ public class IdentifyWellPainter extends Painter {
 	public static String prompt() {
 		return "Equipment Identification Room\n\n " +
 				"This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +
-				"Drinking will also reveal the current floor's map. ";
+				"Drinking will also reveal hidden doors on the parts of the map you have explored. ";
 	}
 }

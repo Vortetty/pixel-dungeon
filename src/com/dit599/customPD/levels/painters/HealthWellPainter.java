@@ -64,10 +64,10 @@ public class HealthWellPainter extends Painter {
 		room.entrance().set( Room.Door.Type.REGULAR );
 	}
 	public static String tip() {
-		return "This is a well of health, drink it to heal yourself, or throw in your dew vial (found on floor 1) to fully charge it!";
+		return "This is a well of health, drink it to heal yourself, or throw in your dew vial (found on tutorial floor 1) to fully charge it!";
 	}
 	public static String prompt() {
 		return "Dew Vial Charging Room\n\n " +
-				"This is a well of health, drink it to heal yourself, or throw in your dew vial to fully charge it!";
+				"This is a well of health, drink it to heal yourself, or throw in your dew vial (found on tutorial floor 1) to fully charge it!";
 	}
 }

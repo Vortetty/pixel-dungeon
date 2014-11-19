@@ -114,7 +114,7 @@ public class PotionRoomPainter extends Painter {
 		return "Potion Brewery\n\n " +
 				"This room contains a few copies of the most useful potions in the game, press them in your inventory to learn " +
 				"what they do. Potions can be either drunk or thrown, and which colour gives which effect is " +
-				"randomized each new game (and in the real game the potions are unidentifed until used). ";
+				"randomized each new game (and in the real game all potion types are unidentified until used).";
 	}
 }
 
