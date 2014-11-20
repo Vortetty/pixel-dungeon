@@ -85,6 +85,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.invOpened = true;
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
+				Dungeon.collectedDrop = true;
                 // CustomPD.switchNoFade( StartScene.class );
 			}
 		};
@@ -103,6 +104,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.invOpened = true;
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
+				Dungeon.collectedDrop = true;
                 // CustomPD.self.editMaps();
 			}
 
@@ -121,6 +123,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.invOpened = true;
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
+				Dungeon.collectedDrop = true;
 				CustomPD.switchNoFade( StartScene.class );
 			}
 		};
@@ -138,6 +141,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.invOpened = false;
 				Dungeon.hungerNotified = false;
 				Dungeon.starvingNotified = false;
+				Dungeon.collectedDrop = false;
 				for(String f : Game.instance.fileList()){
 					Log.d("FILES", f);
 				}

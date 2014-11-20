@@ -63,7 +63,8 @@ public class Dewdrop extends Item {
 
 		} else if (vial != null) {
 
-			if(Dungeon.isTutorial){
+			if(Dungeon.isTutorial && !Dungeon.collectedDrop){
+				Dungeon.collectedDrop = true;
 				WndStory.showChapter("You have stored a dewdrop in your dew vial!");			
 			}
 			vial.collectDew( this );

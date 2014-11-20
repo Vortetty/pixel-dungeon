@@ -162,6 +162,7 @@ public class Dungeon {
 	public static boolean invOpened = false;
 	public static boolean hungerNotified = false;
 	public static boolean starvingNotified = false;
+	public static boolean collectedDrop = false;
 	public static long timeStamp = 0;
 	
 	public static void init() {
@@ -572,6 +573,7 @@ public class Dungeon {
 			bundle.put("invOpened", invOpened);
 			bundle.put("hungerNotified", hungerNotified);
 			bundle.put("starvingNotified", starvingNotified);
+			bundle.put("collectedDrop", collectedDrop);
 			
 			Bundle.write( bundle, output );
 			output.close();
@@ -649,6 +651,7 @@ public class Dungeon {
 		invOpened = bundle.getBoolean("invOpened");
 		hungerNotified = bundle.getBoolean("hungerNotified");
 		starvingNotified = bundle.getBoolean("starvingNotified");
+		collectedDrop = bundle.getBoolean("collectedDrop");
 		timeStamp = 0;
 		
 		if (fullLoad) {
