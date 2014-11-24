@@ -45,6 +45,10 @@ import com.watabou.utils.SparseArray;
 
 import dalvik.system.DexFile;
 
+/**
+ * Paints a room that contains scrolls of upgrade, weapon upgrade, identify, remove curse
+ * and mapping.
+ */
 public class ScrollRoomPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
@@ -88,6 +92,9 @@ public class ScrollRoomPainter extends Painter {
 
 		entrance.set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Drops several scrolls on top of each other in this room.
+	 */
 	private static void dropAll(SparseArray<Heap> heaps, int cell){
 		Heap heap = heaps.get( cell );
 		if (heap == null) {
@@ -113,10 +120,16 @@ public class ScrollRoomPainter extends Painter {
 			heap.drop(s);
 		}
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "Beware catching fire " +
 				"while carrying scrolls, since they may be destroyed!";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Scroll Library\n\n " +
 				"This room contains a few copies of the most useful scrolls in the game, press them in your inventory to learn " +

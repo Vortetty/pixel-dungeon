@@ -53,15 +53,17 @@ public class TutorialLevel extends RegularLevel {
 	}
 
 	private boolean allRoomsPlaced;
-
+	
+	/**
+	 * Modified from regularlevels's build() in order to read from different Type collections
+	 * depending on current depth in the tutorial dungeon.
+	 */
 	@Override
 	protected boolean build() {
 		allRoomsPlaced = false;
-		Log.d("TUTORIAL BUILD", "INSIDE BUILD" );
 		if (!initRooms()) {
 			return false;
 		}
-		Log.d("TUTORIAL BUILD", "AFTER INITROOMS" );
 		int distance;
 		int retry = 0;
 		int minDistance = (int)Math.sqrt( rooms.size() );
@@ -69,29 +71,24 @@ public class TutorialLevel extends RegularLevel {
 			do {
 				roomEntrance = Random.element( rooms );
 			} while (roomEntrance.width() < 4 || roomEntrance.height() < 4);
-			Log.d("TUTORIAL BUILD", "DO ENTRANCE" );
 			do {
 				roomExit = Random.element( rooms );
 			} while (roomExit == roomEntrance || roomExit.width() < 4 || roomExit.height() < 4);
 
 			Graph.buildDistanceMap( rooms, roomExit );
 			distance = roomEntrance.distance();
-			Log.d("TUTORIAL BUILD", "DO EXIT" );
 			if (retry++ > 10) {
 				return false;
 			}
 
 		} while (distance < minDistance);
-		Log.d("TUTORIAL BUILD", "DISTANCE<MINDISTANCE" );
 		roomEntrance.type = Type.ENTRANCE;
 		roomExit.type = Type.EXIT;
 
 		HashSet<Room> connected = new HashSet<Room>();
 		connected.add( roomEntrance );
 
-		Log.d("TUTORIAL BUILD", "BEFORE DISTANCEMAP1" );
 		Graph.buildDistanceMap( rooms, roomExit );
-		Log.d("TUTORIAL BUILD", "BEFORE BUILDPATH1" );
 		List<Room> path = Graph.buildPath( rooms, roomEntrance, roomExit );
 
 		Room room = roomEntrance;
@@ -126,7 +123,6 @@ public class TutorialLevel extends RegularLevel {
 				connected.add( or );
 			}
 		}
-		Log.d("TUTORIAL BUILD", "AFTER connected size while" );
 		switch(Dungeon.depth){
 		case 1:
 			specials = new ArrayList<Room.Type>( Room.T_FLOOR1);
@@ -150,6 +146,12 @@ public class TutorialLevel extends RegularLevel {
 		paintGrass();
 		return true;
 	}
+	/**
+	 * Heavily changed from assignRoomType() in regularlevel. This version ensures
+	 * that all special rooms from the Type collection are placed on the level (even
+	 * if it has to start over by generating a new level to place them on). This has 
+	 * only been tested for up to 4 specials on a single floor.
+	 */
 	@Override
 	protected void assignRoomType() {
 
@@ -279,7 +281,10 @@ public class TutorialLevel extends RegularLevel {
 			}
 		}
 	}
-
+	/**
+	 * Modified to disable random enemy spawns on tutorial levels. Kept this way so that
+	 * spawns can be easily reenabled.
+	 */
 	@Override
 	protected void createMobs() {
 		if(!Dungeon.isTutorial){
@@ -287,6 +292,10 @@ public class TutorialLevel extends RegularLevel {
 		}
 	}
 
+	/**
+	 * Modified to guarantee that 2 fireseeds and 1 dewvial will appear on floor 1
+	 * of the tutorial.
+	 */
 	@Override
 	protected void createItems() {//Possibly spawn more floorspecific items?
 		if(Dungeon.depth == 1){

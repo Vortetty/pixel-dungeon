@@ -46,6 +46,10 @@ import com.watabou.utils.SparseArray;
 
 import dalvik.system.DexFile;
 
+/**
+ * Paints a room that contains potions of strength, health and experience, as well as
+ * an alchemy pot.
+ */
 public class PotionRoomPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
@@ -81,6 +85,9 @@ public class PotionRoomPainter extends Painter {
 
 		entrance.set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Drops several potions on top of each other in this room.
+	 */
 	private static void dropAll(SparseArray<Heap> heaps, int cell){
 		Heap heap = heaps.get( cell );
 		if (heap == null) {
@@ -107,9 +114,15 @@ public class PotionRoomPainter extends Painter {
 			heap.drop(p);
 		}
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "A combination of 3 seeds of the same or varying colour can be used in an alchemy pot to brew a potion.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Potion Brewery\n\n " +
 				"This room contains a few copies of the most useful potions in the game, press them in your inventory to learn " +

@@ -107,7 +107,10 @@ public class ScrollOfMagicMapping extends Scroll {
 	public static void discover( int cell ) {
 		CellEmitter.get( cell ).start( Speck.factory( Speck.DISCOVER ), 0.1f, 4 );
 	}
-	
+	/**
+	 * Modified with a tutorial clause that causes a prompt to display when this
+	 * item is picked up by the player in tutorialmode.
+	 */
 	@Override
 	public boolean doPickUp( Hero hero ) {
 		if (collect( hero.belongings.backpack )) {

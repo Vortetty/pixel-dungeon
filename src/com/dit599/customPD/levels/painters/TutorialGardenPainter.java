@@ -31,6 +31,9 @@ import com.watabou.utils.Random;
 
 public class TutorialGardenPainter extends Painter {
 
+	/**
+	 * Paints a room that is covered in tall grass and contains 1 piece of food.
+	 */
 	public static void paint( Level level, Room room ) {
 		
 		fill( level, room, Terrain.WALL );
@@ -57,10 +60,16 @@ public class TutorialGardenPainter extends Painter {
 		set( level, room.center(), Terrain.SIGN );
 		level.drop(new Pasty(), room.center().x + (room.center().y-1) * Level.WIDTH);
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "Resting speeds up your natural health regeneration, " +
 				"but also makes you go hungry faster.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Garden Of Resting\n\n" +
 				"In gardens you can safely rest (hold down the icon in the lower-left corner) " +

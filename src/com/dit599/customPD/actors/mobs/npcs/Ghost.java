@@ -261,7 +261,9 @@ public class Ghost extends NPC {
 				reset();
 			}
 		}
-		
+		/**
+		 * Modified to not spawn in tutorialmode.
+		 */
 		public static void spawn( SewerLevel level ) {
 			if (!Dungeon.isTutorial && !spawned && Dungeon.depth > 1 && Random.Int( 5 - Dungeon.depth ) == 0) {
 				

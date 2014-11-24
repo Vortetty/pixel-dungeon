@@ -18,9 +18,6 @@
 package com.dit599.customPD.scenes;
 
 import java.io.FileNotFoundException;
-
-import android.util.Log;
-
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.Statistics;

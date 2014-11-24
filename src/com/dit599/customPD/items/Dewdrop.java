@@ -41,7 +41,11 @@ public class Dewdrop extends Item {
 
 		stackable = true;
 	}
-
+	/**
+	 * Picks up the dewdrop. Modified with a tutorial clause triggered the first
+	 * time a user succesfully stores drop in vial in tutorialmode (causing a prompt
+	 * that informs the user of this).
+	 */
 	@Override
 	public boolean doPickUp( Hero hero ) {
 

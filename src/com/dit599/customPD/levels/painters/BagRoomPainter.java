@@ -32,6 +32,11 @@ import com.watabou.utils.Random;
 
 public class BagRoomPainter extends Painter {
 
+	/**
+	 * Paints a room that contains 2 special bags and a barricaded door. This
+	 * method also ensures a liquid flame potion is randomly placed on the level (so the
+	 * barricade can be burned down).
+	 */
 	public static void paint( Level level, Room room ) {
 		
 		final int floor = Terrain.EMPTY_SP;
@@ -57,9 +62,15 @@ public class BagRoomPainter extends Painter {
 		p.setKnown();
 		level.addItemToSpawn(p);
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return " Having multiple bags increases the total amount of items you can carry.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Bag Storage\n\n" +
 				"This room contains bags for your scrolls and seeds! These bags extend your inventory with " +

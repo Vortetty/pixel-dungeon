@@ -40,6 +40,10 @@ import com.watabou.utils.Random;
 
 public class WeaponRoomPainter extends Painter {
 
+	/**
+	 * Paints a room that contains 3 (static) different unidentified weapons
+	 * and 3 rat enemies.
+	 */
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
@@ -90,11 +94,17 @@ public class WeaponRoomPainter extends Painter {
 		
 		entrance.set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "Be careful when equipping unidentified weapons as they may be cursed, making you " +
 				"unable to take them off until they are uncursed. Too heavy weapons will make you " +
 				"miss with your attacks.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Weapon Room\n\n" +
 				"This room contains several unidentified weapons. You can't see if the weapons are up/degraded at the " +

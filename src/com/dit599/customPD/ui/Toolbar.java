@@ -66,7 +66,10 @@ public class Toolbar extends Component {
 		
 		height = btnInventory.height();
 	}
-	
+	/**
+	 * Modified btnInventory's onClick() so that a prompt informing the player of inventory
+	 * usages is displayed the first time inventory is opened in tutorialmode.
+	 */
 	@Override
 	protected void createChildren() {
 		

@@ -92,6 +92,11 @@ public class WndStory extends Window {
 	
 	private float delay;
 	
+	/**
+	 * Modified onClick() so that wndstory must always be displayed for 500 milliseconds before it
+	 * can be closed. This is used to avoid accidentally closing the window when you tap the screen at the same
+	 * time as it appears.
+	 */
 	public WndStory( String text ) {
 		super( 0, 0, Chrome.get( Chrome.Type.SCROLL ) );
 		
@@ -126,7 +131,10 @@ public class WndStory extends Window {
 			chrome.visible = tf.visible = true;
 		}
 	}
-	
+	/**
+	 * Modified with a tutorial clause so the correct collection of strings
+	 * is used for the "start of level" prompts when in tutorialmode.
+	 */
 	public static void showChapter( int id ) {
 		
 		if (Dungeon.chapters.contains( id )) {
@@ -150,6 +158,10 @@ public class WndStory extends Window {
 			Dungeon.chapters.add( id );
 		}
 	}
+	/**
+	 * This was added in order to more easily generate prompts (just pass in the
+	 * String the prompt should contain).
+	 */
 	public static void showChapter( String custom ) {
 		
 		if (custom != null) {

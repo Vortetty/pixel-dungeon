@@ -109,7 +109,10 @@ public enum HeroClass {
 		
 		hero.updateAwareness();
 	}
-	
+	/**
+	 * Modified with a tutorial clause that causes the player to start with a 
+	 * ring of detection if in tutorialmode.
+	 */
 	private static void initCommon( Hero hero ) {
 		(hero.belongings.armor = new ClothArmor()).identify();
 		if(Dungeon.isTutorial){

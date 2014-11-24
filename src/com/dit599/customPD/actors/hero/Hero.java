@@ -488,7 +488,10 @@ public class Hero extends Char {
 		lastAction = null;
 		act();
 	}
-	
+	/**
+	 * Modified so when encountering a sign the code will now try to get tip()
+	 * from the room object itself instead of from Dungeon.
+	 */
 	private boolean actMove( HeroAction.Move action ) {
 
 		if (getCloser( action.dst )) {
@@ -577,7 +580,10 @@ public class Hero extends Char {
 			return false;
 		}
 	}
-	
+	/**
+	 * Modified to contain several tutorial clauses to cause different prompts in tutorial mode
+	 * when certain item types are picked up.
+	 */
 	private boolean actPickUp( HeroAction.PickUp action ) {
 		int dst = action.dst;
 		if (pos == dst) {
@@ -736,7 +742,10 @@ public class Hero extends Char {
 			return false;
 		}
 	}
-	
+	/**
+	 * Modified with a tutorial clause used to end the game after descending from floor 4
+	 * if in tutorialmode.
+	 */
 	private boolean actDescend( HeroAction.Descend action ) {
 		Log.d("HERO DESCEND", "START");
 		int stairs = action.dst;
@@ -941,7 +950,10 @@ public class Hero extends Char {
 	public Mob visibleEnemy( int index ) {
 		return visibleEnemies.get( index % visibleEnemies.size() );
 	}
-	
+	/**
+	 * Modified with a tutorial clause which causes a prompt to be displayed when the
+	 * player touches a barricade in tutorialmode.
+	 */
 	private boolean getCloser( final int target ) {
 		
 		if (rooted) {
@@ -1176,7 +1188,12 @@ public class Hero extends Char {
 		}
 		return stealth;
 	}
-	
+	/**
+	 * Modified with a tutorial clause which prevents death on floor 1-3 in
+	 * tutorialmode, as well as causing a prompt explaining why to appear.
+	 * If death occurs on floor 4 of the tutorial, a prompt informing the player
+	 * that they should get started on the standard game is displayed instead.  
+	 */
 	@Override
 	public void die( Object cause  ) {
 		
@@ -1215,7 +1232,9 @@ public class Hero extends Char {
 			
 		}
 	}
-	
+	/**
+	 * Modified with a tutorial clause to not place bones in tutorialmode.
+	 */
 	public static void reallyDie( Object cause ) {
 		
 		int length = Level.LENGTH;

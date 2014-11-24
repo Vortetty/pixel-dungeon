@@ -27,14 +27,12 @@ import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.effects.particles.ShaftParticle;
-import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.sprites.CharSprite;
 import com.dit599.customPD.sprites.ItemSpriteSheet;
 import com.dit599.customPD.sprites.ItemSprite.Glowing;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
 import com.dit599.customPD.windows.WndStory;
-import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
@@ -81,7 +79,10 @@ public class DewVial extends Item {
 		volume	= bundle.getInt( VOLUME );
 		found = bundle.getBoolean("vialFound");
 	}
-	
+	/**
+	 * Picks up the dewvial. Modified with a tutorial clause that causes a prompt to be displayed
+	 * in tutorialmode, explaining how to use this item.
+	 */
 	@Override
 	public boolean doPickUp( Hero hero ) {
 		

@@ -68,7 +68,10 @@ public class PotionOfHealing extends Potion {
 	public int price() {
 		return isKnown() ? 30 * quantity : super.price();
 	}
-	
+	/**
+	 * Modified with a tutorial clause that causes a prompt to display when this
+	 * item is picked up by the player in tutorialmode.
+	 */
 	@Override
 	public boolean doPickUp( Hero hero ) {
 		if (collect( hero.belongings.backpack )) {

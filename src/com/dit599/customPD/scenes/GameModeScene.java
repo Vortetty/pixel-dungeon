@@ -38,7 +38,9 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
 
-
+/**
+ * Based on TitleScene. Used to allow user to choose game mode to play.
+ */
 public class GameModeScene extends PixelScene{
 
 	private static final String TXT_STANDARD		= "Standard";
@@ -46,6 +48,10 @@ public class GameModeScene extends PixelScene{
 	private static final String TXT_MAP_EDITOR		= "Map Editor";
 	private static final String TXT_TUTORIAL		= "Tutorial";
 	
+	/**
+	 * Modified to use buttons that redirect to the correct game mode and sets some flags
+	 * & other values when onClick().
+	 */
 	@Override
 	public void create() {
 

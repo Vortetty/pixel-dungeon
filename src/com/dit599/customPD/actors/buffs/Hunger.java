@@ -59,7 +59,10 @@ public class Hunger extends Buff implements Hero.Doom {
 		super.restoreFromBundle( bundle );
 		level = bundle.getFloat( LEVEL );
 	}
-	
+	/**
+	 * Modified with tutorial clauses  to cause prompts to appear the first times
+	 * hunger and starvation debuffs are gained in tutorialmode.
+	 */
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {

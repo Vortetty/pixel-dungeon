@@ -36,6 +36,10 @@ import com.watabou.utils.Random;
 
 public class ArmorRoomPainter extends Painter {
 
+	/**
+	 * Paints a room that contains 3 (static) different unidentified armors
+	 * and 3 rat enemies.
+	 */
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
@@ -86,10 +90,16 @@ public class ArmorRoomPainter extends Painter {
 		
 		entrance.set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "Be careful when equipping unidentified armor as it may be cursed, making you " +
 				"unable to take it off until it is uncursed. Too heavy armor makes you move slower.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Armor Room\n\n" +
 				"This room contains several unidentified pieces of armor. You can't see if the armor is upgraded/degraded at the " +

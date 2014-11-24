@@ -51,6 +51,9 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	public int price = 1;
 	public boolean enteredRoom = false;
 	
+	/**
+	 * Has been extended with the 12 new tutorial Painter subclasses. 
+	 */
 	public static enum Type {
 		NULL( null ),
 		T_WELL_IDENTIFY (HealthWellPainter.class ),
@@ -94,6 +97,10 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		private Method tip;
 		private Method prompt;
 		
+		/**
+		 * Modified so that for each Painter type the code also tries to locate
+		 * a tip and prompt method (originally it only searched for paint).
+		 */
 		private Type( Class<? extends Painter> painter ) {
 			try {
 				paint = painter.getMethod( "paint", Level.class, Room.class );
@@ -117,7 +124,10 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 				CustomPD.reportException( e );
 			}
 		}
-		
+		/**
+		 * Displays the result of the Painter subclass' tip() method,
+		 * or else the result of Dungeon's tip() if no method is found.  
+		 */
 		public void tip() {
 			try {
 				String s = (String) tip.invoke(null, null);
@@ -127,7 +137,10 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 				GameScene.show( new WndMessage( Dungeon.tip() ) );
 			}
 		}
-		
+		/**
+		 * Displays the result of the Painter subclass' prompt() method,
+		 * if the method is found.  
+		 */
 		public void prompt() {
 			try {
 				String s = (String) prompt.invoke(null, null);
@@ -143,17 +156,23 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		Type.TREASURY, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.LABORATORY, Type.VAULT
 	) );
 	
-	
+	/**
+	 * Rooms on tutorial floor 1.
+	 */
 	public static final ArrayList<Type> T_FLOOR1 = new ArrayList<Type>( Arrays.asList(
 			Type.T_SCROLL_ROOM, Type.T_SEED_ROOM, Type.T_BAG_ROOM, Type.T_POTION_ROOM
 		) );
 	
-	
+	/**
+	 * Rooms on tutorial floor 2.
+	 */
 	public static final ArrayList<Type> T_FLOOR2 = new ArrayList<Type>( Arrays.asList(
 			Type.T_WELL_HEALTH, Type.T_WEAPON_ROOM, Type.T_ARMOR_ROOM, Type.T_WELL_IDENTIFY
 		) );
 	
-	
+	/**
+	 * Rooms on tutorial floor 3.
+	 */
 	public static final ArrayList<Type> T_FLOOR3 = new ArrayList<Type>( Arrays.asList(
 			Type.T_GARDEN_ROOM, Type.T_HARDHITTING_ROOM, Type.T_STATUE_ROOM, Type.T_HARD_TO_HIT_ROOM
 		) );

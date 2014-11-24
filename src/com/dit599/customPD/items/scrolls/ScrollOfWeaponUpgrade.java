@@ -65,6 +65,10 @@ public class ScrollOfWeaponUpgrade extends InventoryScroll {
 			"this specialized version will never destroy an enchantment on a weapon. On the contrary, it is able to imbue " +
 			"an unenchanted weapon with a random enchantment.";
 	}
+	/**
+	 * Modified with a tutorial clause that causes a prompt to display when this
+	 * item is picked up by the player in tutorialmode.
+	 */
 	@Override
 	public boolean doPickUp( Hero hero ) {
 		if (collect( hero.belongings.backpack )) {

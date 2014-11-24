@@ -53,7 +53,11 @@ public class Window extends Group implements Signal.Listener<Key> {
 	public Window( int width, int height ) {
 		this( width, height, Chrome.get( Chrome.Type.WINDOW ) );
 	}
-			
+	/**
+	 * Modified onClick() so that window must always be displayed for 500 milliseconds before it
+	 * can be closed. This is used to avoid accidentally closing the window when you tap the screen at the same
+	 * time as it appears.
+	 */
 	public Window( int width, int height, NinePatch chrome ) {
 		super();
 		Dungeon.timeStamp = System.currentTimeMillis();

@@ -68,6 +68,10 @@ public class ScrollOfUpgrade extends InventoryScroll {
 			"the effect of a ring on its wearer will intensify. Weapons and armor will also " +
 			"require less strength to use, and any curses on the item will be lifted.";
 	}
+	/**
+	 * Modified with a tutorial clause that causes a prompt to display when this
+	 * item is picked up by the player in tutorialmode.
+	 */
 	@Override
 	public boolean doPickUp( Hero hero ) {
 		if (collect( hero.belongings.backpack )) {

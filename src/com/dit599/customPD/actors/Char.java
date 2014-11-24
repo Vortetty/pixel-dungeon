@@ -132,7 +132,10 @@ public abstract class Char extends Actor {
 			}
 		}
 	}
-	
+	/**
+	 * Extended with a tutorial clause inside the "unique mob killed hero" clause chain,
+	 * causing a prompt to appear when the hero is killed by the Goo when in tutorialmode. 
+	 */
 	public boolean attack( Char enemy ) {
 		
 		boolean visibleFight = Dungeon.visible[pos] || Dungeon.visible[enemy.pos];

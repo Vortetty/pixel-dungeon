@@ -145,6 +145,10 @@ public abstract class Level implements Bundlable {
 	private static final String MOBS		= "mobs";
 	private static final String BLOBS		= "blobs";
 	
+	/**
+	 * Modified with tutorial clause in order to prevent chasms from 
+	 * appearing on the level in tutorialmode.
+	 */
 	public void create() {
 		
 		resizingNeeded = false;
@@ -359,7 +363,10 @@ public abstract class Level implements Bundlable {
 	public int nMobs() {
 		return 0;
 	}
-	
+	/**
+	 * Modified with tutorial clause as part of disabling random enemy spawn
+	 * on levels in tutorialmode.
+	 */
 	public Actor respawner() {
 		return new Actor() {	
 			@Override

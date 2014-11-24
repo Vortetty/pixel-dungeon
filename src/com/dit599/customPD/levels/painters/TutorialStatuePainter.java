@@ -30,6 +30,9 @@ import com.watabou.utils.Point;
 
 public class TutorialStatuePainter extends Painter {
 
+	/**
+	 * Paints a room containing a living statue enemy and a sign.
+	 */
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
@@ -75,9 +78,15 @@ public class TutorialStatuePainter extends Painter {
 		level.mobs.add( statue );
 		Actor.occupyCell( statue );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "Statues do not give experience, so only attack if you need its weapon.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Statue Room\n\n " +
 				"In this room you can optionally fight the powerful statue enemy to take its weapon. " +

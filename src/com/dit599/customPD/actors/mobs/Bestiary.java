@@ -25,7 +25,9 @@ import com.dit599.customPD.actors.Char;
 import com.watabou.utils.Random;
 
 public class Bestiary {
-
+	/**
+	 * Modified with a tutorial clause that calls a separate mobclass function.
+	 */
 	@SuppressWarnings("unchecked")
 	public static Mob mob( int depth ) {
 		
@@ -187,7 +189,9 @@ public class Bestiary {
 
 		return classes[ Random.chances( chances )];
 	}
-
+	/**
+	 * Used to determine what enemies appear at what depth for the tutorial floors.
+	 */
 	private static Class<?> tutorialMobClass( int depth ) {
 
 
@@ -205,7 +209,7 @@ public class Bestiary {
 			break;
 		case 3:
 			chances = new float[]{ 1, 2, 3,   0.02f, 0.01f, 0.01f };
-			classes = new Class<?>[]{ Rat.class, Gnoll.class, Crab.class,   Swarm.class, Skeleton.class, Thief.class };
+			classes = new Class<?>[]{ Rat.class, Gnoll.class, Crab.class, Swarm.class};
 			break;
 
 		case 4:

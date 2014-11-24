@@ -144,7 +144,10 @@ public class Terrain {
 			flags[i] = flags[WATER];
 		}
 	};
-	
+	/**
+	 * Modified with a tutorial clause that causes a prompt to appear
+	 * when the player finds a hidden door in tutorialmode.
+	 */
 	public static int discover( int terr ) {
 		switch (terr) {
 		case SECRET_DOOR:

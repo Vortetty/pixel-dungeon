@@ -30,6 +30,9 @@ import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Point;
 
+/**
+ * Paints a room containing a single tombstone.
+ */
 public class HardToHitRoomPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
@@ -49,11 +52,17 @@ public class HardToHitRoomPainter extends Painter {
 		} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
 		level.drop( new Gold(50), pos).type = Type.TOMB;
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "Sneak attacks work even for weapons that are too heavy (which otherwise are " +
 				"almost guaranteed to miss). Besides sneak attacks, items that cause magical " +
 				"damage are also more likely to hit than normal weapon damage.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Hard-To-Hit\n\n" +
 				"Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +

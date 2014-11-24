@@ -30,6 +30,11 @@ import com.dit599.customPD.levels.Terrain;
 
 public class EntrancePainter extends Painter {
 
+	/**
+	 * Modified with tutorial clauses so that all doors to this room are hidden when 
+	 * on floor 2 in tutorial mode. Additionally when in tutorialmode certain items
+	 * will appear in the entrance room depending on which floor. 
+	 */
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );

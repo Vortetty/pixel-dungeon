@@ -31,6 +31,9 @@ import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
+/**
+ * Paints a room containing a well of awareness.
+ */
 public class IdentifyWellPainter extends Painter {
 	
 	@SuppressWarnings("unchecked")
@@ -64,10 +67,16 @@ public class IdentifyWellPainter extends Painter {
 		set(level, pos, Terrain.SIGN);
 		room.entrance().set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "You can also instead throw in a single item (including scrolls and " +
 				"potions), to identify. This can be used to avoid the risk of equipping a cursed item just to identify it.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Equipment Identification Room\n\n " +
 				"This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +

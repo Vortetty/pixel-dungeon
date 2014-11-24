@@ -58,6 +58,10 @@ public class PotionOfLiquidFlame extends Potion {
 	public int price() {
 		return isKnown() ? 40 * quantity : super.price();
 	}
+	/**
+	 * Modified with a tutorial clause that causes a prompt to display when this
+	 * item is picked up by the player in tutorialmode.
+	 */
 	@Override
 	public boolean doPickUp(Hero hero){
 		boolean b = super.doPickUp(hero);

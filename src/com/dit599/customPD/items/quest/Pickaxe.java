@@ -72,7 +72,10 @@ public class Pickaxe extends Weapon {
 		actions.add( AC_MINE );
 		return actions;
 	}
-	
+	/**
+	 * Modified the original clause so that it looks for cavelevel type instead of
+	 * hardcoded depth.
+	 */
 	@Override
 	public void execute( final Hero hero, String action ) {
 		

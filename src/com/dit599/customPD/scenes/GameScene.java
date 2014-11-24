@@ -115,6 +115,10 @@ public class GameScene extends PixelScene {
 	private Toolbar toolbar;
 	private Toast prompt;
 	
+	/**
+	 * Modified with a tutorial clause in its mode switch, so that a different
+	 * layout method is called if in tutorial.
+	 */
 	@Override
 	public void create() {
 		
@@ -277,10 +281,10 @@ public class GameScene extends PixelScene {
 			break;
 		case DESCEND:
 			if(Dungeon.isTutorial){
-				tutorialLayout();
+				tutorialChapters();
 			}
 			else{
-				standardLayout();
+				standardChapters();
 			}
 			if (Dungeon.hero.isAlive() && Dungeon.depth != 22) {
 				Badges.validateNoKilling();
@@ -292,12 +296,20 @@ public class GameScene extends PixelScene {
 		Camera.main.target = hero;
 		fadeIn();
 	}
-	
-	private void tutorialLayout(){
+	/**
+	 * Causes a prompt to appear, with its string depending on what tutorial
+	 * floor was reached.
+	 */
+	private void tutorialChapters(){
 		WndStory.showChapter(Dungeon.depth);
 	}
 	
-	private void standardLayout(){
+	/**
+	 * This switch statement was originally inside create, but was separated
+	 * into its own function to make that section of create() more readable. 
+	 * causes prompts to appear at certain depths.
+	 */
+	private void standardChapters(){
 		switch (Dungeon.depth) {
 		case 1:
 			WndStory.showChapter( WndStory.ID_SEWERS );

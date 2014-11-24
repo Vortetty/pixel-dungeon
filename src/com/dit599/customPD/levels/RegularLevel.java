@@ -437,7 +437,12 @@ public abstract class RegularLevel extends Level {
 			}
 		}
 	}
-
+	/**
+	 * Modified with a tutorial clause inside the BARRICADE case, to force barricades to always
+	 * be of the wood pile type. This is due to the fact that bookshelves can appear in other
+	 * situations, so linking a barricade prompt to bookshelves would not have made sense.
+	 * The wood pile cannot appear anywhere else in the game however.
+	 */
 	protected void paintDoors( Room r ) {
 		for (Room n : r.connected.keySet()) {
 

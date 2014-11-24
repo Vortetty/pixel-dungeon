@@ -25,12 +25,9 @@ import java.util.ArrayList;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.actors.hero.Hero;
-import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.ui.QuickSlot;
 import com.dit599.customPD.utils.GLog;
-import com.dit599.customPD.windows.WndMessage;
 import com.dit599.customPD.windows.WndStory;
-import com.dit599.customPD.windows.WndTutorialOptions;
 import com.watabou.utils.Random;
 
 public class KindOfWeapon extends EquipableItem {
@@ -53,7 +50,10 @@ public class KindOfWeapon extends EquipableItem {
 	public boolean isEquipped( Hero hero ) {
 		return hero.belongings.weapon == this;
 	}
-	
+	/**
+	 * Equips the weapon. Modified with a tutorial clause inside its cursed clause,
+	 * leading to a prompt informing a cursed item was equipped if in tutorialmode.
+	 */
 	@Override
 	public boolean doEquip( Hero hero ) {
 		

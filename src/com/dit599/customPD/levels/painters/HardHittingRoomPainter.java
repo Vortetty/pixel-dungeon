@@ -33,6 +33,11 @@ import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Random;
 
+/**
+ * Paints a room that contains 3 crabs (which are quite strong compared 
+ * too the expected level of the player on the tutorial floor this room
+ * is placed on).
+ */
 public class HardHittingRoomPainter extends Painter {
 
 	private static final int NMOBS	= 4;
@@ -81,11 +86,17 @@ public class HardHittingRoomPainter extends Painter {
 			Actor.occupyCell( crab );
 		}
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "The penalty for wearing too heavy armor (getting " +
 				"hungry faster and taking more turns for every movement) are only activated when moving, so while standing still " +
 				"there is no downside. However, armor does nothing against magical damage.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Hard-Hitting Enemies\n\n" +
 				"The best way to take reduced damage is to wear good armor and to stand in a position where as few " +

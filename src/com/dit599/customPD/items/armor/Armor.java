@@ -89,7 +89,10 @@ public class Armor extends EquipableItem {
 		actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
 		return actions;
 	}
-	
+	/**
+	 * Equips the armor. Modified with a tutorial clause inside its cursed clause,
+	 * leading to a prompt informing a cursed item was equipped if in tutorialmode.
+	 */
 	@Override
 	public boolean doEquip( Hero hero ) {
 		

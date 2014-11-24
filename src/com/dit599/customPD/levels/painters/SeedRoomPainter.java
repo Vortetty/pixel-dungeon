@@ -42,6 +42,9 @@ import com.watabou.utils.SparseArray;
 
 import dalvik.system.DexFile;
 
+/**
+ * Paints a room that contains earthroot, sungrass and icecap seeds.
+ */
 public class SeedRoomPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
@@ -59,6 +62,9 @@ public class SeedRoomPainter extends Painter {
 
 		room.entrance().set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Drops several seeds on top of each other in this room.
+	 */
 	private static void dropAll(SparseArray<Heap> heaps, int cell){
 		Heap heap = heaps.get( cell );
 		if (heap == null) {
@@ -82,10 +88,16 @@ public class SeedRoomPainter extends Painter {
 			heap.drop(s);
 		}
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "Something has to step on the plant (or an item must be thrown ontop) in order to activate it. " +
 				"For some plants you have to stay standing ontop to receive the effect!";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Seed Room\n\n" +
 				"This room contains a few copies of the most useful seeds in the game! press them in your inventory to learn what effect they have. " +

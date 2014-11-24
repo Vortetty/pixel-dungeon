@@ -47,13 +47,22 @@ import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
-
+/**
+ * Displayed if player descends from floor 4 in the tutorial dungeon. Has
+ * some minor modifications compared to SurfaceScene.
+ */
 public class TutorialEndScene extends PixelScene {
 	
 	private static final int WIDTH	= 80;
 	private static final int HEIGHT	= 112;
 	
 	private Camera viewport;
+	
+	/**
+	 * Modified so that the "grassy field" and "sky" graphics from
+	 * SurfaceScene are not used in this display. The character sprite
+	 * is scaled by 3x to compensate for the empty space.
+	 */
 	@Override
 	public void create() {
 		

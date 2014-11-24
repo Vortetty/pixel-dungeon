@@ -29,6 +29,11 @@ import com.watabou.utils.Random;
 
 public class StandardPainter extends Painter {
 
+	/**
+	 * Modified with tutorial clauses so that the variants graveyard and burned
+	 * are not used in tutorialmode. This is to prevent random tombstones and fire traps
+	 * in the tutorial.
+	 */
 	public static void paint( Level level, Room room ) {
 		
 		fill( level, room, Terrain.WALL );
