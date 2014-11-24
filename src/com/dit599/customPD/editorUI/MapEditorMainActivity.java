@@ -1,21 +1,3 @@
-/*
- * YourPD
- * Copyright (C) 2014 YourPD team
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
-
 package com.dit599.customPD.editorUI;
 
 import com.dit599.customPD.R;
@@ -59,7 +41,8 @@ public class MapEditorMainActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");   
+						Intent intent = new Intent();  
+		                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class);  
 		                startActivity(intent);  
 					}});
 			    Numoffloorbut++;
@@ -76,7 +59,8 @@ public class MapEditorMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");  
+				Intent intent = new Intent();  
+                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class); 
                 startActivity(intent);  
 			}});
 		this.floorbu2.setOnClickListener(new OnClickListener(){
@@ -84,7 +68,8 @@ public class MapEditorMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");  
+				Intent intent = new Intent();  
+                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class);  
                 startActivity(intent);  
 			}});
 		this.floorbu3.setOnClickListener(new OnClickListener(){
@@ -92,7 +77,8 @@ public class MapEditorMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");   
+				Intent intent = new Intent();  
+                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class);  
                 startActivity(intent);  
 			}});
 		

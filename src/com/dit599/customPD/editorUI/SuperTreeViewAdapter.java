@@ -1,25 +1,11 @@
-/*
- * YourPD
- * Copyright (C) 2014 YourPD team
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
-
 package com.dit599.customPD.editorUI;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
+
+import  com.dit599.customPD.editorUI.*;
 
 import android.content.Context;
 import android.view.View;
@@ -31,7 +17,6 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.TextView;
-import com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode;
 
 public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
 
@@ -84,8 +69,8 @@ public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
 		
 		final ExpandableListView treeView = getExpandableListView();
 		final TreeViewAdapter treeViewAdapter = new TreeViewAdapter(this.parentContext,0);
-		List<TreeNode> tmp = treeViewAdapter.getTreeNode();
-		final TreeNode treeNode=(TreeNode) getChild(groupPosition, childPosition);
+		List<com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode> tmp = treeViewAdapter.getTreeNode();
+		final com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode treeNode=(com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode) getChild(groupPosition, childPosition);
 		tmp.add(treeNode);
 		treeViewAdapter.updateTreeNode((List)tmp);
 		treeView.setAdapter(treeViewAdapter);
