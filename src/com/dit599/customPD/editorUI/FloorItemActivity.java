@@ -48,14 +48,14 @@ public class FloorItemActivity extends Activity {
 		
         tabHost.setup();  
         parentSpec = tabHost.newTabSpec("Room"+NumofRoomtab);  
-        parentSpec.setIndicator("Room"+NumofRoomtab,  
-                this.getResources().getDrawable(R.drawable.icon));  
+        /*parentSpec.setIndicator("Room"+NumofRoomtab,  
+                this.getResources().getDrawable(R.drawable.icon));  */
         parentSpec.setContent(R.id.roomtab_1);  
        
   
         subSpec = tabHost.newTabSpec("Roomadd");  
-        subSpec.setIndicator("   +   ",  
-                this.getResources().getDrawable(R.drawable.icon));  
+      /*  subSpec.setIndicator("   +   ",  
+                this.getResources().getDrawable(R.drawable.icon));  */
         subSpec.setContent(R.id.roomaddtab);  
   
         tabHost.addTab(parentSpec);  
@@ -68,8 +68,8 @@ public class FloorItemActivity extends Activity {
 				if(tabId=="Roomadd"){
 					NumofRoomtab++; 
 					TabSpec roomaddSpec = tabHost.newTabSpec("Room"+NumofRoomtab);  
-					roomaddSpec.setIndicator("Room"+NumofRoomtab,  
-			        		FloorItemActivity.this.getResources().getDrawable(R.drawable.icon));  
+					/*roomaddSpec.setIndicator("Room"+NumofRoomtab,  
+			        		FloorItemActivity.this.getResources().getDrawable(R.drawable.icon));  */
 					roomaddSpec.setContent(R.id.roomtab_1); 				
 					tabHost.addTab(roomaddSpec);  
 					
