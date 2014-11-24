@@ -108,7 +108,7 @@ public class PotionRoomPainter extends Painter {
 		}
 	}
 	public static String tip() {
-		return "3 seeds of any colour can be used in an alchemy pot to brew a potion.";
+		return "A combination of 3 seeds of the same or varying colour can be used in an alchemy pot to brew a potion.";
 	}
 	public static String prompt() {
 		return "Potion Brewery\n\n " +

@@ -136,6 +136,8 @@ public class Hero extends Char {
 	
 	public static final int STARTING_STR = 10;
 	
+	public static final int T_LAST_FLOOR = 4;
+	
 	private static final float TIME_TO_REST		= 1f;
 	private static final float TIME_TO_SEARCH	= 2f;
 	
@@ -740,7 +742,7 @@ public class Hero extends Char {
 		int stairs = action.dst;
 		if (pos == stairs && pos == Dungeon.level.exit) {
 			Log.d("HERO DESCEND", "IF");
-			if(Dungeon.isTutorial && Dungeon.depth == 4){
+			if(Dungeon.isTutorial && Dungeon.depth == T_LAST_FLOOR){
 				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
 				Game.switchScene( TutorialEndScene.class );
 			}

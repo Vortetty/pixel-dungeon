@@ -122,7 +122,7 @@ public class Dungeon {
 		"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
 		"resting place on this floor.",
 		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for " +
-		"this difficult fight! If you need a reminder on the available types of potions and scrolls, " +
+		"this difficult fight! If you need a reminder on the types of potions and scrolls you have discovered, " +
 		"press the player portrait in the upper left corner."
 	};
 	
