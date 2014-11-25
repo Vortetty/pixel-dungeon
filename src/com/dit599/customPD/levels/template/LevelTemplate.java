@@ -1,11 +1,13 @@
 package com.dit599.customPD.levels.template;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.mobs.Bandit;
 import com.dit599.customPD.actors.mobs.Gnoll;
 import com.dit599.customPD.actors.mobs.Mob;
+import com.dit599.customPD.items.Item;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Level.Feeling;
 import com.dit599.customPD.levels.Room;
@@ -23,6 +25,8 @@ public class LevelTemplate {
 
 	public Class<? extends Level> theme = SewerLevel.class;
 	public Feeling feeling = Feeling.NONE;
+	
+	public List<Item> items = new ArrayList<Item>();
 
 	public Room.Type requiredSpecialRoom = Type.MAGIC_WELL;
 

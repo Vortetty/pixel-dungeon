@@ -209,6 +209,13 @@ public abstract class Level implements Bundlable {
 			weakFloorCreated = false;
 			
 		} while (!build());
+		
+		if(LevelTemplate.currentLevelTemplate() != null){
+			for(Item item : LevelTemplate.currentLevelTemplate().items){
+				addItemToSpawn(item);
+			}
+		}
+		
 		decorate();
 		
 		buildFlagMaps();
