@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -33,6 +33,9 @@ import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.potions.Potion;
+import com.dit599.customPD.items.potions.PotionOfExperience;
+import com.dit599.customPD.items.potions.PotionOfHealing;
+import com.dit599.customPD.items.potions.PotionOfStrength;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
@@ -43,6 +46,10 @@ import com.watabou.utils.SparseArray;
 
 import dalvik.system.DexFile;
 
+/**
+ * Paints a room that contains potions of strength, health and experience, as well as
+ * an alchemy pot.
+ */
 public class PotionRoomPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
@@ -76,9 +83,11 @@ public class PotionRoomPainter extends Painter {
 				level.heaps.get( pos ) != null);
 		dropAll(level.heaps, pos);
 
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Drops several potions on top of each other in this room.
+	 */
 	private static void dropAll(SparseArray<Heap> heaps, int cell){
 		Heap heap = heaps.get( cell );
 		if (heap == null) {
@@ -95,33 +104,30 @@ public class PotionRoomPainter extends Painter {
 			dropAll( heaps, n );
 			return;
 		}
-
-		try{
-			DexFile dex = new DexFile(CustomPD.self.getApplicationContext().getApplicationInfo().sourceDir);
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			Enumeration<String> entries = dex.entries();
-			while (entries.hasMoreElements()) {
-				String entry = entries.nextElement();
-				if (entry.contains("PotionOf")){
-					Class<?> c = classLoader.loadClass(entry);
-					Potion p = (Potion) c.newInstance();
-					p.setKnown();
-					heap.drop((Item) p);
-				}
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
+		Potion [] potions = {
+			new PotionOfExperience(), new PotionOfExperience(), new PotionOfHealing(), new PotionOfHealing(),
+			new PotionOfStrength(), new PotionOfStrength()
+		};
+		
+		for (Potion p : potions){
+			p.setKnown();
+			heap.drop(p);
 		}
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "This room contains 1 of every potion in the game, press them in your inventory to learn " +
-				"what they do. Potions can be either drunk or thrown, and which colour gives which effect is " +
-				"randomized each new game (and in the real game the potions are unidentifed until used). " +
-				"3 seeds of any colour can be used in an alchemy pot to brew a potion.";
+		return "A combination of 3 seeds of the same or varying colour can be used in an alchemy pot to brew a potion.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
-		return "Potion Brewery";
+		return "Potion Brewery\n\n " +
+				"This room contains a few copies of the most useful potions in the game, press them in your inventory to learn " +
+				"what they do. Potions can be either drunk or thrown, and which colour gives which effect is " +
+				"randomized each new game (and in the real game all potion types are unidentified until used).";
 	}
 }
 

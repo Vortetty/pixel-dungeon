@@ -1,6 +1,9 @@
 /*
+ * YourPD
+ * Copyright (C) 2014 YourPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.windows;
 
 import com.dit599.customPD.Dungeon;
@@ -29,7 +32,6 @@ public class WndTutorialOptions extends Window {
 
 	public WndTutorialOptions(String message) {
 		super();
-		Dungeon.promptShowing = true;
 		BitmapTextMultiline tfMesage = PixelScene.createMultiline( message + "\n\nClick to close.", 8 );
 		tfMesage.maxWidth = WIDTH;
 		tfMesage.measure();
@@ -55,6 +57,5 @@ public class WndTutorialOptions extends Window {
 	}
 
 	protected void onSelect() {
-		Dungeon.promptShowing = false;
 	};
 }

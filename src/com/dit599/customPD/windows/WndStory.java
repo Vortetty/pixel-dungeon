@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -79,19 +79,24 @@ public class WndStory extends Window {
 		"Very few adventurers have ever descended this far..." );
 	};
 	static {
-	T_CHAPTERS.put(1, "Welcome to the tutorial dungeon! On this floor, you can learn about the various potions, scrolls and seeds " +
+	T_CHAPTERS.put(1, "Welcome to the tutorial dungeon! On this floor, you can learn about useful potions, scrolls and seeds " +
 			"available in the game. Now start exploring by tapping where you want to go!");
 	T_CHAPTERS.put(2, "On this floor, you can learn about equipment identification and how to use magic wells. To get out of the " +
-			"first room, you will need to use the search button (left of '?') to find the hidden doors!");
+			"first room, you will need to use the magnifying glass button to find the hidden doors!");
 	T_CHAPTERS.put(3, "On this floor, you must learn how to fight effectively against both enemies that are hard to hit and " +
 			"enemies that hit hard!");
-	T_CHAPTERS.put(4, "Now, use what you have learned to defeat the Goo!");
+	T_CHAPTERS.put(4, "Welcome to the bonus level, now use what you have learned and the items you have found to defeat the Goo!");
 	};
 	
 	private BitmapTextMultiline tf;
 	
 	private float delay;
 	
+	/**
+	 * Modified onClick() so that wndstory must always be displayed for 500 milliseconds before it
+	 * can be closed. This is used to avoid accidentally closing the window when you tap the screen at the same
+	 * time as it appears.
+	 */
 	public WndStory( String text ) {
 		super( 0, 0, Chrome.get( Chrome.Type.SCROLL ) );
 		
@@ -126,7 +131,10 @@ public class WndStory extends Window {
 			chrome.visible = tf.visible = true;
 		}
 	}
-	
+	/**
+	 * Modified with a tutorial clause so the correct collection of strings
+	 * is used for the "start of level" prompts when in tutorialmode.
+	 */
 	public static void showChapter( int id ) {
 		
 		if (Dungeon.chapters.contains( id )) {
@@ -150,6 +158,10 @@ public class WndStory extends Window {
 			Dungeon.chapters.add( id );
 		}
 	}
+	/**
+	 * This was added in order to more easily generate prompts (just pass in the
+	 * String the prompt should contain).
+	 */
 	public static void showChapter( String custom ) {
 		
 		if (custom != null) {

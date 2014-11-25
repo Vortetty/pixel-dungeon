@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -304,7 +304,9 @@ public class Blacksmith extends NPC {
 				reset();
 			}
 		}
-		
+		/**
+		 * Modified to not spawn in tutorialmode.
+		 */
 		public static void spawn( Collection<Room> rooms ) {
 			if (!Dungeon.isTutorial && !spawned && Dungeon.depth > 11 && Random.Int( 15 - Dungeon.depth ) == 0) {
 				

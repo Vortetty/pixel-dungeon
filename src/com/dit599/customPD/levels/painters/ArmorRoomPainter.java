@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -20,6 +20,8 @@
 */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.actors.Actor;
+import com.dit599.customPD.actors.mobs.Rat;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.armor.LeatherArmor;
@@ -34,6 +36,10 @@ import com.watabou.utils.Random;
 
 public class ArmorRoomPainter extends Painter {
 
+	/**
+	 * Paints a room that contains 3 (static) different unidentified armors
+	 * and 3 rat enemies.
+	 */
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
@@ -66,25 +72,38 @@ public class ArmorRoomPainter extends Painter {
 		armors[2].degrade();
 		armors[2].degrade();
 		armors[2].cursed = true;
-		for (int i=0; i < 3; i++) {
+		for (int i=0; i < 6; i++) {
 			int pos;
 			do {
 				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop(armors[i], pos );
+			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null);
+			if(i < 3){
+				level.drop(armors[i], pos );
+			}
+			else{
+				Rat rat = new Rat();
+				rat.pos = pos;
+				level.mobs.add( rat );
+				Actor.occupyCell( rat );
+			}
 		}
 		
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "This room contains several unidentified armors. You can't see if the armor is upgraded/degraded at the " +
-				"moment. The required strength to use them efficiently could be less or more than the default " +
-				"number displayed on them. Be careful when equipping unidentified armor as it may be cursed, making you " +
-				"unable to take it off until it is uncursed.";
+		return "Be careful when equipping unidentified armor as it may be cursed, making you " +
+				"unable to take it off until it is uncursed. Too heavy armor makes you move slower.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Armor Room\n\n" +
-				"Plate > Scale > Mail > Leather > Cloth";
+				"This room contains several unidentified pieces of armor. You can't see if the armor is upgraded/degraded at the " +
+				"moment. The required strength to use them efficiently could be less or more than the default " +
+				"number displayed on them.";
 	}
 }

@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -31,13 +31,16 @@ import com.watabou.utils.Random;
 
 public class TutorialGardenPainter extends Painter {
 
+	/**
+	 * Paints a room that is covered in tall grass and contains 1 piece of food.
+	 */
 	public static void paint( Level level, Room room ) {
 		
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.HIGH_GRASS );
 		fill( level, room, 2, Terrain.GRASS );
 		
-		room.entrance().set( Room.Door.Type.HIDDEN );
+		room.entrance().set( Room.Door.Type.REGULAR );
 		
 		int bushes = Random.Int( 3 ) == 0 ? (Random.Int( 5 ) == 0 ? 2 : 1) : 0;
 		for (int i=0; i < bushes; i++) {
@@ -57,13 +60,19 @@ public class TutorialGardenPainter extends Painter {
 		set( level, room.center(), Terrain.SIGN );
 		level.drop(new Pasty(), room.center().x + (room.center().y-1) * Level.WIDTH);
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "In gardens you can safely rest (hold down the icon in the lower-left corner) " +
-				"as long as you are not starving. Resting speeds up your natural health regeneration, " +
-				"but also makes you hungry faster.";
+		return "Resting speeds up your natural health regeneration, " +
+				"but also makes you go hungry faster.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Garden Of Resting\n\n" +
-				"Enemies will not find you in here.";
+				"In gardens you can safely rest (hold down the icon in the lower-left corner) " +
+				"as long as you are not starving. Enemies will not find you in here.";
 	}
 }

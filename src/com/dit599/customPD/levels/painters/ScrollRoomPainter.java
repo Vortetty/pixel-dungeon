@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -28,6 +28,13 @@ import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.scrolls.Scroll;
+import com.dit599.customPD.items.scrolls.ScrollOfIdentify;
+import com.dit599.customPD.items.scrolls.ScrollOfMagicMapping;
+import com.dit599.customPD.items.scrolls.ScrollOfMirrorImage;
+import com.dit599.customPD.items.scrolls.ScrollOfRemoveCurse;
+import com.dit599.customPD.items.scrolls.ScrollOfTeleportation;
+import com.dit599.customPD.items.scrolls.ScrollOfUpgrade;
+import com.dit599.customPD.items.scrolls.ScrollOfWeaponUpgrade;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
@@ -38,6 +45,10 @@ import com.watabou.utils.SparseArray;
 
 import dalvik.system.DexFile;
 
+/**
+ * Paints a room that contains scrolls of upgrade, weapon upgrade, identify, remove curse
+ * and mapping.
+ */
 public class ScrollRoomPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
@@ -79,9 +90,11 @@ public class ScrollRoomPainter extends Painter {
 		} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
 		dropAll(level.heaps, pos);
 
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Drops several scrolls on top of each other in this room.
+	 */
 	private static void dropAll(SparseArray<Heap> heaps, int cell){
 		Heap heap = heaps.get( cell );
 		if (heap == null) {
@@ -98,33 +111,30 @@ public class ScrollRoomPainter extends Painter {
 			dropAll( heaps, n );
 			return;
 		}
-
-		try{
-			DexFile dex = new DexFile(CustomPD.self.getApplicationContext().getApplicationInfo().sourceDir);
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			Enumeration<String> entries = dex.entries();
-			while (entries.hasMoreElements()) {
-				String entry = entries.nextElement();
-				if (entry.contains("ScrollOf")){
-					Class<?> c = (classLoader.loadClass(entry));
-					Scroll s = (Scroll) c.newInstance();
-					s.setKnown();
-					heap.drop((Item) s);
-				}
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
+		Scroll  [] scrolls = {
+				new ScrollOfIdentify(), new ScrollOfMagicMapping(), new ScrollOfMagicMapping(),
+				new ScrollOfRemoveCurse(), new ScrollOfUpgrade(), new ScrollOfWeaponUpgrade()
+		};
+		for(Scroll s : scrolls){
+			s.setKnown();
+			heap.drop(s);
 		}
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "This room contains 1 of every scroll in the game, press them in your inventory to learn " +
-				"what they do. Which scroll rune gives which effect is randomized each new game, and in " +
-				"the real game these scrolls are unidentified until you use them. Beware cathing fire " +
+		return "Beware catching fire " +
 				"while carrying scrolls, since they may be destroyed!";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
-		return "Scroll Library";
+		return "Scroll Library\n\n " +
+				"This room contains a few copies of the most useful scrolls in the game, press them in your inventory to learn " +
+				"what they do. Which scroll rune gives which effect is randomized each new game, and in " +
+				"the real game all scroll types are unidentified until you use them.";
 	}
 }
 

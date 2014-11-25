@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -113,19 +113,22 @@ public class Dungeon {
 		"The text is written in demonic language.",
 		"The text is written in demonic language."
 	};
-	
+	/**
+	 * This list of strings corresponds to the strings displayed on the sign found in the entrance room
+	 * of each of the 4 tutorial floors.
+	 */
 	private static final String[] T_TIPS = { 
 		"Use '?' to get more information about anything you see in the game. In order to enter one " +
 		"of the rooms on this floor, you will need to find something that creates fire! Keep an eye " +
 		"out for more signs.",
-		"From now on, doors may be hidden, so don't forget to use search (left of '?') from time to time. " +
+		"From now on, doors may be hidden, so don't forget to use the magnifying glass button from time to time. " +
 		"There are two different magical wells on this floor. Make sure to investigate wells with '?' to " +
 		"see what type they are. ",
 		"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
 		"resting place on this floor.",
 		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for " +
-		"this difficult fight! If you need a reminder on the available types of potions and scrolls, " +
-		"press the player portrait in the upper left corner"
+		"this difficult fight! If you need a reminder on the types of potions and scrolls you have discovered, " +
+		"press the player portrait in the upper left corner."
 	};
 	
 	private static final String TXT_DEAD_END = 
@@ -157,11 +160,46 @@ public class Dungeon {
 	public static boolean[] visible = new boolean[Level.LENGTH];
 	
 	public static boolean nightMode;
+	/**
+	 * Tutorialmode switch.
+	 */
 	public static boolean isTutorial = false;
+	/**
+	 * Used to check if the user has picked up a fire item in the tutorial yet.
+	 */
 	public static boolean firePrompt = false;
+	/**
+	 * Used to check if the user has been damaged by a monster in the tutorial yet.
+	 */
 	public static boolean encounteredMob = false;
-	public static boolean firstHeap = false;
-	public static boolean promptShowing = false;
+	/**
+	 * Used to check if the user encountered multiple items stacked in a heap in the
+	 * tutorial yet.
+	 */
+	public static boolean foundHeap = false;
+	/**
+	 * Used to check if the user has picked up any item in the tutorial yet.
+	 */
+	public static boolean foundItem = false;
+	/**
+	 * Used to check if the user has opened the inventory in the tutorial yet.
+	 */
+	public static boolean invOpened = false;
+	/**
+	 * Used to check if the user has become hungry in the tutorial yet.
+	 */
+	public static boolean hungerNotified = false;
+	/**
+	 * Used to check if the user has started starving in the tutorial yet.
+	 */
+	public static boolean starvingNotified = false;
+	/**
+	 * Used to check if the user has picked up a dewdrop in the tutorial yet.
+	 */
+	public static boolean collectedDrop = false;
+	/**
+	 * Used to check if 500 milliseconds have passed since the prompt was displayed.
+	 */
 	public static long timeStamp = 0;
 	
 	public static void init() {
@@ -209,7 +247,10 @@ public class Dungeon {
 	public static boolean isChallenged( int mask ) {
 		return (challenges & mask) != 0;
 	}
-	
+	/**
+	 * Generates the next level. Modified with a tutorial clause which changes what
+	 * level type is selected.
+	 */
 	public static Level newLevel() {
 		
 		Dungeon.level = null;
@@ -225,9 +266,7 @@ public class Dungeon {
 				Statistics.completedWithNoKilling = false;
 			}
 		}
-		Log.d("DUNGEON NEWLEVEL", "BEFORE FILL" );
 		Arrays.fill( visible, false );
-		Log.d("DUNGEON NEWLEVEL", "AFTER FILL" );
 		
 		Level level = null;
 		if (template != null) {
@@ -242,9 +281,7 @@ public class Dungeon {
 			case 1:
 			case 2:
 			case 3:
-				Log.d("DUNGEON NEWLEVEL", "BEFORE NEW" );
 				level = new TutorialLevel();
-				Log.d("DUNGEON NEWLEVEL", "AFTER NEW" );
 				break;
 			case 4:
 				level = new TutorialBossLevel();
@@ -310,9 +347,7 @@ public class Dungeon {
 				Statistics.deepestFloor--;
 			}
 		}
-		Log.d("DUNGEON NEWLEVEL", "BFORE CREATE" );
 		level.create();
-		Log.d("DUNGEON NEWLEVEL", "AFTER CREATE" );
 		
 		Statistics.qualifiedForNoKilling = !bossLevel();
 		
@@ -328,7 +363,11 @@ public class Dungeon {
 		level.reset();
 		switchLevel( level, level.entrance );
 	}
-	
+	/**
+	 * Returns the string to display on an EntranceRoom sign.
+	 * Modified with a tutorial clause so that it reads from a
+	 * different collection of strings in tutorialmode.
+	 */
 	public static String tip() {
 		
 		if (level instanceof DeadEndLevel) {
@@ -360,7 +399,10 @@ public class Dungeon {
 	public static boolean bossLevel( int depth ) {
 		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
 	}
-	
+	/**
+	 * Used when ascending /descending to an existing level. Modified so that nightmode
+	 * (increased mob respawn during night hours) is disbled in the tutorial.
+	 */
 	@SuppressWarnings("deprecation")
 	public static void switchLevel( final Level level, int pos ) {
 		
@@ -454,6 +496,11 @@ public class Dungeon {
 	private static final String QUESTS		= "quests";
 	private static final String BADGES		= "badges";
 	
+	/**
+	 * Returns the filepath of the savegame of a certain heroclass. Has been
+	 * modified with tutorialclauses to provide alternative filepaths when in
+	 * tutorialmode, thus allowing for separate saves.
+	 */
 	public static String gameFile( HeroClass cl ) {
 		switch (cl) {
 		case WARRIOR:
@@ -486,7 +533,11 @@ public class Dungeon {
 			}
 		}
 	}
-
+	/**
+	 * Returns the filepath of the separate floor details for the savegame of a certain heroclass. Has been
+	 * modified with tutorialclauses to provide alternative filepaths when in tutorialmode, thus allowing for 
+	 * separate saves.
+	 */
 	private static String depthFile( HeroClass cl ) {
 		switch (cl) {
 		case WARRIOR:
@@ -519,7 +570,9 @@ public class Dungeon {
 			}
 		}
 	}
-	
+	/**
+	 * Modified to save the variables added to this class by our modifications.
+	 */
 	public static void saveGame( String fileName ) throws IOException {
 		try {
 			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
@@ -572,8 +625,12 @@ public class Dungeon {
 			bundle.put("tutorial", isTutorial);
 			bundle.put("firePrompt", firePrompt);
 			bundle.put("encountered", encounteredMob);
-			bundle.put("firstHeap", firstHeap);
-			bundle.put("promptShowing", promptShowing);
+			bundle.put("foundHeap", foundHeap);
+			bundle.put("foundItem", foundItem);
+			bundle.put("invOpened", invOpened);
+			bundle.put("hungerNotified", hungerNotified);
+			bundle.put("starvingNotified", starvingNotified);
+			bundle.put("collectedDrop", collectedDrop);
 			
 			Bundle.write( bundle, output );
 			output.close();
@@ -619,7 +676,9 @@ public class Dungeon {
 	public static void loadGame( String fileName ) throws IOException {
 		loadGame( fileName, false );
 	}
-	
+	/**
+	 * Modified to load the variables added to this class by our modifications.
+	 */
 	public static void loadGame( String fileName, boolean fullLoad ) throws IOException {
 		
 		Bundle bundle = gameBundle( fileName );
@@ -646,8 +705,12 @@ public class Dungeon {
 		isTutorial = bundle.getBoolean("tutorial");
 		firePrompt = bundle.getBoolean("firePrompt");
 		encounteredMob = bundle.getBoolean("encountered");
-		firstHeap = bundle.getBoolean("firstHeap");
-		promptShowing = bundle.getBoolean("promptShowing");
+		foundHeap = bundle.getBoolean("foundHeap");
+		foundItem = bundle.getBoolean("foundItem");
+		invOpened = bundle.getBoolean("invOpened");
+		hungerNotified = bundle.getBoolean("hungerNotified");
+		starvingNotified = bundle.getBoolean("starvingNotified");
+		collectedDrop = bundle.getBoolean("collectedDrop");
 		timeStamp = 0;
 		
 		if (fullLoad) {

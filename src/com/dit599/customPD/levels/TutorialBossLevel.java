@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -38,6 +38,11 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
 
+/**
+ * Class describing floor 4 of the tutorial. Virtually the same as
+ * SewerBossLevel but is kept in a separate class so that changes do not affect
+ * standard game.
+ */
 public class TutorialBossLevel extends RegularLevel {
 
 	{
@@ -56,7 +61,9 @@ public class TutorialBossLevel extends RegularLevel {
 	public String waterTex() {
 		return Assets.WATER_SEWERS;
 	}
-	
+	/**
+	 * Same as SewerBossLevel except ratkingroom is not placed.
+	 */
 	@Override
 	protected boolean build() {
 		
@@ -122,8 +129,6 @@ public class TutorialBossLevel extends RegularLevel {
 		
 		paintWater();
 		paintGrass();
-		
-		placeTraps();
 		
 		return true;
 	}

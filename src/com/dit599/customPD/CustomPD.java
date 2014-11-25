@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -38,6 +38,9 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 
 public class CustomPD extends Game {
+	/**
+	 * Used to access app context when switching from game to map editor.
+	 */
 	public static CustomPD self;
 	
 	public CustomPD() {
@@ -250,7 +253,10 @@ public class CustomPD extends Game {
 	public static String donated() {
 		return Preferences.INSTANCE.getString( Preferences.KEY_DONATED, "" );
 	}
-	
+	/**
+	 * Modified so that value is stored with the key Preferences.KEY_T_LAST_CLASS
+	 * rather than the default key if in tutorialmode.
+	 */
 	public static void lastClass( int value ) {
 		if(Dungeon.isTutorial){
 			Preferences.INSTANCE.put( Preferences.KEY_T_LAST_CLASS, value );
@@ -259,7 +265,10 @@ public class CustomPD extends Game {
 			Preferences.INSTANCE.put( Preferences.KEY_LAST_CLASS, value );
 		}
 	}
-	
+	/**
+	 * Modified so that value is retrieved with the key Preferences.KEY_T_LAST_CLASS
+	 * rather than the default key if in tutorialmode.
+	 */
 	public static int lastClass() {
 		if(Dungeon.isTutorial){
 			return Preferences.INSTANCE.getInt( Preferences.KEY_T_LAST_CLASS, 0 );
@@ -292,7 +301,9 @@ public class CustomPD extends Game {
 	public static void reportException( Exception e ) {
 		Log.e( "PD", Log.getStackTraceString( e ) ); 
 	}
-
+	/**
+	 * Used to launch the map editor.
+	 */
 	public void editMaps() {
 		startActivity(new Intent ("com.dit599.customPD.editorUI.FloorsListActivity"));
 	}

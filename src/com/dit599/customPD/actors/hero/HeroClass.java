@@ -24,6 +24,7 @@ import com.dit599.customPD.items.TomeOfMastery;
 import com.dit599.customPD.items.armor.ClothArmor;
 import com.dit599.customPD.items.food.Food;
 import com.dit599.customPD.items.potions.PotionOfStrength;
+import com.dit599.customPD.items.rings.RingOfDetection;
 import com.dit599.customPD.items.rings.RingOfShadows;
 import com.dit599.customPD.items.scrolls.ScrollOfIdentify;
 import com.dit599.customPD.items.scrolls.ScrollOfMagicMapping;
@@ -108,9 +109,16 @@ public enum HeroClass {
 		
 		hero.updateAwareness();
 	}
-	
+	/**
+	 * Modified with a tutorial clause that causes the player to start with a 
+	 * ring of detection if in tutorialmode.
+	 */
 	private static void initCommon( Hero hero ) {
 		(hero.belongings.armor = new ClothArmor()).identify();
+		if(Dungeon.isTutorial){
+			(hero.belongings.ring2 = new RingOfDetection()).upgrade().identify();
+			hero.belongings.ring2.activate( hero );
+		}
 		new Food().identify().collect();
 	}
 	

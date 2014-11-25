@@ -1,6 +1,9 @@
 /*
+ * YourPD
+ * Copyright (C) 2014 YourPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.actors.buffs;
 
 import com.dit599.customPD.Badges;
@@ -26,6 +29,7 @@ import com.dit599.customPD.items.rings.RingOfSatiety;
 import com.dit599.customPD.ui.BuffIndicator;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.utils.Utils;
+import com.dit599.customPD.windows.WndStory;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -55,7 +59,10 @@ public class Hunger extends Buff implements Hero.Doom {
 		super.restoreFromBundle( bundle );
 		level = bundle.getFloat( LEVEL );
 	}
-	
+	/**
+	 * Modified with tutorial clauses  to cause prompts to appear the first times
+	 * hunger and starvation debuffs are gained in tutorialmode.
+	 */
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
@@ -84,12 +91,18 @@ public class Hunger extends Buff implements Hero.Doom {
 					
 					GLog.n( TXT_STARVING );
 					statusUpdated = true;
-					
+					if(Dungeon.isTutorial && !Dungeon.starvingNotified){
+						WndStory.showChapter("You are now starving, which means you will slowly lose health " +
+								"instead of slowly regenerating it. Perhaps you have some food in your inventory?");
+					}
 					hero.interrupt();
 					
 				} else if (newLevel >= HUNGRY && level < HUNGRY) {
 					
 					GLog.w( TXT_HUNGRY );
+					if(Dungeon.isTutorial && !Dungeon.hungerNotified){
+						WndStory.showChapter("You are starting to get hungry, but this is nothing to worry about.");
+					}
 					statusUpdated = true;
 					
 				}

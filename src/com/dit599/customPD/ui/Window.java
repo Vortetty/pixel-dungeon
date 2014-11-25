@@ -1,6 +1,9 @@
 /*
+ * YourPD
+ * Copyright (C) 2014 YourPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.ui;
 
 import java.util.regex.Matcher;
@@ -50,7 +53,11 @@ public class Window extends Group implements Signal.Listener<Key> {
 	public Window( int width, int height ) {
 		this( width, height, Chrome.get( Chrome.Type.WINDOW ) );
 	}
-			
+	/**
+	 * Modified onClick() so that window must always be displayed for 500 milliseconds before it
+	 * can be closed. This is used to avoid accidentally closing the window when you tap the screen at the same
+	 * time as it appears.
+	 */
 	public Window( int width, int height, NinePatch chrome ) {
 		super();
 		Dungeon.timeStamp = System.currentTimeMillis();

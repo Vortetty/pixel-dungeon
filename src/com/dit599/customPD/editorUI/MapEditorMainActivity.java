@@ -41,7 +41,8 @@ public class MapEditorMainActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");   
+						Intent intent = new Intent();  
+		                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class);  
 		                startActivity(intent);  
 					}});
 			    Numoffloorbut++;
@@ -58,7 +59,8 @@ public class MapEditorMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");  
+				Intent intent = new Intent();  
+                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class); 
                 startActivity(intent);  
 			}});
 		this.floorbu2.setOnClickListener(new OnClickListener(){
@@ -66,7 +68,8 @@ public class MapEditorMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");  
+				Intent intent = new Intent();  
+                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class);  
                 startActivity(intent);  
 			}});
 		this.floorbu3.setOnClickListener(new OnClickListener(){
@@ -74,7 +77,8 @@ public class MapEditorMainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent("com.dit599.customPD.editorUI.FloorItemActivity");   
+				Intent intent = new Intent();  
+                intent.setClass(MapEditorMainActivity.this, FloorItemActivity.class);  
                 startActivity(intent);  
 			}});
 		

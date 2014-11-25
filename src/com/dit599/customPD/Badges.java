@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -178,6 +178,10 @@ public class Badges {
 	}
 	
 	private static final String BADGES_FILE	= "badges.dat";
+	/**
+	 * Alternate filepath used when in tutorialmode, so that badges data from tutorial
+	 * is not mixed with data from the standard game.
+	 */
 	private static final String T_BADGES_FILE	= "tutorial_badges.dat";
 	private static final String BADGES		= "badges";
 	
@@ -212,7 +216,10 @@ public class Badges {
 	public static void saveLocal( Bundle bundle ) {
 		store( bundle, local );
 	}
-	
+	/**
+	 * Loads badges data from file. Has been modified with a clause that makes
+	 * it load from T_BADGES_FILE if in tutorialmode.
+	 */
 	public static void loadGlobal() {
 		if (global == null) {
 			try {
@@ -233,7 +240,10 @@ public class Badges {
 			}
 		}
 	}
-	
+	/**
+	 * Saves badges data from file. Has been modified with a clause that makes
+	 * it save to T_BADGES_FILE if in tutorialmode.
+	 */
 	public static void saveGlobal() {
 		if (saveNeeded) {
 			

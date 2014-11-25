@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -31,6 +31,9 @@ import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
+/**
+ * Paints a room containing a well of awareness.
+ */
 public class IdentifyWellPainter extends Painter {
 	
 	@SuppressWarnings("unchecked")
@@ -62,14 +65,21 @@ public class IdentifyWellPainter extends Painter {
 		} while (
 				level.map[pos] == Terrain.WELL);
 		set(level, pos, Terrain.SIGN);
-		room.entrance().set( Room.Door.Type.HIDDEN );
+		room.entrance().set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +
-				"Drinking will also reveal the current floor's map. You can also instead throw in a single item (including scrolls and " +
+		return "You can also instead throw in a single item (including scrolls and " +
 				"potions), to identify. This can be used to avoid the risk of equipping a cursed item just to identify it.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
-		return "Equipment Identification Room";
+		return "Equipment Identification Room\n\n " +
+				"This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +
+				"Drinking will also reveal hidden doors on the parts of the map you have explored. ";
 	}
 }

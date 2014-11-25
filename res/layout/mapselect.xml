@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+    <EditText
+        android:id="@+id/mapselectet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/mapselectbut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:text="  New " />
+    </LinearLayout>
+    <ScrollView
+	android:id="@+id/mapselectscroll" 
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<LinearLayout 		
+		android:orientation="vertical" 
+		android:id="@+id/mapselectlinear"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginTop="50px"
+		>
+		<Button
+		android:id="@+id/mapex1bu"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"  
+		android:text="Map1.map"
+		/>   
+	<Button
+		android:id="@+id/mapex2bu"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"  
+		android:text="Map2.map"
+		/>   
+		
+	<Button
+		android:id="@+id/mapex3bu"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"  
+		android:text="Map3.map"
+		/>   
+		
+	</LinearLayout>
+</ScrollView>
+    
+   
+</LinearLayout>

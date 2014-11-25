@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -23,7 +23,7 @@ package com.dit599.customPD.levels.painters;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.mobs.Brute;
 import com.dit599.customPD.actors.mobs.Piranha;
-import com.dit599.customPD.actors.mobs.Skeleton;
+import com.dit599.customPD.actors.mobs.Crab;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
@@ -33,9 +33,14 @@ import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Random;
 
+/**
+ * Paints a room that contains 3 crabs (which are quite strong compared 
+ * too the expected level of the player on the tutorial floor this room
+ * is placed on).
+ */
 public class HardHittingRoomPainter extends Painter {
 
-	private static final int NMOBS	= 3;
+	private static final int NMOBS	= 4;
 	
 	public static void paint( Level level, Room room ) {
 		
@@ -73,22 +78,28 @@ public class HardHittingRoomPainter extends Painter {
 		set( level, pos, Terrain.SIGN );
 		
 		for (int i=0; i < NMOBS; i++) {
-			Skeleton skeleton = new Skeleton();
+			Crab crab = new Crab();
 			do {
-				skeleton.pos = room.random();
-			} while (level.map[skeleton.pos] != Terrain.WATER|| Actor.findChar( skeleton.pos ) != null);
-			level.mobs.add( skeleton );
-			Actor.occupyCell( skeleton );
+				crab.pos = room.random();
+			} while (level.map[crab.pos] != Terrain.WATER|| Actor.findChar( crab.pos ) != null);
+			level.mobs.add( crab );
+			Actor.occupyCell( crab );
 		}
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "The best way to take reduced damage is to wear good armor and to stand in a position where as few " +
-				"enemies as possible can attack you at the same time. The penalty for wearing too heavy armor (getting " +
+		return "The penalty for wearing too heavy armor (getting " +
 				"hungry faster and taking more turns for every movement) are only activated when moving, so while standing still " +
 				"there is no downside. However, armor does nothing against magical damage.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Hard-Hitting Enemies\n\n" +
-				"Equip your heaviest armor to survive!";
+				"The best way to take reduced damage is to wear good armor and to stand in a position where as few " +
+				"enemies as possible can attack you at the same time. Equip your heaviest armor to survive!";
 	}
 }

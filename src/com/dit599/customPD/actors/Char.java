@@ -1,6 +1,9 @@
 /*
+ * YourPD
+ * Copyright (C) 2014 YourPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.actors;
 
 import java.util.ArrayList;
@@ -129,7 +132,10 @@ public abstract class Char extends Actor {
 			}
 		}
 	}
-	
+	/**
+	 * Extended with a tutorial clause inside the "unique mob killed hero" clause chain,
+	 * causing a prompt to appear when the hero is killed by the Goo when in tutorialmode. 
+	 */
 	public boolean attack( Char enemy ) {
 		
 		boolean visibleFight = Dungeon.visible[pos] || Dungeon.visible[enemy.pos];

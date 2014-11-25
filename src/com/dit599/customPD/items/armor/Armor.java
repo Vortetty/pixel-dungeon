@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -89,7 +89,10 @@ public class Armor extends EquipableItem {
 		actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
 		return actions;
 	}
-	
+	/**
+	 * Equips the armor. Modified with a tutorial clause inside its cursed clause,
+	 * leading to a prompt informing a cursed item was equipped if in tutorialmode.
+	 */
 	@Override
 	public boolean doEquip( Hero hero ) {
 		

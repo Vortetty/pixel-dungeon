@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -72,7 +72,10 @@ public class Firebloom extends Plant {
 		public String desc() {
 			return TXT_DESC;
 		}
-		
+		/**
+		 * Modified with a tutorial clause that causes a prompt to display when this
+		 * item is picked up by the player in tutorialmode.
+		 */
 		@Override
 		public boolean doPickUp(Hero hero){
 			boolean b = super.doPickUp(hero);
@@ -80,7 +83,8 @@ public class Firebloom extends Plant {
 				Dungeon.firePrompt = true;
 				WndStory.showChapter( 
 						"You have found an item that creates fire! Now look for a pile of wood or a " +
-								"lone bookcase to burn down.");
+								"lone bookcase to burn down. If you manage to set yourself on fire, " +
+								"go stand in water!");
 			}
 			return b;
 		}

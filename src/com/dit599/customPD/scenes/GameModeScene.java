@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -20,23 +20,17 @@
 */
 package com.dit599.customPD.scenes;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.text.method.HideReturnsTransformationMethod;
 import android.util.Log;
 
 import com.dit599.customPD.Assets;
-import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.CustomPD;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
 import com.dit599.customPD.ui.PrefsButton;
-import com.dit599.customPD.ui.RedButton;
-import com.dit599.customPD.windows.WndGame;
-import com.dit599.customPD.windows.WndSettings;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -45,7 +39,9 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
 
-
+/**
+ * Based on TitleScene. Used to allow user to choose game mode to play.
+ */
 public class GameModeScene extends PixelScene{
 
 	private static final String TXT_STANDARD		= "Standard";
@@ -53,6 +49,10 @@ public class GameModeScene extends PixelScene{
 	private static final String TXT_MAP_EDITOR		= "Map Editor";
 	private static final String TXT_TUTORIAL		= "Tutorial";
 	
+	/**
+	 * Modified to use buttons that redirect to the correct game mode and sets some flags
+	 * & other values when onClick().
+	 */
 	@Override
 	public void create() {
 
@@ -81,29 +81,39 @@ public class GameModeScene extends PixelScene{
 		placeTorch( title.x + 18, title.y + 20 );
 		placeTorch( title.x + title.width - 18, title.y + 20 );
 
-		DashboardItem btnCustom = new DashboardItem( TXT_CUSTOM, 0 ) {
+        DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 2, false) {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
 				Dungeon.template = new DungeonTemplate();
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
-				Dungeon.firstHeap = true;
-				CustomPD.switchNoFade(  StartScene.class );
+				Dungeon.foundHeap = true;
+				Dungeon.foundItem = true;
+				Dungeon.invOpened = true;
+				Dungeon.hungerNotified = true;
+				Dungeon.starvingNotified = true;
+				Dungeon.collectedDrop = true;
+                // CustomPD.switchNoFade( StartScene.class );
 			}
 		};
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );
 		add( btnCustom );
 
-		DashboardItem btnEditor = new DashboardItem( TXT_MAP_EDITOR, 0 ) {
+        DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 2, false) {
 		
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
-				Dungeon.firstHeap = true;
-				CustomPD.self.editMaps();
+				Dungeon.foundHeap = true;
+				Dungeon.foundItem = true;
+				Dungeon.invOpened = true;
+				Dungeon.hungerNotified = true;
+				Dungeon.starvingNotified = true;
+				Dungeon.collectedDrop = true;
+                // CustomPD.self.editMaps();
 			}
 
 		};
@@ -116,7 +126,12 @@ public class GameModeScene extends PixelScene{
 				Dungeon.isTutorial = false;
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
-				Dungeon.firstHeap = true;
+				Dungeon.foundHeap = true;
+				Dungeon.foundItem = true;
+				Dungeon.invOpened = true;
+				Dungeon.hungerNotified = true;
+				Dungeon.starvingNotified = true;
+				Dungeon.collectedDrop = true;
 				CustomPD.switchNoFade( StartScene.class );
 			}
 		};
@@ -129,7 +144,12 @@ public class GameModeScene extends PixelScene{
 				Dungeon.isTutorial = true;
 				Dungeon.firePrompt = false;
 				Dungeon.encounteredMob = false;
-				Dungeon.firstHeap = false;
+				Dungeon.foundHeap = false;
+				Dungeon.foundItem = false;
+				Dungeon.invOpened = false;
+				Dungeon.hungerNotified = false;
+				Dungeon.starvingNotified = false;
+				Dungeon.collectedDrop = false;
 				for(String f : Game.instance.fileList()){
 					Log.d("FILES", f);
 				}
@@ -171,6 +191,7 @@ public class GameModeScene extends PixelScene{
 
 		private Image image;
 		private BitmapText label;
+        private boolean enabled = true;
 
 		public DashboardItem( String text, int index ) {
 			super();
@@ -181,6 +202,11 @@ public class GameModeScene extends PixelScene{
 
 			setSize( SIZE, SIZE );
 		}
+
+        public DashboardItem(String text, int index, boolean enabled) {
+            this(text, index);
+            this.enabled = enabled;
+        }
 
 		@Override
 		protected void createChildren() {
@@ -206,8 +232,10 @@ public class GameModeScene extends PixelScene{
 
 		@Override
 		protected void onTouchDown() {
-			image.brightness( 1.5f );
-			Sample.INSTANCE.play( Assets.SND_CLICK, 1, 1, 0.8f );
+            if (enabled) {
+                image.brightness(1.5f);
+                Sample.INSTANCE.play(Assets.SND_CLICK, 1, 1, 0.8f);
+            }
 		}
 
 		@Override

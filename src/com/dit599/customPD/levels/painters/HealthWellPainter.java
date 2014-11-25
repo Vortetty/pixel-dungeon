@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -31,6 +31,9 @@ import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
+/**
+ * Paints a room containing a well of health.
+ */
 public class HealthWellPainter extends Painter {
 	
 	@SuppressWarnings("unchecked")
@@ -61,12 +64,19 @@ public class HealthWellPainter extends Painter {
 		} while (
 				level.map[pos] == Terrain.WELL);
 		set(level, pos, Terrain.SIGN);
-		room.entrance().set( Room.Door.Type.HIDDEN );
+		room.entrance().set( Room.Door.Type.REGULAR );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "This is a well of health, drink it to heal yourself, or throw in your dew vial to fully charge it!";
+		return "This is a well of health, drink it to heal yourself, or throw in your dew vial (found on tutorial floor 1) to fully charge it!";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
-		return "Dew Vial Charging Room";
+		return "Dew Vial Charging Room\n\n " +
+				"This is a well of health, drink it to heal yourself, or throw in your dew vial (found on tutorial floor 1) to fully charge it!";
 	}
 }

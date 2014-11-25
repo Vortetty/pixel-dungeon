@@ -68,7 +68,7 @@ public class Belongings implements Iterable<Item> {
 		bundle.put( WEAPON, weapon );
 		bundle.put( ARMOR, armor );
 		bundle.put( RING1, ring1 );
-		bundle.put( RING2, ring2 );
+		bundle.put( RING2, ring2);
 	}
 	
 	public void restoreFromBundle( Bundle bundle ) {

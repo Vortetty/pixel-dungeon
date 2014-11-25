@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -30,6 +30,9 @@ import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Point;
 
+/**
+ * Paints a room containing a single tombstone.
+ */
 public class HardToHitRoomPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
@@ -41,26 +44,30 @@ public class HardToHitRoomPainter extends Painter {
 
 		Room.Door entrance = room.entrance();
 
-		entrance.set( Room.Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey() );
+		entrance.set( Room.Door.Type.REGULAR );
 
 		int pos;
-		for (int i = 0; i < 2; i++){
-			do {
-				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop( new Gold(50), pos).type = Type.TOMB;
-		}
+		do {
+			pos = room.random();
+		} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+		level.drop( new Gold(50), pos).type = Type.TOMB;
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +
-				"Position yourself accordingly before activating them. Ghosts are easiest to kill " +
-				"by exploiting the 1 guaranteed hit when the enemy enters a doorway (this is a sneak attack). " +
-				"This sneak attack works even for weapons that are too heavy (which otherwise are " +
-				"almost guaranteed to miss).";
+		return "Sneak attacks work even for weapons that are too heavy (which otherwise are " +
+				"almost guaranteed to miss). Besides sneak attacks, items that cause magical " +
+				"damage are also more likely to hit than normal weapon damage.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
 		return "Hard-To-Hit\n\n" +
-				"Try and get the enemy into a doorway, so that your next attack is guaranteed to hit!";
+				"Tombstones spawn ghosts in a '+' pattern in empty squares around the player. " +
+				"Position yourself accordingly before activating them. To kill the ghosts, you will" +
+				"need to exploit the 1 guaranteed hit when the enemy enters a doorway (this is a sneak attack). " +
+				"Keep moving around to bait them into such a position!";
 	}
 }

@@ -1,6 +1,9 @@
 /*
+ * YourPD
+ * Copyright (C) 2014 YourPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.ui;
 
 import com.dit599.customPD.Assets;
@@ -37,6 +40,7 @@ import com.dit599.customPD.windows.WndInfoItem;
 import com.dit599.customPD.windows.WndInfoMob;
 import com.dit599.customPD.windows.WndInfoPlant;
 import com.dit599.customPD.windows.WndMessage;
+import com.dit599.customPD.windows.WndStory;
 import com.dit599.customPD.windows.WndTradeItem;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Gizmo;
@@ -62,7 +66,10 @@ public class Toolbar extends Component {
 		
 		height = btnInventory.height();
 	}
-	
+	/**
+	 * Modified btnInventory's onClick() so that a prompt informing the player of inventory
+	 * usages is displayed the first time inventory is opened in tutorialmode.
+	 */
 	@Override
 	protected void createChildren() {
 		
@@ -103,6 +110,13 @@ public class Toolbar extends Component {
 			@Override
 			protected void onClick() {
 				GameScene.show( new WndBag( Dungeon.hero.belongings.backpack, null, WndBag.Mode.ALL, null ) );
+				
+				if(Dungeon.isTutorial && !Dungeon.invOpened){
+					Dungeon.invOpened = true;
+					WndStory.showChapter("This is your inventory. press on an item to get options for what " +
+							"to do with it. if you long press the item, it will be assigned to the quickslot (bottom right), giving you " +
+							"faster access to it!");
+				}
 			}
 			protected boolean onLongClick() {
 				GameScene.show( new WndCatalogus() );

@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -272,7 +272,10 @@ public abstract class Mob extends Char {
 	protected float attackDelay() {
 		return 1f;
 	}
-	
+	/**
+	 * Used to attack other Actors. Modified with a tutorial clause to cause a prompt the
+	 * first time in tutorialmode that a mob successfully attacks the player.
+	 */
 	protected boolean doAttack( Char enemy ) {
 		
 		boolean visible = Dungeon.visible[pos];

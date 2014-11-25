@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -72,6 +72,7 @@ import com.dit599.customPD.items.keys.GoldenKey;
 import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.keys.Key;
 import com.dit599.customPD.items.keys.SkeletonKey;
+import com.dit599.customPD.items.potions.Potion;
 import com.dit599.customPD.items.potions.PotionOfStrength;
 import com.dit599.customPD.items.rings.RingOfAccuracy;
 import com.dit599.customPD.items.rings.RingOfDetection;
@@ -80,6 +81,7 @@ import com.dit599.customPD.items.rings.RingOfEvasion;
 import com.dit599.customPD.items.rings.RingOfHaste;
 import com.dit599.customPD.items.rings.RingOfShadows;
 import com.dit599.customPD.items.rings.RingOfThorns;
+import com.dit599.customPD.items.scrolls.Scroll;
 import com.dit599.customPD.items.scrolls.ScrollOfMagicMapping;
 import com.dit599.customPD.items.scrolls.ScrollOfRecharging;
 import com.dit599.customPD.items.scrolls.ScrollOfUpgrade;
@@ -133,6 +135,8 @@ public class Hero extends Char {
 	private static final String TXT_SEARCH	= "search";
 	
 	public static final int STARTING_STR = 10;
+	
+	public static final int T_LAST_FLOOR = 4;
 	
 	private static final float TIME_TO_REST		= 1f;
 	private static final float TIME_TO_SEARCH	= 2f;
@@ -484,7 +488,10 @@ public class Hero extends Char {
 		lastAction = null;
 		act();
 	}
-	
+	/**
+	 * Modified so when encountering a sign the code will now try to get tip()
+	 * from the room object itself instead of from Dungeon.
+	 */
 	private boolean actMove( HeroAction.Move action ) {
 
 		if (getCloser( action.dst )) {
@@ -573,20 +580,39 @@ public class Hero extends Char {
 			return false;
 		}
 	}
-	
+	/**
+	 * Modified to contain several tutorial clauses to cause different prompts in tutorial mode
+	 * when certain item types are picked up.
+	 */
 	private boolean actPickUp( HeroAction.PickUp action ) {
 		int dst = action.dst;
 		if (pos == dst) {
 			
 			Heap heap = Dungeon.level.heaps.get( pos );
 			if (heap != null) {
-				if(Dungeon.isTutorial && !Dungeon.firstHeap && heap.size() > 1){
-					Dungeon.firstHeap = true;
+				if(Dungeon.isTutorial && !Dungeon.foundHeap && heap.size() > 1){
+					Dungeon.foundHeap = true;
 					WndStory.showChapter(
 									"Items can be stacked ontop of each other. Press the blue icon in the upper " +
 											"right to pick up the next item in the stack.");
 				}
 				Item item = heap.pickUp();
+				
+
+				if(Dungeon.isTutorial && !Dungeon.foundItem && !(item instanceof Dewdrop)){
+					Dungeon.foundItem = true;
+					WndStory.showChapter("You have picked up an item and stored it in your inventory! " +
+							"Press the bag icon to open your inventory.");
+				}
+				if(Dungeon.isTutorial && item instanceof Scroll && !((Scroll) item).isKnown()){
+					WndStory.showChapter("You have picked up an unknown scroll. " +
+							"you will need to use it to find out what it does!");
+				}
+				else if(Dungeon.isTutorial && item instanceof Potion && !((Potion) item).isKnown()){
+					WndStory.showChapter("You have picked up an unknown potion. " +
+							"you will need to use it to find out what it does!");
+				}
+				
 				if (item.doPickUp( this )) {
 					
 					if (item instanceof Dewdrop) {
@@ -716,13 +742,16 @@ public class Hero extends Char {
 			return false;
 		}
 	}
-	
+	/**
+	 * Modified with a tutorial clause used to end the game after descending from floor 4
+	 * if in tutorialmode.
+	 */
 	private boolean actDescend( HeroAction.Descend action ) {
 		Log.d("HERO DESCEND", "START");
 		int stairs = action.dst;
 		if (pos == stairs && pos == Dungeon.level.exit) {
 			Log.d("HERO DESCEND", "IF");
-			if(Dungeon.isTutorial && Dungeon.depth == 4){
+			if(Dungeon.isTutorial && Dungeon.depth == T_LAST_FLOOR){
 				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
 				Game.switchScene( TutorialEndScene.class );
 			}
@@ -921,7 +950,10 @@ public class Hero extends Char {
 	public Mob visibleEnemy( int index ) {
 		return visibleEnemies.get( index % visibleEnemies.size() );
 	}
-	
+	/**
+	 * Modified with a tutorial clause which causes a prompt to be displayed when the
+	 * player touches a barricade in tutorialmode.
+	 */
 	private boolean getCloser( final int target ) {
 		
 		if (rooted) {
@@ -940,6 +972,9 @@ public class Hero extends Char {
 				}
 				if (Level.passable[target] || Level.avoid[target]) {
 					step = target;
+				}
+				else if (Dungeon.isTutorial && Dungeon.level.map[target] == Terrain.BARRICADE){
+					WndStory.showChapter("You have found a barricade. Perhaps you can burn it down?");
 				}
 			}
 			
@@ -1153,7 +1188,12 @@ public class Hero extends Char {
 		}
 		return stealth;
 	}
-	
+	/**
+	 * Modified with a tutorial clause which prevents death on floor 1-3 in
+	 * tutorialmode, as well as causing a prompt explaining why to appear.
+	 * If death occurs on floor 4 of the tutorial, a prompt informing the player
+	 * that they should get started on the standard game is displayed instead.  
+	 */
 	@Override
 	public void die( Object cause  ) {
 		
@@ -1163,6 +1203,18 @@ public class Hero extends Char {
 		if (isAlive()) {
 			new Flare( 8, 32 ).color( 0xFFFF66, true ).show( sprite, 2f ) ;
 			return;
+		}
+		else if(Dungeon.isTutorial){
+			if(Dungeon.depth < 4){
+				Dungeon.hero.HP = Dungeon.hero.HT;
+				WndStory.showChapter("Since this is a tutorial, you have been revived after dying. Beware however " +
+						"that if you die in the actual game you will have to start from the beginning.");
+				return;
+			}
+			else{
+				WndStory.showChapter("Regrettably you have died on the bonus floor of the tutorial, but you should still " +
+						"be ready to start playing the standard game!");
+			}
 		}
 		
 		Actor.fixTime();
@@ -1180,7 +1232,9 @@ public class Hero extends Char {
 			
 		}
 	}
-	
+	/**
+	 * Modified with a tutorial clause to not place bones in tutorialmode.
+	 */
 	public static void reallyDie( Object cause ) {
 		
 		int length = Level.LENGTH;
@@ -1201,8 +1255,9 @@ public class Hero extends Char {
 				}
 			}
 		}
-		
-		Bones.leave();
+		if(!Dungeon.isTutorial){
+			Bones.leave();
+		}
 		
 		Dungeon.observe();
 				

@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -216,7 +216,9 @@ public class Wandmaker extends NPC {
 				reset();
 			}
 		}
-		
+		/**
+		 * Modified to not spawn in tutorialmode.
+		 */
 		public static void spawn( PrisonLevel level, Room room ) {
 			if (!Dungeon.isTutorial && !spawned && Dungeon.depth > 6 && Random.Int( 10 - Dungeon.depth ) == 0) {
 				

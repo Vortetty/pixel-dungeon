@@ -1,6 +1,6 @@
 /*
-* CustomPD
-* Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
 * This is a modification of source code from: 
 * Pixel Dungeon
 * Copyright (C) 2012-2014 Oleg Dolya
@@ -44,7 +44,8 @@ public class AboutScene extends PixelScene {
 	private static final String TXT_LOWER = 
 		"\n\nCode & graphics: Watabou\n" +
 		"Music: Cube_Code\n\n" + 
-		"Additional modifications & coding: CustomPD team\n\n" +
+		"Additional modifications & coding: YourPD team\n\n"
+            +
 		"This game is inspired by Brian Walker's Brogue. " +
 		"Try it on Windows, Mac OS or Linux - it's awesome! ;)\n\n" +
 		"License and warranty can be found here:";
@@ -52,6 +53,10 @@ public class AboutScene extends PixelScene {
 	private static final String PD_LNK = "play.google.com/store/apps/details?id=com.watabou.pixeldungeon";
 	private static final String GPL_LNK = "gnu.org/copyleft/gpl.html";
 	
+	/**
+	 * Modified (as well as the static strings in this class) to presentrelevant links to the license
+	 * and original game, as well as present how this is a modification.
+	 */
 	@Override
 	public void create() {
 		super.create();

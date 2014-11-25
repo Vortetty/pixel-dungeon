@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -26,7 +26,7 @@ import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 
 public class ExitPainter extends Painter {
-
+	
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
@@ -40,6 +40,9 @@ public class ExitPainter extends Painter {
 		}while (level.map[level.exit] == Terrain.SIGN);
 		set( level, level.exit, Terrain.EXIT );
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
 		return "It is recommended to explore each floor fully before going to the next one. " +
 				"Tip: zoom out to check if the map is fully explored.";

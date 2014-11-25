@@ -3,6 +3,10 @@ package com.dit599.customPD.editorUI;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+import  com.dit599.customPD.editorUI.*;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +17,6 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.TextView;
-import com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode;
 
 public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
 
@@ -66,8 +69,8 @@ public class SuperTreeViewAdapter extends BaseExpandableListAdapter {
 		
 		final ExpandableListView treeView = getExpandableListView();
 		final TreeViewAdapter treeViewAdapter = new TreeViewAdapter(this.parentContext,0);
-		List<TreeNode> tmp = treeViewAdapter.getTreeNode();
-		final TreeNode treeNode=(TreeNode) getChild(groupPosition, childPosition);
+		List<com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode> tmp = treeViewAdapter.getTreeNode();
+		final com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode treeNode=(com.dit599.customPD.editorUI.TreeViewAdapter.TreeNode) getChild(groupPosition, childPosition);
 		tmp.add(treeNode);
 		treeViewAdapter.updateTreeNode((List)tmp);
 		treeView.setAdapter(treeViewAdapter);

@@ -1,6 +1,9 @@
 /*
+ * YourPD
+ * Copyright (C) 2014 YourPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,21 +12,26 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.items.scrolls;
 
+import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.effects.Speck;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.weapon.Weapon;
+import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.utils.GLog;
 import com.dit599.customPD.windows.WndBag;
+import com.dit599.customPD.windows.WndStory;
+import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfWeaponUpgrade extends InventoryScroll {
 
@@ -53,8 +61,29 @@ public class ScrollOfWeaponUpgrade extends InventoryScroll {
 	@Override
 	public String desc() {
 		return
-			"This scroll will upgrade a melee weapon, improving its quality. In contrast to a regular Scroll of Upgrade, " +
+			"This scroll will upgrade a weapon, improving its quality. In contrast to a regular Scroll of Upgrade, " +
 			"this specialized version will never destroy an enchantment on a weapon. On the contrary, it is able to imbue " +
 			"an unenchanted weapon with a random enchantment.";
+	}
+	/**
+	 * Modified with a tutorial clause that causes a prompt to display when this
+	 * item is picked up by the player in tutorialmode.
+	 */
+	@Override
+	public boolean doPickUp( Hero hero ) {
+		if (collect( hero.belongings.backpack )) {
+			if(Dungeon.isTutorial){
+				WndStory.showChapter("You have picked up a scroll of weapon upgrade. Use it to upgrade " +
+						"a weapon of your choice. The weapon will also gain a magical effect if it did not " +
+						"already have one.");			
+			}
+			GameScene.pickUp( this );
+			Sample.INSTANCE.play( Assets.SND_ITEM );
+			hero.spendAndNext( TIME_TO_PICK_UP );
+			return true;
+			
+		} else {
+			return false;
+		}
 	}
 }

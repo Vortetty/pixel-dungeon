@@ -93,7 +93,6 @@ public class TitleScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-				Dungeon.promptShowing = false;
 				CustomPD.switchNoFade( GameModeScene.class );
 			}
 		};

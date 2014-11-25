@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -32,6 +32,11 @@ import com.watabou.utils.Random;
 
 public class BagRoomPainter extends Painter {
 
+	/**
+	 * Paints a room that contains 2 special bags and a barricaded door. This
+	 * method also ensures a liquid flame potion is randomly placed on the level (so the
+	 * barricade can be burned down).
+	 */
 	public static void paint( Level level, Room room ) {
 		
 		final int floor = Terrain.EMPTY_SP;
@@ -53,14 +58,22 @@ public class BagRoomPainter extends Painter {
 		}
 		
 		room.entrance().set( Room.Door.Type.BARRICADE );
-		level.addItemToSpawn( new PotionOfLiquidFlame() );
+		PotionOfLiquidFlame p = new PotionOfLiquidFlame();
+		p.setKnown();
+		level.addItemToSpawn(p);
 	}
+	/**
+	 * Returns the string to display on a sign found in this room type.
+	 */
 	public static String tip() {
-		return "This room contains bags for your scrolls and seeds! These bags extend your inventory with " +
-				"additional tabs, where items of the specific type will be automatically placed. This also " +
-				"increases the amount of items you can carry.";
+		return " Having multiple bags increases the total amount of items you can carry.";
 	}
+	/**
+	 * Returns the string to display on the prompt that appears when entering this room.
+	 */
 	public static String prompt() {
-		return "Bag Storage";
+		return "Bag Storage\n\n" +
+				"This room contains bags for your scrolls and seeds! These bags extend your inventory with " +
+				"additional tabs, where items of the specific type will be automatically placed.";
 	}
 }

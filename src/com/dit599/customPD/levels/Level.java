@@ -1,6 +1,9 @@
 /*
+ * YourPD
+ * Copyright (C) 2014 YourPD team
+ * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2014 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -9,12 +12,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 package com.dit599.customPD.levels;
 
 import java.util.ArrayList;
@@ -150,6 +153,10 @@ public abstract class Level implements Bundlable {
 	private static final String MOBS		= "mobs";
 	private static final String BLOBS		= "blobs";
 	
+	/**
+	 * Modified with tutorial clause in order to prevent chasms from 
+	 * appearing on the level in tutorialmode.
+	 */
 	public void create() {
 		
 		resizingNeeded = false;
@@ -374,12 +381,15 @@ public abstract class Level implements Bundlable {
 	public int nMobs() {
 		return 0;
 	}
-	
+	/**
+	 * Modified with tutorial clause as part of disabling random enemy spawn
+	 * on levels in tutorialmode.
+	 */
 	public Actor respawner() {
 		return new Actor() {	
 			@Override
 			protected boolean act() {
-				if (mobs.size() < nMobs()) {
+				if (!Dungeon.isTutorial && mobs.size() < nMobs()) {
 
 					Mob mob = Bestiary.mutable( Dungeon.depth );
 					mob.state = mob.WANDERING;

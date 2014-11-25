@@ -1,6 +1,6 @@
 /*
- * CustomPD
- * Copyright (C) 2014 CustomPD team
+ * YourPD
+ * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
  * Copyright (C) 2012-2014 Oleg Dolya
@@ -42,13 +42,23 @@ public enum Rankings {
 	
 	public static final String RANKINGS_FILE = "rankings.dat";
 	public static final String DETAILS_FILE = "game_%d.dat";
+	/**
+	 * Alternative filepath for saving rankings gained in tutorialmode.
+	 */
 	public static final String T_RANKINGS_FILE = "tutorial_rankings.dat";
+	/**
+	 * Alternative filepath for saving details about each ranking gained in tutorialmode.
+	 */
 	public static final String T_DETAILS_FILE = "tutorial_game_%d.dat";
 	
 	public ArrayList<Record> records;
 	public int lastRecord;
 	public int totalNumber;
 	
+	/**
+	 * Creates rankings. Modified with a clause to ensure rankings are saved to a
+	 * separate file if in tutorialmode.
+	 */
 	public void submit( boolean win ) {
 		
 		load();
@@ -101,7 +111,10 @@ public enum Rankings {
 		
 		save();
 	}
-	
+	/**
+	 * Evaluates ranking score. Modified with a clause to ensure data is saved to a
+	 * separate file if in tutorialmode.
+	 */
 	private int score( boolean win ) {
 		return (Statistics.goldCollected + Dungeon.hero.lvl * Dungeon.depth * 100) * (win ? 2 : 1);
 	}
@@ -129,7 +142,12 @@ public enum Rankings {
 		} catch (Exception e) {
 		}
 	}
-	
+	/**
+	 * Loads rankings to display. Modified with a clause to ensure rankings are loaded
+	 * from a separate file if in tutorialmode. Additionally, it has been modified to
+	 * to reload everytime the RankingsScene is entered, in order to prevent a bug where
+	 * standard and tutorial rankings would get displayed on the same page.
+	 */
 	public void load() {
 		
 	/*	if (records != null) {
