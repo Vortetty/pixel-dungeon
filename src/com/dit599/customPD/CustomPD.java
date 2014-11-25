@@ -30,6 +30,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
+import com.dit599.customPD.editorUI.MapSelectorActivity;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.PixelScene;
 import com.dit599.customPD.scenes.TitleScene;
@@ -305,7 +306,7 @@ public class CustomPD extends Game {
 	 * Used to launch the map editor.
 	 */
 	public void editMaps() {
-		startActivity(new Intent ("com.dit599.customPD.editorUI.FloorsListActivity"));
+		startActivity(new Intent("SelectMapToEdit"));
 	}
 	
 

@@ -81,7 +81,7 @@ public class GameModeScene extends PixelScene{
 		placeTorch( title.x + 18, title.y + 20 );
 		placeTorch( title.x + title.width - 18, title.y + 20 );
 
-        DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 2, false) {
+        DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 1) {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
@@ -94,13 +94,13 @@ public class GameModeScene extends PixelScene{
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
 				Dungeon.collectedDrop = true;
-                // CustomPD.switchNoFade( StartScene.class );
+                CustomPD.switchNoFade( StartScene.class );
 			}
 		};
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );
 		add( btnCustom );
 
-        DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 2, false) {
+        DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 1) {
 		
 			@Override
 			protected void onClick() {
@@ -113,7 +113,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
 				Dungeon.collectedDrop = true;
-                // CustomPD.self.editMaps();
+                CustomPD.self.editMaps();
 			}
 
 		};
