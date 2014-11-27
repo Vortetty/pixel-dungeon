@@ -15,9 +15,9 @@ import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
-//modified map editor version 2.1
+
 public class MapItemSelectActivity extends Activity {
-	public Button bt=null;
+	
 	TabHost tabHost; 
 	public int Numoffloortab=1;
 	TabSpec parentSpec,subSpec;
@@ -28,18 +28,9 @@ public class MapItemSelectActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.mapselectitem);  
-        bt=(Button) this.findViewById(R.id.mapselectitembutton);
-        bt.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, MapSelectorActivity.class);  
-                startActivity(intent);
-			}});
+       
         
-        tabHost = (TabHost) findViewById(R.id.tabs);
+        tabHost = (TabHost) findViewById(R.id.mapselecttabs);
         mobbut1=(ImageButton) this.findViewById(R.id.mobsbutton1);
         mobbut2=(ImageButton) this.findViewById(R.id.mobsbutton2);
         mobbut3=(ImageButton) this.findViewById(R.id.mobsbutton3);
@@ -50,7 +41,36 @@ public class MapItemSelectActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapMobItemActivity.class);  
+                startActivity(intent); 
+			}});
+        this.mobbut2.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapMobItemActivity.class);  
+                startActivity(intent); 
+			}});
+        this.mobbut3.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapMobItemActivity.class);  
+                startActivity(intent); 
+			}});
+        this.mobbut4.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapMobItemActivity.class);  
+                startActivity(intent); 
 			}});
         
         weaponbut=(ImageButton) this.findViewById(R.id.weaponsbutton);
@@ -60,6 +80,62 @@ public class MapItemSelectActivity extends Activity {
         roomsbut=(ImageButton) this.findViewById(R.id.roomsbutton);
         consubut=(ImageButton) this.findViewById(R.id.consumsbutton);
         
+        
+        this.weaponbut.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                startActivity(intent); 
+			}});
+        this.armbut.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                startActivity(intent); 
+			}});
+        this.potionbut.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                startActivity(intent); 
+			}});
+        this.scrollsbut.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                startActivity(intent); 
+			}});
+        this.roomsbut.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                startActivity(intent); 
+			}});
+        this.consubut.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                startActivity(intent); 
+			}});
         
         spin1 = (Spinner) findViewById(R.id.spinner1); 
         adapter1 = ArrayAdapter.createFromResource(this, 
@@ -80,7 +156,7 @@ public class MapItemSelectActivity extends Activity {
         spin3.setAdapter(adapter3); 
        
         
-        bt.setText("<<-------     "+MapSelectorActivity.choosemap);
+       
         tabHost.setup();  
         parentSpec = tabHost.newTabSpec("Floor"+Numoffloortab);  
         parentSpec.setIndicator("Floor"+Numoffloortab,  

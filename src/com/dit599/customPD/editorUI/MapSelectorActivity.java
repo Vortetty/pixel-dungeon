@@ -11,13 +11,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-//modified map editor version 2.1
+
 public class MapSelectorActivity extends Activity {
 	private Button mapbu1,mapbu2,mapbu3;
 	public EditText edv=null;
 	public Button bt=null;
 	public LinearLayout mlayout=null;
-	public static int numofMapbut=3;
 	public static String choosemap=null;
 	
 	
@@ -26,8 +25,11 @@ public class MapSelectorActivity extends Activity {
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.mapselect);  
         edv=(EditText)findViewById(R.id.mapselectet);
-        bt=(Button)findViewById(R.id.mapselectbut);
+        bt=(Button)this.findViewById(R.id.mapselectbut);
         mlayout= (LinearLayout) findViewById(R.id.mapselectlinear);
+        mapbu1=(Button) findViewById(R.id.mapex1bu);
+        mapbu2=(Button) findViewById(R.id.mapex2bu);
+        mapbu3=(Button) findViewById(R.id.mapex3bu);
 		bt.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -44,14 +46,47 @@ public class MapSelectorActivity extends Activity {
 		                intent.setClass(MapSelectorActivity.this, FloorItemActivity.class);  
 		                startActivity(intent);  
 					}});
-			    numofMapbut++;
-			    but.setId(numofMapbut);
+			
 			    but.setText(edv.getText().toString()+".map");
 			    choosemap=but.getText().toString();
 			    mlayout.addView(but);
-			    mlayout.addView(but);
 				
 			}});
+		mapbu1.setOnClickListener(new OnClickListener(){
+
+		
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent();  
+		                intent.setClass(MapSelectorActivity.this, MapItemSelectActivity.class);  
+		                startActivity(intent);  
+					}});
+		mapbu2.setOnClickListener(new OnClickListener(){
+
+			
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapSelectorActivity.this, MapItemSelectActivity.class);  
+                startActivity(intent);  
+			}});
+		mapbu3.setOnClickListener(new OnClickListener(){
+
+			
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                intent.setClass(MapSelectorActivity.this, MapItemSelectActivity.class);  
+                startActivity(intent);  
+			}});
+			
+			   
         
 	}     
 

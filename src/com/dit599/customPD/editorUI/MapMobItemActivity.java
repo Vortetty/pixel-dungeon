@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
-//modified map editor version 2.1
+
 public class MapMobItemActivity extends Activity {
 	public Spinner mobtypespin,mobfrespin=null;
 	public Button mobconfimbt,mobcancelbt=null;
@@ -28,7 +28,7 @@ public class MapMobItemActivity extends Activity {
 		super.setContentView(R.layout.mobitem); 
 		this.tv=(ImageView) this.findViewById(R.id.mobimageView);
 		this.mobconfimbt=(Button) this.findViewById(R.id.mobconfirmbutton);
-		
+		this.mobcancelbt=(Button) this.findViewById(R.id.mobcancelbutton);
 		
 		this.mobconfimbt.setOnClickListener(new OnClickListener(){
 

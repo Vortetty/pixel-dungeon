@@ -70,7 +70,7 @@
                <activity android:name=".FloorItemActivity"/>
         <activity android:name=".MapItemSelectActivity"/>
           <activity android:name=".MapMobItemActivity"/>
-           <activity android:name=".MapSelectMobActivity"/>
+           <activity android:name=".MapSelectArmorActivity"/>
         <activity android:name=".editorUI.MapSelectorActivity">
             <intent-filter>
                  <action android:name="SelectMapToEdit" />
