@@ -88,7 +88,7 @@ public class MapItemSelectActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
                 startActivity(intent); 
 			}});
         this.armbut.setOnClickListener(new OnClickListener(){
@@ -97,7 +97,7 @@ public class MapItemSelectActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
                 startActivity(intent); 
 			}});
         this.potionbut.setOnClickListener(new OnClickListener(){
@@ -106,7 +106,7 @@ public class MapItemSelectActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
                 startActivity(intent); 
 			}});
         this.scrollsbut.setOnClickListener(new OnClickListener(){
@@ -115,7 +115,7 @@ public class MapItemSelectActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
                 startActivity(intent); 
 			}});
         this.roomsbut.setOnClickListener(new OnClickListener(){
@@ -124,7 +124,7 @@ public class MapItemSelectActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
                 startActivity(intent); 
 			}});
         this.consubut.setOnClickListener(new OnClickListener(){
@@ -133,7 +133,7 @@ public class MapItemSelectActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, MapSelectArmorActivity.class);  
+                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
                 startActivity(intent); 
 			}});
         
