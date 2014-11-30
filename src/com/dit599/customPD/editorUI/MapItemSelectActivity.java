@@ -1,5 +1,7 @@
 package com.dit599.customPD.editorUI;
 
+
+
 import com.dit599.customPD.R;
 
 import android.app.Activity;
@@ -7,23 +9,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 
 public class MapItemSelectActivity extends Activity {
 	
 	TabHost tabHost; 
 	public int Numoffloortab=1;
 	TabSpec parentSpec,subSpec;
-	public Spinner spin1,spin2,spin3=null;
-    public ArrayAdapter<CharSequence> adapter1,adapter2,adapter3=null;
-	public ImageButton mobbut1,mobbut2,mobbut3,mobbut4,weaponbut,armbut,potionbut,scrollsbut,roomsbut,consubut=null;
+	public Spinner spin1,spin2,spin3,bossspin=null;
+    public ArrayAdapter<CharSequence> adapter1,adapter2,adapter3,adapter4=null;
+	public ImageButton mobbut1,mobbut2,mobbut3,mobbut4=null;
+	public ListView downlistview =null;
+	public LinearLayout layout=null;
+	public MapSelectItemAdapter downlistadapter=null;
+	
 	@Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -35,6 +46,66 @@ public class MapItemSelectActivity extends Activity {
         mobbut2=(ImageButton) this.findViewById(R.id.mobsbutton2);
         mobbut3=(ImageButton) this.findViewById(R.id.mobsbutton3);
         mobbut4=(ImageButton) this.findViewById(R.id.mobsbutton4);
+        downlistview=(ListView)this.findViewById(R.id.enchantable_list_downview);
+        downlistadapter=new MapSelectItemAdapter(this);
+        
+       
+        downlistadapter.addItem();
+        LinearLayout itemlayout=(LinearLayout) downlistadapter.getItem(downlistadapter.getCount()-1);
+        TextView weapontv= (TextView) itemlayout.findViewById(R.id.item_infobut);
+        weapontv.setText("Weapons");
+        
+        downlistadapter.addItem();
+        itemlayout=(LinearLayout) downlistadapter.getItem(downlistadapter.getCount()-1);
+        TextView armortv= (TextView) itemlayout.findViewById(R.id.item_infobut);
+        armortv.setText("Armors");
+        
+        downlistadapter.addItem();
+        itemlayout=(LinearLayout) downlistadapter.getItem(downlistadapter.getCount()-1);
+        TextView potiontv= (TextView) itemlayout.findViewById(R.id.item_infobut);
+        potiontv.setText("Potions");
+        
+        downlistadapter.addItem();
+        itemlayout=(LinearLayout) downlistadapter.getItem(downlistadapter.getCount()-1);
+        TextView Scrolltv= (TextView) itemlayout.findViewById(R.id.item_infobut);
+        Scrolltv.setText("Scrolls");
+        
+        downlistadapter.addItem();  
+        itemlayout=(LinearLayout) downlistadapter.getItem(downlistadapter.getCount()-1);
+        TextView Roomtv= (TextView) itemlayout.findViewById(R.id.item_infobut);
+        Roomtv.setText("Rooms");
+        
+        downlistadapter.addItem();  
+        itemlayout=(LinearLayout) downlistadapter.getItem(downlistadapter.getCount()-1);
+        TextView Consumabletv= (TextView) itemlayout.findViewById(R.id.item_infobut);
+        Consumabletv.setText("Consumables");
+        
+        downlistview.setAdapter(downlistadapter);
+        downlistview.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+			   Intent intent = new Intent(); 
+			   intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+               startActivity(intent);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}});
+//        downlistview.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				 Intent intent = new Intent(); 
+//				 intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+//                 startActivity(intent);
+//			}});
         
         this.mobbut1.setOnClickListener(new OnClickListener(){
 
@@ -73,69 +144,64 @@ public class MapItemSelectActivity extends Activity {
                 startActivity(intent); 
 			}});
         
-        weaponbut=(ImageButton) this.findViewById(R.id.weaponsbutton);
-        armbut=(ImageButton) this.findViewById(R.id.armorsbutton);
-        potionbut=(ImageButton) this.findViewById(R.id.potionsbutton);
-        scrollsbut=(ImageButton) this.findViewById(R.id.scrollsbutton);
-        roomsbut=(ImageButton) this.findViewById(R.id.roomsbutton);
-        consubut=(ImageButton) this.findViewById(R.id.consumsbutton);
         
         
-        this.weaponbut.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
-                startActivity(intent); 
-			}});
-        this.armbut.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
-                startActivity(intent); 
-			}});
-        this.potionbut.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
-                startActivity(intent); 
-			}});
-        this.scrollsbut.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
-                startActivity(intent); 
-			}});
-        this.roomsbut.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
-                startActivity(intent); 
-			}});
-        this.consubut.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();  
-                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
-                startActivity(intent); 
-			}});
+        
+//        this.weaponbut.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				
+//				Intent intent = new Intent();  
+//                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+//                startActivity(intent); 
+//			}});
+//        this.armbut.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent();  
+//                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+//                startActivity(intent); 
+//			}});
+//        this.potionbut.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent();  
+//                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+//                startActivity(intent); 
+//			}});
+//        this.scrollsbut.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent();  
+//                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+//                startActivity(intent); 
+//			}});
+//        this.roomsbut.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent();  
+//                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+//                startActivity(intent); 
+//			}});
+//        this.consubut.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent();  
+//                intent.setClass(MapItemSelectActivity.this, EnchantableItemsActivity.class);  
+//                startActivity(intent); 
+//			}});
         
         spin1 = (Spinner) findViewById(R.id.spinner1); 
         adapter1 = ArrayAdapter.createFromResource(this, 
@@ -143,17 +209,78 @@ public class MapItemSelectActivity extends Activity {
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
         spin1.setAdapter(adapter1); 
         
-        spin2 = (Spinner) findViewById(R.id.spinner1); 
+        spin2 = (Spinner) findViewById(R.id.spinner2); 
         adapter2 = ArrayAdapter.createFromResource(this, 
         		 R.array.frequence, android.R.layout.simple_spinner_item); 
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
         spin2.setAdapter(adapter2); 
         
-        spin3 = (Spinner) findViewById(R.id.spinner1); 
+        spin3 = (Spinner) findViewById(R.id.spinner3); 
         adapter3 = ArrayAdapter.createFromResource(this, 
         		 R.array.limits, android.R.layout.simple_spinner_item); 
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
         spin3.setAdapter(adapter3); 
+        
+        bossspin = (Spinner) findViewById(R.id.mapbossspinner); 
+        adapter4 = ArrayAdapter.createFromResource(this, 
+        		 R.array.bosschoose, android.R.layout.simple_spinner_item); 
+        adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
+        bossspin.setAdapter(adapter4); 
+        bossspin.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				if(position==1){
+					spin1.setEnabled(false);
+					spin2.setEnabled(false);
+					spin3.setEnabled(false);
+					mobbut1.setEnabled(false);
+					mobbut2.setEnabled(false);
+					mobbut3.setEnabled(false);
+					mobbut4.setEnabled(false);
+					downlistview.setEnabled(false);
+					
+					spin1.setVisibility(0);
+					spin2.setVisibility(0);
+					spin3.setVisibility(0);
+					mobbut1.setVisibility(0);
+					mobbut2.setVisibility(0);
+					mobbut3.setVisibility(0);
+					mobbut4.setVisibility(0);
+					downlistview.setVisibility(0);
+					
+				}else {
+					spin1.setEnabled(true);
+					spin2.setEnabled(true);
+					spin3.setEnabled(true);
+					mobbut1.setEnabled(true);
+					mobbut2.setEnabled(true);
+					mobbut3.setEnabled(true);
+					mobbut4.setEnabled(true);
+					downlistview.setEnabled(true);
+					
+					
+					spin1.setVisibility(1);
+					spin2.setVisibility(1);
+					spin3.setVisibility(1);
+					mobbut1.setVisibility(1);
+					mobbut2.setVisibility(1);
+					mobbut3.setVisibility(1);
+					mobbut4.setVisibility(1);
+					downlistview.setVisibility(1);
+				}
+				
+			  
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}});
        
         
        
