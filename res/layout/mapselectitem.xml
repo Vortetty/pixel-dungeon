@@ -52,13 +52,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Theme :"
-            android:textSize="40px" >
+            android:textSize="50px" >
         </TextView>
 
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:prompt="@string/theme" />
     </LinearLayout>
 
@@ -70,15 +70,15 @@
         <TextView
             android:id="@+id/mapselecttv2"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="Mob frequence :"
-            android:textSize="40px" >
+            android:textSize="50px" >
         </TextView>
 
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:prompt="@string/frequence" />
     </LinearLayout>
 
@@ -90,15 +90,15 @@
         <TextView
             android:id="@+id/mapselecttv3"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="Mob Limit :"
-            android:textSize="40px" >
+            android:textSize="50px" >
         </TextView>
 
         <Spinner
             android:id="@+id/spinner3"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:prompt="@string/limit" />
     </LinearLayout>
      <LinearLayout
@@ -109,15 +109,15 @@
         <TextView
             android:id="@+id/mapselecttv11"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="Boss:"
-            android:textSize="40px" >
+            android:textSize="50px" >
         </TextView>
 
         <Spinner
             android:id="@+id/mapbossspinner"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
 
              />
     </LinearLayout>

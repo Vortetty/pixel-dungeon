@@ -9,12 +9,14 @@
         android:id="@+id/item_imagebut"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="160px"
         android:src="@drawable/ic_launcher2" />
 
     <TextView
         android:id="@+id/item_infobut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="160px"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
