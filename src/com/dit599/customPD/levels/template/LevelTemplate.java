@@ -96,6 +96,7 @@ public class LevelTemplate {
         items.addAll(weapons);
         items.addAll(armor);
         items.addAll(consumables);
+
         try {
             for (Class<? extends Item> c : potions) {
                 items.add(c.newInstance());
@@ -114,8 +115,7 @@ public class LevelTemplate {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return null;
-
+        return items;
     }
 }
 

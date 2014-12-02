@@ -194,7 +194,8 @@ public abstract class RegularLevel extends Level {
                         assignSpecialRoomType(r);
                         specialRooms++;
 					}
-                } else if (Random.Int(2) == 0) {
+                }
+                if (r.type == Type.NULL && Random.Int(2) == 0) {
                     addRandomConnections(r);
 				}
 			}

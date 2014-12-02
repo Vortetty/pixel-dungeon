@@ -1,6 +1,9 @@
 package com.dit599.customPD.levels.template;
 
 import com.dit599.customPD.actors.mobs.Gnoll;
+import com.dit599.customPD.items.food.Pasty;
+import com.dit599.customPD.items.potions.PotionOfMight;
+import com.dit599.customPD.items.rings.RingOfEvasion;
 import com.dit599.customPD.items.weapon.melee.ShortSword;
 import com.dit599.customPD.levels.LastLevel;
 import com.dit599.customPD.levels.Room.Type;
@@ -25,16 +28,15 @@ public class TemplateFactory {
         level.theme = SewerLevel.class;
         level.maxMobs = 5;
         level.timeToRespawn = 40;
-        // level.specialRooms.add(Type.SHOP);
+        level.specialRooms.add(Type.SHOP);
         level.specialRooms.add(Type.ARMORY);
         level.mobs.get(1).mobClass = Gnoll.class;
         level.mobs.get(1).weight = 2;
         level.weapons.add(new ShortSword());
         level.weapons.add(new ShortSword());
-        // level.items.add(new PotionOfMight());
-        // level.consumables.add(new Pasty());
-        // level.rings.add(RingOfEvasion.class);
-        // level.potions.add(PotionOfMight.class);
+        level.consumables.add(new Pasty());
+        level.rings.add(RingOfEvasion.class);
+        level.potions.add(PotionOfMight.class);
 
         return level;
     }
