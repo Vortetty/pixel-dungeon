@@ -48,15 +48,8 @@ public class BagRoomPainter extends Painter {
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, floor );
 		set( level, room.center(), Terrain.SIGN );
-		
-		for (int i=0; i < 2; i++) { 
-			int pos;
-			do {
-				pos = room.random();
-			} while (level.map[pos] != floor);
-			level.drop(bags[i], pos );
-		}
-		
+
+		placeItems(bags, floor, level, room);
 		room.entrance().set( Room.Door.Type.BARRICADE );
 		PotionOfLiquidFlame p = new PotionOfLiquidFlame();
 		p.setKnown();

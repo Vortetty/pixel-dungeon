@@ -20,15 +20,9 @@
 */
 package com.dit599.customPD.levels.painters;
 
-import com.dit599.customPD.actors.Actor;
-import com.dit599.customPD.actors.mobs.Crab;
+import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.actors.mobs.Rat;
-import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
-import com.dit599.customPD.items.armor.LeatherArmor;
-import com.dit599.customPD.items.armor.MailArmor;
-import com.dit599.customPD.items.armor.PlateArmor;
-import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.weapon.melee.BattleAxe;
 import com.dit599.customPD.items.weapon.melee.Knuckles;
 import com.dit599.customPD.items.weapon.melee.Mace;
@@ -71,27 +65,14 @@ public class WeaponRoomPainter extends Painter {
 			new Mace(),
 			new BattleAxe()
 		};
+		Mob [] mobs = {new Rat(), new Rat(), new Rat()};
 		weapons[0].upgrade();
 		weapons[0].upgrade();
 		weapons[2].degrade();
 		weapons[2].degrade();
 		weapons[2].cursed = true;
-		for (int i=0; i < 6; i++) {
-			int pos;
-			do {
-				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null);
-			if(i < 3){
-				level.drop(weapons[i], pos );
-			}
-			else{
-				Rat rat = new Rat();
-				rat.pos = pos;
-				level.mobs.add( rat );
-				Actor.occupyCell( rat );
-			}
-		}
-		
+		placeItems(weapons, Terrain.EMPTY, level, room);
+		placeMobs(mobs, Terrain.EMPTY, level, room);
 		entrance.set( Room.Door.Type.REGULAR );
 	}
 	/**

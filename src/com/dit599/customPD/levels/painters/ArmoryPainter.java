@@ -17,6 +17,7 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.keys.IronKey;
@@ -32,7 +33,7 @@ public class ArmoryPainter extends Painter {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
-		
+
 		Room.Door entrance = room.entrance();
 		Point statue = null;
 		if (entrance.x == room.left) {
@@ -47,24 +48,23 @@ public class ArmoryPainter extends Painter {
 		if (statue != null) {
 			set( level, statue, Terrain.STATUE );
 		}
-		
-		int n = Random.IntRange( 2, 3 );
-		for (int i=0; i < n; i++) {
-			int pos;
-			do {
-				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop( prize( level ), pos );
+
+		if(Dungeon.template != null){
+			int n = Random.IntRange( 2, 3 );
+			Item [] items = new Item[n]; 
+			for (int i=0; i < n; i++) {
+				items[i] = prize( level );
+			}
+			placeItems(items, Terrain.EMPTY, level, room);
 		}
-		
 		entrance.set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
 	}
-	
+
 	private static Item prize( Level level ) {
 		return Generator.random( Random.oneOf( 
-			Generator.Category.ARMOR, 
-			Generator.Category.WEAPON
-		) );
+				Generator.Category.ARMOR, 
+				Generator.Category.WEAPON
+				) );
 	}
 }
