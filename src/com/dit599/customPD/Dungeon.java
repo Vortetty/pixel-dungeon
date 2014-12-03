@@ -507,12 +507,18 @@ public class Dungeon {
 			if(isTutorial){
 				return T_WR_GAME_FILE;
 			}
+			else if(Dungeon.template != null){
+				return template.name + WR_GAME_FILE;
+			}
 			else{
 				return WR_GAME_FILE;
 			}
 		case MAGE:
 			if(isTutorial){
 				return T_MG_GAME_FILE;
+			}
+			else if(Dungeon.template != null){
+				return template.name + MG_GAME_FILE;
 			}
 			else{
 				return MG_GAME_FILE;
@@ -521,12 +527,18 @@ public class Dungeon {
 			if(isTutorial){
 				return T_RN_GAME_FILE;
 			}
+			else if(Dungeon.template != null){
+				return template.name + RN_GAME_FILE;
+			}
 			else{
 				return RN_GAME_FILE;
 			}
 		default:
 			if(isTutorial){
 				return T_RG_GAME_FILE;
+			}
+			else if(Dungeon.template != null){
+				return template.name + RG_GAME_FILE;
 			}
 			else{
 				return RG_GAME_FILE;
@@ -544,12 +556,18 @@ public class Dungeon {
 			if(isTutorial){
 				return T_WR_DEPTH_FILE;
 			}
+			else if(Dungeon.template != null){
+				return template.name + WR_DEPTH_FILE;
+			}
 			else{
 				return WR_DEPTH_FILE;
 			}
 		case MAGE:
 			if(isTutorial){
 				return T_MG_DEPTH_FILE;
+			}
+			else if(Dungeon.template != null){
+				return template.name + MG_DEPTH_FILE;
 			}
 			else{
 				return MG_DEPTH_FILE;
@@ -558,12 +576,18 @@ public class Dungeon {
 			if(isTutorial){
 				return T_RN_DEPTH_FILE;
 			}
+			else if(Dungeon.template != null){
+				return template.name + RN_DEPTH_FILE;
+			}
 			else{
 				return RN_DEPTH_FILE;
 			}
 		default:
 			if(isTutorial){
 				return T_RG_DEPTH_FILE;
+			}
+			else if(Dungeon.template != null){
+				return template.name + RG_DEPTH_FILE;
 			}
 			else{
 				return RG_DEPTH_FILE;

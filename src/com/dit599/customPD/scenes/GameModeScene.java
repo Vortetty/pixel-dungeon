@@ -105,6 +105,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
+				Dungeon.template = null;
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.foundHeap = true;
@@ -124,6 +125,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
+				Dungeon.template = null;
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.foundHeap = true;
@@ -142,6 +144,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = true;
+				Dungeon.template = null;
 				Dungeon.firePrompt = false;
 				Dungeon.encounteredMob = false;
 				Dungeon.foundHeap = false;

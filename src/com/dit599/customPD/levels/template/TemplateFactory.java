@@ -19,6 +19,7 @@ public class TemplateFactory {
         template.levelTemplates[2] = createSimpleLevel();
         template.levelTemplates[3] = createSimpleLevel();
         template.levelTemplates[3].theme = LastLevel.class;
+        template.name = "simple";
 
         return template;
     }

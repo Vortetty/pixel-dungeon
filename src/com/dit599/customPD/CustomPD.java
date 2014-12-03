@@ -262,6 +262,9 @@ public class CustomPD extends Game {
 		if(Dungeon.isTutorial){
 			Preferences.INSTANCE.put( Preferences.KEY_T_LAST_CLASS, value );
 		}
+		else if(Dungeon.template != null){
+			Preferences.INSTANCE.put(Dungeon.template.name + Preferences.KEY_LAST_CLASS, value );
+		}
 		else{
 			Preferences.INSTANCE.put( Preferences.KEY_LAST_CLASS, value );
 		}
@@ -273,6 +276,9 @@ public class CustomPD extends Game {
 	public static int lastClass() {
 		if(Dungeon.isTutorial){
 			return Preferences.INSTANCE.getInt( Preferences.KEY_T_LAST_CLASS, 0 );
+		}
+		else if(Dungeon.template != null){
+			return Preferences.INSTANCE.getInt(Dungeon.template.name + Preferences.KEY_LAST_CLASS, 0);
 		}
 		else{
 			return Preferences.INSTANCE.getInt( Preferences.KEY_LAST_CLASS, 0 );

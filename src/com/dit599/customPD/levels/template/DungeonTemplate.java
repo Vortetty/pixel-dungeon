@@ -2,6 +2,7 @@ package com.dit599.customPD.levels.template;
 
 public class DungeonTemplate {
     public static final int MAX_DEPTH = 30;
+    public String name;
 
     /**
      * The levelTemplates are 0-indexed, so the level at depth 1 has index 0.
