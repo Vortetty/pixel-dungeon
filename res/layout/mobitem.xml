@@ -6,22 +6,25 @@
 
     <ImageView
         android:id="@+id/mobimageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="130px"
-        android:src="@drawable/icon" />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="160px"
+        android:src="@drawable/rat" />
     
                 <Spinner
                 android:id="@+id/mobtypespinner"
-                android:layout_width="150dp"
+                android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="120px"
+                android:layout_marginTop="50px"
                 android:prompt="@string/theme" />
                 <Spinner
                 android:id="@+id/mobfrespinner"
-                android:layout_width="150dp"
+                android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="120px"
+                android:layout_marginTop="20px"
                 android:prompt="@string/theme" />
                
     
@@ -34,8 +37,8 @@
             android:id="@+id/mobconfirmbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100px"
-            android:layout_marginTop="50px"
+            android:layout_marginLeft="90px"
+            android:layout_marginTop="60px"
             android:textSize="30px"
             android:text="Done" />
 
@@ -43,8 +46,8 @@
             android:id="@+id/mobcancelbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
-            android:layout_marginTop="50px"
+            android:layout_marginLeft="70px"
+            android:layout_marginTop="60px"
             android:textSize="30px"
             android:text="Cancel" />
         
