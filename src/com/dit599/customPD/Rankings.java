@@ -134,6 +134,9 @@ public enum Rankings {
 			if(Dungeon.isTutorial){
 				output = Game.instance.openFileOutput( T_RANKINGS_FILE, Game.MODE_PRIVATE );
 			}
+			else if (Dungeon.template != null){
+				output = Game.instance.openFileOutput( Dungeon.template.name + RANKINGS_FILE, Game.MODE_PRIVATE );
+			}
 			else{
 				output = Game.instance.openFileOutput( RANKINGS_FILE, Game.MODE_PRIVATE );
 			}
@@ -160,6 +163,9 @@ public enum Rankings {
 			InputStream input;
 			if(Dungeon.isTutorial){
 				input = Game.instance.openFileInput( T_RANKINGS_FILE );
+			}
+			else if (Dungeon.template != null){
+				input = Game.instance.openFileInput(Dungeon.template.name + RANKINGS_FILE);
 			}
 			else{
 				input = Game.instance.openFileInput( RANKINGS_FILE );

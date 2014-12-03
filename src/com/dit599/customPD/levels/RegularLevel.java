@@ -181,62 +181,22 @@ public abstract class RegularLevel extends Level {
 			if (r.type == Type.NULL && 
 					r.connected.size() == 1) {
 
-				if (specials.size() > 0 &&
-						r.width() > 3 && r.height() > 3 &&
-						Random.Int( specialRooms * specialRooms + 2 ) == 0) {
+                if (r.width() > 3 && r.height() > 3) {
 
-					if (specialRooms == 0 && LevelTemplate.currentLevelTemplate() != null) {
-						r.type = LevelTemplate.currentLevelTemplate().requiredSpecialRoom;
-					} else if (pitRoomNeeded) {
+                    if (LevelTemplate.currentLevelTemplate() != null) {
+                        if (specialRooms < LevelTemplate.currentLevelTemplate().specialRooms.size()) {
+                            r.type = LevelTemplate.currentLevelTemplate().specialRooms
+                                    .get(specialRooms);
+                            specialRooms++;
+                        }
 
-						r.type = Type.PIT;
-						pitRoomNeeded = false;
-
-						specials.remove( Type.ARMORY );
-						specials.remove( Type.CRYPT );
-						specials.remove( Type.LABORATORY );
-						specials.remove( Type.LIBRARY );
-						specials.remove( Type.STATUE );
-						specials.remove( Type.TREASURY );
-						specials.remove( Type.VAULT );
-						specials.remove( Type.WEAK_FLOOR );
-
-					} else if (Dungeon.depth % 5 == 2 && specials.contains( Type.LABORATORY )) {
-
-						r.type = Type.LABORATORY;
-
-					} else if (Dungeon.depth >= Dungeon.transmutation && specials.contains( Type.MAGIC_WELL )) {
-
-						r.type = Type.MAGIC_WELL;
-
-					} else {
-
-						int n = specials.size();
-						r.type = specials.get( Math.min( Random.Int( n ), Random.Int( n ) ) );
-						if (r.type == Type.WEAK_FLOOR) {
-							weakFloorCreated = true;
-						}
-
+					} else if (specials.size() > 0 && Random.Int( specialRooms * specialRooms + 2 ) == 0){
+                        assignSpecialRoomType(r);
+                        specialRooms++;
 					}
-
-					Room.useType( r.type );
-					specials.remove( r.type );
-					specialRooms++;
-
-				} else if (Random.Int( 2 ) == 0){
-
-					HashSet<Room> neigbours = new HashSet<Room>();
-					for (Room n : r.neigbours) {
-						if (!r.connected.containsKey( n ) && 
-								!Room.SPECIALS.contains( n.type ) &&
-								n.type != Type.PIT) {
-
-							neigbours.add( n );
-						}
-					}
-					if (neigbours.size() > 1) {
-						r.connect( Random.element( neigbours ) );
-					}
+                }
+                if (r.type == Type.NULL && Random.Int(2) == 0) {
+                    addRandomConnections(r);
 				}
 			}
 		}
@@ -264,6 +224,67 @@ public abstract class RegularLevel extends Level {
 			}
 		}
 	}
+
+    /**
+     * Vanilla logic for assigning a random special room type to a given room.
+     * 
+     * @param r
+     */
+    private void assignSpecialRoomType(Room r) {
+        if (pitRoomNeeded) {
+
+            r.type = Type.PIT;
+            pitRoomNeeded = false;
+
+            specials.remove(Type.ARMORY);
+            specials.remove(Type.CRYPT);
+            specials.remove(Type.LABORATORY);
+            specials.remove(Type.LIBRARY);
+            specials.remove(Type.STATUE);
+            specials.remove(Type.TREASURY);
+            specials.remove(Type.VAULT);
+            specials.remove(Type.WEAK_FLOOR);
+
+        } else if (Dungeon.depth % 5 == 2 && specials.contains(Type.LABORATORY)) {
+
+            r.type = Type.LABORATORY;
+
+        } else if (Dungeon.depth >= Dungeon.transmutation && specials.contains(Type.MAGIC_WELL)) {
+
+            r.type = Type.MAGIC_WELL;
+
+        } else {
+
+            int n = specials.size();
+            r.type = specials.get(Math.min(Random.Int(n), Random.Int(n)));
+            if (r.type == Type.WEAK_FLOOR) {
+                weakFloorCreated = true;
+            }
+
+        }
+
+        Room.useType(r.type);
+        specials.remove(r.type);
+    }
+
+    /**
+     * Further connects the given room. The room should not be a special room.
+     * 
+     * @param r
+     */
+    private void addRandomConnections(Room r) {
+        HashSet<Room> neigbours = new HashSet<Room>();
+        for (Room n : r.neigbours) {
+            if (!r.connected.containsKey(n) && !Room.SPECIALS.contains(n.type)
+                    && n.type != Type.PIT) {
+
+                neigbours.add(n);
+            }
+        }
+        if (neigbours.size() > 1) {
+            r.connect(Random.element(neigbours));
+        }
+    }
 
 	protected void paintWater() {
 		boolean[] lake = water();

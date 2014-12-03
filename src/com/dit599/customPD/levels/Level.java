@@ -218,9 +218,9 @@ public abstract class Level implements Bundlable {
 		} while (!build());
 		
 		if(LevelTemplate.currentLevelTemplate() != null){
-			for(Item item : LevelTemplate.currentLevelTemplate().items){
-				addItemToSpawn(item);
-			}
+            for (Item item : LevelTemplate.currentLevelTemplate().getAllItems()) {
+                addItemToSpawn(item);
+            }
 		}
 		
 		decorate();

@@ -29,13 +29,19 @@ public class GamesInProgress {
 
 	private static HashMap<HeroClass, Info> state = new HashMap<HeroClass, Info>();
 	private static HashMap<HeroClass, Info> t_state = new HashMap<HeroClass, Info>();
+	private static HashMap<HeroClass, Info> c_state = new HashMap<HeroClass, Info>();
 	
 	public static Info check( HeroClass cl ) {
 		
 		if(Dungeon.isTutorial && t_state.containsKey( cl )){
 			return t_state.get( cl );
 		}
-		else if (!Dungeon.isTutorial && state.containsKey( cl )) {
+		else if (!Dungeon.isTutorial && Dungeon.template != null && state.containsKey( cl )) {
+			
+			return c_state.get( cl );
+			
+		} 
+		else if (!Dungeon.isTutorial && Dungeon.template == null && state.containsKey( cl )) {
 			
 			return state.get( cl );
 			
@@ -54,6 +60,9 @@ public class GamesInProgress {
 			if(Dungeon.isTutorial){
 				t_state.put( cl, info );
 			}
+			else if(Dungeon.template != null){
+				c_state.put( cl, info );
+			}
 			else{
 				state.put( cl, info );
 			}
@@ -69,6 +78,9 @@ public class GamesInProgress {
 		if(Dungeon.isTutorial){
 			t_state.put( cl, info );
 		}
+		else if(Dungeon.template != null){
+			c_state.put( cl, info );
+		}
 		else{
 			state.put( cl, info );
 		}
@@ -78,6 +90,9 @@ public class GamesInProgress {
 		if(Dungeon.isTutorial){
 			t_state.remove(cl);
 		}
+		else if(Dungeon.template != null){
+			c_state.remove(cl);
+		}
 		else{
 			state.remove(cl);
 		}
@@ -86,6 +101,9 @@ public class GamesInProgress {
 	public static void delete( HeroClass cl ) {
 		if(Dungeon.isTutorial){
 			t_state.put( cl, null );
+		}
+		else if(Dungeon.template != null){
+			c_state.put( cl, null );
 		}
 		else{
 			state.put( cl, null );
