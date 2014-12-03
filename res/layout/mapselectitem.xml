@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Theme :"
-            android:textSize="50px" >
+            android:textSize="48px" >
         </TextView>
 
         <Spinner
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mob frequence :"
-            android:textSize="50px" >
+            android:textSize="48px" >
         </TextView>
 
         <Spinner
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mob Limit :"
-            android:textSize="50px" >
+            android:textSize="48px" >
         </TextView>
 
         <Spinner
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Boss:"
-            android:textSize="50px" >
+            android:textSize="48px" >
         </TextView>
 
         <Spinner
@@ -161,32 +161,32 @@
             android:id="@+id/mapselectinfotv1"
             android:layout_width="120px"
             android:layout_height="wrap_content"
-            android:text="Frequent"
-            android:textSize="30px" >
+            android:text="Mob Frequent"
+            android:textSize="28px" >
         </TextView>
 
         <TextView
             android:id="@+id/mapselectinfotv2"
             android:layout_width="120px"
             android:layout_height="wrap_content"
-            android:text="Rare"
-            android:textSize="30px" >
+            android:text="Mob Rare"
+            android:textSize="28px" >
         </TextView>
 
         <TextView
             android:id="@+id/mapselectinfotv3"
             android:layout_width="120px"
             android:layout_height="wrap_content"
-            android:text="Default"
-            android:textSize="30px" >
+            android:text="Mob Default"
+            android:textSize="28px" >
         </TextView>
 
         <TextView
             android:id="@+id/mapselectinfotv4"
             android:layout_width="120px"
             android:layout_height="wrap_content"
-            android:text="Common"
-            android:textSize="30px" >
+            android:text="Mob Common"
+            android:textSize="28px" >
         </TextView>
     </LinearLayout>
 

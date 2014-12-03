@@ -6,8 +6,10 @@ import java.util.List;
 import com.dit599.customPD.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
@@ -19,7 +21,7 @@ import android.widget.TextView;
 public class MapSelectItemAdapter extends BaseAdapter {
     private List<String>datalist =new ArrayList();
     private List<Integer>imagelist=new ArrayList();
-    private int mItemCount = 3;
+    private int mItemCount = 6;
 
     Context context;
 
@@ -75,10 +77,20 @@ public class MapSelectItemAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
     	LayoutInflater inflater = LayoutInflater.from(context);
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_sublayout, null);
-    	ImageButton ibut=(ImageButton) layout.findViewById(R.id.item_imagebut);
-    	ibut.setImageResource(imagelist.get(position));
-    	TextView tv=(TextView) layout.findViewById(R.id.item_infobut);
-    	tv.setText(datalist.get(position));
+    	if(position < datalist.size()){
+        	ImageButton ibut=(ImageButton) layout.findViewById(R.id.item_imagebut);
+        	ibut.setImageResource(imagelist.get(position));
+        	ibut.setOnClickListener(new OnClickListener(){
+        		
+        		 @Override
+        		 public void onClick(View v) {
+        		 // TODO Auto-generated method stub
+        		 Intent intent = new Intent("com.dit599.customPD.editorUI.EnchantableItemsActivity");
+        		 context.startActivity(intent);
+        		 }});
+        	TextView tv=(TextView) layout.findViewById(R.id.item_infobut);
+        	tv.setText(datalist.get(position));
+    	}
 //        LayoutInflater inflater = LayoutInflater.from(context);
 //        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_sublayout, null);
 //        ImageButton ibut=(ImageButton) layout.findViewById(R.id.item_imagebut);

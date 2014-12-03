@@ -5,6 +5,7 @@ import com.dit599.customPD.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -21,7 +22,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
-public class MapItemSelectActivity extends Activity {
+public class MapItemSelectActivity extends Activity implements AdapterView.OnItemClickListener{
 
 	TabHost tabHost;
 	public int Numoffloortab = 1;
@@ -48,37 +49,12 @@ public class MapItemSelectActivity extends Activity {
 				.findViewById(R.id.enchantable_list_downview);
 		downlistadapter = new MapSelectItemAdapter(this);
 
-		downlistadapter.addItem();
-
-		downlistadapter.addItem();
-
-		downlistadapter.addItem();
-
-		downlistadapter.addItem();
-
 
 
 		
 
 		downlistview.setAdapter(downlistadapter);
-		downlistview.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
-						EnchantableItemsActivity.class);
-				startActivity(intent);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		downlistview.setOnItemClickListener(this);
 		// downlistview.setOnClickListener(new OnClickListener(){
 		//
 		// @Override
@@ -307,5 +283,15 @@ public class MapItemSelectActivity extends Activity {
 
 		});
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Log.d("TEST", "In item click");
+		Intent intent = new Intent();
+		intent.setClass(MapItemSelectActivity.this,
+		EnchantableItemsActivity.class);
+		startActivity(intent);
+		
 	}
 }

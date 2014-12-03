@@ -78,6 +78,14 @@
                  <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+        <activity android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity">
+            <intent-filter>
+                <action android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
     </application>
 
 </manifest>
