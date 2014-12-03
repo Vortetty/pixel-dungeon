@@ -41,4 +41,19 @@ public class TemplateFactory {
 
         return level;
     }
+    
+    public static CustomTemplate createCustomMp(){
+    	CustomTemplate customtemp = new CustomTemplate();
+		return  customtemp ;
+    	
+    }
+    
+    public static void onPause(){
+    	
+    }
+     public static void onResume(){
+    	
+    }
+    
+    
 }
