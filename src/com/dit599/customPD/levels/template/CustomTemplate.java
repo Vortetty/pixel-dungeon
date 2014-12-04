@@ -29,6 +29,9 @@ public class CustomTemplate {
 	public Class<? extends Level> theme = SewerLevel.class;
 	public Feeling feeling = Feeling.NONE;
 	
+	public String mobFrequence="High";
+	public int mobLimit=10;
+	
 	public List<Item> weapons = new ArrayList<Item>();
 	public List<Item> armor = new ArrayList<Item>();
     public List<Item> consumables = new ArrayList<Item>();
