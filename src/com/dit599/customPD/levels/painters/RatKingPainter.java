@@ -17,6 +17,7 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.mobs.npcs.RatKing;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Gold;
@@ -34,35 +35,35 @@ public class RatKingPainter extends Painter {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY_SP );
-		
+
 		Room.Door entrance = room.entrance();
 		entrance.set( Room.Door.Type.HIDDEN );
 		int door = entrance.x + entrance.y * Level.WIDTH;
-		
-		for (int i=room.left + 1; i < room.right; i++) {
-			addChest( level, (room.top + 1) * Level.WIDTH + i, door );
-			addChest( level, (room.bottom - 1) * Level.WIDTH + i, door );
+		if(Dungeon.template == null){
+			for (int i=room.left + 1; i < room.right; i++) {
+				addChest( level, (room.top + 1) * Level.WIDTH + i, door );
+				addChest( level, (room.bottom - 1) * Level.WIDTH + i, door );
+			}
+
+			for (int i=room.top + 2; i < room.bottom - 1; i++) {
+				addChest( level, i * Level.WIDTH + room.left + 1, door );
+				addChest( level, i * Level.WIDTH + room.right - 1, door );
+			}
 		}
-		
-		for (int i=room.top + 2; i < room.bottom - 1; i++) {
-			addChest( level, i * Level.WIDTH + room.left + 1, door );
-			addChest( level, i * Level.WIDTH + room.right - 1, door );
-		}
-		
 		RatKing king = new RatKing();
 		king.pos = room.random( 1 );
 		level.mobs.add( king );
 	}
-	
+
 	private static void addChest( Level level, int pos, int door ) {
-		
+
 		if (pos == door - 1 || 
-			pos == door + 1 || 
-			pos == door - Level.WIDTH || 
-			pos == door + Level.WIDTH) {
+				pos == door + 1 || 
+				pos == door - Level.WIDTH || 
+				pos == door + Level.WIDTH) {
 			return;
 		}
-		
+
 		Item prize;
 		switch (Random.Int( 10 )) {
 		case 0:
@@ -80,7 +81,9 @@ public class RatKingPainter extends Painter {
 			prize = new Gold( Random.IntRange( 1, 5 ) );
 			break;
 		}
-		
-		level.drop( prize, pos ).type = Heap.Type.CHEST;
+		Item [] items = {
+				prize
+		};
+		placeHeap(items, pos, level, Heap.Type.CHEST);
 	}
 }

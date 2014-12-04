@@ -17,34 +17,24 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels.painters;
 
-import java.io.File;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.actors.blobs.Alchemy;
-import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Heap;
-import com.dit599.customPD.items.Item;
-import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.potions.Potion;
 import com.dit599.customPD.items.potions.PotionOfExperience;
 import com.dit599.customPD.items.potions.PotionOfHealing;
 import com.dit599.customPD.items.potions.PotionOfStrength;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
+import com.dit599.customPD.levels.Room.Type;
 import com.dit599.customPD.levels.Terrain;
 import com.dit599.customPD.scenes.GameScene;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
-
-import dalvik.system.DexFile;
 
 /**
  * Paints a room that contains potions of strength, health and experience, as well as
@@ -75,44 +65,26 @@ public class PotionRoomPainter extends Painter {
 		alchemy.seed( pot.x + Level.WIDTH * pot.y, 1 );
 		level.blobs.put( Alchemy.class, alchemy );
 
-		int pos;
-		do {
-			pos = room.random();
-		} while (
-				level.map[pos] != Terrain.EMPTY_SP || 
-				level.heaps.get( pos ) != null);
-		dropAll(level.heaps, pos);
+		if (Dungeon.template == null){
+			int pos;
+			Potion [] potions = {
+					new PotionOfExperience(), new PotionOfExperience(), new PotionOfHealing(), new PotionOfHealing(),
+					new PotionOfStrength(), new PotionOfStrength()
+			};
 
-		entrance.set( Room.Door.Type.REGULAR );
-	}
-	/**
-	 * Drops several potions on top of each other in this room.
-	 */
-	private static void dropAll(SparseArray<Heap> heaps, int cell){
-		Heap heap = heaps.get( cell );
-		if (heap == null) {
+			for (Potion p : potions){
+				p.setKnown();
+			}
 
-			heap = new Heap();
-			heap.pos = cell;
-			heaps.put( cell, heap );
-			GameScene.add( heap );			
-		} else if (heap.type == Heap.Type.LOCKED_CHEST || heap.type == Heap.Type.CRYSTAL_CHEST) {
-			int n;
 			do {
-				n = cell + Level.NEIGHBOURS8[Random.Int( 8 )];
-			} while (!Level.passable[n] && !Level.avoid[n]);
-			dropAll( heaps, n );
-			return;
+				pos = room.random();
+			} while (
+					level.map[pos] != Terrain.EMPTY_SP || 
+					level.heaps.get( pos ) != null);
+
+			placeHeap(potions, pos, level, Heap.Type.HEAP);
 		}
-		Potion [] potions = {
-			new PotionOfExperience(), new PotionOfExperience(), new PotionOfHealing(), new PotionOfHealing(),
-			new PotionOfStrength(), new PotionOfStrength()
-		};
-		
-		for (Potion p : potions){
-			p.setKnown();
-			heap.drop(p);
-		}
+		entrance.set( Room.Door.Type.REGULAR );
 	}
 	/**
 	 * Returns the string to display on a sign found in this room type.

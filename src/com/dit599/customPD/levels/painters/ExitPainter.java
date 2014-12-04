@@ -20,7 +20,6 @@
 */
 package com.dit599.customPD.levels.painters;
 
-import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;

@@ -17,6 +17,7 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.Gold;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.keys.IronKey;
@@ -31,30 +32,31 @@ public class TreasuryPainter extends Painter {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
-		
+
 		set( level, room.center(), Terrain.STATUE );
-		
+
 		Heap.Type heapType = Random.Int( 2 ) == 0 ? Heap.Type.CHEST : Heap.Type.HEAP;
-		
-		int n = Random.IntRange( 2, 3 );
-		for (int i=0; i < n; i++) {
-			int pos;
-			do {
-				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop( new Gold().random(), pos ).type = heapType;
-		}
-		
-		if (heapType == Heap.Type.HEAP) {
-			for (int i=0; i < 6; i++) {
+
+		if(Dungeon.template == null){
+			int n = Random.IntRange( 2, 3 );
+			for (int i=0; i < n; i++) {
 				int pos;
 				do {
 					pos = room.random();
-				} while (level.map[pos] != Terrain.EMPTY);
-				level.drop( new Gold( Random.IntRange( 1, 3 ) ), pos );
+				} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+				level.drop( new Gold().random(), pos ).type = heapType;
+			}
+
+			if (heapType == Heap.Type.HEAP) {
+				for (int i=0; i < 6; i++) {
+					int pos;
+					do {
+						pos = room.random();
+					} while (level.map[pos] != Terrain.EMPTY);
+					level.drop( new Gold( Random.IntRange( 1, 3 ) ), pos );
+				}
 			}
 		}
-		
 		room.entrance().set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
 	}

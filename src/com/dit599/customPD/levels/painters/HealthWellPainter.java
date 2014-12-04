@@ -20,17 +20,12 @@
 */
 package com.dit599.customPD.levels.painters;
 
-import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.actors.blobs.WaterOfAwareness;
 import com.dit599.customPD.actors.blobs.WaterOfHealth;
-import com.dit599.customPD.actors.blobs.WaterOfTransmutation;
 import com.dit599.customPD.actors.blobs.WellWater;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Point;
-import com.watabou.utils.Random;
-
 /**
  * Paints a room containing a well of health.
  */

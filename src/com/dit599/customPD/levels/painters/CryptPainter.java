@@ -17,6 +17,7 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.Heap.Type;
@@ -60,7 +61,13 @@ public class CryptPainter extends Painter {
 			cy = room.top + 2;
 		}
 		
-		level.drop( prize( level ), cx + cy * Level.WIDTH ).type = Type.TOMB;
+		//level.drop( prize( level ), cx + cy * Level.WIDTH ).type = Type.TOMB;
+		if(Dungeon.template == null){
+			Item [] items = {
+					prize( level )	
+			};
+			placeHeap(items, cx + cy * Level.WIDTH, level, Type.TOMB);
+		}
 	}
 	
 	private static Item prize( Level level ) {

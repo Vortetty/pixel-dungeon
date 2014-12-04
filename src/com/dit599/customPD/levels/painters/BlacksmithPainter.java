@@ -17,9 +17,11 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.mobs.npcs.Blacksmith;
 import com.dit599.customPD.items.Generator;
+import com.dit599.customPD.items.Item;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
@@ -32,24 +34,20 @@ public class BlacksmithPainter extends Painter {
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.FIRE_TRAP );
 		fill( level, room, 2, Terrain.EMPTY_SP );
-		
-		for (int i=0; i < 2; i++) {
-			int pos;
-			do {
-				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY_SP);
-			level.drop( 
-				Generator.random( Random.oneOf( 
-					Generator.Category.ARMOR, 
-					Generator.Category.WEAPON
-				) ), pos );
+
+		if(Dungeon.template == null){
+			Item [] items = new Item[2]; 
+			for (int i=0; i < items.length; i++) {
+				items[i] = Generator.random( Random.oneOf(Generator.Category.ARMOR, 
+						Generator.Category.WEAPON));
+			}
+			placeItems(items, Terrain.EMPTY_SP, level, room);
 		}
-		
 		for (Room.Door door : room.connected.values()) {
 			door.set( Room.Door.Type.UNLOCKED );
 			drawInside( level, room, door, 1, Terrain.EMPTY );
 		}
-		
+
 		Blacksmith npc = new Blacksmith();
 		do {
 			npc.pos = room.random( 1 );

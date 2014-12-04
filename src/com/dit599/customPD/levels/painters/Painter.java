@@ -21,10 +21,13 @@ import java.util.Arrays;
 
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.mobs.Mob;
+import com.dit599.customPD.items.Heap;
+import com.dit599.customPD.items.Heap.Type;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
+import com.dit599.customPD.scenes.GameScene;
 import com.watabou.utils.Point;
 import com.watabou.utils.Rect;
 
@@ -95,6 +98,16 @@ public class Painter {
 			} while (level.map[pos] != terrain || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null);
 			level.drop(i, pos );
 		}
+	}
+	public static void placeHeap(Item[] items, int pos, Level level, Heap.Type type){
+		Heap heap = new Heap();
+		heap.pos = pos;
+		level.heaps.put( pos, heap );
+		GameScene.add( heap );	
+		for(Item i : items){
+			heap.drop(i);
+		}
+		heap.type = type;
 	}
 	public static void placeMobs(Mob[] mobs, int terrain, Level level, Room room){
 		int pos;

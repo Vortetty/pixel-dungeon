@@ -49,7 +49,7 @@ public class ArmoryPainter extends Painter {
 			set( level, statue, Terrain.STATUE );
 		}
 
-		if(Dungeon.template != null){
+		if(Dungeon.template == null){
 			int n = Random.IntRange( 2, 3 );
 			Item [] items = new Item[n]; 
 			for (int i=0; i < n; i++) {

@@ -17,10 +17,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels.painters;
 
 import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.potions.PotionOfExperience;
 import com.dit599.customPD.items.potions.PotionOfHealing;
 import com.dit599.customPD.items.potions.PotionOfStrength;
@@ -54,18 +55,23 @@ public class EntrancePainter extends Painter {
 		set( level, level.entrance, Terrain.ENTRANCE );
 
 		if(Dungeon.isTutorial){
-			int pos;
-			do{
-				pos = room.random(0);
-			}while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
 			if(Dungeon.depth == 2){
-			level.drop(new PotionOfStrength(), pos );
+				Item [] items = {
+						new PotionOfStrength()
+				};
+				placeItems(items, Terrain.EMPTY, level, room);
 			}
 			else if(Dungeon.depth == 3){
-			level.drop(new PotionOfHealing(), pos );
+				Item [] items = {
+						new PotionOfHealing()
+				};
+				placeItems(items, Terrain.EMPTY, level, room);
 			}
 			else if (Dungeon.depth == 4){
-				level.drop(new PotionOfExperience(), pos );
+				Item [] items = {
+						new PotionOfExperience()
+				};
+				placeItems(items, Terrain.EMPTY, level, room);
 			}
 		}
 	}

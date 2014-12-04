@@ -20,18 +20,11 @@
 */
 package com.dit599.customPD.levels.painters;
 
-import com.dit599.customPD.actors.Actor;
-import com.dit599.customPD.actors.mobs.Brute;
-import com.dit599.customPD.actors.mobs.Piranha;
+import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.actors.mobs.Crab;
-import com.dit599.customPD.items.Generator;
-import com.dit599.customPD.items.Heap;
-import com.dit599.customPD.items.Item;
-import com.dit599.customPD.items.potions.PotionOfInvisibility;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
-import com.watabou.utils.Random;
 
 /**
  * Paints a room that contains 3 crabs (which are quite strong compared 
@@ -76,15 +69,11 @@ public class HardHittingRoomPainter extends Painter {
 		
 		int pos = x + y * Level.WIDTH;
 		set( level, pos, Terrain.SIGN );
-		
+		Mob [] mobs = new Mob[NMOBS];
 		for (int i=0; i < NMOBS; i++) {
-			Crab crab = new Crab();
-			do {
-				crab.pos = room.random();
-			} while (level.map[crab.pos] != Terrain.WATER|| Actor.findChar( crab.pos ) != null);
-			level.mobs.add( crab );
-			Actor.occupyCell( crab );
+			mobs[i] = new Crab();
 		}
+		placeMobs(mobs, Terrain.WATER, level, room);
 	}
 	/**
 	 * Returns the string to display on a sign found in this room type.

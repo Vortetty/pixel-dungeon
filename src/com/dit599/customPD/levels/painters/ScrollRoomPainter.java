@@ -17,12 +17,13 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels.painters;
 
 import java.util.Enumeration;
 
 import com.dit599.customPD.CustomPD;
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
@@ -84,41 +85,21 @@ public class ScrollRoomPainter extends Painter {
 			set( level, b, Terrain.SIGN );
 		}
 
-		int pos;
-		do {
-			pos = room.random();
-		} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-		dropAll(level.heaps, pos);
-
-		entrance.set( Room.Door.Type.REGULAR );
-	}
-	/**
-	 * Drops several scrolls on top of each other in this room.
-	 */
-	private static void dropAll(SparseArray<Heap> heaps, int cell){
-		Heap heap = heaps.get( cell );
-		if (heap == null) {
-
-			heap = new Heap();
-			heap.pos = cell;
-			heaps.put( cell, heap );
-			GameScene.add( heap );			
-		} else if (heap.type == Heap.Type.LOCKED_CHEST || heap.type == Heap.Type.CRYSTAL_CHEST) {
-			int n;
+		if (Dungeon.template == null){
+			int pos;
+			Scroll  [] scrolls = {
+					new ScrollOfIdentify(), new ScrollOfMagicMapping(), new ScrollOfMagicMapping(),
+					new ScrollOfRemoveCurse(), new ScrollOfUpgrade(), new ScrollOfWeaponUpgrade()
+			};
+			for(Scroll s : scrolls){
+				s.setKnown();
+			}
 			do {
-				n = cell + Level.NEIGHBOURS8[Random.Int( 8 )];
-			} while (!Level.passable[n] && !Level.avoid[n]);
-			dropAll( heaps, n );
-			return;
+				pos = room.random();
+			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+			placeHeap(scrolls, pos, level, Heap.Type.HEAP);
 		}
-		Scroll  [] scrolls = {
-				new ScrollOfIdentify(), new ScrollOfMagicMapping(), new ScrollOfMagicMapping(),
-				new ScrollOfRemoveCurse(), new ScrollOfUpgrade(), new ScrollOfWeaponUpgrade()
-		};
-		for(Scroll s : scrolls){
-			s.setKnown();
-			heap.drop(s);
-		}
+		entrance.set( Room.Door.Type.REGULAR );
 	}
 	/**
 	 * Returns the string to display on a sign found in this room type.

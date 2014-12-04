@@ -17,6 +17,7 @@
  */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.keys.IronKey;
@@ -30,14 +31,14 @@ import com.watabou.utils.Random;
 public class LibraryPainter extends Painter {
 
 	public static void paint( Level level, Room room ) {
-		
+
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
-		
+
 		Room.Door entrance = room.entrance();
 		Point a = null;
 		Point b = null;
-		
+
 		if (entrance.x == room.left) {
 			a = new Point( room.left+1, entrance.y-1 );
 			b = new Point( room.left+1, entrance.y+1 );
@@ -61,29 +62,28 @@ public class LibraryPainter extends Painter {
 		if (b != null && level.map[b.x + b.y * Level.WIDTH] == Terrain.EMPTY) {
 			set( level, b, Terrain.STATUE );
 		}
-		
-		int n = Random.IntRange( 2, 3 );
-		for (int i=0; i < n; i++) {
-			int pos;
-			do {
-				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop( prize( level), pos );
+
+		if(Dungeon.template == null){
+			int n = Random.IntRange( 2, 3 );
+			Item [] items = new Item[n];
+			for (int i=0; i < n; i++) {
+				items[i] = prize( level );
+			}
+			placeItems(items, Terrain.EMPTY, level, room);
 		}
-		
 		entrance.set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
 	}
-	
+
 	private static Item prize( Level level ) {
-		
+
 		Item prize = level.itemToSpanAsPrize();
 		if (prize instanceof Scroll) {
 			return prize;
 		} else if (prize != null) {
 			level.addItemToSpawn( prize );
 		}
-		
+
 		return Generator.random( Generator.Category.SCROLL );
 	}
 }

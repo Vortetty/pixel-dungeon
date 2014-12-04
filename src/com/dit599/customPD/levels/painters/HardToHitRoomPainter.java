@@ -20,15 +20,12 @@
  */
 package com.dit599.customPD.levels.painters;
 
-import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Gold;
-import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.Heap.Type;
-import com.dit599.customPD.items.keys.IronKey;
+import com.dit599.customPD.items.Item;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Terrain;
-import com.watabou.utils.Point;
 
 /**
  * Paints a room containing a single tombstone.
@@ -50,7 +47,11 @@ public class HardToHitRoomPainter extends Painter {
 		do {
 			pos = room.random();
 		} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-		level.drop( new Gold(50), pos).type = Type.TOMB;
+		//level.drop( new Gold(50), pos).type = Type.TOMB;
+		Item [] items = {
+				new Gold(50)	
+		};
+		placeHeap(items, pos, level, Type.TOMB);
 	}
 	/**
 	 * Returns the string to display on a sign found in this room type.

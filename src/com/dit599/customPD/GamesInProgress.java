@@ -36,7 +36,7 @@ public class GamesInProgress {
 		if(Dungeon.isTutorial && t_state.containsKey( cl )){
 			return t_state.get( cl );
 		}
-		else if (!Dungeon.isTutorial && Dungeon.template != null && state.containsKey( cl )) {
+		else if (!Dungeon.isTutorial && Dungeon.template != null && c_state.containsKey( cl )) {
 			
 			return c_state.get( cl );
 			
