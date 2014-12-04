@@ -201,7 +201,7 @@ public class StartScene extends PixelScene {
 		}
 		shields.get( curClass = cl ).highlight( true );
 		
-		if (cl != HeroClass.HUNTRESS || huntressUnlocked) {
+		if (cl != HeroClass.HUNTRESS || Dungeon.isTutorial || Dungeon.template != null || huntressUnlocked) {
 		
 			unlock.visible = false;
 			 
