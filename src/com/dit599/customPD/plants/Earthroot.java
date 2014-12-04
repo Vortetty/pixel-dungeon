@@ -90,7 +90,7 @@ public class Earthroot extends Plant {
 			if (collect( hero.belongings.backpack )) {
 				if(Dungeon.isTutorial){
 					WndStory.showChapter("You have picked up an earthroot seed. Plant it " +
-							"then stand on it to significantly reduce damage taken! we recommend" +
+							"then stand on it to significantly reduce damage taken! we recommend " +
 							"that you save one of these for floor 4 of the tutorial...");			
 				}
 				GameScene.pickUp( this );

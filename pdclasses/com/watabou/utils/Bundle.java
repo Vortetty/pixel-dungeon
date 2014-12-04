@@ -291,7 +291,6 @@ public class Bundle {
 		try {
 			BufferedReader reader = new BufferedReader( new InputStreamReader( stream ) );
 			String line = reader.readLine();
-			Log.d("BUNDLE READ", line);
 			JSONTokener t = new JSONTokener( line );
 			boolean b = t !=null;
 			JSONObject json = (JSONObject)t.nextValue();
