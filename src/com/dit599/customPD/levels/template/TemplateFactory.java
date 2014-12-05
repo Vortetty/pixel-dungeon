@@ -60,6 +60,7 @@ public class TemplateFactory {
     	customtemp.mobFrequence=mobfreq;
     	customtemp.mobLimit=moblimit;
 		return  customtemp ;
+		
     	
     }
     
