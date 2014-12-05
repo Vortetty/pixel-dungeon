@@ -14,7 +14,7 @@
      <item>theme2</item> 
      <item>theme3</item> 
     </string-array>
-    <string-array name="limits">
+    <string-array name="mob_limits">
      <item>1</item>   
      <item>2</item> 
      <item>3</item> 
