@@ -14,18 +14,18 @@
         <item>CavesBossLevel</item>
         <item>CavesLevel</item>
         <item>CityBossLevel</item>
-         <item>CityLevel</item>
+        <item>CityLevel</item>
         <item>DeadEndLevel</item>
         <item>HallsBossLevel</item>
         <item>HallsLevel</item>
         <item>LastLevel</item>
         <item>LastShopLevel</item>
         <item>PrisonBossLevel</item>
-         <item>PrisonLevel</item>
+        <item>PrisonLevel</item>
         <item>RegularLevel</item>
-         <item>SewerBossLevel</item>
-          <item>SewerLevel</item>
-         <item>TutorialBossLevel</item>
+        <item>SewerBossLevel</item>
+        <item>SewerLevel</item>
+        <item>TutorialBossLevel</item>
         <item>TutorialLevel</item>
     </string-array>
     <string-array name="mob_limits">
@@ -44,6 +44,38 @@
         <item>High</item>
         <item>Mid</item>
         <item>Low</item>
+    </string-array>
+    <string-array name="mob_type">
+        <item>Acidic</item>
+        <item>Albino</item>
+        <item>Bandit</item>
+        <item>Bat</item>
+        <item>Brute</item>
+        <item>Crab</item>
+        <item>DM300</item>
+        <item>Elemental</item>
+        <item>Eye</item>
+        <item>Gnoll</item>
+        <item>Golem</item>
+        <item>Goo</item>
+        <item>King</item>
+        <item>Monk</item>
+        <item>Piranha</item>
+        <item>Rat</item>
+        <item>Scorpio</item>
+        <item>Senior</item>
+        <item>Shaman</item>
+        <item>Shielded</item>
+        <item>Skeleton</item>
+        <item>Spinner</item>
+        <item>Statue</item>
+        <item>Succubus</item>
+        <item>Swarm</item>
+        <item>Tengu</item>
+        <item>Thief</item>
+        <item>Warlock</item>
+        <item>Wraith</item>
+        <item>Yog</item>
     </string-array>
     <string-array name="armortype">
         <item>Leather</item>
