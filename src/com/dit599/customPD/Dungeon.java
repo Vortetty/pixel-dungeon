@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD;
 
 import java.io.IOException;
@@ -74,44 +74,44 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Dungeon {
-	
+
 	private static final String NO_TIPS = "The text  is indecipherable...";
 	private static final String[] TIPS = {
 		"Don't overestimate your strength, use weapons and armor you can handle.",
 		"Not all doors in the dungeon are visible at first sight. If you are stuck, search for hidden doors.",
 		"Remember, that raising your strength is not the only way to access better equipment, you can go " +
-			"the other way lowering its strength requirement with Scrolls of Upgrade.",
-		"You can spend your gold in shops on deeper levels of the dungeon. The first one is on the 6th level.",
-			
-		"Beware of Goo!",
-		
-		"Pixel-Mart - all you need for successful adventure!",
-		"Identify your potions and scrolls as soon as possible. Don't put it off to the moment " +
-			"when you actually need them.",
-		"Being hungry doesn't hurt, but starving does hurt.",
-		"Surprise attack has a better chance to hit. For example, you can ambush your enemy behind " +
-			"a closed door when you know it is approaching.",
-		
-		"Don't let The Tengu out!",
-		
-		"Pixel-Mart. Spend money. Live longer.",
-		"When you're attacked by several monsters at the same time, try to retreat behind a door.",
-		"If you are burning, you can't put out the fire in the water while levitating.",
-		"There is no sense in possessing more than one Ankh at the same time, because you will lose them upon resurrecting.",
-		
-		"DANGER! Heavy machinery can cause injury, loss of limbs or death!",
-		
-		"Pixel-Mart. A safer life in dungeon.",
-		"When you upgrade an enchanted weapon, there is a chance to destroy that enchantment.",
-		"In a Well of Transmutation you can get an item, that cannot be obtained otherwise.",
-		"The only way to enchant a weapon is by upgrading it with a Scroll of Weapon Upgrade.",
-		
-		"No weapons allowed in the presence of His Majesty!",
-		
-		"Pixel-Mart. Special prices for demon hunters!",
-		"The text is written in demonic language.",
-		"The text is written in demonic language.",
-		"The text is written in demonic language."
+				"the other way lowering its strength requirement with Scrolls of Upgrade.",
+				"You can spend your gold in shops on deeper levels of the dungeon. The first one is on the 6th level.",
+
+				"Beware of Goo!",
+
+				"Pixel-Mart - all you need for successful adventure!",
+				"Identify your potions and scrolls as soon as possible. Don't put it off to the moment " +
+						"when you actually need them.",
+						"Being hungry doesn't hurt, but starving does hurt.",
+						"Surprise attack has a better chance to hit. For example, you can ambush your enemy behind " +
+								"a closed door when you know it is approaching.",
+
+								"Don't let The Tengu out!",
+
+								"Pixel-Mart. Spend money. Live longer.",
+								"When you're attacked by several monsters at the same time, try to retreat behind a door.",
+								"If you are burning, you can't put out the fire in the water while levitating.",
+								"There is no sense in possessing more than one Ankh at the same time, because you will lose them upon resurrecting.",
+
+								"DANGER! Heavy machinery can cause injury, loss of limbs or death!",
+
+								"Pixel-Mart. A safer life in dungeon.",
+								"When you upgrade an enchanted weapon, there is a chance to destroy that enchantment.",
+								"In a Well of Transmutation you can get an item, that cannot be obtained otherwise.",
+								"The only way to enchant a weapon is by upgrading it with a Scroll of Weapon Upgrade.",
+
+								"No weapons allowed in the presence of His Majesty!",
+
+								"Pixel-Mart. Special prices for demon hunters!",
+								"The text is written in demonic language.",
+								"The text is written in demonic language.",
+								"The text is written in demonic language."
 	};
 	/**
 	 * This list of strings corresponds to the strings displayed on the sign found in the entrance room
@@ -119,46 +119,46 @@ public class Dungeon {
 	 */
 	private static final String[] T_TIPS = { 
 		"Use '?' to get more information about anything you see in the game. In order to enter one " +
-		"of the rooms on this floor, you will need to find something that creates fire! Keep an eye " +
-		"out for more signs.",
-		"From now on, doors may be hidden, so don't forget to use the magnifying glass button from time to time. " +
-		"There are two different magical wells on this floor. Make sure to investigate wells with '?' to " +
-		"see what type they are. ",
-		"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
-		"resting place on this floor.",
-		"Make sure you have cleared the three previous floors, so that you are as prepared as possible for " +
-		"this difficult fight! If you need a reminder on the types of potions and scrolls you have discovered, " +
-		"press the player portrait in the upper left corner."
+				"of the rooms on this floor, you will need to find something that creates fire! Keep an eye " +
+				"out for more signs.",
+				"From now on, doors may be hidden, so don't forget to use the magnifying glass button from time to time. " +
+						"There are two different magical wells on this floor. Make sure to investigate wells with '?' to " +
+						"see what type they are. ",
+						"Remember to change equipment depending on the situation! If you are wounded, try to find the safe " +
+								"resting place on this floor.",
+								"Make sure you have cleared the three previous floors, so that you are as prepared as possible for " +
+										"this difficult fight! If you need a reminder on the types of potions and scrolls you have discovered, " +
+										"press the player portrait in the upper left corner."
 	};
-	
+
 	private static final String TXT_DEAD_END = 
-		"What are you doing here?!";
-	
+			"What are you doing here?!";
+
 	public static int potionOfStrength;
 	public static int scrollsOfUpgrade;
 	public static int arcaneStyli;
 	public static boolean dewVial;		// true if the dew vial can be spawned
 	public static int transmutation;	// depth number for a well of transmutation
-	
+
 	public static int challenges;
-	
+
 	public static Hero hero;
 	public static Level level;
 	public static DungeonTemplate template = null;
-	
+
 	// Either Item or Class<? extends Item>
 	public static Object quickslot;
-	
+
 	public static int depth;
 	public static int gold;
 	// Reason of death
 	public static String resultDescription;
-	
+
 	public static HashSet<Integer> chapters;
-	
+
 	// Hero's field of view
 	public static boolean[] visible = new boolean[Level.LENGTH];
-	
+
 	public static boolean nightMode;
 	/**
 	 * Tutorialmode switch.
@@ -201,49 +201,49 @@ public class Dungeon {
 	 * Used to check if 500 milliseconds have passed since the prompt was displayed.
 	 */
 	public static long timeStamp = 0;
-	
+
 	public static void init() {
 
 		challenges = CustomPD.challenges();
-		
+
 		Actor.clear();
-		
+
 		PathFinder.setMapSize( Level.WIDTH, Level.HEIGHT );
-		
+
 		Scroll.initLabels();
 		Potion.initColors();
 		Wand.initWoods();
 		Ring.initGems();
-		
+
 		Statistics.reset();
 		Journal.reset();
-		
+
 		depth = 0;
 		gold = 0;
-		
+
 		potionOfStrength = 0;
 		scrollsOfUpgrade = 0;
 		arcaneStyli = 0;
 		dewVial = true;
 		transmutation = Random.IntRange( 6, 14 );
-		
+
 		chapters = new HashSet<Integer>();
-		
+
 		Ghost.Quest.reset();
 		Wandmaker.Quest.reset();
 		Blacksmith.Quest.reset();
 		Imp.Quest.reset();
-		
+
 		Room.shuffleTypes();
-		
+
 		hero = new Hero();
 		hero.live();
-		
+
 		Badges.reset();
-		
+
 		StartScene.curClass.initHero( hero );
 	}
-	
+
 	public static boolean isChallenged( int mask ) {
 		return (challenges & mask) != 0;
 	}
@@ -252,14 +252,14 @@ public class Dungeon {
 	 * level type is selected.
 	 */
 	public static Level newLevel() {
-		
+
 		Dungeon.level = null;
 		Actor.clear();
-		
+
 		depth++;
 		if (depth > Statistics.deepestFloor) {
 			Statistics.deepestFloor = depth;
-			
+
 			if (Statistics.qualifiedForNoKilling) {
 				Statistics.completedWithNoKilling = true;
 			} else {
@@ -267,7 +267,7 @@ public class Dungeon {
 			}
 		}
 		Arrays.fill( visible, false );
-		
+
 		Level level = null;
 		if (template != null) {
 			try {
@@ -348,18 +348,18 @@ public class Dungeon {
 			}
 		}
 		level.create();
-		
+
 		Statistics.qualifiedForNoKilling = !bossLevel();
-		
+
 		return level;
 	}
-	
+
 	public static void resetLevel() {
-		
+
 		Actor.clear();
-		
+
 		Arrays.fill( visible, false );
-		
+
 		level.reset();
 		switchLevel( level, level.entrance );
 	}
@@ -369,13 +369,13 @@ public class Dungeon {
 	 * different collection of strings in tutorialmode.
 	 */
 	public static String tip() {
-		
+
 		if (level instanceof DeadEndLevel) {
-			
+
 			return TXT_DEAD_END;
-			
+
 		} else {
-			
+
 			int index = depth - 1;
 			if(isTutorial && index < T_TIPS.length){
 				return T_TIPS[index];
@@ -387,15 +387,15 @@ public class Dungeon {
 			}
 		}
 	}
-	
+
 	public static boolean shopOnLevel() {
 		return depth == 6 || depth == 11 || depth == 16;
 	}
-	
+
 	public static boolean bossLevel() {
 		return bossLevel( depth );
 	}
-	
+
 	public static boolean bossLevel( int depth ) {
 		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
 	}
@@ -405,42 +405,42 @@ public class Dungeon {
 	 */
 	@SuppressWarnings("deprecation")
 	public static void switchLevel( final Level level, int pos ) {
-		
+
 		if(Dungeon.isTutorial){
 			nightMode = false;
 		}
 		else{
 			nightMode = new Date().getHours() < 7;
 		}
-		
+
 		Dungeon.level = level;
 		Actor.init();
-		
+
 		Actor respawner = level.respawner();
 		if (respawner != null) {
-            Actor.add(respawner);
+			Actor.add(respawner);
 		}
-		
+
 		hero.pos = pos != -1 ? pos : level.exit;
-		
+
 		Light light = hero.buff( Light.class );
 		hero.viewDistance = light == null ? level.viewDistance : Math.max( Light.DISTANCE, level.viewDistance );
 		Log.d("In Dungeon", "END OF SAVE/NEW/SWITCH");
 		observe();
 	}
-	
+
 	public static boolean posNeeded() {
 		int[] quota = {4, 2, 9, 4, 14, 6, 19, 8, 24, 9};
 		return chance( quota, potionOfStrength );
 	}
-	
+
 	public static boolean soeNeeded() {
 		int[] quota = {5, 3, 10, 6, 15, 9, 20, 12, 25, 13};
 		return chance( quota, scrollsOfUpgrade );
 	}
-	
+
 	private static boolean chance( int[] quota, int number ) {
-		
+
 		for (int i=0; i < quota.length; i += 2) {
 			int qDepth = quota[i];
 			if (depth <= qDepth) {
@@ -448,26 +448,26 @@ public class Dungeon {
 				return Random.Float() < (float)(qNumber - number) / (qDepth - depth + 1);
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public static boolean asNeeded() {
 		return Random.Int( 12 * (1 + arcaneStyli) ) < depth;
 	}
-	
+
 	private static final String RG_GAME_FILE	= "game.dat";
 	private static final String RG_DEPTH_FILE	= "depth%d.dat";
-	
+
 	private static final String WR_GAME_FILE	= "warrior.dat";
 	private static final String WR_DEPTH_FILE	= "warrior%d.dat";
-	
+
 	private static final String MG_GAME_FILE	= "mage.dat";
 	private static final String MG_DEPTH_FILE	= "mage%d.dat";
-	
+
 	private static final String RN_GAME_FILE	= "ranger.dat";
 	private static final String RN_DEPTH_FILE	= "ranger%d.dat";
-	
+
 	private static final String T_RG_GAME_FILE	= "tutorial_game.dat";
 	private static final String T_RG_DEPTH_FILE	= "tutorial_depth%d.dat";
 
@@ -479,7 +479,7 @@ public class Dungeon {
 
 	private static final String T_RN_GAME_FILE	= "tutorial_ranger.dat";
 	private static final String T_RN_DEPTH_FILE	= "tutorial_ranger%d.dat";
-	
+
 	private static final String VERSION		= "version";
 	private static final String CHALLENGES	= "challenges";
 	private static final String HERO		= "hero";
@@ -495,7 +495,7 @@ public class Dungeon {
 	private static final String CHAPTERS	= "chapters";
 	private static final String QUESTS		= "quests";
 	private static final String BADGES		= "badges";
-	
+
 	/**
 	 * Returns the filepath of the savegame of a certain heroclass. Has been
 	 * modified with tutorialclauses to provide alternative filepaths when in
@@ -601,51 +601,51 @@ public class Dungeon {
 		try {
 			OutputStream output = Game.instance.openFileOutput( fileName, Game.MODE_PRIVATE );
 			Bundle bundle = new Bundle();
-			
+
 			bundle.put( VERSION, Game.version );
 			bundle.put( CHALLENGES, challenges );
 			bundle.put( HERO, hero );
 			bundle.put( GOLD, gold );
 			bundle.put( DEPTH, depth );
-			
+
 			bundle.put( POS, potionOfStrength );
 			bundle.put( SOU, scrollsOfUpgrade );
 			bundle.put( AS, arcaneStyli );
 			bundle.put( DV, dewVial );
 			bundle.put( WT, transmutation );
-			
+
 			int count = 0;
 			int ids[] = new int[chapters.size()];
 			for (Integer id : chapters) {
 				ids[count++] = id;
 			}
 			bundle.put( CHAPTERS, ids );
-			
+
 			Bundle quests = new Bundle();
 			Ghost		.Quest.storeInBundle( quests );
 			Wandmaker	.Quest.storeInBundle( quests );
 			Blacksmith	.Quest.storeInBundle( quests );
 			Imp			.Quest.storeInBundle( quests );
 			bundle.put( QUESTS, quests );
-			
+
 			Room.storeRoomsInBundle( bundle );
-			
+
 			Statistics.storeInBundle( bundle );
 			Journal.storeInBundle( bundle );
-			
+
 			if (quickslot instanceof Class) {
 				bundle.put( QUICKSLOT, ((Class<?>)quickslot).getName() );
 			}
-			
+
 			Scroll.save( bundle );
 			Potion.save( bundle );
 			Wand.save( bundle );
 			Ring.save( bundle );
-			
+
 			Bundle badges = new Bundle();
 			Badges.saveLocal( badges );
 			bundle.put( BADGES, badges );
-			
+
 			bundle.put("tutorial", isTutorial);
 			bundle.put("firePrompt", firePrompt);
 			bundle.put("encountered", encounteredMob);
@@ -655,48 +655,50 @@ public class Dungeon {
 			bundle.put("hungerNotified", hungerNotified);
 			bundle.put("starvingNotified", starvingNotified);
 			bundle.put("collectedDrop", collectedDrop);
-			
+			if(template != null){
+				bundle.put("dungeonTemplate", template);
+			}
 			Bundle.write( bundle, output );
 			output.close();
 			Log.d("SAVING", "Sucessfully saved character.");
-			
+
 		} catch (Exception e) {
 
 			GamesInProgress.setUnknown( hero.heroClass );
 		}
 	}
-	
+
 	public static void saveLevel() throws IOException {
 		Bundle bundle = new Bundle();
 		bundle.put( LEVEL, level );
-		
+
 		OutputStream output = Game.instance.openFileOutput( Utils.format( depthFile( hero.heroClass ), depth ), Game.MODE_PRIVATE );
 		Bundle.write( bundle, output );
 		output.close();
 	}
-	
+
 	public static void saveAll() throws IOException {
 		if (hero.isAlive()) {
-			
+
 			Actor.fixTime();
-			
+
 			GamesInProgress.set( hero.heroClass, depth, hero.lvl );
-			
+
 			saveGame( gameFile( hero.heroClass ) );
 			saveLevel();
-			
+
 		} else if (WndResurrect.instance != null) {
-			
+
 			WndResurrect.instance.hide();
 			Hero.reallyDie( WndResurrect.causeOfDeath );
-			
+
 		}
 	}
-	
+
 	public static void loadGame( HeroClass cl ) throws IOException {
 		loadGame( gameFile( cl ), true );
 	}
-	
+
 	public static void loadGame( String fileName ) throws IOException {
 		loadGame( fileName, false );
 	}
@@ -704,23 +706,23 @@ public class Dungeon {
 	 * Modified to load the variables added to this class by our modifications.
 	 */
 	public static void loadGame( String fileName, boolean fullLoad ) throws IOException {
-		
+
 		Bundle bundle = gameBundle( fileName );
-		
+
 		Dungeon.challenges = bundle.getInt( CHALLENGES );
-		
+
 		Dungeon.level = null;
 		Dungeon.depth = -1;
-		
+
 		if (fullLoad) {
 			PathFinder.setMapSize( Level.WIDTH, Level.HEIGHT );
 		}
-		
+
 		Scroll.restore( bundle );
 		Potion.restore( bundle );
 		Wand.restore( bundle );
 		Ring.restore( bundle );
-		
+
 		potionOfStrength = bundle.getInt( POS );
 		scrollsOfUpgrade = bundle.getInt( SOU );
 		arcaneStyli = bundle.getInt( AS );
@@ -736,7 +738,7 @@ public class Dungeon {
 		starvingNotified = bundle.getBoolean("starvingNotified");
 		collectedDrop = bundle.getBoolean("collectedDrop");
 		timeStamp = 0;
-		
+
 		if (fullLoad) {
 			chapters = new HashSet<Integer>();
 			int ids[] = bundle.getIntArray( CHAPTERS );
@@ -745,7 +747,7 @@ public class Dungeon {
 					chapters.add( id );
 				}
 			}
-			
+
 			Bundle quests = bundle.getBundle( QUESTS );
 			if (!quests.isNull()) {
 				Ghost.Quest.restoreFromBundle( quests );
@@ -758,17 +760,17 @@ public class Dungeon {
 				Blacksmith.Quest.reset();
 				Imp.Quest.reset();
 			}
-			
+
 			Room.restoreRoomsFromBundle( bundle );
 		}
-		
+
 		Bundle badges = bundle.getBundle( BADGES );
 		if (!badges.isNull()) {
 			Badges.loadLocal( badges );
 		} else {
 			Badges.reset();
 		}
-		
+
 		String qsClass = bundle.getString( QUICKSLOT );
 		if (qsClass != null) {
 			try {
@@ -778,55 +780,59 @@ public class Dungeon {
 		} else {
 			quickslot = null;
 		}
-		
+
 		@SuppressWarnings("unused")
 		String version = bundle.getString( VERSION );
-		
+
 		hero = null;
 		hero = (Hero)bundle.get( HERO );
-		
+
 		gold = bundle.getInt( GOLD );
 		depth = bundle.getInt( DEPTH );
-		
+
 		Statistics.restoreFromBundle( bundle );
 		Journal.restoreFromBundle( bundle );
-	}
-	
-	public static Level loadLevel( HeroClass cl ) throws IOException {
 		
+		if(template != null){
+			template = (DungeonTemplate) bundle.get("dungeonTemplate");
+		}
+	}
+
+	public static Level loadLevel( HeroClass cl ) throws IOException {
+
 		Dungeon.level = null;
 		Actor.clear();
-		
+		Log.d("FILENAME", Utils.format( depthFile( cl ), depth ));
 		InputStream input = Game.instance.openFileInput( Utils.format( depthFile( cl ), depth ) ) ;
 		Bundle bundle = Bundle.read( input );
 		input.close();
-		
+
 		return (Level)bundle.get( "level" );
 	}
-	
+
 	public static void deleteGame( HeroClass cl, boolean deleteLevels ) {
-		
+
 		Game.instance.deleteFile( gameFile( cl ) );
-		
+
 		if (deleteLevels) {
 			int depth = 1;
 			while (Game.instance.deleteFile( Utils.format( depthFile( cl ), depth ) )) {
 				depth++;
 			}
 		}
-		
+
 		GamesInProgress.delete( cl );
 	}
-	
+
 	public static Bundle gameBundle( String fileName ) throws IOException {
-		
+
 		InputStream input = Game.instance.openFileInput( fileName );
 		Bundle bundle = Bundle.read( input );
 		input.close();
 		boolean b = bundle != null;
 		return bundle;
 	}
-	
+
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
 		info.depth = bundle.getInt( DEPTH );
 		if (info.depth == -1) {
@@ -834,52 +840,52 @@ public class Dungeon {
 		}
 		Hero.preview( info, bundle.getBundle( HERO ) );
 	}
-	
+
 	public static void fail( String desc ) {
 		resultDescription = desc;
 		if (hero.belongings.getItem( Ankh.class ) == null) { 
 			Rankings.INSTANCE.submit( false );
 		}
 	}
-	
+
 	public static void win( String desc ) {
-		
+
 		if (challenges != 0) {
 			Badges.validateChampion();
 		}
-		
+
 		resultDescription = desc;
 		Rankings.INSTANCE.submit( true );
 	}
-	
+
 	public static void observe() {
 
 		if (level == null) {
 			return;
 		}
-		
+
 		level.updateFieldOfView( hero );
 		System.arraycopy( Level.fieldOfView, 0, visible, 0, visible.length );
-		
+
 		BArray.or( level.visited, visible, level.visited );
-		
+
 		GameScene.afterObserve();
 	}
-	
+
 	private static boolean[] passable = new boolean[Level.LENGTH];
-	
+
 	public static int findPath( Char ch, int from, int to, boolean pass[], boolean[] visible ) {
-		
+
 		if (Level.adjacent( from, to )) {
 			return Actor.findChar( to ) == null && (pass[to] || Level.avoid[to]) ? to : -1;
 		}
-		
+
 		if (ch.flying || ch.buff( Amok.class ) != null) {
 			BArray.or( pass, Level.avoid, passable );
 		} else {
 			System.arraycopy( pass, 0, passable, 0, Level.LENGTH );
 		}
-		
+
 		for (Actor actor : Actor.all()) {
 			if (actor instanceof Char) {
 				int pos = ((Char)actor).pos;
@@ -888,19 +894,19 @@ public class Dungeon {
 				}
 			}
 		}
-		
+
 		return PathFinder.getStep( from, to, passable );
-		
+
 	}
-	
+
 	public static int flee( Char ch, int cur, int from, boolean pass[], boolean[] visible ) {
-		
+
 		if (ch.flying) {
 			BArray.or( pass, Level.avoid, passable );
 		} else {
 			System.arraycopy( pass, 0, passable, 0, Level.LENGTH );
 		}
-		
+
 		for (Actor actor : Actor.all()) {
 			if (actor instanceof Char) {
 				int pos = ((Char)actor).pos;
@@ -910,9 +916,9 @@ public class Dungeon {
 			}
 		}
 		passable[cur] = true;
-		
+
 		return PathFinder.getStepBack( cur, from, passable );
-		
+
 	}
 
 }

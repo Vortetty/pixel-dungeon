@@ -245,6 +245,6 @@ public class MapEditActivity extends Activity implements AdapterView.OnItemClick
 	}
 	
 	public LevelTemplate currentLevel(){
-		return template.levelTemplates[depth];
+		return template.levelTemplates.get(depth);
 	}
 }

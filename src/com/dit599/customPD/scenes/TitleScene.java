@@ -74,6 +74,7 @@ public class TitleScene extends PixelScene {
 			protected void onClick() {
 				Badges.reset();
 				Dungeon.isTutorial = false;
+				Dungeon.template = null;
 				CustomPD.switchNoFade( BadgesScene.class );
 			}
 		};
@@ -93,6 +94,7 @@ public class TitleScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
+				Dungeon.template = null;
 				CustomPD.switchNoFade( GameModeScene.class );
 			}
 		};
@@ -103,6 +105,7 @@ public class TitleScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
+				Dungeon.template = null;
 				CustomPD.switchNoFade( RankingsScene.class );
 			}
 		};

@@ -18,6 +18,9 @@
 package com.dit599.customPD.scenes;
 
 import java.io.FileNotFoundException;
+
+import android.util.Log;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.Statistics;
@@ -305,12 +308,16 @@ public class InterlevelScene extends PixelScene {
 		Actor.fixTime();
 		
 		Dungeon.loadGame( StartScene.curClass );
+		Log.d("LOADGAME", "loaded");
 		if (Dungeon.depth == -1) {
 			Dungeon.depth = Statistics.deepestFloor;
 			Dungeon.switchLevel( Dungeon.loadLevel( StartScene.curClass ), -1 );
 		} else {
+			Log.d("LOADLevel2", "start");
 			Level level = Dungeon.loadLevel( StartScene.curClass );
+			Log.d("LOADLevel2", "loaded");
 			Dungeon.switchLevel( level, Level.resizingNeeded ? level.adjustPos( Dungeon.hero.pos ) : Dungeon.hero.pos );
+			Log.d("LOADLevel2", "switched");
 		}
 	}
 	
