@@ -95,8 +95,9 @@ public class TomeOfMastery extends Item {
 			if(Dungeon.isTutorial){
 				WndStory.showChapter(
 						"This book is used to select your subclass. In the standard " +
-								"game you will always start with this item after you have defeated boss " +
-						"2 atleast once, but in the tutorial we let you try out the subclasses straight away!");
+								"game you will always start with this item on a certain class after " +
+								"that class has defeated boss 2 once. In the tutorial however we let " +
+								"you try out the subclasses straight away!");
 			}
 
 		} else {
