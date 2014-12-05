@@ -43,7 +43,7 @@ public class MapSelectorActivity extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						Intent intent = new Intent();  
-		                intent.setClass(MapSelectorActivity.this, FloorItemActivity.class);  
+		                intent.setClass(MapSelectorActivity.this, MapEditActivity.class);  
 		                startActivity(intent);  
 					}});
 			
@@ -60,7 +60,7 @@ public class MapSelectorActivity extends Activity {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						Intent intent = new Intent();  
-		                intent.setClass(MapSelectorActivity.this, MapItemSelectActivity.class);  
+		                intent.setClass(MapSelectorActivity.this, MapEditActivity.class);  
 		                startActivity(intent);  
 					}});
 		mapbu2.setOnClickListener(new OnClickListener(){
@@ -71,7 +71,7 @@ public class MapSelectorActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapSelectorActivity.this, MapItemSelectActivity.class);  
+                intent.setClass(MapSelectorActivity.this, MapEditActivity.class);  
                 startActivity(intent);  
 			}});
 		mapbu3.setOnClickListener(new OnClickListener(){
@@ -82,7 +82,7 @@ public class MapSelectorActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapSelectorActivity.this, MapItemSelectActivity.class);  
+                intent.setClass(MapSelectorActivity.this, MapEditActivity.class);  
                 startActivity(intent);  
 			}});
 			

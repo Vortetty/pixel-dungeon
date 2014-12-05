@@ -44,7 +44,7 @@ public class EnchantableItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.armoritemsublayout, null);
+        View view = inflater.inflate(R.layout.customizable_item, null);
         return view;
     }
 

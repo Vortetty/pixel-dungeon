@@ -1,11 +1,21 @@
 package com.dit599.customPD.levels.template;
 
+import java.util.List;
+
 import com.dit599.customPD.actors.mobs.Gnoll;
+import com.dit599.customPD.actors.mobs.Mob;
+import com.dit599.customPD.items.Item;
+import com.dit599.customPD.items.armor.Armor;
 import com.dit599.customPD.items.food.Pasty;
+import com.dit599.customPD.items.potions.Potion;
 import com.dit599.customPD.items.potions.PotionOfMight;
 import com.dit599.customPD.items.rings.RingOfEvasion;
+import com.dit599.customPD.items.scrolls.Scroll;
+import com.dit599.customPD.items.weapon.Weapon;
 import com.dit599.customPD.items.weapon.melee.ShortSword;
 import com.dit599.customPD.levels.LastLevel;
+import com.dit599.customPD.levels.Level;
+import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Room.Type;
 import com.dit599.customPD.levels.SewerLevel;
 

@@ -1,6 +1,9 @@
 package com.dit599.customPD.editorUI;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.levels.template.DungeonTemplate;
+import com.dit599.customPD.levels.template.LevelTemplate;
+import com.dit599.customPD.levels.template.TemplateFactory;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,23 +25,26 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
-public class MapItemSelectActivity extends Activity implements AdapterView.OnItemClickListener{
+public class MapEditActivity extends Activity implements AdapterView.OnItemClickListener{
 
 	TabHost tabHost;
-	public int Numoffloortab = 1;
+	public int numoffloortab = 1;
 	TabSpec parentSpec, subSpec;
-	public Spinner spin1, spin2, spin3, bossspin = null;
-	public ArrayAdapter<CharSequence> adapter1, adapter2, adapter3,
+	public Spinner themeSpn, mobFrequencySpn, mobLimitSpn, bossspin = null;
+	public ArrayAdapter<CharSequence> themeAdapter, frequencyAdapter, mobLimitAdapter,
 			adapter4 = null;
 	public ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	public ListView downlistview = null;
 	public LinearLayout layout = null;
 	public MapSelectItemAdapter downlistadapter = null;
+	
+	public DungeonTemplate template;
+	public int depth;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mapselectitem);
+		setContentView(R.layout.map_edit_activity);
 
 		tabHost = (TabHost) findViewById(R.id.mapselecttabs);
 		mobbut1 = (ImageButton) this.findViewById(R.id.mobsbutton1);
@@ -55,16 +61,6 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 
 		downlistview.setAdapter(downlistadapter);
 		downlistview.setOnItemClickListener(this);
-		// downlistview.setOnClickListener(new OnClickListener(){
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// Intent intent = new Intent();
-		// intent.setClass(MapItemSelectActivity.this,
-		// EnchantableItemsActivity.class);
-		// startActivity(intent);
-		// }});
 
 		this.mobbut1.setOnClickListener(new OnClickListener() {
 
@@ -72,7 +68,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
@@ -83,7 +79,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
@@ -94,7 +90,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
@@ -105,91 +101,29 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
 		});
 
-		// this.weaponbut.setOnClickListener(new OnClickListener(){
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		//
-		// Intent intent = new Intent();
-		// intent.setClass(MapItemSelectActivity.this,
-		// EnchantableItemsActivity.class);
-		// startActivity(intent);
-		// }});
-		// this.armbut.setOnClickListener(new OnClickListener(){
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// Intent intent = new Intent();
-		// intent.setClass(MapItemSelectActivity.this,
-		// EnchantableItemsActivity.class);
-		// startActivity(intent);
-		// }});
-		// this.potionbut.setOnClickListener(new OnClickListener(){
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// Intent intent = new Intent();
-		// intent.setClass(MapItemSelectActivity.this,
-		// EnchantableItemsActivity.class);
-		// startActivity(intent);
-		// }});
-		// this.scrollsbut.setOnClickListener(new OnClickListener(){
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// Intent intent = new Intent();
-		// intent.setClass(MapItemSelectActivity.this,
-		// EnchantableItemsActivity.class);
-		// startActivity(intent);
-		// }});
-		// this.roomsbut.setOnClickListener(new OnClickListener(){
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// Intent intent = new Intent();
-		// intent.setClass(MapItemSelectActivity.this,
-		// EnchantableItemsActivity.class);
-		// startActivity(intent);
-		// }});
-		// this.consubut.setOnClickListener(new OnClickListener(){
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// Intent intent = new Intent();
-		// intent.setClass(MapItemSelectActivity.this,
-		// EnchantableItemsActivity.class);
-		// startActivity(intent);
-		// }});
-
-		spin1 = (Spinner) findViewById(R.id.spinner1);
-		adapter1 = ArrayAdapter.createFromResource(this, R.array.themes,
+		themeSpn = (Spinner) findViewById(R.id.theme_spinner);
+		themeAdapter = ArrayAdapter.createFromResource(this, R.array.themes,
 				android.R.layout.simple_spinner_item);
-		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spin1.setAdapter(adapter1);
+		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		themeSpn.setAdapter(themeAdapter);
 
-		spin2 = (Spinner) findViewById(R.id.spinner2);
-		adapter2 = ArrayAdapter.createFromResource(this, R.array.frequence,
+		mobFrequencySpn = (Spinner) findViewById(R.id.frequency_spinner);
+		frequencyAdapter = ArrayAdapter.createFromResource(this, R.array.frequence,
 				android.R.layout.simple_spinner_item);
-		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spin2.setAdapter(adapter2);
+		frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mobFrequencySpn.setAdapter(frequencyAdapter);
 
-		spin3 = (Spinner) findViewById(R.id.spinner3);
-		adapter3 = ArrayAdapter.createFromResource(this, R.array.limits,
+		mobLimitSpn = (Spinner) findViewById(R.id.mob_limit_spinner);
+		mobLimitAdapter = ArrayAdapter.createFromResource(this, R.array.mob_limits,
 				android.R.layout.simple_spinner_item);
-		adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spin3.setAdapter(adapter3);
+		mobLimitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mobLimitSpn.setAdapter(mobLimitAdapter);
 
 		bossspin = (Spinner) findViewById(R.id.mapbossspinner);
 		adapter4 = ArrayAdapter.createFromResource(this, R.array.bosschoose,
@@ -203,18 +137,18 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 					int position, long id) {
 				// TODO Auto-generated method stub
 				if (position == 1) {
-					spin1.setEnabled(false);
-					spin2.setEnabled(false);
-					spin3.setEnabled(false);
+					themeSpn.setEnabled(false);
+					mobFrequencySpn.setEnabled(false);
+					mobLimitSpn.setEnabled(false);
 					mobbut1.setEnabled(false);
 					mobbut2.setEnabled(false);
 					mobbut3.setEnabled(false);
 					mobbut4.setEnabled(false);
 					downlistview.setEnabled(false);
 
-					spin1.setVisibility(0);
-					spin2.setVisibility(0);
-					spin3.setVisibility(0);
+					themeSpn.setVisibility(0);
+					mobFrequencySpn.setVisibility(0);
+					mobLimitSpn.setVisibility(0);
 					mobbut1.setVisibility(0);
 					mobbut2.setVisibility(0);
 					mobbut3.setVisibility(0);
@@ -222,18 +156,18 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 					downlistview.setVisibility(0);
 
 				} else {
-					spin1.setEnabled(true);
-					spin2.setEnabled(true);
-					spin3.setEnabled(true);
+					themeSpn.setEnabled(true);
+					mobFrequencySpn.setEnabled(true);
+					mobLimitSpn.setEnabled(true);
 					mobbut1.setEnabled(true);
 					mobbut2.setEnabled(true);
 					mobbut3.setEnabled(true);
 					mobbut4.setEnabled(true);
 					downlistview.setEnabled(true);
 
-					spin1.setVisibility(1);
-					spin2.setVisibility(1);
-					spin3.setVisibility(1);
+					themeSpn.setVisibility(1);
+					mobFrequencySpn.setVisibility(1);
+					mobLimitSpn.setVisibility(1);
 					mobbut1.setVisibility(1);
 					mobbut2.setVisibility(1);
 					mobbut3.setVisibility(1);
@@ -251,8 +185,8 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 		});
 
 		tabHost.setup();
-		parentSpec = tabHost.newTabSpec("Floor" + Numoffloortab);
-		parentSpec.setIndicator("Floor" + Numoffloortab, this.getResources()
+		parentSpec = tabHost.newTabSpec("Floor" + numoffloortab);
+		parentSpec.setIndicator("Floor" + numoffloortab, this.getResources()
 				.getDrawable(R.drawable.icon));
 		parentSpec.setContent(R.id.mapselectfloortab_1);
 
@@ -269,11 +203,11 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onTabChanged(String tabId) {
 				// TODO Auto-generated method stub
 				if (tabId == "flooradd") {
-					Numoffloortab++;
+					numoffloortab++;
 					TabSpec flooraddSpec = tabHost.newTabSpec("Floor"
-							+ Numoffloortab);
-					flooraddSpec.setIndicator("Floor" + Numoffloortab,
-							MapItemSelectActivity.this.getResources()
+							+ numoffloortab);
+					flooraddSpec.setIndicator("Floor" + numoffloortab,
+							MapEditActivity.this.getResources()
 									.getDrawable(R.drawable.icon));
 					flooraddSpec.setContent(R.id.mapselectfloortab_1);
 					tabHost.addTab(flooraddSpec);
@@ -284,14 +218,33 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 		});
 
 	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		// TODO save template
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		template = TemplateFactory.createSimpleDungeon();
+		// TODO lead template
+		
+		// TODO set info of all fields based on template
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Log.d("TEST", "In item click");
 		Intent intent = new Intent();
-		intent.setClass(MapItemSelectActivity.this,
+		intent.setClass(MapEditActivity.this,
 		EnchantableItemsActivity.class);
 		startActivity(intent);
 		
+	}
+	
+	public LevelTemplate currentLevel(){
+		return template.levelTemplates[depth];
 	}
 }

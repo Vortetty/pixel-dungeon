@@ -56,7 +56,7 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/theme_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:prompt="@string/theme" />
@@ -76,7 +76,7 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/frequency_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:prompt="@string/frequence" />
@@ -96,7 +96,7 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/spinner3"
+            android:id="@+id/mob_limit_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:prompt="@string/limit" />

@@ -69,7 +69,7 @@
             </intent-filter>
               </activity>
                <activity android:name=".FloorItemActivity"/>
-        <activity android:name=".editorUI.MapItemSelectActivity"/>
+        <activity android:name=".editorUI.MapEditActivity"/>
           <activity android:name=".editorUI.MapMobItemActivity"/>
            <activity android:name=".editorUI.MapSelectArmorActivity"/>
         <activity android:name=".editorUI.MapSelectorActivity">
