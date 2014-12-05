@@ -1,5 +1,8 @@
 package com.dit599.customPD.editorUI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.levels.template.LevelTemplate;
@@ -31,7 +34,7 @@ public class MapEditActivity extends Activity implements AdapterView.OnItemClick
 	public int numoffloortab = 1;
 	TabSpec parentSpec, subSpec;
 	public Spinner themeSpn, mobFrequencySpn, mobLimitSpn, bossspin = null;
-	public ArrayAdapter<CharSequence> themeAdapter, frequencyAdapter, mobLimitAdapter,
+	public ArrayAdapter<String> themeAdapter, frequencyAdapter, mobLimitAdapter,
 			adapter4 = null;
 	public ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	public ListView downlistview = null;
@@ -108,28 +111,33 @@ public class MapEditActivity extends Activity implements AdapterView.OnItemClick
 		});
 
 		themeSpn = (Spinner) findViewById(R.id.theme_spinner);
-		themeAdapter = ArrayAdapter.createFromResource(this, R.array.themes,
-				android.R.layout.simple_spinner_item);
+//		themeAdapter = ArrayAdapter.createFromResource(this, R.array.themes,
+//				android.R.layout.simple_spinner_item);
+		List<String> themes = new ArrayList<String>();
+		themes.add("Sewer");
+		themes.add("Caves");
+		themes.add("Sewer Boss");
+		themeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, themes);
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
 
-		mobFrequencySpn = (Spinner) findViewById(R.id.frequency_spinner);
-		frequencyAdapter = ArrayAdapter.createFromResource(this, R.array.frequence,
-				android.R.layout.simple_spinner_item);
-		frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		mobFrequencySpn.setAdapter(frequencyAdapter);
-
-		mobLimitSpn = (Spinner) findViewById(R.id.mob_limit_spinner);
-		mobLimitAdapter = ArrayAdapter.createFromResource(this, R.array.mob_limits,
-				android.R.layout.simple_spinner_item);
-		mobLimitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		mobLimitSpn.setAdapter(mobLimitAdapter);
-
+//		mobFrequencySpn = (Spinner) findViewById(R.id.frequency_spinner);
+//		frequencyAdapter = ArrayAdapter.createFromResource(this, R.array.frequence,
+//				android.R.layout.simple_spinner_item);
+//		frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		mobFrequencySpn.setAdapter(frequencyAdapter);
+//
+//		mobLimitSpn = (Spinner) findViewById(R.id.mob_limit_spinner);
+//		mobLimitAdapter = ArrayAdapter.createFromResource(this, R.array.mob_limits,
+//				android.R.layout.simple_spinner_item);
+//		mobLimitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		mobLimitSpn.setAdapter(mobLimitAdapter);
+//
 		bossspin = (Spinner) findViewById(R.id.mapbossspinner);
-		adapter4 = ArrayAdapter.createFromResource(this, R.array.bosschoose,
-				android.R.layout.simple_spinner_item);
-		adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		bossspin.setAdapter(adapter4);
+//		adapter4 = ArrayAdapter.createFromResource(this, R.array.bosschoose,
+//				android.R.layout.simple_spinner_item);
+//		adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		bossspin.setAdapter(adapter4);
 		bossspin.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -232,6 +240,11 @@ public class MapEditActivity extends Activity implements AdapterView.OnItemClick
 		// TODO lead template
 		
 		// TODO set info of all fields based on template
+		resetFields();
+	}
+	
+	public void resetFields(){
+		themeSpn.setSelection(2);
 	}
 
 	@Override
