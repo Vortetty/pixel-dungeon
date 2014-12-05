@@ -22,7 +22,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
-public class MapItemSelectActivity extends Activity implements AdapterView.OnItemClickListener{
+public class MapEditActivity extends Activity implements AdapterView.OnItemClickListener{
 
 	TabHost tabHost;
 	public int Numoffloortab = 1;
@@ -72,7 +72,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
@@ -83,7 +83,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
@@ -94,7 +94,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
@@ -105,7 +105,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(MapItemSelectActivity.this,
+				intent.setClass(MapEditActivity.this,
 						MapMobItemActivity.class);
 				startActivity(intent);
 			}
@@ -273,7 +273,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 					TabSpec flooraddSpec = tabHost.newTabSpec("Floor"
 							+ Numoffloortab);
 					flooraddSpec.setIndicator("Floor" + Numoffloortab,
-							MapItemSelectActivity.this.getResources()
+							MapEditActivity.this.getResources()
 									.getDrawable(R.drawable.icon));
 					flooraddSpec.setContent(R.id.mapselectfloortab_1);
 					tabHost.addTab(flooraddSpec);
@@ -289,7 +289,7 @@ public class MapItemSelectActivity extends Activity implements AdapterView.OnIte
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Log.d("TEST", "In item click");
 		Intent intent = new Intent();
-		intent.setClass(MapItemSelectActivity.this,
+		intent.setClass(MapEditActivity.this,
 		EnchantableItemsActivity.class);
 		startActivity(intent);
 		

@@ -44,7 +44,7 @@ public class MapMobItemActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();  
-                intent.setClass(MapMobItemActivity.this, MapItemSelectActivity.class);  
+                intent.setClass(MapMobItemActivity.this, MapEditActivity.class);  
                 startActivity(intent); 
 			}});
 		this.mobcancelbt=(Button) this.findViewById(R.id.mobcancelbutton);

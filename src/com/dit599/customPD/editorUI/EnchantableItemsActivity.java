@@ -26,7 +26,7 @@ public class EnchantableItemsActivity extends Activity {
 	@Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
-        setContentView(R.layout.enchantable_item_activity);  
+        setContentView(R.layout.customizable_item_activity);  
         
         layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout);
         
