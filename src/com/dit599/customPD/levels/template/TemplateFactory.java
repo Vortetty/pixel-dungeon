@@ -51,25 +51,4 @@ public class TemplateFactory {
 
         return level;
     }
-    
-    public static CustomTemplate createCustomMp(Class<? extends Level> theme,String mob1freq,String mob2freq,String mob3freq,String mob4freq,String mobfreq,int moblimit
-        ,List<? extends Weapon> weaponslist,List<? extends Armor> armorslist,List<? extends Potion> potionslist,List<? extends Scroll> scrollslist,List<? extends Room> roomslist,
-        List<? extends Item> consumlists){
-    	CustomTemplate customtemp = new CustomTemplate();
-    	customtemp.theme=theme;
-    	customtemp.mobFrequence=mobfreq;
-    	customtemp.mobLimit=moblimit;
-		return  customtemp ;
-		
-    	
-    }
-    
-    public static void onPause(){
-    	
-    }
-     public static void onResume(){
-    	
-    }
-    
-    
 }
