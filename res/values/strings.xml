@@ -6,55 +6,70 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title">Map Editor</string>
- <string name="theme">choose theme</string>
-   <string name="frequence">choose frequence</string>
-      <string name="limit">choose limit</string>
+    <string name="theme">choose theme</string>
+    <string name="frequence">choose frequence</string>
+    <string name="limit">choose limit</string>
+
     <string-array name="themes">
-     <item>theme1</item>   
-     <item>theme2</item> 
-     <item>theme3</item> 
+        <item>CavesBossLevel</item>
+        <item>CavesLevel</item>
+        <item>CityBossLevel</item>
+         <item>CityLevel</item>
+        <item>DeadEndLevel</item>
+        <item>HallsBossLevel</item>
+        <item>HallsLevel</item>
+        <item>LastLevel</item>
+        <item>LastShopLevel</item>
+        <item>PrisonBossLevel</item>
+         <item>PrisonLevel</item>
+        <item>RegularLevel</item>
+         <item>SewerBossLevel</item>
+          <item>SewerLevel</item>
+         <item>TutorialBossLevel</item>
+        <item>TutorialLevel</item>
     </string-array>
     <string-array name="mob_limits">
-     <item>1</item>   
-     <item>2</item> 
-     <item>3</item> 
-     <item>4</item> 
-     <item>5</item> 
-     <item>6</item> 
-     <item>7</item> 
-     <item>8</item> 
-     <item>9</item> 
-     <item>10</item> 
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
     </string-array>
     <string-array name="frequence">
-     <item>High</item>   
-     <item>Mid</item> 
-     <item>Low</item> 
+        <item>High</item>
+        <item>Mid</item>
+        <item>Low</item>
     </string-array>
-     <string-array name="armortype">
-     <item>Leather</item>   
+    <string-array name="armortype">
+        <item>Leather</item>
     </string-array>
     <string-array name="armorench">
-     <item>None</item>   
+        <item>None</item>
     </string-array>
     <string-array name="armorlevel">
-     <item>1</item>   
-     <item>2</item> 
-     <item>3</item> 
-     <item>4</item> 
-     <item>5</item> 
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
-      <string-array name="mobtype">
-     <item>Rat</item>   
+    <string-array name="mobtype">
+        <item>Rat</item>
     </string-array>
-     <string-array name="mobfrequ">
-     <item>Common</item>   
-     <item>Default</item>   
-     <item>Rare</item>   
-     <item>Frequent</item>   
+    <string-array name="mobfrequ">
+        <item>Common</item>
+        <item>Default</item>
+        <item>Rare</item>
+        <item>Frequent</item>
     </string-array>
     <string-array name="bosschoose">
-     <item>None</item>   
-     <item>Exist</item>   
+        <item>None</item>
+        <item>Exist</item>
     </string-array>
+
 </resources>
