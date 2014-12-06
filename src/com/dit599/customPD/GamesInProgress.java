@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD;
 
 import java.util.HashMap;
@@ -30,29 +30,37 @@ public class GamesInProgress {
 	private static HashMap<HeroClass, Info> state = new HashMap<HeroClass, Info>();
 	private static HashMap<HeroClass, Info> t_state = new HashMap<HeroClass, Info>();
 	private static HashMap<HeroClass, Info> c_state = new HashMap<HeroClass, Info>();
-	
+
 	public static Info check( HeroClass cl ) {
+		
+		if (!Dungeon.isTutorial && Dungeon.template != null && c_state.containsKey( cl )) {
+			try{
+				if(c_state.get(cl).name.equals(Dungeon.template.name)){
+					return c_state.get(cl);
+				}
+			}
+			catch(Exception e){
+			}
+		} 
 		
 		if(Dungeon.isTutorial && t_state.containsKey( cl )){
 			return t_state.get( cl );
 		}
-		else if (!Dungeon.isTutorial && Dungeon.template != null && c_state.containsKey( cl )) {
-			
-			return c_state.get( cl );
-			
-		} 
 		else if (!Dungeon.isTutorial && Dungeon.template == null && state.containsKey( cl )) {
-			
+
 			return state.get( cl );
-			
+
 		} else {
-			
+
 			Info info;
 			try {
-				
+
 				Bundle bundle = Dungeon.gameBundle( Dungeon.gameFile( cl ) );
 				info = new Info();
 				Dungeon.preview( info, bundle );
+				if(Dungeon.template != null){
+					info.name = Dungeon.template.name;
+				}
 
 			} catch (Exception e) {
 				info = null;
@@ -67,10 +75,10 @@ public class GamesInProgress {
 				state.put( cl, info );
 			}
 			return info;
-			
+
 		}
 	}
-	
+
 	public static void set( HeroClass cl, int depth, int level ) {
 		Info info = new Info();
 		info.depth = depth;
@@ -79,13 +87,14 @@ public class GamesInProgress {
 			t_state.put( cl, info );
 		}
 		else if(Dungeon.template != null){
+			info.name = Dungeon.template.name;
 			c_state.put( cl, info );
 		}
 		else{
 			state.put( cl, info );
 		}
 	}
-	
+
 	public static void setUnknown( HeroClass cl ) {
 		if(Dungeon.isTutorial){
 			t_state.remove(cl);
@@ -97,7 +106,7 @@ public class GamesInProgress {
 			state.remove(cl);
 		}
 	}
-	
+
 	public static void delete( HeroClass cl ) {
 		if(Dungeon.isTutorial){
 			t_state.put( cl, null );
@@ -109,9 +118,10 @@ public class GamesInProgress {
 			state.put( cl, null );
 		}
 	}
-	
+
 	public static class Info {
 		public int depth;
 		public int level;
+		public String name;
 	}
 }
