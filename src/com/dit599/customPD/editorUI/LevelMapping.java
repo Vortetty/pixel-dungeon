@@ -12,40 +12,40 @@ public abstract class LevelMapping {
 
 	public static void LevelMappingInit() {
 		themeclasslist = new ArrayList();
-		themeclasslist.add(0, CavesBossLevel.class);
-		themeclasslist.add(1, CavesLevel.class);
-		themeclasslist.add(2, CityBossLevel.class);
-		themeclasslist.add(3, CityLevel.class);
-		themeclasslist.add(4, DeadEndLevel.class);
-		themeclasslist.add(5, HallsBossLevel.class);
-		themeclasslist.add(6, HallsLevel.class);
-		themeclasslist.add(7, LastLevel.class);
-		themeclasslist.add(8, LastShopLevel.class);
-		themeclasslist.add(9, PrisonBossLevel.class);
-		themeclasslist.add(10, PrisonLevel.class);
-		themeclasslist.add(11, RegularLevel.class);
-		themeclasslist.add(12, SewerBossLevel.class);
-		themeclasslist.add(13, SewerLevel.class);
-		themeclasslist.add(14, TutorialBossLevel.class);
-		themeclasslist.add(15, TutorialLevel.class);
+		themeclasslist.add(CavesBossLevel.class);
+		themeclasslist.add(CavesLevel.class);
+		themeclasslist.add(CityBossLevel.class);
+		themeclasslist.add(CityLevel.class);
+		//themeclasslist.add(DeadEndLevel.class);
+		themeclasslist.add(HallsBossLevel.class);
+		themeclasslist.add(HallsLevel.class);
+		//themeclasslist.add(LastLevel.class);
+		//themeclasslist.add(LastShopLevel.class);
+		themeclasslist.add(PrisonBossLevel.class);
+		themeclasslist.add(PrisonLevel.class);
+		themeclasslist.add(RegularLevel.class);
+		themeclasslist.add(SewerBossLevel.class);
+		themeclasslist.add(SewerLevel.class);
+		//themeclasslist.add(TutorialBossLevel.class);
+		//themeclasslist.add(TutorialLevel.class);
 
 		themenamelist = new ArrayList();
-		themenamelist.add(0, "CavesBossLevel");
-		themenamelist.add(1, "CavesLevel");
-		themenamelist.add(2, "CityBossLevel");
-		themenamelist.add(3, "CityLevel");
-		themenamelist.add(4, "DeadEndLevel");
-		themenamelist.add(5, "HallsBossLevel");
-		themenamelist.add(6, "HallsLevel");
-		themenamelist.add(7, "LastLevel");
-		themenamelist.add(8, "LastShopLevel");
-		themenamelist.add(9, "PrisonBossLevel");
-		themenamelist.add(10, "PrisonLevel");
-		themenamelist.add(11, "RegularLevel");
-		themenamelist.add(12, "SewerBossLevel");
-		themenamelist.add(13, "SewerLevel");
-		themenamelist.add(14, "TutorialBossLevel");
-		themenamelist.add(15, "TutorialLevel");
+		themenamelist.add("CavesBossLevel");
+		themenamelist.add("CavesLevel");
+		themenamelist.add("CityBossLevel");
+		themenamelist.add("CityLevel");
+		//themenamelist.add("DeadEndLevel");
+		themenamelist.add("HallsBossLevel");
+		themenamelist.add("HallsLevel");
+		//themenamelist.add("LastLevel");
+		//themenamelist.add("LastShopLevel");
+		themenamelist.add("PrisonBossLevel");
+		themenamelist.add("PrisonLevel");
+		themenamelist.add("RegularLevel");
+		themenamelist.add("SewerBossLevel");
+		themenamelist.add("SewerLevel");
+		//themenamelist.add("TutorialBossLevel");
+		//themenamelist.add("TutorialLevel");
 
 	}
 
