@@ -3,7 +3,6 @@ package com.dit599.customPD.editorUI;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dit599.customPD.levels.CavesBossLevel;
 import com.dit599.customPD.levels.*;
 
 public abstract class LevelMapping {
@@ -11,39 +10,39 @@ public abstract class LevelMapping {
 	private static List<String> themenamelist = null;
 
 	public static void LevelMappingInit() {
-		themeclasslist = new ArrayList();
-		themeclasslist.add(CavesBossLevel.class);
-		themeclasslist.add(CavesLevel.class);
-		themeclasslist.add(CityBossLevel.class);
-		themeclasslist.add(CityLevel.class);
+		themeclasslist = new ArrayList<Class<? extends Level>>();
 		//themeclasslist.add(DeadEndLevel.class);
-		themeclasslist.add(HallsBossLevel.class);
+		themeclasslist.add(SewerLevel.class);
+		themeclasslist.add(SewerBossLevel.class);
+		themeclasslist.add(PrisonLevel.class);
+		themeclasslist.add(PrisonBossLevel.class);
+		themeclasslist.add(CavesLevel.class);
+		themeclasslist.add(CavesBossLevel.class);
+		themeclasslist.add(CityLevel.class);
+		themeclasslist.add(CityBossLevel.class);
 		themeclasslist.add(HallsLevel.class);
+		themeclasslist.add(HallsBossLevel.class);
 		//themeclasslist.add(LastLevel.class);
 		//themeclasslist.add(LastShopLevel.class);
-		themeclasslist.add(PrisonBossLevel.class);
-		themeclasslist.add(PrisonLevel.class);
-		themeclasslist.add(RegularLevel.class);
-		themeclasslist.add(SewerBossLevel.class);
-		themeclasslist.add(SewerLevel.class);
+		//themeclasslist.add(RegularLevel.class);
 		//themeclasslist.add(TutorialBossLevel.class);
 		//themeclasslist.add(TutorialLevel.class);
 
-		themenamelist = new ArrayList();
-		themenamelist.add("CavesBossLevel");
-		themenamelist.add("CavesLevel");
-		themenamelist.add("CityBossLevel");
-		themenamelist.add("CityLevel");
+		themenamelist = new ArrayList<String>();
 		//themenamelist.add("DeadEndLevel");
-		themenamelist.add("HallsBossLevel");
+		themenamelist.add("SewerLevel");
+		themenamelist.add("SewerBossLevel");
+		themenamelist.add("PrisonLevel");
+		themenamelist.add("PrisonBossLevel");
+		themenamelist.add("CavesLevel");
+		themenamelist.add("CavesBossLevel");
+		themenamelist.add("CityLevel");
+		themenamelist.add("CityBossLevel");
 		themenamelist.add("HallsLevel");
+		themenamelist.add("HallsBossLevel");
 		//themenamelist.add("LastLevel");
 		//themenamelist.add("LastShopLevel");
-		themenamelist.add("PrisonBossLevel");
-		themenamelist.add("PrisonLevel");
-		themenamelist.add("RegularLevel");
-		themenamelist.add("SewerBossLevel");
-		themenamelist.add("SewerLevel");
+		//themenamelist.add("RegularLevel");
 		//themenamelist.add("TutorialBossLevel");
 		//themenamelist.add("TutorialLevel");
 
