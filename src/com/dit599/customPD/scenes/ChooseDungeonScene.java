@@ -17,35 +17,30 @@
  */
 package com.dit599.customPD.scenes;
 
+import java.util.ArrayList;
+
+import android.util.Log;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.CustomPD;
-import com.dit599.customPD.Rankings;
-import com.dit599.customPD.effects.Flare;
-import com.dit599.customPD.sprites.ItemSprite;
-import com.dit599.customPD.sprites.ItemSpriteSheet;
+import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.levels.template.TemplateFactory;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
-import com.dit599.customPD.ui.Icons;
+import com.dit599.customPD.ui.RedButton;
 import com.dit599.customPD.ui.Window;
-import com.dit599.customPD.utils.Utils;
-import com.dit599.customPD.windows.WndError;
-import com.dit599.customPD.windows.WndRanking;
 import com.watabou.noosa.BitmapText;
-import com.watabou.noosa.BitmapTextMultiline;
 import com.watabou.noosa.Camera;
-import com.watabou.noosa.Image;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
-import com.watabou.noosa.ui.Button;
 
 public class ChooseDungeonScene extends PixelScene {
 	
     private static final String TXT_TITLE = "YourPD Custom Dungeons";
 	private static final String TXT_NO_DUNGEONS	= "No custom Dungeons found, go use the Map Editor!";
 	
-	private static final String TXT_NO_INFO	= "No additional information";
-	
-	private static final float ROW_HEIGHT	= 30;
-	private static final float GAP	= 4;
+	private static final int BTN_HEIGHT	= 20;
+	private static final int GAP 		= 2;
 	
 	private Archs archs;
 	
@@ -65,38 +60,39 @@ public class ChooseDungeonScene extends PixelScene {
 		archs = new Archs();
 		archs.setSize( w, h );
 		add( archs );
+		ArrayList<String> files = new ArrayList<String>();
 		
-		Rankings.INSTANCE.load();
+		for(String f : Game.instance.fileList()){
+			if(f.endsWith(".map")){
+				files.add(f);
+			}
+		}
+		float left = (w - Math.min( 160, w )) / 2 + GAP*10;
+		float top = align( (h - BTN_HEIGHT  * files.size()) / 2 );
 		
-		if (Rankings.INSTANCE.records.size() > 0) {
-			
-			float left = (w - Math.min( 160, w )) / 2 + GAP;
-			float top = align( (h - ROW_HEIGHT  * Rankings.INSTANCE.records.size()) / 2 );
+		if (files.size() > 0) {
 			
 			BitmapText title = PixelScene.createText( TXT_TITLE, 9 );
 			title.hardlight( Window.TITLE_COLOR );
 			title.measure();
 			title.x = align( (w - title.width()) / 2 );
-			title.y = align( top - title.height() - GAP );
+			title.y = align(top - title.height() - GAP );
 			add( title );
 			
 			int pos = 0;
 			
-			for (Rankings.Record rec : Rankings.INSTANCE.records) {
-				Record row = new Record( pos, pos == Rankings.INSTANCE.lastRecord, rec );
-				row.setRect( left, top + pos * ROW_HEIGHT, w - left * 2, ROW_HEIGHT );
-				add( row );
+			for (final String f : files) {
+				RedButton temp = new RedButton( f ) {
+					@Override
+					protected void onClick() {
+						Log.d("SELECTION", f.substring(0, f.length() - 4));
+						Dungeon.template = TemplateFactory.createSimpleDungeon(f.substring(0, f.length() - 4));
+						CustomPD.switchNoFade( StartScene.class );
+					}
+				};
+				add( temp.setRect(left, pos * BTN_HEIGHT + top + (GAP/2) * pos, w - left * 2, BTN_HEIGHT) );
 				
 				pos++;
-			}
-			
-			if (Rankings.INSTANCE.totalNumber >= Rankings.TABLE_SIZE) {
-				BitmapText total = PixelScene.createText( Utils.format( "", Rankings.INSTANCE.totalNumber ), 8 );
-				total.hardlight( Window.TITLE_COLOR );
-				total.measure();
-				total.x = align( (w - total.width()) / 2 );
-				total.y = align( top + pos * ROW_HEIGHT + GAP );
-				add( total );
 			}
 			
 		} else {
@@ -119,105 +115,6 @@ public class ChooseDungeonScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		CustomPD.switchNoFade( TitleScene.class );
-	}
-	
-	public static class Record extends Button {
-		
-		private static final float GAP	= 4;
-		
-		private static final int TEXT_WIN	= 0xFFFF88;
-		private static final int TEXT_LOSE	= 0xCCCCCC;
-		private static final int FLARE_WIN	= 0x888866;
-		private static final int FLARE_LOSE	= 0x666666;
-		
-		private Rankings.Record rec;
-		
-		private ItemSprite shield;
-		private Flare flare;
-		private BitmapText position;
-		private BitmapTextMultiline desc;
-		private Image classIcon;
-		
-		public Record( int pos, boolean latest, Rankings.Record rec ) {
-			super();
-			
-			this.rec = rec;
-			
-			if (latest) {
-				flare = new Flare( 6, 24 );
-				flare.angularSpeed = 90;
-				flare.color( rec.win ? FLARE_WIN : FLARE_LOSE );
-				addToBack( flare );
-			}
-			
-			position.text( Integer.toString( pos+1 ) );
-			position.measure();
-			
-			desc.text( rec.info );
-			desc.measure();
-			
-			if (rec.win) {
-				shield.view( ItemSpriteSheet.AMULET, null );
-				position.hardlight( TEXT_WIN );
-				desc.hardlight( TEXT_WIN );
-			} else {
-				position.hardlight( TEXT_LOSE );
-				desc.hardlight( TEXT_LOSE );
-			}
-			
-			classIcon.copy( Icons.get( rec.heroClass ) );
-		}
-		
-		@Override
-		protected void createChildren() {
-			
-			super.createChildren();
-			
-			shield = new ItemSprite( ItemSpriteSheet.TOMB, null );
-			add( shield );
-			
-			position = new BitmapText( PixelScene.font1x );
-			add( position );
-			
-			desc = createMultiline( 9 );		
-			add( desc );
-			
-			classIcon = new Image();
-			add( classIcon );
-		}
-		
-		@Override
-		protected void layout() {
-			
-			super.layout();
-			
-			shield.x = x;
-			shield.y = y + (height - shield.height) / 2;
-			
-			position.x = align( shield.x + (shield.width - position.width()) / 2 );
-			position.y = align( shield.y + (shield.height - position.height()) / 2 + 1 );
-			
-			if (flare != null) {
-				flare.point( shield.center() );
-			}
-			
-			classIcon.x = align( x + width - classIcon.width );
-			classIcon.y = shield.y;
-			
-			desc.x = shield.x + shield.width + GAP;
-			desc.maxWidth = (int)(classIcon.x - desc.x);
-			desc.measure();
-			desc.y = position.y + position.baseLine() - desc.baseLine();
-		}
-		
-		@Override
-		protected void onClick() {
-			if (rec.gameFile.length() > 0) {
-				parent.add( new WndRanking( rec.gameFile ) );
-			} else {
-				parent.add( new WndError( TXT_NO_INFO ) );
-			}
-		}
+		CustomPD.switchNoFade( GameModeScene.class );
 	}
 }

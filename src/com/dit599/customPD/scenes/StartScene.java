@@ -256,7 +256,12 @@ public class StartScene extends PixelScene {
 	
 	@Override
 	protected void onBackPressed() {
-		CustomPD.switchNoFade( GameModeScene.class );
+		if(Dungeon.template != null){
+			CustomPD.switchNoFade( ChooseDungeonScene.class );
+		}
+		else{
+			CustomPD.switchNoFade( GameModeScene.class );
+		}
 	}
 	
 	private static class GameButton extends RedButton {

@@ -85,7 +85,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-                Dungeon.template = TemplateFactory.createSimpleDungeon();
+                Dungeon.template = TemplateFactory.createSimpleDungeon("simple");
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.foundHeap = true;
@@ -94,7 +94,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
 				Dungeon.collectedDrop = true;
-                CustomPD.switchNoFade( StartScene.class );
+                CustomPD.switchNoFade( ChooseDungeonScene.class );
 			}
 		};
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );

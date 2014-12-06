@@ -228,7 +228,7 @@ public class MapEditActivity extends Activity implements AdapterView.OnItemClick
 	@Override
 	public void onResume(){
 		super.onResume();
-		template = TemplateFactory.createSimpleDungeon();
+		template = TemplateFactory.createSimpleDungeon("simple");
 		// TODO lead template
 		
 		// TODO set info of all fields based on template
