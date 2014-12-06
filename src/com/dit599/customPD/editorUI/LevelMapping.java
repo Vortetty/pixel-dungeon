@@ -9,7 +9,7 @@ public abstract class LevelMapping {
 	private static List<Class<? extends Level>> themeclasslist = null;
 	private static List<String> themenamelist = null;
 
-	public static void LevelMappingInit() {
+	public static void levelMappingInit() {
 		themeclasslist = new ArrayList<Class<? extends Level>>();
 		//themeclasslist.add(DeadEndLevel.class);
 		themeclasslist.add(SewerLevel.class);

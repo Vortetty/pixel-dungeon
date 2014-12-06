@@ -9,7 +9,7 @@ public abstract class RoomMapping {
 	private static List<Room.Type> roomtypelist = null;
 	private static List<String> roomnamelist = null;
 
-	public static void LevelMappingInit() {
+	public static void roomMappingInit() {
 		roomtypelist = new ArrayList<Room.Type>();
 		roomtypelist.add(Room.Type.ARMORY);
 		roomtypelist.add(Room.Type.CRYPT);
