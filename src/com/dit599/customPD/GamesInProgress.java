@@ -33,16 +33,6 @@ public class GamesInProgress {
 
 	public static Info check( HeroClass cl ) {
 		
-		if (!Dungeon.isTutorial && Dungeon.template != null && c_state.containsKey( cl )) {
-			try{
-				if(c_state.get(cl).name.equals(Dungeon.template.name)){
-					return c_state.get(cl);
-				}
-			}
-			catch(Exception e){
-			}
-		} 
-		
 		if(Dungeon.isTutorial && t_state.containsKey( cl )){
 			return t_state.get( cl );
 		}
@@ -75,7 +65,6 @@ public class GamesInProgress {
 				state.put( cl, info );
 			}
 			return info;
-
 		}
 	}
 
