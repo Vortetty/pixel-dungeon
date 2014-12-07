@@ -289,7 +289,6 @@ public class LevelTemplate implements Bundlable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Log.d("Monster index 1", mobs.get(1).mobClass.getName());
 	}
 
 	@Override

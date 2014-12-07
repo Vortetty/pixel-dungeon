@@ -1,5 +1,7 @@
 package com.dit599.customPD.editorUI;
 
+import java.util.List;
+
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.DungeonTemplate;
 
@@ -25,8 +27,8 @@ public class TabFragment extends Fragment {
 	public int numoffloortab = 1;
 	TabSpec parentSpec, subSpec;
 	public Spinner themeSpn, mobFrequencySpn, mobLimitSpn, bossspin = null;
-	public ArrayAdapter<CharSequence> themeAdapter, frequencyAdapter, mobLimitAdapter,
-			adapter4 = null;
+	public ArrayAdapter<String> themeAdapter = null;
+	public ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter, adapter4 = null;
 	public ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	public ListView downlistview = null;
 	public LinearLayout layout = null;
@@ -97,8 +99,8 @@ public class TabFragment extends Fragment {
 		});
 
 		themeSpn = (Spinner) v.findViewById(R.id.theme_spinner);
-		themeAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.themes,
-				android.R.layout.simple_spinner_item);
+		themeAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_item, 
+				                                      LevelMapping.themenamelist);
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
 
