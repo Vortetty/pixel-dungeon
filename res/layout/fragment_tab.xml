@@ -1,0 +1,196 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/mapselecttv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theme :"
+            android:textSize="25sp" >
+
+        </TextView>
+
+        <Spinner
+            android:id="@+id/theme_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:prompt="@string/theme" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/mapselecttv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mob Frequency :"
+            android:textSize="25sp" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/frequency_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:prompt="@string/frequence" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/mapselecttv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mob Limit :"
+            android:textSize="25sp" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/mob_limit_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:prompt="@string/limit" />
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/mapselecttv11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Boss:"
+            android:textSize="25sp" >
+        </TextView>
+
+        <Spinner
+            android:id="@+id/mapbossspinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4" >
+
+        <ImageButton
+            android:id="@+id/mobsbutton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/icon" />
+
+        <ImageButton
+            android:id="@+id/mobsbutton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/icon" />
+
+        <ImageButton
+            android:id="@+id/mobsbutton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/icon" />
+
+        <ImageButton
+            android:id="@+id/mobsbutton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/icon" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="2" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3" >
+	
+	        <ImageButton
+	            android:id="@+id/weaponbutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:src="@drawable/icon" />
+	
+	        <ImageButton
+	            android:id="@+id/armorbutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:src="@drawable/icon" />
+	
+	        <ImageButton
+	            android:id="@+id/potionbutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:src="@drawable/icon" />
+	
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="horizontal"
+	        android:weightSum="3" >
+	
+	        <ImageButton
+	            android:id="@+id/scrollbutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:src="@drawable/icon" />
+	
+	        <ImageButton
+	            android:id="@+id/specialbutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:src="@drawable/icon" />
+	
+	        <ImageButton
+	            android:id="@+id/consumablesbutton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:src="@drawable/icon" />
+	
+	    </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
