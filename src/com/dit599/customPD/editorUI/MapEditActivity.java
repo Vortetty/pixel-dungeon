@@ -69,14 +69,20 @@ public class MapEditActivity extends FragmentActivity{
 //		// TODO save template
 //	}
 //	
-//	@Override
-//	public void onResume(){
-//		super.onResume();
-//		template = TemplateFactory.createSimpleDungeon("simple");
-//		// TODO lead template
-//		
-//		// TODO set info of all fields based on template
-//	}
+	@Override
+	public void onResume(){
+		super.onResume();
+		ArmorMapping.armorMappingInit();
+		WeaponMapping.weaponMappingInit();
+		WandMapping.wandMappingInit();
+		RingMapping.ringMappingInit();
+		PotionMapping.potionMappingInit();
+		ScrollMapping.scrollMappingInit();
+		ConsumableMapping.consumableMappingInit();
+		LevelMapping.levelMappingInit();
+		RoomMapping.roomMappingInit();
+		MobMapping.mobMappingInit();
+	}
 
 //	@Override
 //	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
