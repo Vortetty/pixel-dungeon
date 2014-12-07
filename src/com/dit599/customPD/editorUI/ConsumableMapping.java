@@ -12,7 +12,7 @@ import com.dit599.customPD.plants.*;
 
 public abstract class ConsumableMapping {
 	private static List<Class<? extends Item>> consumableclasslist = null;
-	public static List<String> consumablenamelist = null;
+	private static List<String> consumablenamelist = null;
 
 	public static void consumableMappingInit() {
 		consumableclasslist = new ArrayList<Class<? extends Item>>();
@@ -93,5 +93,10 @@ public abstract class ConsumableMapping {
 			}
 		 }
 		return null;
+	}
+	public static List<String> getAllNames()
+	{
+		return consumablenamelist;
+		
 	}
 }

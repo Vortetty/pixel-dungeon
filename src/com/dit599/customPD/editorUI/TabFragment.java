@@ -100,7 +100,7 @@ public class TabFragment extends Fragment {
 
 		themeSpn = (Spinner) v.findViewById(R.id.theme_spinner);
 		themeAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_item, 
-				                                      LevelMapping.themenamelist);
+				                                      LevelMapping.getAllNames());
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
 

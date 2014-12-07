@@ -9,7 +9,7 @@ import com.dit599.customPD.items.weapon.missiles.Boomerang;
 
 public abstract class WeaponMapping {
 	private static List<Class<? extends Item>> weaponclasslist = null;
-	public static List<String> weaponnamelist = null;
+	private static List<String> weaponnamelist = null;
 
 	public static void weaponMappingInit() {
 		weaponclasslist = new ArrayList<Class<? extends Item>>();
@@ -60,5 +60,10 @@ public abstract class WeaponMapping {
 			}
 		 }
 		return null;
+	}
+	public static List<String> getAllNames()
+	{
+		return weaponnamelist;
+		
 	}
 }

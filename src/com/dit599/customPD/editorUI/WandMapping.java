@@ -8,7 +8,7 @@ import com.dit599.customPD.items.wands.*;
 
 public abstract class WandMapping {
 	private static List<Class<? extends Item>> wandclasslist = null;
-	public static List<String> wandnamelist = null;
+	private static List<String> wandnamelist = null;
 
 	public static void wandMappingInit() {
 		wandclasslist = new ArrayList<Class<? extends Item>>();
@@ -61,5 +61,10 @@ public abstract class WandMapping {
 			}
 		 }
 		return null;
+	}
+	public static List<String> getAllNames()
+	{
+		return wandnamelist;
+		
 	}
 }

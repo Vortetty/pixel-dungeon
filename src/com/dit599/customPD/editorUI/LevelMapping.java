@@ -7,7 +7,7 @@ import com.dit599.customPD.levels.*;
 
 public abstract class LevelMapping {
 	private static List<Class<? extends Level>> themeclasslist = null;
-	public static List<String> themenamelist = null;
+	private static List<String> themenamelist = null;
 
 	public static void levelMappingInit() {
 		themeclasslist = new ArrayList<Class<? extends Level>>();
@@ -67,5 +67,10 @@ public abstract class LevelMapping {
 			}
 		 }
 		return null;
+	}
+	public static List<String> getAllNames()
+	{
+		return themenamelist;
+		
 	}
 }

@@ -7,7 +7,7 @@ import com.dit599.customPD.actors.mobs.*;
 
 public abstract class MobMapping {
 	private static List<Class<? extends Mob>> mobsclasslist = null;
-	public static List<String> mobsnamelist = null;
+	private static List<String> mobsnamelist = null;
 
 	public static void mobMappingInit() {
 		mobsclasslist = new ArrayList<Class<? extends Mob>>();
@@ -73,9 +73,6 @@ public abstract class MobMapping {
 		//mobsnamelist.add("Tengu");
 		//mobsnamelist.add("Wraith");
 		//mobsnamelist.add("Yog");
-		
-		
-
 	}
 
 	public static String getMobName(Class<? extends Mob> mob) {
@@ -97,5 +94,10 @@ public abstract class MobMapping {
 			}
 		 }
 		return null;
+	}
+	public static List<String> getAllNames()
+	{
+		return mobsnamelist;
+		
 	}
 }

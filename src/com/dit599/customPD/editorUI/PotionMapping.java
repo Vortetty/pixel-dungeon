@@ -8,7 +8,7 @@ import com.dit599.customPD.items.potions.*;
 
 public abstract class PotionMapping {
 	private static List<Class<? extends Item>> potionclasslist = null;
-	public static List<String> potionnamelist = null;
+	private static List<String> potionnamelist = null;
 
 	public static void potionMappingInit() {
 		potionclasslist = new ArrayList<Class<? extends Item>>();
@@ -59,5 +59,10 @@ public abstract class PotionMapping {
 			}
 		 }
 		return null;
+	}
+	public static List<String> getAllNames()
+	{
+		return potionnamelist;
+		
 	}
 }

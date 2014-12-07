@@ -8,7 +8,7 @@ import com.dit599.customPD.items.rings.*;
 
 public abstract class RingMapping {
 	private static List<Class<? extends Item>> ringclasslist = null;
-	public static List<String> ringnamelist = null;
+	private static List<String> ringnamelist = null;
 
 	public static void ringMappingInit() {
 		ringclasslist = new ArrayList<Class<? extends Item>>();
@@ -59,5 +59,10 @@ public abstract class RingMapping {
 			}
 		 }
 		return null;
+	}
+	public static List<String> getAllNames()
+	{
+		return ringnamelist;
+		
 	}
 }

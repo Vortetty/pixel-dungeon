@@ -7,7 +7,7 @@ import com.dit599.customPD.levels.*;
 
 public abstract class RoomMapping {
 	private static List<Room.Type> roomtypelist = null;
-	public static List<String> roomnamelist = null;
+	private static List<String> roomnamelist = null;
 
 	public static void roomMappingInit() {
 		roomtypelist = new ArrayList<Room.Type>();
@@ -47,5 +47,10 @@ public abstract class RoomMapping {
 	}
 	public static Room.Type getRoomType(int index) {
 		return roomtypelist.get(index);
+	}
+	public static List<String> getAllNames()
+	{
+		return roomnamelist;
+		
 	}
 }
