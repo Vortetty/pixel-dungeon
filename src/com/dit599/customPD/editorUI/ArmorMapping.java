@@ -8,7 +8,7 @@ import com.dit599.customPD.items.armor.*;
 
 public abstract class ArmorMapping {
 	private static List<Class<? extends Item>> armorclasslist = null;
-	private static List<String> armornamelist = null;
+	public static List<String> armornamelist = null;
 
 	public static void armorMappingInit() {
 		armorclasslist = new ArrayList<Class<? extends Item>>();

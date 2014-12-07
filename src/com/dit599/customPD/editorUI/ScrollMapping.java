@@ -8,7 +8,7 @@ import com.dit599.customPD.items.scrolls.*;
 
 public abstract class ScrollMapping {
 	private static List<Class<? extends Item>> scrollclasslist = null;
-	private static List<String> scrollnamelist = null;
+	public static List<String> scrollnamelist = null;
 
 	public static void scrollMappingInit() {
 		scrollclasslist = new ArrayList<Class<? extends Item>>();

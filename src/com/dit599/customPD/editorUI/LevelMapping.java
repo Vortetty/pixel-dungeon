@@ -7,7 +7,7 @@ import com.dit599.customPD.levels.*;
 
 public abstract class LevelMapping {
 	private static List<Class<? extends Level>> themeclasslist = null;
-	private static List<String> themenamelist = null;
+	public static List<String> themenamelist = null;
 
 	public static void levelMappingInit() {
 		themeclasslist = new ArrayList<Class<? extends Level>>();
@@ -30,16 +30,16 @@ public abstract class LevelMapping {
 
 		themenamelist = new ArrayList<String>();
 		//themenamelist.add("DeadEndLevel");
-		themenamelist.add("SewerLevel");
-		themenamelist.add("SewerBossLevel");
-		themenamelist.add("PrisonLevel");
-		themenamelist.add("PrisonBossLevel");
-		themenamelist.add("CavesLevel");
-		themenamelist.add("CavesBossLevel");
-		themenamelist.add("CityLevel");
-		themenamelist.add("CityBossLevel");
-		themenamelist.add("HallsLevel");
-		themenamelist.add("HallsBossLevel");
+		themenamelist.add("Sewer Level");
+		themenamelist.add("Sewer Boss Level");
+		themenamelist.add("Prison Level");
+		themenamelist.add("Prison Boss Level");
+		themenamelist.add("Caves Level");
+		themenamelist.add("Caves Boss Level");
+		themenamelist.add("City Level");
+		themenamelist.add("City Boss Level");
+		themenamelist.add("Halls Level");
+		themenamelist.add("Halls Boss Level");
 		//themenamelist.add("LastLevel");
 		//themenamelist.add("LastShopLevel");
 		//themenamelist.add("RegularLevel");

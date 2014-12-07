@@ -4,23 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dit599.customPD.items.Item;
-import com.dit599.customPD.items.rings.RingOfAccuracy;
-import com.dit599.customPD.items.rings.RingOfDetection;
-import com.dit599.customPD.items.rings.RingOfElements;
-import com.dit599.customPD.items.rings.RingOfEvasion;
-import com.dit599.customPD.items.rings.RingOfHaggler;
-import com.dit599.customPD.items.rings.RingOfHaste;
-import com.dit599.customPD.items.rings.RingOfHerbalism;
-import com.dit599.customPD.items.rings.RingOfMending;
-import com.dit599.customPD.items.rings.RingOfPower;
-import com.dit599.customPD.items.rings.RingOfSatiety;
-import com.dit599.customPD.items.rings.RingOfShadows;
-import com.dit599.customPD.items.rings.RingOfThorns;
-import com.dit599.customPD.items.wands.*;
+import com.dit599.customPD.items.rings.*;
 
 public abstract class RingMapping {
 	private static List<Class<? extends Item>> ringclasslist = null;
-	private static List<String> ringnamelist = null;
+	public static List<String> ringnamelist = null;
 
 	public static void ringMappingInit() {
 		ringclasslist = new ArrayList<Class<? extends Item>>();

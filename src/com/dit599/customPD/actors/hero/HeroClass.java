@@ -103,7 +103,7 @@ public enum HeroClass {
 			break;
 		}
 		
-		if (Dungeon.isTutorial || Dungeon.template != null || Badges.isUnlocked( masteryBadge() )) {
+		if (Dungeon.isTutorial || Badges.isUnlocked( masteryBadge() )) {
 			new TomeOfMastery().collect();
 		}
 		

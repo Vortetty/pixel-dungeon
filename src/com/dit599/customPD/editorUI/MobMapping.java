@@ -7,7 +7,7 @@ import com.dit599.customPD.actors.mobs.*;
 
 public abstract class MobMapping {
 	private static List<Class<? extends Mob>> mobsclasslist = null;
-	private static List<String> mobsnamelist = null;
+	public static List<String> mobsnamelist = null;
 
 	public static void mobMappingInit() {
 		mobsclasslist = new ArrayList<Class<? extends Mob>>();
@@ -44,27 +44,27 @@ public abstract class MobMapping {
 
 		mobsnamelist = new ArrayList<String>();
 		mobsnamelist.add("Rat");
-		mobsnamelist.add("Albino");
+		mobsnamelist.add("Albino Rat");
 		mobsnamelist.add("Gnoll");
 		mobsnamelist.add("Crab");
-		mobsnamelist.add("Swarm");
+		mobsnamelist.add("Swarm of Flies");
 		mobsnamelist.add("Skeleton");
 		mobsnamelist.add("Thief");
 		mobsnamelist.add("Bandit");
 		mobsnamelist.add("Shaman");
 		mobsnamelist.add("Bat");
 		mobsnamelist.add("Brute");
-		mobsnamelist.add("Shielded");
-		mobsnamelist.add("Spinner");
+		mobsnamelist.add("Shielded Brute");
+		mobsnamelist.add("Cave Spinner");
 		mobsnamelist.add("Elemental");
 		mobsnamelist.add("Monk");
-		mobsnamelist.add("Senior");
+		mobsnamelist.add("Senior Monk");
 		mobsnamelist.add("Warlock");
 		mobsnamelist.add("Golem");
 		mobsnamelist.add("Succubus");
-		mobsnamelist.add("Eye");
+		mobsnamelist.add("Evil Eye");
 		mobsnamelist.add("Scorpio");
-		mobsnamelist.add("Acidic");
+		mobsnamelist.add("Acidic Scorpio");
 		//mobsnamelist.add("DM300");
 		//mobsnamelist.add("Goo");
 		//mobsnamelist.add("King");
