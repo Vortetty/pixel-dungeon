@@ -11,7 +11,7 @@ public abstract class WeaponMapping {
 	private static List<Class<? extends Item>> weaponclasslist = null;
 	private static List<String> weaponnamelist = null;
 
-	public static void armorMappingInit() {
+	public static void weaponMappingInit() {
 		weaponclasslist = new ArrayList<Class<? extends Item>>();
 		weaponclasslist.add(ShortSword.class);
 		weaponclasslist.add(Dagger.class);

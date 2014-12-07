@@ -10,7 +10,7 @@ public abstract class WandMapping {
 	private static List<Class<? extends Item>> wandclasslist = null;
 	private static List<String> wandnamelist = null;
 
-	public static void potionMappingInit() {
+	public static void wandMappingInit() {
 		wandclasslist = new ArrayList<Class<? extends Item>>();
 		wandclasslist.add(WandOfAmok.class);
 		wandclasslist.add(WandOfAvalanche.class);

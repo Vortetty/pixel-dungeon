@@ -10,7 +10,7 @@ public abstract class ScrollMapping {
 	private static List<Class<? extends Item>> scrollclasslist = null;
 	private static List<String> scrollnamelist = null;
 
-	public static void potionMappingInit() {
+	public static void scrollMappingInit() {
 		scrollclasslist = new ArrayList<Class<? extends Item>>();
 		scrollclasslist.add(ScrollOfIdentify.class);
 		scrollclasslist.add(ScrollOfRemoveCurse.class);
