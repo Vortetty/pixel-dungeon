@@ -42,20 +42,20 @@ public abstract class WandMapping {
 		wandnamelist.add("Wand of Telekinesis");
 	}
 
-	public static String getScrollName(Class<? extends Item> scroll) {
+	public static String getWandName(Class<? extends Item> wand) {
 		for(int i=0;i<wandclasslist.size();i++)
 		 {
-			if(wandclasslist.get(i).getName().equals(scroll.getName()))
+			if(wandclasslist.get(i).getName().equals(wand.getName()))
 			{
 				return wandnamelist.get(i);
 			}
 		 }
 		return null;
 	}
-	public static Class<? extends Item> getScrollClass(String scrollname) {
+	public static Class<? extends Item> getWandClass(String wandname) {
 		for(int i=0;i<wandnamelist.size();i++)
 		 {
-			if(wandnamelist.get(i).equals(scrollname))
+			if(wandnamelist.get(i).equals(wandname))
 			{
 				return wandclasslist.get(i);
 			}

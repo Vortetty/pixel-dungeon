@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dit599.customPD.items.Item;
-import com.dit599.customPD.items.potions.*;
 import com.dit599.customPD.items.scrolls.*;
 
 public abstract class ScrollMapping {
