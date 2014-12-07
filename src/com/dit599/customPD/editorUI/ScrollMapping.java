@@ -5,18 +5,7 @@ import java.util.List;
 
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.potions.*;
-import com.dit599.customPD.items.scrolls.ScrollOfChallenge;
-import com.dit599.customPD.items.scrolls.ScrollOfIdentify;
-import com.dit599.customPD.items.scrolls.ScrollOfLullaby;
-import com.dit599.customPD.items.scrolls.ScrollOfMagicMapping;
-import com.dit599.customPD.items.scrolls.ScrollOfMirrorImage;
-import com.dit599.customPD.items.scrolls.ScrollOfPsionicBlast;
-import com.dit599.customPD.items.scrolls.ScrollOfRecharging;
-import com.dit599.customPD.items.scrolls.ScrollOfRemoveCurse;
-import com.dit599.customPD.items.scrolls.ScrollOfTeleportation;
-import com.dit599.customPD.items.scrolls.ScrollOfTerror;
-import com.dit599.customPD.items.scrolls.ScrollOfUpgrade;
-import com.dit599.customPD.items.scrolls.ScrollOfWeaponUpgrade;
+import com.dit599.customPD.items.scrolls.*;
 
 public abstract class ScrollMapping {
 	private static List<Class<? extends Item>> scrollclasslist = null;
