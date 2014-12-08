@@ -198,10 +198,13 @@ public class FloorFragment extends Fragment {
             switch (v.getId()) {
             case R.id.weaponbutton:
                 startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+                break;
             case R.id.armorbutton:
                 startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+                break;
             case R.id.potionbutton:
                 startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+                break;
             }
         }
 
