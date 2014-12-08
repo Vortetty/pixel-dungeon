@@ -3,6 +3,7 @@ package com.dit599.customPD.editorUI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,6 +46,9 @@ public class FloorFragment extends Fragment {
     	
         View root = inflater.inflate(R.layout.fragment_tab, container, false);
         
+        depth = Integer.valueOf(getTag());
+        Log.d("FloorFragment", "Depth is " + depth);
+
 		mobbut1 = (ImageButton) root.findViewById(R.id.mobsbutton1);
 		mobbut2 = (ImageButton) root.findViewById(R.id.mobsbutton2);
 		mobbut3 = (ImageButton) root.findViewById(R.id.mobsbutton3);

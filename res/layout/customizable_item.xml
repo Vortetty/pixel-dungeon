@@ -1,74 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<LinearLayout 	xmlns:android="http://schemas.android.com/apk/res/android"	
-		android:orientation="vertical" 
-		android:id="@+id/armorlinearayout"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"> 
+<LinearLayout 	xmlns:android="http://schemas.android.com/apk/res/android"	
+	android:orientation="vertical" 
+	android:id="@+id/armorlinearayout"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:padding="15dp"> 
 		
 	    
 
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="horizontal" >
+	    android:orientation="horizontal"
+	    android:gravity="center_vertical" >
+	    
+	    <TextView
+            android:id="@+id/item_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Weapon :" 
+            android:textSize="16sp"/>
 
 	    <Spinner
 	        android:id="@+id/armortypespinner"
-	        android:layout_width="120dp"
-	        android:layout_height="50dp"
-	        android:layout_marginTop="35px"
-	        android:layout_marginLeft="15px" />
-
-	    <TextView
-	        android:id="@+id/textView1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="45px"
-	        android:layout_marginLeft="15px"
-	        android:layout_weight="0.53"
-	        android:text="Ench :" 
-	        android:textSize="35px"/>
+	        android:layout_weight="2"
+	        android:layout_marginRight="10dp" />
+
+	    <TextView
+	        android:id="@+id/level_tv"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0"
+	        android:text="Level :" 
+	        android:textSize="16sp"/>
 
 	    <Spinner
-	        android:id="@+id/armorenchspinner"
-	        android:layout_width="100dp"
-	        android:layout_height="50dp"
-	        android:layout_marginRight="15px"
-	        android:layout_weight="0.24"
-	        android:layout_marginTop="35px" />
+	        android:id="@+id/level_spinner"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"/>
 
 	</LinearLayout>
 	   
 	<LinearLayout 		
 		android:orientation="horizontal" 
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
 	   
 	     <TextView
-	         android:id="@+id/textView2"
-	         android:layout_width="wrap_content"
-	         android:layout_height="58dp"
-	         android:layout_marginLeft="15px"
-	         android:layout_marginTop="25px"
-	         android:text="Level :"
-	         android:textSize="35px" />
+            android:id="@+id/enchant_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Enchant :" 
+            android:textSize="16sp"/>
 
         <Spinner
-            android:id="@+id/armlevelspinner"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10px"
-            android:layout_marginTop="25px"
-            />
+            android:id="@+id/enchant_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp" />
 
         <Button
             android:id="@+id/armordeletbt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28px"
-             android:layout_marginLeft="50px"
             android:text="Delete"
-            android:textSize="30px"
+            android:textSize="16sp"
             />
 	     
     </LinearLayout>
