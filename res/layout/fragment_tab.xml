@@ -9,21 +9,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
 
         <TextView
             android:id="@+id/mapselecttv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Theme :"
-            android:textSize="25sp" >
+            android:textSize="16sp" >
 
         </TextView>
 
         <Spinner
             android:id="@+id/theme_spinner"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:prompt="@string/theme" />
 
     </LinearLayout>
@@ -31,20 +34,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
 
         <TextView
             android:id="@+id/mapselecttv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mob Frequency :"
-            android:textSize="25sp" >
+            android:textSize="16sp" >
         </TextView>
 
         <Spinner
             android:id="@+id/frequency_spinner"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:prompt="@string/frequence" />
         
     </LinearLayout>
@@ -52,20 +57,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
 
         <TextView
             android:id="@+id/mapselecttv3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mob Limit :"
-            android:textSize="25sp" >
+            android:textSize="16sp" >
         </TextView>
 
         <Spinner
             android:id="@+id/mob_limit_spinner"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:prompt="@string/limit" />
         
     </LinearLayout>
@@ -73,20 +80,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
 
         <TextView
             android:id="@+id/mapselecttv11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Boss:"
-            android:textSize="25sp" >
+            android:textSize="16sp" >
         </TextView>
 
         <Spinner
             android:id="@+id/mapbossspinner"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content" />
         
     </LinearLayout>
 
@@ -94,7 +104,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="4" >
+        android:weightSum="4"
+        android:layout_marginTop="5dp" >
 
         <ImageButton
             android:id="@+id/mobsbutton1"
@@ -153,7 +164,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Armor"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/armor" />
 	
 	        <Button
 	            android:id="@+id/potionbutton"
@@ -161,7 +172,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Potions"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/potion" />
 	
 	    </LinearLayout>
 	    
