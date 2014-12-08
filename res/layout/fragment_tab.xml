@@ -98,28 +98,28 @@
 
         <ImageButton
             android:id="@+id/mobsbutton1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon" />
 
         <ImageButton
             android:id="@+id/mobsbutton2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon" />
 
         <ImageButton
             android:id="@+id/mobsbutton3"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon" />
 
         <ImageButton
             android:id="@+id/mobsbutton4"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/icon" />
@@ -127,68 +127,73 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="2" >
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="3" >
 	
-	        <ImageButton
+	        <Button
 	            android:id="@+id/weaponbutton"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
-	            android:src="@drawable/icon" />
+	            android:text="Weapons"
+	            android:drawableTop="@drawable/icon" />
 	
-	        <ImageButton
+	        <Button
 	            android:id="@+id/armorbutton"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
-	            android:src="@drawable/icon" />
+	            android:text="Armor"
+	            android:drawableTop="@drawable/icon" />
 	
-	        <ImageButton
+	        <Button
 	            android:id="@+id/potionbutton"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
-	            android:src="@drawable/icon" />
+	            android:text="Potions"
+	            android:drawableTop="@drawable/icon" />
 	
 	    </LinearLayout>
 	    
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
 	        android:orientation="horizontal"
 	        android:weightSum="3" >
 	
-	        <ImageButton
+	        <Button
 	            android:id="@+id/scrollbutton"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
-	            android:src="@drawable/icon" />
+	            android:text="Scrolls"
+	            android:drawableTop="@drawable/icon" />
 	
-	        <ImageButton
-	            android:id="@+id/specialbutton"
-	            android:layout_width="wrap_content"
+	        <Button
+	            android:id="@+id/roomsbutton"
+	            android:layout_width="0dp"
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
-	            android:src="@drawable/icon" />
+	            android:text="Special Rooms"
+	            android:drawableTop="@drawable/icon" />
 	
-	        <ImageButton
+	        <Button
 	            android:id="@+id/consumablesbutton"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
-	            android:src="@drawable/icon" />
+	            android:text="Consumables"
+	            android:drawableTop="@drawable/icon" />
 	
 	    </LinearLayout>
     </LinearLayout>

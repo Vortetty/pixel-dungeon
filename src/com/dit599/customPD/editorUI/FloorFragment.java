@@ -1,10 +1,5 @@
 package com.dit599.customPD.editorUI;
 
-import java.util.List;
-
-import com.dit599.customPD.R;
-import com.dit599.customPD.levels.template.DungeonTemplate;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,17 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost.TabSpec;
 
+import com.dit599.customPD.R;
+import com.dit599.customPD.levels.template.DungeonTemplate;
 
-public class TabFragment extends Fragment {
+
+public class FloorFragment extends Fragment {
 
 	public int numoffloortab = 1;
 	TabSpec parentSpec, subSpec;
@@ -46,12 +43,12 @@ public class TabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
     	
-        View v = inflater.inflate(R.layout.fragment_tab, container, false);
+        View root = inflater.inflate(R.layout.fragment_tab, container, false);
         
-		mobbut1 = (ImageButton) v.findViewById(R.id.mobsbutton1);
-		mobbut2 = (ImageButton) v.findViewById(R.id.mobsbutton2);
-		mobbut3 = (ImageButton) v.findViewById(R.id.mobsbutton3);
-		mobbut4 = (ImageButton) v.findViewById(R.id.mobsbutton4);
+		mobbut1 = (ImageButton) root.findViewById(R.id.mobsbutton1);
+		mobbut2 = (ImageButton) root.findViewById(R.id.mobsbutton2);
+		mobbut3 = (ImageButton) root.findViewById(R.id.mobsbutton3);
+		mobbut4 = (ImageButton) root.findViewById(R.id.mobsbutton4);
 
 		this.mobbut1.setOnClickListener(new OnClickListener() {
 
@@ -98,26 +95,26 @@ public class TabFragment extends Fragment {
 			}
 		});
 
-		themeSpn = (Spinner) v.findViewById(R.id.theme_spinner);
-		themeAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_item, 
+		themeSpn = (Spinner) root.findViewById(R.id.theme_spinner);
+		themeAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, 
 				                                      LevelMapping.getAllNames());
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
 
-		mobFrequencySpn = (Spinner) v.findViewById(R.id.frequency_spinner);
-		frequencyAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.frequence,
+		mobFrequencySpn = (Spinner) root.findViewById(R.id.frequency_spinner);
+		frequencyAdapter = ArrayAdapter.createFromResource(root.getContext(), R.array.frequence,
 				android.R.layout.simple_spinner_item);
 		frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mobFrequencySpn.setAdapter(frequencyAdapter);
 
-		mobLimitSpn = (Spinner) v.findViewById(R.id.mob_limit_spinner);
-		mobLimitAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.mob_limits,
+		mobLimitSpn = (Spinner) root.findViewById(R.id.mob_limit_spinner);
+		mobLimitAdapter = ArrayAdapter.createFromResource(root.getContext(), R.array.mob_limits,
 				android.R.layout.simple_spinner_item);
 		mobLimitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mobLimitSpn.setAdapter(mobLimitAdapter);
 
-		bossspin = (Spinner) v.findViewById(R.id.mapbossspinner);
-		adapter4 = ArrayAdapter.createFromResource(v.getContext(), R.array.bosschoose,
+		bossspin = (Spinner) root.findViewById(R.id.mapbossspinner);
+		adapter4 = ArrayAdapter.createFromResource(root.getContext(), R.array.bosschoose,
 				android.R.layout.simple_spinner_item);
 		adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		bossspin.setAdapter(adapter4);
@@ -179,6 +176,34 @@ public class TabFragment extends Fragment {
 //			}
 //		});		
 		
-        return v;
+        initItemCategoryButtons(root);
+
+        return root;
+    }
+
+    private void initItemCategoryButtons(View rootView) {
+        ItemCategoryClickListener clickListener = new ItemCategoryClickListener();
+        Button weaponBtn = (Button) rootView.findViewById(R.id.weaponbutton);
+        weaponBtn.setOnClickListener(clickListener);
+        Button armorBtn = (Button) rootView.findViewById(R.id.armorbutton);
+        armorBtn.setOnClickListener(clickListener);
+        Button potionBtn = (Button) rootView.findViewById(R.id.potionbutton);
+        potionBtn.setOnClickListener(clickListener);
+    }
+
+    private class ItemCategoryClickListener implements OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+            case R.id.weaponbutton:
+                startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+            case R.id.armorbutton:
+                startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+            case R.id.potionbutton:
+                startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+            }
+        }
+
     }
 }
