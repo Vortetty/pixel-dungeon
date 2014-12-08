@@ -18,7 +18,8 @@ import android.widget.Toast;
 public class MapMobItemActivity extends Activity {
 	public Spinner mobtypespin,mobfrespin=null;
 	public Button mobconfimbt,mobcancelbt=null;
-	public ArrayAdapter<CharSequence> adapter1,adapter2,adapter3=null;
+	public ArrayAdapter<CharSequence> adapter2,adapter3=null;
+	public ArrayAdapter<String> adapter1=null;
 	public ImageView tv=null;
 	public static String Mobtypeinfo=null;
 	public static String Moblevelinfo=null;
@@ -50,9 +51,10 @@ public class MapMobItemActivity extends Activity {
 		this.mobcancelbt=(Button) this.findViewById(R.id.mobcancelbutton);
 		this.mobtypespin=(Spinner)this.findViewById(R.id.mobtypespinner);
 	    this.mobfrespin=(Spinner)this.findViewById(R.id.mobfrespinner);
-	        
-	    adapter1 = ArrayAdapter.createFromResource(this, 
-       		 R.array.mobtype, android.R.layout.simple_spinner_item); 
+	    
+	    MobMapping.mobMappingInit();
+	    
+	   adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, MobMapping.getAllNames());
        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
        mobtypespin.setAdapter(adapter1); 
        mobtypespin.setOnItemSelectedListener(new OnItemSelectedListener(){

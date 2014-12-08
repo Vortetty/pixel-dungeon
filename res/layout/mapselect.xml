@@ -14,6 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100px"
+        android:ellipsize="end"
+		android:maxLines="1"
+		android:inputType = "textVisiblePassword"
         android:ems="10" >
 
         <requestFocus />
@@ -35,28 +38,7 @@
 		android:id="@+id/mapselectlinear"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginTop="50px"
-		>
-		<Button
-		android:id="@+id/mapex1bu"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"  
-		android:text="Map1.map"
-		/>   
-	<Button
-		android:id="@+id/mapex2bu"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"  
-		android:text="Map2.map"
-		/>   
-		
-	<Button
-		android:id="@+id/mapex3bu"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"  
-		android:text="Map3.map"
-		/>   
-		
+		>	
 	</LinearLayout>
 </ScrollView>
     

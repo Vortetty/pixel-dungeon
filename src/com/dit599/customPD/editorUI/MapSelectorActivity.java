@@ -3,11 +3,14 @@ package com.dit599.customPD.editorUI;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,10 +36,6 @@ public class MapSelectorActivity extends Activity {
 		for(String f : Game.instance.fileList()){
 			if(f.endsWith(".map")){
 				files.add(f.substring(0, f.length()-4));
-				Button but=new Button (MapSelectorActivity.this);
-				but.setOnClickListener(getListener());
-				but.setText(f.substring(0, f.length()-4));
-				mlayout.addView(but);
 			}
 		}
 		mlayout= (LinearLayout) findViewById(R.id.mapselectlinear);
@@ -46,14 +45,29 @@ public class MapSelectorActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				String temp = edv.getText().toString();
-				if(!temp.equals("") && !files.contains(temp)){
+				if(files.size() < 10 && !temp.equals("") && !files.contains(temp)){
 					Button but=new Button (MapSelectorActivity.this);
 					but.setOnClickListener(getListener());
+					but.setOnLongClickListener(getLongListener());
 					but.setText(temp);
 					mlayout.addView(but);
+					files.add(temp);
 
 				}}});
-	}     
+	}   
+	@Override
+	public void onStart(){
+		super.onStart();
+		if(mlayout.getChildCount() == 0){
+			for(String f : files){
+				Button but=new Button (MapSelectorActivity.this);
+				but.setOnClickListener(getListener());
+				but.setOnLongClickListener(getLongListener());
+				but.setText(f);
+				mlayout.addView(but);
+			}
+		}
+	}
 	private OnClickListener getListener(){
 		return new OnClickListener(){
 
@@ -65,6 +79,30 @@ public class MapSelectorActivity extends Activity {
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME, temp);
 				Log.d("NAME PARAM", temp);
 				startActivity(intent);  
+			}};
+	}
+	private OnLongClickListener getLongListener(){
+		return new OnLongClickListener(){
+
+			@Override
+			public boolean onLongClick(View v) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext())
+				.setTitle("Delete Map")
+				.setPositiveButton("Yes", deleteMap(v))
+				.setNegativeButton("No", null);
+				AlertDialog alert = builder.create(); // create one
+				alert.show(); //display it 
+				return true;
+			}};
+	}
+	private DialogInterface.OnClickListener deleteMap(final View v){
+		return new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface d, int i) {
+				String temp = ((Button)v).getText().toString();
+				files.remove(temp);
+				mlayout.removeView(v);
 			}};
 	}
 }

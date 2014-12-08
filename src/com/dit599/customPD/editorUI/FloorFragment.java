@@ -113,13 +113,7 @@ public class FloorFragment extends Fragment {
 		mobLimitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mobLimitSpn.setAdapter(mobLimitAdapter);
 
-		bossspin = (Spinner) root.findViewById(R.id.mapbossspinner);
-		adapter4 = ArrayAdapter.createFromResource(root.getContext(), R.array.bosschoose,
-				android.R.layout.simple_spinner_item);
-		adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		bossspin.setAdapter(adapter4);
-		
-		
+				
 		//TODO This part doesn't work, fix it!
 		
 //		bossspin.setOnItemSelectedListener(new OnItemSelectedListener() {

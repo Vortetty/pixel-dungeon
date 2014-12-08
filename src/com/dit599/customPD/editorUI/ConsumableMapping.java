@@ -21,13 +21,6 @@ public abstract class ConsumableMapping {
 		consumableclasslist.add(Gold.class);
 		consumableclasslist.add(Food.class);
 		consumableclasslist.add(MysteryMeat.class);
-		consumableclasslist.add(Dreamweed.Seed.class);
-		consumableclasslist.add(Earthroot.Seed.class);
-		consumableclasslist.add(Fadeleaf.Seed.class);
-		consumableclasslist.add(Firebloom.Seed.class);
-		consumableclasslist.add(Icecap.Seed.class);
-		consumableclasslist.add(Sorrowmoss.Seed.class);
-		consumableclasslist.add(Sungrass.Seed.class);
 		consumableclasslist.add(ScrollHolder.class);
 		consumableclasslist.add(SeedPouch.class);
 		consumableclasslist.add(WandHolster.class);
@@ -50,13 +43,6 @@ public abstract class ConsumableMapping {
 		consumablenamelist.add("Gold");
 		consumablenamelist.add("Food");
 		consumablenamelist.add("Mystery Meat");
-		consumablenamelist.add("Dreamweed Seed");
-		consumablenamelist.add("Earthroot Seed");
-		consumablenamelist.add("Fadeleaf Seed");
-		consumablenamelist.add("Firebloom Seed");
-		consumablenamelist.add("Icecap Seed");
-		consumablenamelist.add("Sorrowmoss Seed");
-		consumablenamelist.add("Sungrass Seed");
 		consumablenamelist.add("Scroll Holder");
 		consumablenamelist.add("Seed Pouch");
 		consumablenamelist.add("Wand Holster");
@@ -84,7 +70,7 @@ public abstract class ConsumableMapping {
 		 }
 		return null;
 	}
-	public static Class<? extends Item> getRingClass(String consumablename) {
+	public static Class<? extends Item> getConsumableClass(String consumablename) {
 		for(int i=0;i<consumablenamelist.size();i++)
 		 {
 			if(consumablenamelist.get(i).equals(consumablename))
