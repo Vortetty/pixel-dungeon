@@ -25,6 +25,11 @@ public class DungeonTemplate implements Bundlable{
 			levelTemplates.add(new LevelTemplate());
     	}
     }
+
+    public DungeonTemplate(String file) {
+        load(file);
+    }
+
     public void reset(){
     	levelTemplates = new ArrayList<LevelTemplate>(MAX_DEPTH);
     	for(int i = 0; i < MAX_DEPTH; i++){

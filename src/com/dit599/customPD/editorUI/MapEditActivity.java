@@ -1,30 +1,25 @@
 package com.dit599.customPD.editorUI;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.levels.template.LevelTemplate;
 
 
 public class MapEditActivity extends FragmentActivity{
     
     public static final String EXTRA_FILENAME = "filename";
 
-	
-	//TODO Left over code... REMOVE later!
-//	public DungeonTemplate template;
-//	public int depth;
-	
+    public static final String TAB_ADD_FLOOR = "add_floor";
+
+    public TemplateHandler templateHandler;
 	
 	private String mapName;
 	private FragmentTabHost mTabHost;
-	
-	// Tab titles
-	private String[] tabs = { " Add Floor ", "  Floor 1  " };
-
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,27 +31,42 @@ public class MapEditActivity extends FragmentActivity{
             throw new NullPointerException("Intent parameter \"" + EXTRA_FILENAME + "\" missing");
         }
         setTitle(mapName);
+
+        templateHandler = TemplateHandler.getInstance(mapName);
+
+        if (templateHandler == null || templateHandler.getDungeon() == null) {
+            throw new NullPointerException();
+        }
 		
         initMappings();
 
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
-        for (String tab_name : tabs) {
-			mTabHost.addTab(mTabHost.newTabSpec(tab_name).setIndicator(tab_name, null),
-	                FloorFragment.class, null);
-		}
+        mTabHost.addTab(mTabHost.newTabSpec(TAB_ADD_FLOOR).setIndicator("Add floor", null),
+                Fragment.class, null);
+        int depth = 1;
+        for (LevelTemplate level : templateHandler.getDungeon().levelTemplates) {
+            mTabHost.addTab(
+                    mTabHost.newTabSpec(String.valueOf(depth)).setIndicator("Floor " + depth, null),
+                FloorFragment.class, null);
+            depth++;
+        }
+
+        if (mTabHost.getTabWidget().getTabCount() > 1) {
+            mTabHost.setCurrentTab(1);
+        }
         
-        mTabHost.setCurrentTab(1);
         
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){
 			@Override
 			public void onTabChanged(String tabSpec) {
-			    if(tabSpec.equals(tabs[0])) {
+                if (tabSpec.equals(TAB_ADD_FLOOR)) {
 			    	int tabCount = mTabHost.getTabWidget().getTabCount();
-			    	String tab_name = "  Floor " + tabCount + "  ";
+                    String tab_name = "Floor " + tabCount;
 			    	mTabHost.addTab(
-			                mTabHost.newTabSpec(tab_name).setIndicator(tab_name, null),
+                            mTabHost.newTabSpec(String.valueOf(tabCount)).setIndicator(tab_name,
+                                    null),
 			                FloorFragment.class, null);
 			    	mTabHost.setCurrentTab(tabCount);
 			    }
