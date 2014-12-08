@@ -9,6 +9,8 @@ import com.dit599.customPD.R;
 
 
 public class MapEditActivity extends FragmentActivity{
+    
+    public static final String EXTRA_FILENAME = "filename";
 
 	
 	//TODO Left over code... REMOVE later!
@@ -16,7 +18,7 @@ public class MapEditActivity extends FragmentActivity{
 //	public int depth;
 	
 	
-	
+	private String mapName;
 	private FragmentTabHost mTabHost;
 	
 	// Tab titles
@@ -28,6 +30,12 @@ public class MapEditActivity extends FragmentActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_editor_ui);
+		
+        mapName = getIntent().getStringExtra(EXTRA_FILENAME);
+        if (mapName == null) {
+            throw new NullPointerException("Intent parameter \"" + EXTRA_FILENAME + "\" missing");
+        }
+        setTitle(mapName);
 		
         initMappings();
 

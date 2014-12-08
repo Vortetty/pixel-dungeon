@@ -1,16 +1,15 @@
 package com.dit599.customPD.editorUI;
 
-import com.dit599.customPD.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.dit599.customPD.R;
 
 public class MapSelectorActivity extends Activity {
 	private Button mapbu1,mapbu2,mapbu3;
@@ -44,6 +43,7 @@ public class MapSelectorActivity extends Activity {
 						// TODO Auto-generated method stub
 						Intent intent = new Intent();  
 		                intent.setClass(MapSelectorActivity.this, MapEditActivity.class);  
+                        intent.putExtra(MapEditActivity.EXTRA_FILENAME, "map1");
 		                startActivity(intent);  
 					}});
 			
@@ -61,6 +61,7 @@ public class MapSelectorActivity extends Activity {
 						// TODO Auto-generated method stub
 						Intent intent = new Intent();  
 		                intent.setClass(MapSelectorActivity.this, MapEditActivity.class);  
+		                intent.putExtra(MapEditActivity.EXTRA_FILENAME, "map1");
 		                startActivity(intent);  
 					}});
 		mapbu2.setOnClickListener(new OnClickListener(){
