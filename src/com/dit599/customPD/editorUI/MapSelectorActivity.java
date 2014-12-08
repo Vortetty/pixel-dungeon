@@ -15,7 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.R;
+import com.dit599.customPD.actors.hero.HeroClass;
+import com.dit599.customPD.levels.template.DungeonTemplate;
+import com.dit599.customPD.levels.template.TemplateFactory;
 import com.watabou.noosa.Game;
 
 public class MapSelectorActivity extends Activity {
@@ -103,6 +107,19 @@ public class MapSelectorActivity extends Activity {
 				String temp = ((Button)v).getText().toString();
 				files.remove(temp);
 				mlayout.removeView(v);
+				for(String f : Game.instance.fileList()){
+					if(f.equals(temp + ".map")){
+						Dungeon.template = new DungeonTemplate();
+						Dungeon.template.load(temp);
+						Dungeon.deleteGame(HeroClass.WARRIOR, true);
+						Dungeon.deleteGame(HeroClass.MAGE, true);
+						Dungeon.deleteGame(HeroClass.ROGUE, true);
+						Dungeon.deleteGame(HeroClass.HUNTRESS, true);
+						Game.instance.deleteFile(f);
+						Dungeon.template = null;
+						break;
+					}
+				}
 			}};
 	}
 }
