@@ -56,7 +56,7 @@ public class MapSelectorActivity extends Activity {
 					but.setText(temp);
 					mlayout.addView(but);
 					files.add(temp);
-
+					DungeonTemplate t = TemplateFactory.createSimpleDungeon(temp);
 				}}});
 	}   
 	@Override
