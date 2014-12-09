@@ -20,6 +20,7 @@ import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Room.Type;
 import com.dit599.customPD.levels.SewerLevel;
+import com.dit599.customPD.levels.template.LevelTemplate.MagicItem;
 
 public class TemplateFactory {
 
@@ -63,7 +64,7 @@ public class TemplateFactory {
 		level.weapons.add(new ShortSword());
 		level.weapons.add(new ShortSword());
 		level.consumables.add(new Pasty());
-		level.rings.add(RingOfEvasion.class);
+		level.rings.add(level.new MagicItem(RingOfEvasion.class, 2, true));
 		level.potions.add(PotionOfMight.class);
 
 		return level;

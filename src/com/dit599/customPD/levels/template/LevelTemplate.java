@@ -41,10 +41,11 @@ public class LevelTemplate implements Bundlable{
 	public List<Item> weapons = new ArrayList<Item>();
 	public List<Item> armor = new ArrayList<Item>();
 	public List<Item> consumables = new ArrayList<Item>();
+	public List<Item> seeds = new ArrayList<Item>();
 	public List<Class<? extends Potion>> potions = new ArrayList<Class<? extends Potion>>();
 	public List<Class<? extends Scroll>> scrolls = new ArrayList<Class<? extends Scroll>>();
-	public List<Class<? extends Wand>> wands = new ArrayList<Class<? extends Wand>>();
-	public List<Class<? extends Ring>> rings = new ArrayList<Class<? extends Ring>>();
+	public List<MagicItem> wands = new ArrayList<MagicItem>();
+	public List<MagicItem> rings = new ArrayList<MagicItem>();
 
 	public List<Room.Type> specialRooms = new ArrayList<Room.Type>();
 
@@ -99,13 +100,25 @@ public class LevelTemplate implements Bundlable{
 			this.weight = weight;
 		}
 	}
+	public class MagicItem {
+		public Class<? extends Item> itemClass;
+		public int level;
+		public boolean cursed;
+
+		public MagicItem(Class<? extends Item> itemClass, int level, boolean cursed) {
+			this.itemClass = itemClass;
+			this.level = level;
+			this.cursed = cursed;
+		}
+	}
 
 	public ArrayList<Item> getAllItems() {
 		ArrayList<Item> items = new ArrayList<Item>();
 		items.addAll(weapons);
 		items.addAll(armor);
 		items.addAll(consumables);
-
+		items.addAll(seeds);
+		
 		try {
 			for (Class<? extends Item> c : potions) {
 				items.add(c.newInstance());
@@ -113,11 +126,17 @@ public class LevelTemplate implements Bundlable{
 			for (Class<? extends Item> c : scrolls) {
 				items.add(c.newInstance());
 			}
-			for (Class<? extends Item> c : wands) {
-				items.add(c.newInstance());
+			for (MagicItem m : wands) {
+				Wand w = (Wand) m.itemClass.newInstance();
+				w.cursed = m.cursed;
+				w.level = m.level;
+				items.add(w);
 			}
-			for (Class<? extends Item> c : rings) {
-				items.add(c.newInstance());
+			for (MagicItem m : rings) {
+				Ring r = (Ring) m.itemClass.newInstance();
+				r.cursed = m.cursed;
+				r.level = m.level;
+				items.add(r);
 			}
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -221,20 +240,26 @@ public class LevelTemplate implements Bundlable{
 	}
 	private void saveRingList(Bundle bundle) {
 		for (int i = 0; i < rings.size(); i++){
-			bundle.put("rings" + i, rings.get(i).getName());
+			bundle.put("ringItemClass" + i, rings.get(i).itemClass.getName());
+			bundle.put("ringLevel" + i, rings.get(i).level);
+			bundle.put("ringCursed" + i, rings.get(i).cursed);
+			
+			
 		}
 	}
 	private void loadRingList(Bundle bundle, ClassLoader cl){
-		rings = new ArrayList<Class<? extends Ring>>();
+		rings = new ArrayList<MagicItem>();
 		int i = 0;
 		while (true){
-			String s = bundle.getString("rings" +i);
+			String s = bundle.getString("ringItemClass" +i);
+			int l = bundle.getInt("ringLevel" +i);
+			boolean b = bundle.getBoolean("ringCursed" +i);
 			if(s == ""){
 				break;
 			}
 			else{
 				try {
-					rings.add((Class<? extends Ring>) cl.loadClass(s));
+					rings.add(new MagicItem((Class<? extends Ring>) cl.loadClass(s), l, b));
 					i++;
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -245,20 +270,24 @@ public class LevelTemplate implements Bundlable{
 	
 	private void saveWandList(Bundle bundle) {
 		for (int i = 0; i < wands.size(); i++){
-			bundle.put("wands" + i, wands.get(i).getName());
+			bundle.put("wandItemClass" + i, wands.get(i).itemClass.getName());
+			bundle.put("wandLevel" + i, wands.get(i).level);
+			bundle.put("wandCursed" + i, wands.get(i).cursed);
 		}
 	}
 	private void loadWandList(Bundle bundle, ClassLoader cl){
-		wands = new ArrayList<Class<? extends Wand>>();
+		wands = new ArrayList<MagicItem>();
 		int i = 0;
 		while (true){
-			String s = bundle.getString("wands" +i);
+			String s = bundle.getString("wandItemClass" +i);
+			int l = bundle.getInt("wandLevel" +i);
+			boolean b = bundle.getBoolean("wandCursed" +i);
 			if(s == ""){
 				break;
 			}
 			else{
 				try {
-					wands.add((Class<? extends Wand>) cl.loadClass(s));
+					rings.add(new MagicItem((Class<? extends Wand>) cl.loadClass(s), l, b));
 					i++;
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -272,6 +301,7 @@ public class LevelTemplate implements Bundlable{
 		weapons = new ArrayList<Item>();
 		armor = new ArrayList<Item>();
 		consumables = new ArrayList<Item>();
+		seeds = new ArrayList<Item>();
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		loadMobList(bundle, cl);
 		loadRingList(bundle, cl);
@@ -285,6 +315,7 @@ public class LevelTemplate implements Bundlable{
 			this.armor.addAll((Collection<? extends Item>) bundle.getCollection("armor"));
 			this.weapons.addAll((Collection<? extends Item>) bundle.getCollection("weapons"));
 			this.consumables.addAll((Collection<? extends Item>) bundle.getCollection("consumables"));
+			this.seeds.addAll((Collection<? extends Item>) bundle.getCollection("seeds"));
 			this.theme = (Class<? extends Level>) cl.loadClass(bundle.getString("theme"));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -302,6 +333,7 @@ public class LevelTemplate implements Bundlable{
 		bundle.put("armor", this.armor);
 		bundle.put("weapons", this.weapons);
 		bundle.put("consumables", this.consumables);
+		bundle.put("seeds", this.seeds);
 		bundle.put("maxMobs", this.maxMobs);
 		bundle.put("timeToRespawn", this.timeToRespawn);
 		bundle.put("theme", this.theme.getName());
