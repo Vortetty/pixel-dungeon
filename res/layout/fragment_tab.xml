@@ -138,7 +138,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Weapons"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/weapon" />
 	
 	        <Button
 	            android:id="@+id/armorbutton"
@@ -170,7 +170,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Scrolls"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/scroll" />
 	
 	        <Button
 	            android:id="@+id/roomsbutton"
@@ -186,7 +186,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Seeds"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/seed" />
 	
 	    </LinearLayout>
 	    <LinearLayout
@@ -201,7 +201,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Wands"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/wands" />
 	
 	        <Button
 	            android:id="@+id/ringbutton"
@@ -209,7 +209,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Rings"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/ring" />
 	
 	        <Button
 	            android:id="@+id/consumablesbutton"
