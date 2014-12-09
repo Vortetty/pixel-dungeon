@@ -193,7 +193,8 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.depth > 1) {
 				switch (Random.Int( 10 )) {
 				case 0:
-					if (!Dungeon.isTutorial && !Dungeon.bossLevel( Dungeon.depth + 1 )) {
+					if (!Dungeon.isTutorial && Dungeon.template == null &&  
+					    !Dungeon.bossLevel( Dungeon.depth + 1 )) {
 						feeling = Feeling.CHASM;
 					}
 					break;

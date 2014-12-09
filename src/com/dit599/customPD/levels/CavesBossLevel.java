@@ -204,6 +204,18 @@ public class CavesBossLevel extends Level {
 			} while (pos == entrance || map[pos] == Terrain.SIGN);
 			drop( item, pos ).type = Heap.Type.SKELETON;
 		}
+		if(Dungeon.template != null){
+			for (Item it : itemsToSpawn) {
+				int cell;
+				do {
+					cell = Random.Int( LENGTH );
+				} while (
+					!passable[cell] ||
+					outsideEntraceRoom(cell ) ||
+					map[cell] == Terrain.SIGN);
+				drop( it, cell ).type = Heap.Type.HEAP;
+			}
+		}
 	}
 	
 	@Override

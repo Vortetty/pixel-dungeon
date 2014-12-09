@@ -702,6 +702,12 @@ public abstract class RegularLevel extends Level {
 	protected int randomDropCell() {
 		while (true) {
 			Room room = randomRoom( Room.Type.STANDARD, 1 );
+			if(Dungeon.template != null && room == null){
+				room = randomRoom( Room.Type.TUNNEL, 1 );
+			}
+			if(Dungeon.template != null && room == null){
+				room = randomRoom( Room.Type.PASSAGE, 1 );
+			}
 			if (room != null) {
 				int pos = room.random();
 				if (passable[pos]) {
