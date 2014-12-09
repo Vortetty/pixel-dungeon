@@ -87,22 +87,31 @@ public class MapEditActivity extends FragmentActivity{
     }
 
 	public void onBackPressed() {
+		templateHandler = TemplateHandler.getInstance(mapName);
+		templateHandler.save();
 		super.onBackPressed();
 	}
 
+	@Override
+	public void onPause(){
+		super.onPause();
+		templateHandler = TemplateHandler.getInstance(mapName);
+		templateHandler.save();
+	}
 	
-	
-	//TODO Left over code... REMOVE later!
-//	@Override
-//	public void onPause(){
-//		super.onPause();
-//		// TODO save template
-//	}
-//	
 	@Override
 	public void onResume(){
 		super.onResume();
-
+        if (mapName == null) {
+            mapName = getIntent().getStringExtra(EXTRA_FILENAME);
+        }
+        setTitle(mapName);
+        if (templateHandler == null || templateHandler.getDungeon() == null) {
+        	 templateHandler = TemplateHandler.getInstance(mapName);
+        }
+		if(MobMapping.getAllNames().size() == 0){
+	        initMappings();
+		}
 	}
 
 //	@Override

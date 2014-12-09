@@ -50,7 +50,7 @@ public class TemplateHandler {
     }
 
     public void save() {
-
+    	template.save(mapName);
     }
 
     public DungeonTemplate getDungeon() {
