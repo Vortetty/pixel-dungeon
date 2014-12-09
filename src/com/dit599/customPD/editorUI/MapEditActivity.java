@@ -109,7 +109,7 @@ public class MapEditActivity extends FragmentActivity{
         if (templateHandler == null || templateHandler.getDungeon() == null) {
         	 templateHandler = TemplateHandler.getInstance(mapName);
         }
-		if(MobMapping.getAllNames().size() == 0){
+		if(MobMapping.getAllNames() == null){
 	        initMappings();
 		}
 	}
