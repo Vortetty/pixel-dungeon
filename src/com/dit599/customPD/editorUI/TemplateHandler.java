@@ -46,15 +46,15 @@ public class TemplateHandler {
      * Synchronously loads the specified template.
      */
     private void loadFromFile() {
-        template = TemplateFactory.createSimpleDungeon(mapName);
+        setTemplate(TemplateFactory.createSimpleDungeon(mapName));
     }
 
     public void save() {
-    	template.save(mapName);
+    	getTemplate().save(mapName);
     }
 
     public DungeonTemplate getDungeon() {
-        return template;
+        return getTemplate();
     }
 
     /**
@@ -64,7 +64,15 @@ public class TemplateHandler {
      * @return
      */
     public LevelTemplate getLevel(int depth) {
-        return template.levelTemplates.get(depth - 1); // handle 1-index
+        return getTemplate().levelTemplates.get(depth - 1); // handle 1-index
     }
+
+	public DungeonTemplate getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(DungeonTemplate template) {
+		this.template = template;
+	}
 
 }

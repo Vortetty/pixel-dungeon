@@ -47,7 +47,6 @@ public class MapSelectorActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				String temp = edv.getText().toString();
 				if(files.size() < 10 && !temp.equals("") && !files.contains(temp)){
 					Button but=new Button (MapSelectorActivity.this);
@@ -56,7 +55,7 @@ public class MapSelectorActivity extends Activity {
 					but.setText(temp);
 					mlayout.addView(but);
 					files.add(temp);
-					DungeonTemplate t = TemplateFactory.createSimpleDungeon(temp);
+					TemplateHandler.getInstance(temp);
 				}}});
 	}   
 	@Override
@@ -109,8 +108,8 @@ public class MapSelectorActivity extends Activity {
 				mlayout.removeView(v);
 				for(String f : Game.instance.fileList()){
 					if(f.equals(temp + ".map")){
-						Dungeon.template = new DungeonTemplate();
-						Dungeon.template.load(temp);
+						Dungeon.template = (TemplateHandler.getInstance(temp))
+										    .getTemplate();
 						Dungeon.deleteGame(HeroClass.WARRIOR, true);
 						Dungeon.deleteGame(HeroClass.MAGE, true);
 						Dungeon.deleteGame(HeroClass.ROGUE, true);
