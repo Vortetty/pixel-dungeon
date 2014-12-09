@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,37 +24,39 @@ import com.dit599.customPD.levels.template.DungeonTemplate;
 
 public class FloorFragment extends Fragment {
 
-	public int numoffloortab = 1;
+	private int numoffloortab = 1;
 	TabSpec parentSpec, subSpec;
-	public Spinner themeSpn, mobFrequencySpn, mobLimitSpn, bossspin = null;
-	public ArrayAdapter<String> themeAdapter = null;
-	public ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter, adapter4 = null;
-	public ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
-	public ListView downlistview = null;
-	public LinearLayout layout = null;
-	public MapSelectItemAdapter downlistadapter = null;
-	
+	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn, bossspin = null;
+	private ArrayAdapter<String> themeAdapter = null;
+	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter, adapter4 = null;
+	private ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
+	private Button roomButton = null;
+	private ListView downlistview = null;
+	private LinearLayout layout = null;
+	private MapSelectItemAdapter downlistadapter = null;
+
 	public DungeonTemplate template;
 	public int depth;
-	
-	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-    	
-        View root = inflater.inflate(R.layout.fragment_tab, container, false);
-        
-        depth = Integer.valueOf(getTag());
-        Log.d("FloorFragment", "Depth is " + depth);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		View root = inflater.inflate(R.layout.fragment_tab, container, false);
+
+		depth = Integer.valueOf(getTag());
+		Log.d("FloorFragment", "Depth is " + depth);
 
 		mobbut1 = (ImageButton) root.findViewById(R.id.mobsbutton1);
 		mobbut2 = (ImageButton) root.findViewById(R.id.mobsbutton2);
 		mobbut3 = (ImageButton) root.findViewById(R.id.mobsbutton3);
 		mobbut4 = (ImageButton) root.findViewById(R.id.mobsbutton4);
+		roomButton = (Button) root.findViewById(R.id.roomsbutton);
 
 		this.mobbut1.setOnClickListener(new OnClickListener() {
 
@@ -101,9 +105,35 @@ public class FloorFragment extends Fragment {
 
 		themeSpn = (Spinner) root.findViewById(R.id.theme_spinner);
 		themeAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, 
-				                                      LevelMapping.getAllNames());
+				LevelMapping.getAllNames());
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
+		themeSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {	
+				if(((String)themeSpn.getSelectedItem()).contains("Boss")){
+					mobbut1.setEnabled(false);
+					mobbut2.setEnabled(false);
+					mobbut3.setEnabled(false);
+					mobbut4.setEnabled(false);
+					roomButton.setEnabled(false);
+				}
+				else{
+					mobbut1.setEnabled(true);
+					mobbut2.setEnabled(true);
+					mobbut3.setEnabled(true);
+					mobbut4.setEnabled(true);
+					roomButton.setEnabled(true);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});		
 
 		mobFrequencySpn = (Spinner) root.findViewById(R.id.frequency_spinner);
 		frequencyAdapter = ArrayAdapter.createFromResource(root.getContext(), R.array.frequence,
@@ -117,94 +147,94 @@ public class FloorFragment extends Fragment {
 		mobLimitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mobLimitSpn.setAdapter(mobLimitAdapter);
 
-				
+
 		//TODO This part doesn't work, fix it!
-		
-//		bossspin.setOnItemSelectedListener(new OnItemSelectedListener() {
-//
-//			@Override
-//			public void onItemSelected(AdapterView<?> parent, View view,
-//					int position, long id) {
-//				// TODO Auto-generated method stub
-//				if (position == 1) {
-//					themeSpn.setEnabled(false);
-//					mobFrequencySpn.setEnabled(false);
-//					mobLimitSpn.setEnabled(false);
-//					mobbut1.setEnabled(false);
-//					mobbut2.setEnabled(false);
-//					mobbut3.setEnabled(false);
-//					mobbut4.setEnabled(false);
-//					downlistview.setEnabled(false);
-//
-//					themeSpn.setVisibility(0);
-//					mobFrequencySpn.setVisibility(0);
-//					mobLimitSpn.setVisibility(0);
-//					mobbut1.setVisibility(0);
-//					mobbut2.setVisibility(0);
-//					mobbut3.setVisibility(0);
-//					mobbut4.setVisibility(0);
-//					downlistview.setVisibility(0);
-//
-//				} else {
-//					themeSpn.setEnabled(true);
-//					mobFrequencySpn.setEnabled(true);
-//					mobLimitSpn.setEnabled(true);
-//					mobbut1.setEnabled(true);
-//					mobbut2.setEnabled(true);
-//					mobbut3.setEnabled(true);
-//					mobbut4.setEnabled(true);
-//					downlistview.setEnabled(true);
-//
-//					themeSpn.setVisibility(1);
-//					mobFrequencySpn.setVisibility(1);
-//					mobLimitSpn.setVisibility(1);
-//					mobbut1.setVisibility(1);
-//					mobbut2.setVisibility(1);
-//					mobbut3.setVisibility(1);
-//					mobbut4.setVisibility(1);
-//					downlistview.setVisibility(1);
-//				}
-//
-//			}
-//
-//			@Override
-//			public void onNothingSelected(AdapterView<?> parent) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});		
-		
-        initItemCategoryButtons(root);
 
-        return root;
-    }
+		//		bossspin.setOnItemSelectedListener(new OnItemSelectedListener() {
+		//
+		//			@Override
+		//			public void onItemSelected(AdapterView<?> parent, View view,
+		//					int position, long id) {
+		//				// TODO Auto-generated method stub
+		//				if (position == 1) {
+		//					themeSpn.setEnabled(false);
+		//					mobFrequencySpn.setEnabled(false);
+		//					mobLimitSpn.setEnabled(false);
+		//					mobbut1.setEnabled(false);
+		//					mobbut2.setEnabled(false);
+		//					mobbut3.setEnabled(false);
+		//					mobbut4.setEnabled(false);
+		//					downlistview.setEnabled(false);
+		//
+		//					themeSpn.setVisibility(0);
+		//					mobFrequencySpn.setVisibility(0);
+		//					mobLimitSpn.setVisibility(0);
+		//					mobbut1.setVisibility(0);
+		//					mobbut2.setVisibility(0);
+		//					mobbut3.setVisibility(0);
+		//					mobbut4.setVisibility(0);
+		//					downlistview.setVisibility(0);
+		//
+		//				} else {
+		//					themeSpn.setEnabled(true);
+		//					mobFrequencySpn.setEnabled(true);
+		//					mobLimitSpn.setEnabled(true);
+		//					mobbut1.setEnabled(true);
+		//					mobbut2.setEnabled(true);
+		//					mobbut3.setEnabled(true);
+		//					mobbut4.setEnabled(true);
+		//					downlistview.setEnabled(true);
+		//
+		//					themeSpn.setVisibility(1);
+		//					mobFrequencySpn.setVisibility(1);
+		//					mobLimitSpn.setVisibility(1);
+		//					mobbut1.setVisibility(1);
+		//					mobbut2.setVisibility(1);
+		//					mobbut3.setVisibility(1);
+		//					mobbut4.setVisibility(1);
+		//					downlistview.setVisibility(1);
+		//				}
+		//
+		//			}
+		//
+		//			@Override
+		//			public void onNothingSelected(AdapterView<?> parent) {
+		//				// TODO Auto-generated method stub
+		//
+		//			}
+		//		});		
 
-    private void initItemCategoryButtons(View rootView) {
-        ItemCategoryClickListener clickListener = new ItemCategoryClickListener();
-        Button weaponBtn = (Button) rootView.findViewById(R.id.weaponbutton);
-        weaponBtn.setOnClickListener(clickListener);
-        Button armorBtn = (Button) rootView.findViewById(R.id.armorbutton);
-        armorBtn.setOnClickListener(clickListener);
-        Button potionBtn = (Button) rootView.findViewById(R.id.potionbutton);
-        potionBtn.setOnClickListener(clickListener);
-    }
+		initItemCategoryButtons(root);
 
-    private class ItemCategoryClickListener implements OnClickListener {
+		return root;
+	}
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-            case R.id.weaponbutton:
-                startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
-                break;
-            case R.id.armorbutton:
-                startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
-                break;
-            case R.id.potionbutton:
-                startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
-                break;
-            }
-        }
+	private void initItemCategoryButtons(View rootView) {
+		ItemCategoryClickListener clickListener = new ItemCategoryClickListener();
+		Button weaponBtn = (Button) rootView.findViewById(R.id.weaponbutton);
+		weaponBtn.setOnClickListener(clickListener);
+		Button armorBtn = (Button) rootView.findViewById(R.id.armorbutton);
+		armorBtn.setOnClickListener(clickListener);
+		Button potionBtn = (Button) rootView.findViewById(R.id.potionbutton);
+		potionBtn.setOnClickListener(clickListener);
+	}
 
-    }
+	private class ItemCategoryClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.weaponbutton:
+				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+				break;
+			case R.id.armorbutton:
+				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+				break;
+			case R.id.potionbutton:
+				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+				break;
+			}
+		}
+
+	}
 }
