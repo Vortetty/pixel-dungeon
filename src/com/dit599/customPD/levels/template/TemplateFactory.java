@@ -54,7 +54,7 @@ public class TemplateFactory {
 
 	public static LevelTemplate createSimpleLevel() {
 		LevelTemplate level = new LevelTemplate();
-		level.theme = SewerLevel.class;
+		level.theme = CavesLevel.class;
 		level.maxMobs = 5;
 		level.timeToRespawn = 40;
 		level.specialRooms.add(Type.TREASURY);

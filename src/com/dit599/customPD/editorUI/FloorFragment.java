@@ -1,5 +1,7 @@
 package com.dit599.customPD.editorUI;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,16 +26,12 @@ import com.dit599.customPD.levels.template.DungeonTemplate;
 
 public class FloorFragment extends Fragment {
 
-	private int numoffloortab = 1;
 	TabSpec parentSpec, subSpec;
-	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn, bossspin = null;
+	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn;
 	private ArrayAdapter<String> themeAdapter = null;
-	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter, adapter4 = null;
+	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter;
 	private ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	private Button roomButton = null;
-	private ListView downlistview = null;
-	private LinearLayout layout = null;
-	private MapSelectItemAdapter downlistadapter = null;
 
 	public DungeonTemplate template;
 	public int depth;
@@ -48,6 +46,8 @@ public class FloorFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View root = inflater.inflate(R.layout.fragment_tab, container, false);
+		
+		MapEditActivity activity = (MapEditActivity) getActivity();
 
 		depth = Integer.valueOf(getTag());
 		Log.d("FloorFragment", "Depth is " + depth);
@@ -104,10 +104,13 @@ public class FloorFragment extends Fragment {
 		});
 
 		themeSpn = (Spinner) root.findViewById(R.id.theme_spinner);
+		List<String> themeItems = LevelMapping.getAllNames();
 		themeAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, 
-				LevelMapping.getAllNames());
+				themeItems);
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
+		String currentTheme = LevelMapping.getThemeName(activity.templateHandler.getLevel(depth).theme);
+		themeSpn.setSelection(themeItems.indexOf(currentTheme));
 		themeSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
