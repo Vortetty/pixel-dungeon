@@ -187,7 +187,7 @@ public class InterlevelScene extends PixelScene {
 					error = ERR_FILE_NOT_FOUND;
 					
 				} catch (Exception e ) {
-					
+					e.printStackTrace();
 					error = ERR_GENERIC;
 					
 				}

@@ -25,6 +25,7 @@ import com.dit599.customPD.Bones;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.mobs.Bestiary;
+import com.dit599.customPD.actors.mobs.Goo;
 import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
@@ -177,7 +178,7 @@ public class SewerBossLevel extends RegularLevel {
 	
 	@Override
 	protected void createMobs() {
-		Mob mob = Bestiary.mob( Dungeon.depth );
+		Mob mob = new Goo();
 		mob.pos = roomExit.random();
 		mobs.add( mob );
 	}

@@ -26,6 +26,7 @@ import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.actors.mobs.Bestiary;
 import com.dit599.customPD.actors.mobs.Mob;
+import com.dit599.customPD.actors.mobs.Tengu;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.keys.IronKey;
@@ -315,7 +316,7 @@ public class PrisonBossLevel extends RegularLevel {
 				pos = roomExit.random();
 			} while (pos == cell || Actor.findChar( pos ) != null);
 			
-			Mob boss = Bestiary.mob( Dungeon.depth );
+			Mob boss = new Tengu();
 			boss.state = boss.HUNTING;
 			boss.pos = pos;
 			GameScene.add( boss );

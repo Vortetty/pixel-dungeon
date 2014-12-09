@@ -23,6 +23,7 @@ import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.actors.mobs.Bestiary;
+import com.dit599.customPD.actors.mobs.King;
 import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
@@ -176,8 +177,7 @@ public class CityBossLevel extends Level {
 		if (!enteredArena && outsideEntraceRoom( cell ) && hero == Dungeon.hero) {
 			
 			enteredArena = true;
-			
-			Mob boss = Bestiary.mob( Dungeon.depth );
+			Mob boss = new King();
 			boss.state = boss.HUNTING;
 			do {
 				boss.pos = Random.Int( LENGTH );
