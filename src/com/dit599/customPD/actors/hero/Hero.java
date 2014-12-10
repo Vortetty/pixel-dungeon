@@ -751,7 +751,8 @@ public class Hero extends Char {
 		int stairs = action.dst;
 		if (pos == stairs && pos == Dungeon.level.exit) {
 			Log.d("HERO DESCEND", "IF");
-			if(Dungeon.isTutorial && Dungeon.depth == T_LAST_FLOOR){
+			if((Dungeon.isTutorial && Dungeon.depth == T_LAST_FLOOR) ||
+				(Dungeon.template != null && Dungeon.depth == Dungeon.template.levelTemplates.size())){
 				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
 				Game.switchScene( TutorialEndScene.class );
 			}

@@ -35,14 +35,14 @@ public class StoragePainter extends Painter {
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, floor );
 
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 			int n = Random.IntRange( 3, 4 );
 			Item [] items = new Item[n];
 			for (int i=0; i < n; i++) { 
 				items[i] = prize( level );
 			}
 			placeItems(items, floor, level, room);
-		}
+//		}
 		room.entrance().set( Room.Door.Type.BARRICADE );
 		level.addItemToSpawn( new PotionOfLiquidFlame() );
 	}

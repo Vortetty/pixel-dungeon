@@ -283,7 +283,7 @@ public class GameScene extends PixelScene {
 			if(Dungeon.isTutorial){
 				tutorialChapters();
 			}
-			else{
+			else if (Dungeon.template == null) {
 				standardChapters();
 			}
 			if (Dungeon.hero.isAlive() && Dungeon.depth != 22) {

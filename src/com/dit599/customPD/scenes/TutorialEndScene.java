@@ -106,8 +106,12 @@ public class TutorialEndScene extends PixelScene {
 		frame.frame( 0, 0, 88, 125 );
 		frame.x = vx - 4;
 		frame.y = vy - 9;
+		String label = "Tutorial Complete!";
+		if(Dungeon.template != null){
+			label = Dungeon.template.name + " Map Complete!";
+		}
 		
-		RedButton  proceed = new RedButton( "Tutorial Complete!" ) {
+		RedButton  proceed = new RedButton(label) {
 			protected void onClick() {
 				Game.switchScene( TitleScene.class );
 			}

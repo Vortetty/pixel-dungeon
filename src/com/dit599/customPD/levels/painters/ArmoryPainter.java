@@ -49,14 +49,14 @@ public class ArmoryPainter extends Painter {
 			set( level, statue, Terrain.STATUE );
 		}
 
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 			int n = Random.IntRange( 2, 3 );
 			Item [] items = new Item[n]; 
 			for (int i=0; i < n; i++) {
 				items[i] = prize( level );
 			}
 			placeItems(items, Terrain.EMPTY, level, room);
-		}
+//		}
 		entrance.set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
 	}

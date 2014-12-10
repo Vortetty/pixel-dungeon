@@ -39,7 +39,7 @@ public class VaultPainter extends Painter {
 		int cy = (room.top + room.bottom) / 2;
 		int c = cx + cy * Level.WIDTH;
 
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 
 			switch (Random.Int( 3 )) {
 
@@ -64,7 +64,7 @@ public class VaultPainter extends Painter {
 				set( level, c, Terrain.PEDESTAL );
 				break;
 			}
-		}
+//		}
 		room.entrance().set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
 	}

@@ -65,7 +65,7 @@ public class PotionRoomPainter extends Painter {
 		alchemy.seed( pot.x + Level.WIDTH * pot.y, 1 );
 		level.blobs.put( Alchemy.class, alchemy );
 
-		if (Dungeon.template == null){
+//		if (Dungeon.template == null){
 			int pos;
 			Potion [] potions = {
 					new PotionOfExperience(), new PotionOfExperience(), new PotionOfHealing(), new PotionOfHealing(),
@@ -83,7 +83,7 @@ public class PotionRoomPainter extends Painter {
 					level.heaps.get( pos ) != null);
 
 			placeHeap(potions, pos, level, Heap.Type.HEAP);
-		}
+//		}
 		entrance.set( Room.Door.Type.REGULAR );
 	}
 	/**

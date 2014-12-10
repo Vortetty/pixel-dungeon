@@ -65,7 +65,7 @@ public class PoolPainter extends Painter {
 			y = room.top + 1;
 
 		}
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 			int pos = x + y * Level.WIDTH;
 			Item [] items = {
 					prize( level )	
@@ -80,7 +80,7 @@ public class PoolPainter extends Painter {
 				mobs[i] = new Piranha();
 			}
 			placeMobs(mobs, Terrain.WATER, level, room);
-		}
+//		}
 	}
 
 	private static Item prize( Level level ) {

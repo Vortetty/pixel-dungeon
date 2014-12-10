@@ -35,14 +35,14 @@ public class BlacksmithPainter extends Painter {
 		fill( level, room, 1, Terrain.FIRE_TRAP );
 		fill( level, room, 2, Terrain.EMPTY_SP );
 
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 			Item [] items = new Item[2]; 
 			for (int i=0; i < items.length; i++) {
 				items[i] = Generator.random( Random.oneOf(Generator.Category.ARMOR, 
 						Generator.Category.WEAPON));
 			}
 			placeItems(items, Terrain.EMPTY_SP, level, room);
-		}
+//		}
 		for (Room.Door door : room.connected.values()) {
 			door.set( Room.Door.Type.UNLOCKED );
 			drawInside( level, room, door, 1, Terrain.EMPTY );
