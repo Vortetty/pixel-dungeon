@@ -32,7 +32,7 @@ public class FloorFragment extends Fragment {
 	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter;
 	private ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	private Button roomButton = null;
-    public static String ChooseItemType=null;
+	public static String chooseItemType=null;
 	public DungeonTemplate template;
 	public int depth;
 
@@ -47,7 +47,7 @@ public class FloorFragment extends Fragment {
 
 		View root = inflater.inflate(R.layout.fragment_tab, container, false);
 		
-		MapEditActivity activity = (MapEditActivity) getActivity();
+		final MapEditActivity activity = (MapEditActivity) getActivity();
 
 		depth = Integer.valueOf(getTag());
 		Log.d("FloorFragment", "Depth is " + depth);
@@ -130,6 +130,8 @@ public class FloorFragment extends Fragment {
 					mobbut4.setEnabled(true);
 					roomButton.setEnabled(true);
 				}
+				activity.templateHandler.getLevel(depth).theme = 
+						LevelMapping.getThemeClass((String)themeSpn.getSelectedItem());
 			}
 
 			@Override
@@ -247,31 +249,31 @@ public class FloorFragment extends Fragment {
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
 				break;
 			case R.id.potionbutton:
-				ChooseItemType="Potions";
+				chooseItemType="Potions";
 				startActivity(new Intent(getActivity(), ItemsActivity.class));
 				break;
 			case R.id.scrollbutton:
-				ChooseItemType="Scrolls";
+				chooseItemType="Scrolls";
 				startActivity(new Intent(getActivity(), ItemsActivity.class));
 				break;
 			case R.id.roomsbutton:
-				ChooseItemType="Rooms";
+				chooseItemType="Rooms";
 				startActivity(new Intent(getActivity(), ItemsActivity.class));
 				break;
 			case R.id.seedbutton:
-				ChooseItemType="Seeds";
+				chooseItemType="Seeds";
 				startActivity(new Intent(getActivity(), ItemsActivity.class));
 				break;
 			case R.id.consumablesbutton:
-				ChooseItemType="Other";
+				chooseItemType="Other";
 				startActivity(new Intent(getActivity(), ItemsActivity.class));
 				break;
 			case R.id.wandbutton:
-				ChooseItemType="Wands";
+				chooseItemType="Wands";
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
 				break;
 			case R.id.ringbutton:
-				ChooseItemType="Rings";
+				chooseItemType="Rings";
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
 				break;
 			}

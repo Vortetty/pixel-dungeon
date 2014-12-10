@@ -86,6 +86,9 @@ public class MapEditActivity extends FragmentActivity{
         LevelMapping.levelMappingInit();
         RoomMapping.roomMappingInit();
         MobMapping.mobMappingInit();
+        EnchantmentsMapping.EnchantmentsMappingInit();
+        GlyphsMapping.glyphMappingInit();
+        SeedMapping.seedMappingInit();
     }
 
 	public void onBackPressed() {

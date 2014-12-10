@@ -15,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ItemAdapter extends BaseAdapter {
-	public ArrayAdapter<CharSequence> adapter;
+	public ArrayAdapter<String> adapter;
     private int mItemCount = 3;
 
     Context context;
@@ -57,26 +57,53 @@ public class ItemAdapter extends BaseAdapter {
     }
     public void ItemTypesFilter(Spinner spin)
     {
-    	if(FloorFragment.ChooseItemType.equals("Potions")){
-    		adapter=ArrayAdapter.createFromResource(context, R.array.potiontype, android.R.layout.simple_spinner_item);    	
+    	
+    	//TODO Choose between xml style and mappings class style, XML should be more efficient but we have to initialize Mappings anyway
+    	// in order to retrieve correct class.
+//    	if(FloorFragment.ChooseItemType.equals("Potions")){
+//    		adapter=ArrayAdapter.createFromResource(context, R.array.potiontype, android.R.layout.simple_spinner_item);    	
+// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// 		}else if(FloorFragment.ChooseItemType.equals("Scrolls")){
+// 			adapter=ArrayAdapter.createFromResource(context, R.array.scrolltype, android.R.layout.simple_spinner_item);    	
+// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// 			
+// 			
+// 		}else if(FloorFragment.ChooseItemType.equals("Rooms")){
+// 			adapter=ArrayAdapter.createFromResource(context, R.array.roomtype, android.R.layout.simple_spinner_item);    	
+// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// 			
+// 			
+// 		}else if(FloorFragment.ChooseItemType.equals("Seeds")){
+// 			adapter=ArrayAdapter.createFromResource(context, R.array.seedtype, android.R.layout.simple_spinner_item);    	
+// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// 			
+// 			
+// 		}else if(FloorFragment.ChooseItemType.equals("Other")){
+// 			adapter=ArrayAdapter.createFromResource(context, R.array.consumabltetype, android.R.layout.simple_spinner_item);    	
+// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// 			
+    	if(FloorFragment.chooseItemType.equals("Potions")){
+    		adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, PotionMapping.getAllNames());    	
  			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
- 		}else if(FloorFragment.ChooseItemType.equals("Scrolls")){
- 			adapter=ArrayAdapter.createFromResource(context, R.array.scrolltype, android.R.layout.simple_spinner_item);    	
+ 		
+ 			
+ 		}else if(FloorFragment.chooseItemType.equals("Scrolls")){
+ 			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, ScrollMapping.getAllNames());    	   	
  			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
  			
  			
- 		}else if(FloorFragment.ChooseItemType.equals("Rooms")){
- 			adapter=ArrayAdapter.createFromResource(context, R.array.roomtype, android.R.layout.simple_spinner_item);    	
+ 		}else if(FloorFragment.chooseItemType.equals("Rooms")){
+ 			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, RoomMapping.getAllNames());    	 	
  			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
  			
  			
- 		}else if(FloorFragment.ChooseItemType.equals("Seeds")){
- 			adapter=ArrayAdapter.createFromResource(context, R.array.seedtype, android.R.layout.simple_spinner_item);    	
+ 		}else if(FloorFragment.chooseItemType.equals("Seeds")){
+ 			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, SeedMapping.getAllNames());    	   	
  			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
  			
  			
- 		}else if(FloorFragment.ChooseItemType.equals("Other")){
- 			adapter=ArrayAdapter.createFromResource(context, R.array.consumabltetype, android.R.layout.simple_spinner_item);    	
+ 		}else if(FloorFragment.chooseItemType.equals("Other")){
+ 			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, ConsumableMapping.getAllNames());    	    	
  			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
  			
  			

@@ -11,7 +11,7 @@ public abstract class SeedMapping {
 	private static List<Class<? extends Item>> seedclasslist = null;
 	private static List<String> seednamelist = null;
 
-	public static void consumableMappingInit() {
+	public static void seedMappingInit() {
 		seedclasslist = new ArrayList<Class<? extends Item>>();
 		seedclasslist.add(Dreamweed.Seed.class);
 		seedclasslist.add(Earthroot.Seed.class);
