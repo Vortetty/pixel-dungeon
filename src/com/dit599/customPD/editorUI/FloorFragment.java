@@ -26,6 +26,7 @@ import com.dit599.customPD.levels.template.DungeonTemplate;
 
 public class FloorFragment extends Fragment {
 
+	
 	TabSpec parentSpec, subSpec;
 	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn;
 	private ArrayAdapter<String> themeAdapter = null;
