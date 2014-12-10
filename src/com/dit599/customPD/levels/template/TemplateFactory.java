@@ -1,5 +1,6 @@
 package com.dit599.customPD.levels.template;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
@@ -15,9 +16,6 @@ import com.dit599.customPD.items.rings.RingOfEvasion;
 import com.dit599.customPD.items.scrolls.Scroll;
 import com.dit599.customPD.items.weapon.Weapon;
 import com.dit599.customPD.items.weapon.melee.ShortSword;
-import com.dit599.customPD.levels.LastLevel;
-import com.dit599.customPD.levels.Level;
-import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.Room.Type;
 import com.dit599.customPD.levels.*;
 import com.dit599.customPD.levels.template.LevelTemplate.MagicItem;
@@ -39,14 +37,15 @@ public class TemplateFactory {
 		}
 		template.name = name;
 		if(!found){
-			template.reset();
-			template.levelTemplates.set(0, createSimpleLevel());
-			template.levelTemplates.set(1, createSimpleLevel());
-			template.levelTemplates.get(1).theme = SewerLevel.class;
-			template.levelTemplates.set(2, createSimpleLevel());
-			template.levelTemplates.set(3, createSimpleLevel());
-			template.levelTemplates.get(3).theme = LastLevel.class;
-			template.save(name);
+			//template.reset();
+			template.levelTemplates = new ArrayList<LevelTemplate>();
+			template.levelTemplates.add(createSimpleLevel());
+//			template.levelTemplates.add(createSimpleLevel());
+//			template.levelTemplates.get(1).theme = SewerLevel.class;
+//			template.levelTemplates.add(createSimpleLevel());
+//			template.levelTemplates.add(createSimpleLevel());
+//			template.levelTemplates.get(3).theme = SewerBossLevel.class;
+//			template.save(name);
 			Log.d("NEW", "Created .map");
 		}
 		return template;

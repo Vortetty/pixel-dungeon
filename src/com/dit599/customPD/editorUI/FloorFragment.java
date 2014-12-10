@@ -47,7 +47,7 @@ public class FloorFragment extends Fragment {
 
 		View root = inflater.inflate(R.layout.fragment_tab, container, false);
 		
-		MapEditActivity activity = (MapEditActivity) getActivity();
+		final MapEditActivity activity = (MapEditActivity) getActivity();
 
 		depth = Integer.valueOf(getTag());
 		Log.d("FloorFragment", "Depth is " + depth);
@@ -130,6 +130,8 @@ public class FloorFragment extends Fragment {
 					mobbut4.setEnabled(true);
 					roomButton.setEnabled(true);
 				}
+				activity.templateHandler.getLevel(depth).theme = 
+						LevelMapping.getThemeClass((String)themeSpn.getSelectedItem());
 			}
 
 			@Override

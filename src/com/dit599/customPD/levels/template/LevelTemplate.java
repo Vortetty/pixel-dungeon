@@ -287,7 +287,7 @@ public class LevelTemplate implements Bundlable{
 			}
 			else{
 				try {
-					rings.add(new MagicItem((Class<? extends Wand>) cl.loadClass(s), l, b));
+					wands.add(new MagicItem((Class<? extends Wand>) cl.loadClass(s), l, b));
 					i++;
 				} catch (Exception e) {
 					e.printStackTrace();

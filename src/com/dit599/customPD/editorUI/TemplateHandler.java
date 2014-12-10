@@ -74,5 +74,8 @@ public class TemplateHandler {
 	public void setTemplate(DungeonTemplate template) {
 		this.template = template;
 	}
+	public void addLevel(){
+		this.template.levelTemplates.add(TemplateFactory.createSimpleLevel());
+	}
 
 }

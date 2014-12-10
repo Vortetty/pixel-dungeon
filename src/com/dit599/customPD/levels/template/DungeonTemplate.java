@@ -21,9 +21,9 @@ public class DungeonTemplate implements Bundlable{
      */
     public List<LevelTemplate> levelTemplates = new ArrayList<LevelTemplate>(MAX_DEPTH);
     public DungeonTemplate() {
-    	for(int i = 0; i < MAX_DEPTH; i++){
-			levelTemplates.add(new LevelTemplate());
-    	}
+//    	for(int i = 0; i < MAX_DEPTH; i++){
+//			levelTemplates.add(new LevelTemplate());
+//    	}
     }
 
     public DungeonTemplate(String file) {

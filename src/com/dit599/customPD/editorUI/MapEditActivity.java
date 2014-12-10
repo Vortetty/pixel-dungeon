@@ -64,11 +64,13 @@ public class MapEditActivity extends FragmentActivity{
                 if (tabSpec.equals(TAB_ADD_FLOOR)) {
 			    	int tabCount = mTabHost.getTabWidget().getTabCount();
                     String tab_name = "Floor " + tabCount;
+                    templateHandler = TemplateHandler.getInstance(mapName);
+                    templateHandler.addLevel();
 			    	mTabHost.addTab(
                             mTabHost.newTabSpec(String.valueOf(tabCount)).setIndicator(tab_name,
                                     null),
 			                FloorFragment.class, null);
-			    	mTabHost.setCurrentTab(tabCount);
+			    	mTabHost.setCurrentTab(tabCount);	    	
 			    }
 		}});
 	}
