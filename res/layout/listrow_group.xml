@@ -9,5 +9,4 @@
     android:paddingTop="15dp"
     android:text="Test"
     android:textSize="20sp"
-    android:textAlignment="textEnd"
     android:textStyle="bold" /> 

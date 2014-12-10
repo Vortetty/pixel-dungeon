@@ -26,14 +26,13 @@ import com.dit599.customPD.levels.template.DungeonTemplate;
 
 public class FloorFragment extends Fragment {
 
-	
 	TabSpec parentSpec, subSpec;
 	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn;
 	private ArrayAdapter<String> themeAdapter = null;
 	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter;
 	private ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	private Button roomButton = null;
-
+    public static String ChooseItemType=null;
 	public DungeonTemplate template;
 	public int depth;
 
@@ -48,7 +47,7 @@ public class FloorFragment extends Fragment {
 
 		View root = inflater.inflate(R.layout.fragment_tab, container, false);
 		
-		final MapEditActivity activity = (MapEditActivity) getActivity();
+		MapEditActivity activity = (MapEditActivity) getActivity();
 
 		depth = Integer.valueOf(getTag());
 		Log.d("FloorFragment", "Depth is " + depth);
@@ -131,8 +130,6 @@ public class FloorFragment extends Fragment {
 					mobbut4.setEnabled(true);
 					roomButton.setEnabled(true);
 				}
-				activity.templateHandler.getLevel(depth).theme = 
-						LevelMapping.getThemeClass((String)themeSpn.getSelectedItem());
 			}
 
 			@Override
@@ -223,6 +220,19 @@ public class FloorFragment extends Fragment {
 		armorBtn.setOnClickListener(clickListener);
 		Button potionBtn = (Button) rootView.findViewById(R.id.potionbutton);
 		potionBtn.setOnClickListener(clickListener);
+		
+		Button scrollBtn = (Button) rootView.findViewById(R.id.scrollbutton);
+		scrollBtn.setOnClickListener(clickListener);
+		Button roomsBtn = (Button) rootView.findViewById(R.id.roomsbutton);
+		roomsBtn.setOnClickListener(clickListener);
+		Button seedBtn = (Button) rootView.findViewById(R.id.seedbutton);
+		seedBtn.setOnClickListener(clickListener);
+		Button wandBtn = (Button) rootView.findViewById(R.id.wandbutton);
+		wandBtn.setOnClickListener(clickListener);
+		Button ringsBtn = (Button) rootView.findViewById(R.id.ringbutton);
+		ringsBtn.setOnClickListener(clickListener);
+		Button cosumablesBtn = (Button) rootView.findViewById(R.id.consumablesbutton);
+		cosumablesBtn.setOnClickListener(clickListener);
 	}
 
 	private class ItemCategoryClickListener implements OnClickListener {
@@ -237,6 +247,31 @@ public class FloorFragment extends Fragment {
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
 				break;
 			case R.id.potionbutton:
+				ChooseItemType="Potions";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.scrollbutton:
+				ChooseItemType="Scrolls";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.roomsbutton:
+				ChooseItemType="Rooms";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.seedbutton:
+				ChooseItemType="Seeds";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.consumablesbutton:
+				ChooseItemType="Other";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.wandbutton:
+				ChooseItemType="Wands";
+				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+				break;
+			case R.id.ringbutton:
+				ChooseItemType="Rings";
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
 				break;
 			}
