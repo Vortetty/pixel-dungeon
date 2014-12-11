@@ -15,8 +15,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost.TabSpec;
 
@@ -104,13 +102,11 @@ public class FloorFragment extends Fragment {
 		});
 
 		themeSpn = (Spinner) root.findViewById(R.id.theme_spinner);
-		List<String> themeItems = LevelMapping.getAllNames();
+        List<String> themeItems = LevelMapping.getAllNames();
 		themeAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, 
 				themeItems);
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
-		String currentTheme = LevelMapping.getThemeName(activity.templateHandler.getLevel(depth).theme);
-		themeSpn.setSelection(themeItems.indexOf(currentTheme));
 		themeSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -153,66 +149,25 @@ public class FloorFragment extends Fragment {
 		mobLimitSpn.setAdapter(mobLimitAdapter);
 
 
-		//TODO This part doesn't work, fix it!
-
-		//		bossspin.setOnItemSelectedListener(new OnItemSelectedListener() {
-		//
-		//			@Override
-		//			public void onItemSelected(AdapterView<?> parent, View view,
-		//					int position, long id) {
-		//				// TODO Auto-generated method stub
-		//				if (position == 1) {
-		//					themeSpn.setEnabled(false);
-		//					mobFrequencySpn.setEnabled(false);
-		//					mobLimitSpn.setEnabled(false);
-		//					mobbut1.setEnabled(false);
-		//					mobbut2.setEnabled(false);
-		//					mobbut3.setEnabled(false);
-		//					mobbut4.setEnabled(false);
-		//					downlistview.setEnabled(false);
-		//
-		//					themeSpn.setVisibility(0);
-		//					mobFrequencySpn.setVisibility(0);
-		//					mobLimitSpn.setVisibility(0);
-		//					mobbut1.setVisibility(0);
-		//					mobbut2.setVisibility(0);
-		//					mobbut3.setVisibility(0);
-		//					mobbut4.setVisibility(0);
-		//					downlistview.setVisibility(0);
-		//
-		//				} else {
-		//					themeSpn.setEnabled(true);
-		//					mobFrequencySpn.setEnabled(true);
-		//					mobLimitSpn.setEnabled(true);
-		//					mobbut1.setEnabled(true);
-		//					mobbut2.setEnabled(true);
-		//					mobbut3.setEnabled(true);
-		//					mobbut4.setEnabled(true);
-		//					downlistview.setEnabled(true);
-		//
-		//					themeSpn.setVisibility(1);
-		//					mobFrequencySpn.setVisibility(1);
-		//					mobLimitSpn.setVisibility(1);
-		//					mobbut1.setVisibility(1);
-		//					mobbut2.setVisibility(1);
-		//					mobbut3.setVisibility(1);
-		//					mobbut4.setVisibility(1);
-		//					downlistview.setVisibility(1);
-		//				}
-		//
-		//			}
-		//
-		//			@Override
-		//			public void onNothingSelected(AdapterView<?> parent) {
-		//				// TODO Auto-generated method stub
-		//
-		//			}
-		//		});		
-
 		initItemCategoryButtons(root);
+
+        loadTemplateToUI();
 
 		return root;
 	}
+
+    /**
+     * Takes all data of the template and populates the views with that data
+     */
+
+    private void loadTemplateToUI() {
+        final MapEditActivity activity = (MapEditActivity) getActivity();
+
+        List<String> themeItems = LevelMapping.getAllNames();
+        String currentTheme = LevelMapping
+                .getThemeName(activity.templateHandler.getLevel(depth).theme);
+        themeSpn.setSelection(themeItems.indexOf(currentTheme));
+    }
 
 	private void initItemCategoryButtons(View rootView) {
 		ItemCategoryClickListener clickListener = new ItemCategoryClickListener();
