@@ -27,6 +27,7 @@ import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
+import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.levels.template.TemplateFactory;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
@@ -85,7 +86,7 @@ public class GameModeScene extends PixelScene{
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-                Dungeon.template = TemplateFactory.createSimpleDungeon("simple");
+                Dungeon.template = new DungeonTemplate();
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.foundHeap = true;

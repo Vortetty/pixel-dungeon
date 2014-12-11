@@ -300,6 +300,12 @@ public class PrisonBossLevel extends RegularLevel {
 			} while (pos == entrance || map[pos] == Terrain.SIGN);
 			drop( item, pos ).type = Heap.Type.SKELETON;
 		}
+		if(Dungeon.template != null){
+			for (Item it : itemsToSpawn) {
+				int cell = randomDropCell();
+				drop( it, cell ).type = Heap.Type.HEAP;
+			}
+		}
 	}
 
 	@Override

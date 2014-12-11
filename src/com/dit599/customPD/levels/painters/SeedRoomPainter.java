@@ -54,7 +54,7 @@ public class SeedRoomPainter extends Painter {
 		fill( level, room, 1, Terrain.EMPTY );
 
 		set( level, room.center(), Terrain.SIGN );
-		if (Dungeon.template == null){
+//		if (Dungeon.template == null){
 			int pos;
 			Seed [] seeds = {
 					new Earthroot.Seed(), new Earthroot.Seed(), new Sungrass.Seed(), new Icecap.Seed()
@@ -63,7 +63,7 @@ public class SeedRoomPainter extends Painter {
 				pos = room.random();
 			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
 			placeHeap(seeds, pos, level, Heap.Type.HEAP);
-		}
+//		}
 		room.entrance().set( Room.Door.Type.REGULAR );
 	}
 	/**

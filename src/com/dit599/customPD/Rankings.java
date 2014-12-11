@@ -74,6 +74,9 @@ public enum Rankings {
 		if(Dungeon.isTutorial){
 			gameFile = Utils.format( T_DETAILS_FILE, SystemTime.now );
 		}
+		else if(Dungeon.template != null){
+			gameFile = Utils.format( Dungeon.template.name + DETAILS_FILE, SystemTime.now );
+		}
 		else{
 			gameFile = Utils.format( DETAILS_FILE, SystemTime.now );
 		}

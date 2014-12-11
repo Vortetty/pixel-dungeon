@@ -11,7 +11,7 @@ public abstract class GlyphsMapping {
 	private static List<String> glyphnamelist = null;
 
 	
-	public static void EnchantmentsMappingInit() {
+	public static void glyphMappingInit() {
 		glyphclasslist = new ArrayList<Class<? extends Glyph>>();
 		glyphclasslist.add(Affection.class);
 		glyphclasslist.add(AntiEntropy.class);

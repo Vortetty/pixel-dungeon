@@ -152,6 +152,15 @@ public class HallsBossLevel extends Level {
 			} while (pos == entrance || map[pos] == Terrain.SIGN);
 			drop( item, pos ).type = Heap.Type.SKELETON;
 		}
+		if(Dungeon.template != null){
+			for (Item it : itemsToSpawn) {
+				int pos;
+				do {
+					pos = Random.IntRange( ROOM_LEFT, ROOM_RIGHT ) + Random.IntRange( ROOM_TOP + 1, ROOM_BOTTOM ) * WIDTH;
+				} while (pos == entrance || map[pos] == Terrain.SIGN);
+				drop( it, pos ).type = Heap.Type.HEAP;
+			}
+		}
 	}
 	
 	@Override

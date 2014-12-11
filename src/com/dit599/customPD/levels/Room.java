@@ -58,6 +58,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		NULL( null ),
 		T_WELL_IDENTIFY (HealthWellPainter.class ),
 		T_WELL_HEALTH (IdentifyWellPainter.class ),
+		T_WELL_TRANSMUTE (TransmutationWellPainter.class ),
 		T_POTION_ROOM (PotionRoomPainter.class ),
 		T_SCROLL_ROOM (ScrollRoomPainter.class ),
 		T_SEED_ROOM (SeedRoomPainter.class ),

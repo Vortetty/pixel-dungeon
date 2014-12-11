@@ -62,7 +62,7 @@ public class TrapsPainter extends Painter {
 			y = room.top + 1;
 			fill( level, room.left + 1, y, room.width() - 1, 1 , lastRow );
 		}
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 			int pos = x + y * Level.WIDTH;
 			Item [] items = {
 					prize( level )
@@ -76,7 +76,7 @@ public class TrapsPainter extends Painter {
 				set( level, pos, Terrain.PEDESTAL );
 				placeHeap(items, pos, level, Heap.Type.CHEST);
 			}
-		}
+//		}
 		level.addItemToSpawn( new PotionOfLevitation() );
 	}
 

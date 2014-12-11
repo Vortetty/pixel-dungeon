@@ -17,9 +17,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels.painters;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.blobs.WaterOfHealth;
 import com.dit599.customPD.actors.blobs.WellWater;
 import com.dit599.customPD.levels.Level;
@@ -30,17 +31,17 @@ import com.watabou.utils.Point;
  * Paints a room containing a well of health.
  */
 public class HealthWellPainter extends Painter {
-	
+
 	@SuppressWarnings("unchecked")
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
-		
+
 		Point c = room.center();
 		set( level, c.x, c.y, Terrain.WELL );
 		//set( level, c.x, c.y-1, Terrain.SIGN );
-		
+
 		Class<? extends WellWater> waterClass = WaterOfHealth.class;
 		WellWater water = (WellWater)level.blobs.get( waterClass);
 		if (water == null) {
@@ -52,13 +53,15 @@ public class HealthWellPainter extends Painter {
 		}
 		water.seed( c.x + Level.WIDTH * c.y, 1 );
 		level.blobs.put( waterClass, water );
-		
-		int pos;
-		do {
-			pos = room.random();
-		} while (
-				level.map[pos] == Terrain.WELL);
-		set(level, pos, Terrain.SIGN);
+
+		if(Dungeon.template == null){
+			int pos;
+			do {
+				pos = room.random();
+			} while (
+					level.map[pos] == Terrain.WELL);
+			set(level, pos, Terrain.SIGN);
+		}
 		room.entrance().set( Room.Door.Type.REGULAR );
 	}
 	/**

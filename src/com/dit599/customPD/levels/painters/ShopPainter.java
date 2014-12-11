@@ -92,7 +92,7 @@ public class ShopPainter extends Painter {
 	private static Item[] range() {
 
 		ArrayList<Item> items = new ArrayList<Item>();
-		if (Dungeon.template == null){
+//		if (Dungeon.template == null){
 			if (Dungeon.isTutorial){
 				items.add( new LeatherArmor().identify() );
 				items.add( new SeedPouch() );
@@ -153,7 +153,7 @@ public class ShopPainter extends Painter {
 			items.add( new OverpricedRation() );
 
 			items.add( new Ankh() );
-		}
+//		}
 		Item[] range =items.toArray( new Item[0] );
 		Random.shuffle( range );
 		return range;

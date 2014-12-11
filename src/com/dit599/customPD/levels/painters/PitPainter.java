@@ -58,7 +58,7 @@ public class PitPainter extends Painter {
 
 		level.drop( new IronKey(), remains ).type = Type.SKELETON;
 		
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 			
 			if (Random.Int( 5 ) == 0) {
 				level.drop( Generator.random( Generator.Category.RING ), remains );
@@ -73,7 +73,7 @@ public class PitPainter extends Painter {
 			for (int i=0; i < n; i++) {
 				level.drop( prize( level ), remains );
 			}
-		}
+//		}
 	}
 
 	private static Item prize( Level level ) {

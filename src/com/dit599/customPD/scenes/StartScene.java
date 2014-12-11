@@ -246,7 +246,7 @@ public class StartScene extends PixelScene {
 		Dungeon.hero = null;
 		InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 		
-		if (!Dungeon.isTutorial && CustomPD.intro()) {
+		if (!Dungeon.isTutorial && Dungeon.template == null && CustomPD.intro()) {
 			CustomPD.intro( false );
 			Game.switchScene( IntroScene.class );
 		} else {

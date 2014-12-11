@@ -380,7 +380,7 @@ public class Dungeon {
 			if(isTutorial && index < T_TIPS.length){
 				return T_TIPS[index];
 			}
-			else if (!isTutorial && index < TIPS.length) {
+			else if (!isTutorial && Dungeon.template == null && index < TIPS.length) {
 				return TIPS[index];
 			} else {
 				return NO_TIPS;
@@ -397,7 +397,15 @@ public class Dungeon {
 	}
 
 	public static boolean bossLevel( int depth ) {
-		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
+		if(Dungeon.template != null && depth <= Dungeon.template.levelTemplates.size()){
+			Class<? extends Level> temp = Dungeon.template.levelTemplates.get(depth-1).theme;
+			return temp.equals(SewerBossLevel.class) || temp.equals(PrisonBossLevel.class) || 
+				   temp.equals(CavesBossLevel.class) || temp.equals(CityBossLevel.class) || temp.equals(HallsBossLevel.class);
+		}
+		else if(Dungeon.template == null){
+			return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
+		}
+		return true;
 	}
 	/**
 	 * Used when ascending /descending to an existing level. Modified so that nightmode
@@ -406,7 +414,7 @@ public class Dungeon {
 	@SuppressWarnings("deprecation")
 	public static void switchLevel( final Level level, int pos ) {
 
-		if(Dungeon.isTutorial){
+		if(Dungeon.isTutorial || Dungeon.template != null){
 			nightMode = false;
 		}
 		else{
@@ -792,7 +800,7 @@ public class Dungeon {
 
 		Statistics.restoreFromBundle( bundle );
 		Journal.restoreFromBundle( bundle );
-		
+
 		if(template != null){
 			template = (DungeonTemplate) bundle.get("dungeonTemplate");
 		}

@@ -178,7 +178,7 @@ public class InterlevelScene extends PixelScene {
 						break;
 					}
 					
-					if ((Dungeon.depth % 5) == 0) {
+					if (Dungeon.template == null && (Dungeon.depth % 5) == 0) {
 						Sample.INSTANCE.load( Assets.SND_BOSS );
 					}
 					

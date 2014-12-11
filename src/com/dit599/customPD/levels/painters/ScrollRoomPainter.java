@@ -85,7 +85,7 @@ public class ScrollRoomPainter extends Painter {
 			set( level, b, Terrain.SIGN );
 		}
 
-		if (Dungeon.template == null){
+//		if (Dungeon.template == null){
 			int pos;
 			Scroll  [] scrolls = {
 					new ScrollOfIdentify(), new ScrollOfMagicMapping(), new ScrollOfMagicMapping(),
@@ -98,7 +98,7 @@ public class ScrollRoomPainter extends Painter {
 				pos = room.random();
 			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
 			placeHeap(scrolls, pos, level, Heap.Type.HEAP);
-		}
+//		}
 		entrance.set( Room.Door.Type.REGULAR );
 	}
 	/**

@@ -37,7 +37,7 @@ public class TreasuryPainter extends Painter {
 
 		Heap.Type heapType = Random.Int( 2 ) == 0 ? Heap.Type.CHEST : Heap.Type.HEAP;
 
-		if(Dungeon.template == null){
+//		if(Dungeon.template == null){
 			int n = Random.IntRange( 2, 3 );
 			for (int i=0; i < n; i++) {
 				int pos;
@@ -56,7 +56,7 @@ public class TreasuryPainter extends Painter {
 					level.drop( new Gold( Random.IntRange( 1, 3 ) ), pos );
 				}
 			}
-		}
+//		}
 		room.entrance().set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
 	}

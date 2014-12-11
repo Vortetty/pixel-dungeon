@@ -1,5 +1,7 @@
 package com.dit599.customPD.editorUI;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,17 +26,13 @@ import com.dit599.customPD.levels.template.DungeonTemplate;
 
 public class FloorFragment extends Fragment {
 
-	private int numoffloortab = 1;
 	TabSpec parentSpec, subSpec;
-	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn, bossspin = null;
+	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn;
 	private ArrayAdapter<String> themeAdapter = null;
-	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter, adapter4 = null;
+	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter;
 	private ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	private Button roomButton = null;
-	private ListView downlistview = null;
-	private LinearLayout layout = null;
-	private MapSelectItemAdapter downlistadapter = null;
-
+	public static String chooseItemType=null;
 	public DungeonTemplate template;
 	public int depth;
 
@@ -48,6 +46,8 @@ public class FloorFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		View root = inflater.inflate(R.layout.fragment_tab, container, false);
+		
+		final MapEditActivity activity = (MapEditActivity) getActivity();
 
 		depth = Integer.valueOf(getTag());
 		Log.d("FloorFragment", "Depth is " + depth);
@@ -104,10 +104,13 @@ public class FloorFragment extends Fragment {
 		});
 
 		themeSpn = (Spinner) root.findViewById(R.id.theme_spinner);
+		List<String> themeItems = LevelMapping.getAllNames();
 		themeAdapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, 
-				LevelMapping.getAllNames());
+				themeItems);
 		themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		themeSpn.setAdapter(themeAdapter);
+		String currentTheme = LevelMapping.getThemeName(activity.templateHandler.getLevel(depth).theme);
+		themeSpn.setSelection(themeItems.indexOf(currentTheme));
 		themeSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -127,6 +130,8 @@ public class FloorFragment extends Fragment {
 					mobbut4.setEnabled(true);
 					roomButton.setEnabled(true);
 				}
+				activity.templateHandler.getLevel(depth).theme = 
+						LevelMapping.getThemeClass((String)themeSpn.getSelectedItem());
 			}
 
 			@Override
@@ -217,6 +222,19 @@ public class FloorFragment extends Fragment {
 		armorBtn.setOnClickListener(clickListener);
 		Button potionBtn = (Button) rootView.findViewById(R.id.potionbutton);
 		potionBtn.setOnClickListener(clickListener);
+		
+		Button scrollBtn = (Button) rootView.findViewById(R.id.scrollbutton);
+		scrollBtn.setOnClickListener(clickListener);
+		Button roomsBtn = (Button) rootView.findViewById(R.id.roomsbutton);
+		roomsBtn.setOnClickListener(clickListener);
+		Button seedBtn = (Button) rootView.findViewById(R.id.seedbutton);
+		seedBtn.setOnClickListener(clickListener);
+		Button wandBtn = (Button) rootView.findViewById(R.id.wandbutton);
+		wandBtn.setOnClickListener(clickListener);
+		Button ringsBtn = (Button) rootView.findViewById(R.id.ringbutton);
+		ringsBtn.setOnClickListener(clickListener);
+		Button cosumablesBtn = (Button) rootView.findViewById(R.id.consumablesbutton);
+		cosumablesBtn.setOnClickListener(clickListener);
 	}
 
 	private class ItemCategoryClickListener implements OnClickListener {
@@ -231,6 +249,31 @@ public class FloorFragment extends Fragment {
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
 				break;
 			case R.id.potionbutton:
+				chooseItemType="Potions";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.scrollbutton:
+				chooseItemType="Scrolls";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.roomsbutton:
+				chooseItemType="Rooms";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.seedbutton:
+				chooseItemType="Seeds";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.consumablesbutton:
+				chooseItemType="Other";
+				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				break;
+			case R.id.wandbutton:
+				chooseItemType="Wands";
+				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+				break;
+			case R.id.ringbutton:
+				chooseItemType="Rings";
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
 				break;
 			}

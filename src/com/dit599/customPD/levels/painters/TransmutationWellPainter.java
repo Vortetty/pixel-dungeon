@@ -22,6 +22,7 @@ package com.dit599.customPD.levels.painters;
 
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.blobs.WaterOfAwareness;
+import com.dit599.customPD.actors.blobs.WaterOfTransmutation;
 import com.dit599.customPD.actors.blobs.WellWater;
 import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Room;
@@ -29,9 +30,9 @@ import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Point;
 
 /**
- * Paints a room containing a well of awareness.
+ * Paints a room containing a well of Transmutation.
  */
-public class IdentifyWellPainter extends Painter {
+public class TransmutationWellPainter extends Painter {
 
 	@SuppressWarnings("unchecked")
 	public static void paint( Level level, Room room ) {
@@ -44,7 +45,7 @@ public class IdentifyWellPainter extends Painter {
 		//set( level, c.x, c.y-1, Terrain.SIGN );
 
 
-		Class<? extends WellWater> waterClass = WaterOfAwareness.class;
+		Class<? extends WellWater> waterClass = WaterOfTransmutation.class;
 		WellWater water = (WellWater)level.blobs.get( waterClass);
 		if (water == null) {
 			try {
@@ -55,29 +56,6 @@ public class IdentifyWellPainter extends Painter {
 		}
 		water.seed( c.x + Level.WIDTH * c.y, 1 );
 		level.blobs.put( waterClass, water );
-		if(Dungeon.template == null){
-			int pos;
-			do {
-				pos = room.random();
-			} while (
-					level.map[pos] == Terrain.WELL);
-			set(level, pos, Terrain.SIGN);
-		}
 		room.entrance().set( Room.Door.Type.REGULAR );
-	}
-	/**
-	 * Returns the string to display on a sign found in this room type.
-	 */
-	public static String tip() {
-		return "You can also instead throw in a single item (including scrolls and " +
-				"potions), to identify. This can be used to avoid the risk of equipping a cursed item just to identify it.";
-	}
-	/**
-	 * Returns the string to display on the prompt that appears when entering this room.
-	 */
-	public static String prompt() {
-		return "Equipment Identification Room\n\n " +
-				"This is a well of identification, drink it to identify equipped items and to find out which inventory items are cursed! " +
-				"Drinking will also reveal hidden doors on the parts of the map you have explored. ";
 	}
 }
