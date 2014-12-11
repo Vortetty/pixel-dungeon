@@ -1,6 +1,8 @@
 package com.dit599.customPD.editorUI;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.levels.template.DungeonTemplate;
+import com.dit599.customPD.levels.template.LevelTemplate;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,83 +18,92 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
 
 public class MapMobItemActivity extends Activity {
-	public Spinner mobtypespin,mobfrespin=null;
-	public Button mobconfimbt,mobcancelbt=null;
-	public ArrayAdapter<CharSequence> adapter2,adapter3=null;
-	public ArrayAdapter<String> adapter1=null;
-	public ImageView tv=null;
-	public static String Mobtypeinfo=null;
-	public static String Moblevelinfo=null;
+	private Spinner mobtypespin,mobfrespin=null;
+	private Button mobconfimbt,mobcancelbt=null;
+	private ArrayAdapter<CharSequence> freqAdapter = null;
+	private ArrayAdapter<String> typeAdapter=null;
+	private static String mobtypeinfo=null;
+	private static int moblevelinfo=0;
+	LevelTemplate level;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
 		super.setContentView(R.layout.mobitem); 
-		this.tv=(ImageView) this.findViewById(R.id.mobimageView);
 		this.mobconfimbt=(Button) this.findViewById(R.id.mobconfirmbutton);
 		this.mobcancelbt=(Button) this.findViewById(R.id.mobcancelbutton);
-		
+
 		this.mobconfimbt.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "Mob type:"+Mobtypeinfo+"Mob level:"+Moblevelinfo, Toast.LENGTH_LONG).show();
+				level.mobs.set(getIntent().getIntExtra("mobIndex", 0), 
+				               level.new MobProbability(MobMapping.getMobClass(mobtypeinfo), moblevelinfo));
+				finish();
 			}});
-		
+
 		this.mobcancelbt.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();  
-                intent.setClass(MapMobItemActivity.this, MapEditActivity.class);  
-                startActivity(intent); 
+				onBackPressed();
 			}});
-		this.mobcancelbt=(Button) this.findViewById(R.id.mobcancelbutton);
 		this.mobtypespin=(Spinner)this.findViewById(R.id.mobtypespinner);
-	    this.mobfrespin=(Spinner)this.findViewById(R.id.mobfrespinner);
-	    
-	    MobMapping.mobMappingInit();
-	    
-	   adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, MobMapping.getAllNames());
-       adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
-       mobtypespin.setAdapter(adapter1); 
-       mobtypespin.setOnItemSelectedListener(new OnItemSelectedListener(){
+		this.mobfrespin=(Spinner)this.findViewById(R.id.mobfrespinner);
+
+		MobMapping.mobMappingInit();
+
+		typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, MobMapping.getAllNames());
+		typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
+		mobtypespin.setAdapter(typeAdapter); 
+		mobtypespin.setSelection(MobMapping.getAllNames().indexOf(MobMapping.getMobName(level
+				                 .mobs.get(getIntent().getIntExtra("mobIndex", 0)).mobClass)));
+		mobtypeinfo = mobtypespin.getSelectedItem().toString();
+		mobtypespin.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
-				Mobtypeinfo =parent.getItemAtPosition(position).toString();
-		                    
+				mobtypeinfo = parent.getItemAtPosition(position).toString();
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
+
 			}}); 
-       
-       adapter2 = ArrayAdapter.createFromResource(this, 
-         		 R.array.mobfrequ, android.R.layout.simple_spinner_item); 
-         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
-         mobfrespin.setAdapter(adapter2); 
-         mobfrespin.setOnItemSelectedListener(new OnItemSelectedListener(){
 
-  			@Override
-  			public void onItemSelected(AdapterView<?> parent, View view,
-  					int position, long id) {
-  				// TODO Auto-generated method stub
-  				Moblevelinfo =parent.getItemAtPosition(position).toString();
-  		                    
-  			}
+		freqAdapter = ArrayAdapter.createFromResource(this, 
+				R.array.mobfrequ, android.R.layout.simple_spinner_item); 
+		freqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
+		mobfrespin.setAdapter(freqAdapter); 
+		mobfrespin.setSelection(level.mobs.get(getIntent().getIntExtra("mobIndex", 0)).weight);
+		moblevelinfo = mobfrespin.getSelectedItemPosition();
+		mobfrespin.setOnItemSelectedListener(new OnItemSelectedListener(){
 
-  			@Override
-  			public void onNothingSelected(AdapterView<?> parent) {
-  				// TODO Auto-generated method stub
-  				
-  			}}); 
-		
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				moblevelinfo = position;
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}}); 
+
 	}	
+	@Override
+	public void onStart(){
+		super.onStart();
+		if (level == null){
+			level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+		}
+		if(MobMapping.getAllNames() == null){
+			MobMapping.mobMappingInit();
+		}
+	}
 
 }

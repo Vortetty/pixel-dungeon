@@ -73,6 +73,8 @@ public class FloorFragment extends Fragment {
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
+				intent.putExtra("mobIndex", 0);
+				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(intent);
 			}
 		});
@@ -84,6 +86,8 @@ public class FloorFragment extends Fragment {
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
+				intent.putExtra("mobIndex", 1);
+				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(intent);
 			}
 		});
@@ -95,6 +99,8 @@ public class FloorFragment extends Fragment {
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
+				intent.putExtra("mobIndex", 2);
+				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(intent);
 			}
 		});
@@ -106,6 +112,8 @@ public class FloorFragment extends Fragment {
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
+				intent.putExtra("mobIndex", 3);
+				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(intent);
 			}
 		});

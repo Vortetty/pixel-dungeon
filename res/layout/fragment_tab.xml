@@ -94,28 +94,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/icon" />
+            android:src="@drawable/skull" />
 
         <ImageButton
             android:id="@+id/mobsbutton2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/icon" />
+            android:src="@drawable/skull" />
 
         <ImageButton
             android:id="@+id/mobsbutton3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/icon" />
+            android:src="@drawable/skull" />
 
         <ImageButton
             android:id="@+id/mobsbutton4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/icon" />
+            android:src="@drawable/skull" />
 
     </LinearLayout>
 

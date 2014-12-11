@@ -118,7 +118,7 @@ public class MapSelectorActivity extends Activity {
 				for(String f : Game.instance.fileList()){
 					if(f.equals(temp + ".map")){
 						Dungeon.template = (TemplateHandler.getInstance(temp))
-										    .getTemplate();
+										    .getDungeon();
 						Dungeon.deleteGame(HeroClass.WARRIOR, true);
 						Dungeon.deleteGame(HeroClass.MAGE, true);
 						Dungeon.deleteGame(HeroClass.ROGUE, true);

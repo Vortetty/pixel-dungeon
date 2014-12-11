@@ -196,9 +196,10 @@
         <item>Tomahawk</item>
     </string-array>
     <string-array name="mobfrequ">
-        <item>Common</item>
-        <item>Default</item>
+        <item>Never</item>   
         <item>Rare</item>
+        <item>Default</item>
+        <item>Common</item>
         <item>Frequent</item>
     </string-array>
     <string-array name="bosschoose">

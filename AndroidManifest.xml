@@ -49,7 +49,7 @@
             android:label="Map filename" />
         
         <activity android:name=".editorUI.MapMobItemActivity"
-              android:label="Mob X"/>
+              android:label="Set Mobtype"/>
         
         <activity android:name=".editorUI.MapSelectArmorActivity"/>
         

@@ -95,7 +95,7 @@ public class LevelTemplate implements Bundlable{
 		public Class<? extends Mob> mobClass;
 		public int weight;
 
-		private MobProbability(Class<? extends Mob> mobClass, int weight) {
+		public MobProbability(Class<? extends Mob> mobClass, int weight) {
 			this.mobClass = mobClass;
 			this.weight = weight;
 		}

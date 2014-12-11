@@ -19,6 +19,7 @@ public class TemplateHandler {
 
     private String mapName;
     private DungeonTemplate template;
+    private LevelTemplate current;
 
     /**
      * Provedes an instance associated with the map name. Handles reading from
@@ -64,7 +65,11 @@ public class TemplateHandler {
      * @return
      */
     public LevelTemplate getLevel(int depth) {
-        return getTemplate().levelTemplates.get(depth - 1); // handle 1-index
+        current = getTemplate().levelTemplates.get(depth - 1); // handle 1-index
+        return getCurrentLevel();
+    }
+    public LevelTemplate getCurrentLevel() {
+        return current;
     }
 
 	public DungeonTemplate getTemplate() {
