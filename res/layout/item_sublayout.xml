@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30px"
         android:layout_marginLeft="160px"
-        android:src="@drawable/ic_launcher2" />
+        android:src="@drawable/icon" />
 
     <TextView
         android:id="@+id/item_infobut"
