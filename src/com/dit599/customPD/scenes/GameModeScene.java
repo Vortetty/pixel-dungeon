@@ -82,7 +82,7 @@ public class GameModeScene extends PixelScene{
 		placeTorch( title.x + 18, title.y + 20 );
 		placeTorch( title.x + title.width - 18, title.y + 20 );
 
-        DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 1) {
+        DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 2) {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
@@ -101,7 +101,7 @@ public class GameModeScene extends PixelScene{
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );
 		add( btnCustom );
 
-        DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 1) {
+        DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 3) {
 		
 			@Override
 			protected void onClick() {
