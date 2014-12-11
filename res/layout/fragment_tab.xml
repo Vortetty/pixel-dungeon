@@ -201,7 +201,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Wands"
-	            android:drawableTop="@drawable/wands" />
+	            android:drawableTop="@drawable/wand" />
 	
 	        <Button
 	            android:id="@+id/ringbutton"
