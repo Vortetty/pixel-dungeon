@@ -61,6 +61,15 @@ public class MapSelectorActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
+		if(files == null){
+			files = new ArrayList<String>();
+
+			for(String f : Game.instance.fileList()){
+				if(f.endsWith(".map")){
+					files.add(f.substring(0, f.length()-4));
+				}
+			}
+		}
 		if(mlayout.getChildCount() == 0){
 			for(String f : files){
 				Button but=new Button (MapSelectorActivity.this);
