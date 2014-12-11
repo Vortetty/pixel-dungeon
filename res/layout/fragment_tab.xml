@@ -138,7 +138,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Weapons"
-	            android:drawableTop="@drawable/weapons" />
+	            android:drawableTop="@drawable/sword" />
 	
 	        <Button
 	            android:id="@+id/armorbutton"
@@ -178,7 +178,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Rooms"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/key" />
 	
 	        <Button
 	            android:id="@+id/seedbutton"
@@ -217,7 +217,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Other"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/food" />
 	
 	    </LinearLayout>
     </LinearLayout>
