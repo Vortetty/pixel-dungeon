@@ -20,19 +20,26 @@ import android.widget.TabHost.TabSpec;
 
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.DungeonTemplate;
+import com.dit599.customPD.levels.template.LevelTemplate;
 
 
 public class FloorFragment extends Fragment {
 
+    public static final String[] MOB_LIMITS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "10", "11", "12", "13", "14", "15" };
+    public static final String[] FREQUENCIES = { "Low", "Medium", "High", "Extreme" };
+
 	TabSpec parentSpec, subSpec;
 	private Spinner themeSpn, mobFrequencySpn, mobLimitSpn;
 	private ArrayAdapter<String> themeAdapter = null;
-	private ArrayAdapter<CharSequence>frequencyAdapter, mobLimitAdapter;
+    private ArrayAdapter<String> frequencyAdapter, mobLimitAdapter;
 	private ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	private Button roomButton = null;
 	public static String chooseItemType=null;
 	public DungeonTemplate template;
 	public int depth;
+    public LevelTemplate activeLevelTemplate;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +54,10 @@ public class FloorFragment extends Fragment {
 		
 		final MapEditActivity activity = (MapEditActivity) getActivity();
 
+
 		depth = Integer.valueOf(getTag());
 		Log.d("FloorFragment", "Depth is " + depth);
+        activeLevelTemplate = activity.templateHandler.getLevel(depth);
 
 		mobbut1 = (ImageButton) root.findViewById(R.id.mobsbutton1);
 		mobbut2 = (ImageButton) root.findViewById(R.id.mobsbutton2);
@@ -137,17 +146,49 @@ public class FloorFragment extends Fragment {
 		});		
 
 		mobFrequencySpn = (Spinner) root.findViewById(R.id.frequency_spinner);
-		frequencyAdapter = ArrayAdapter.createFromResource(root.getContext(), R.array.frequence,
-				android.R.layout.simple_spinner_item);
+        frequencyAdapter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_item, FREQUENCIES);
 		frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mobFrequencySpn.setAdapter(frequencyAdapter);
+        mobFrequencySpn.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected = (String) mobFrequencySpn.getSelectedItem();
+                if (selected.equals(FREQUENCIES[3])) {
+                    activeLevelTemplate.timeToRespawn = 15;
+                } else if (selected.equals(FREQUENCIES[2])) {
+                    activeLevelTemplate.timeToRespawn = 30;
+                } else if (selected.equals(FREQUENCIES[1])) {
+                    activeLevelTemplate.timeToRespawn = 50;
+                } else {
+                    activeLevelTemplate.timeToRespawn = 80;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+        });
 
 		mobLimitSpn = (Spinner) root.findViewById(R.id.mob_limit_spinner);
-		mobLimitAdapter = ArrayAdapter.createFromResource(root.getContext(), R.array.mob_limits,
-				android.R.layout.simple_spinner_item);
+        mobLimitAdapter = new ArrayAdapter<String>(root.getContext(),
+                android.R.layout.simple_spinner_item, MOB_LIMITS);
 		mobLimitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mobLimitSpn.setAdapter(mobLimitAdapter);
+        mobLimitSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int mobLimit = Integer.valueOf((String) mobLimitSpn.getSelectedItem());
+                activeLevelTemplate.maxMobs = mobLimit;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
 		initItemCategoryButtons(root);
 
@@ -161,12 +202,22 @@ public class FloorFragment extends Fragment {
      */
 
     private void loadTemplateToUI() {
-        final MapEditActivity activity = (MapEditActivity) getActivity();
-
         List<String> themeItems = LevelMapping.getAllNames();
-        String currentTheme = LevelMapping
-                .getThemeName(activity.templateHandler.getLevel(depth).theme);
+        String currentTheme = LevelMapping.getThemeName(activeLevelTemplate.theme);
         themeSpn.setSelection(themeItems.indexOf(currentTheme));
+
+        if (activeLevelTemplate.timeToRespawn < 20) {
+            mobFrequencySpn.setSelection(3);
+        } else if (activeLevelTemplate.timeToRespawn < 40) {
+            mobFrequencySpn.setSelection(2);
+        } else if (activeLevelTemplate.timeToRespawn < 60) {
+            mobFrequencySpn.setSelection(1);
+        } else {
+            mobFrequencySpn.setSelection(0);
+        }
+
+        // Assumes mob limits follow the order 0, 1, 2....., 15
+        mobLimitSpn.setSelection(activeLevelTemplate.maxMobs);
     }
 
 	private void initItemCategoryButtons(View rootView) {
