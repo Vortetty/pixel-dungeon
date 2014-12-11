@@ -16,7 +16,9 @@ public abstract class RoomMapping {
 		roomtypelist.add(Room.Type.GARDEN);
 		roomtypelist.add(Room.Type.LABORATORY);
 		roomtypelist.add(Room.Type.LIBRARY);
-		roomtypelist.add(Room.Type.MAGIC_WELL);
+		roomtypelist.add(Room.Type.T_WELL_IDENTIFY);
+		roomtypelist.add(Room.Type.T_WELL_HEALTH);
+		roomtypelist.add(Room.Type.T_WELL_TRANSMUTE);
 		roomtypelist.add(Room.Type.POOL);
 		//roomtypelist.add(Room.Type.SHOP); Shop is pointless if we can't customize room contents
 		roomtypelist.add(Room.Type.STATUE);
@@ -31,7 +33,9 @@ public abstract class RoomMapping {
 		roomnamelist.add("Garden");
 		roomnamelist.add("Laboratory");
 		roomnamelist.add("Library");
-		roomnamelist.add("Magic Well");
+		roomnamelist.add("Well of Awareness");
+		roomnamelist.add("Well of Health");
+		roomnamelist.add("Well of Transmutation");
 		roomnamelist.add("Piranha Room");
 		//roomnamelist.add("Shop");
 		roomnamelist.add("Animated Statue Room");

@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.levels;
 
 import java.util.ArrayList;
@@ -54,10 +54,11 @@ public abstract class RegularLevel extends Level {
 	protected ArrayList<Room.Type> specials;
 
 	public int secretDoors;
+	private boolean allRoomsPlaced;
 
 	@Override
 	protected boolean build() {
-
+		allRoomsPlaced = false;
 		if (!initRooms()) {
 			return false;
 		}
@@ -144,7 +145,9 @@ public abstract class RegularLevel extends Level {
 			specials.remove( Room.Type.WEAK_FLOOR );
 		}
 		assignRoomType();
-
+		if(!allRoomsPlaced){
+			return false;
+		}
 		paint();
 		paintWater();
 		paintGrass();
@@ -181,571 +184,573 @@ public abstract class RegularLevel extends Level {
 			if (r.type == Type.NULL && 
 					r.connected.size() == 1) {
 
-                if (r.width() > 3 && r.height() > 3) {
+				if (r.width() > 3 && r.height() > 3) {
 
-                    if (LevelTemplate.currentLevelTemplate() != null) {
-                        if (specialRooms < LevelTemplate.currentLevelTemplate().specialRooms.size()) {
-                            r.type = LevelTemplate.currentLevelTemplate().specialRooms
-                                    .get(specialRooms);
-                            specialRooms++;
-                        }
+					if (LevelTemplate.currentLevelTemplate() != null) {
+						if (specialRooms < LevelTemplate.currentLevelTemplate().specialRooms.size()) {
+							r.type = LevelTemplate.currentLevelTemplate().specialRooms
+									.get(specialRooms);
+							specialRooms++;
+						}
 
 					} else if (specials.size() > 0 && Random.Int( specialRooms * specialRooms + 2 ) == 0){
-                        assignSpecialRoomType(r);
-                        specialRooms++;
+						assignSpecialRoomType(r);
+						specialRooms++;
 					}
-                }
-                if (r.type == Type.NULL && Random.Int(2) == 0) {
-                    addRandomConnections(r);
+				}
+				if (r.type == Type.NULL && Random.Int(2) == 0) {
+					addRandomConnections(r);
 				}
 			}
 		}
+		if(Dungeon.template == null || (specialRooms == LevelTemplate.currentLevelTemplate().specialRooms.size())){
+			allRoomsPlaced = true;
+			int count = 0;
+			for (Room r : rooms) {
+				if (r.type == Type.NULL) {
+					int connections = r.connected.size();
+					if (connections == 0) {
 
-		int count = 0;
-		for (Room r : rooms) {
-			if (r.type == Type.NULL) {
-				int connections = r.connected.size();
-				if (connections == 0) {
+					} else if (Random.Int( connections * connections ) == 0) {
+						r.type = Type.STANDARD;
+						count++;
+					} else {
+						r.type = Type.TUNNEL; 
+					}
+				}
+			}
 
-				} else if (Random.Int( connections * connections ) == 0) {
+			while (count < 4) {
+				Room r = randomRoom( Type.TUNNEL, 1 );
+				if (r != null) {
 					r.type = Type.STANDARD;
 					count++;
-				} else {
-					r.type = Type.TUNNEL; 
-				}
-			}
-		}
-
-		while (count < 4) {
-			Room r = randomRoom( Type.TUNNEL, 1 );
-			if (r != null) {
-				r.type = Type.STANDARD;
-				count++;
-			}
-		}
-	}
-
-    /**
-     * Vanilla logic for assigning a random special room type to a given room.
-     * 
-     * @param r
-     */
-    private void assignSpecialRoomType(Room r) {
-        if (pitRoomNeeded) {
-
-            r.type = Type.PIT;
-            pitRoomNeeded = false;
-
-            specials.remove(Type.ARMORY);
-            specials.remove(Type.CRYPT);
-            specials.remove(Type.LABORATORY);
-            specials.remove(Type.LIBRARY);
-            specials.remove(Type.STATUE);
-            specials.remove(Type.TREASURY);
-            specials.remove(Type.VAULT);
-            specials.remove(Type.WEAK_FLOOR);
-
-        } else if (Dungeon.depth % 5 == 2 && specials.contains(Type.LABORATORY)) {
-
-            r.type = Type.LABORATORY;
-
-        } else if (Dungeon.depth >= Dungeon.transmutation && specials.contains(Type.MAGIC_WELL)) {
-
-            r.type = Type.MAGIC_WELL;
-
-        } else {
-
-            int n = specials.size();
-            r.type = specials.get(Math.min(Random.Int(n), Random.Int(n)));
-            if (r.type == Type.WEAK_FLOOR) {
-                weakFloorCreated = true;
-            }
-
-        }
-
-        Room.useType(r.type);
-        specials.remove(r.type);
-    }
-
-    /**
-     * Further connects the given room. The room should not be a special room.
-     * 
-     * @param r
-     */
-    private void addRandomConnections(Room r) {
-        HashSet<Room> neigbours = new HashSet<Room>();
-        for (Room n : r.neigbours) {
-            if (!r.connected.containsKey(n) && !Room.SPECIALS.contains(n.type)
-                    && n.type != Type.PIT) {
-
-                neigbours.add(n);
-            }
-        }
-        if (neigbours.size() > 1) {
-            r.connect(Random.element(neigbours));
-        }
-    }
-
-	protected void paintWater() {
-		boolean[] lake = water();
-		for (int i=0; i < LENGTH; i++) {
-			if (map[i] == Terrain.EMPTY && lake[i]) {
-				map[i] = Terrain.WATER;
-			}
-		}
-	}
-
-	protected void paintGrass() {
-		boolean[] grass = grass();
-
-		if (feeling == Feeling.GRASS) {
-
-			for (Room room : rooms) {
-				if (room.type != Type.NULL && room.type != Type.PASSAGE && room.type != Type.TUNNEL) {
-					grass[(room.left + 1) + (room.top + 1) * WIDTH] = true;
-					grass[(room.right - 1) + (room.top + 1) * WIDTH] = true;
-					grass[(room.left + 1) + (room.bottom - 1) * WIDTH] = true;
-					grass[(room.right - 1) + (room.bottom - 1) * WIDTH] = true;
-				}
-			}
-		}
-
-		for (int i=WIDTH+1; i < LENGTH-WIDTH-1; i++) {
-			if (map[i] == Terrain.EMPTY && grass[i]) {
-				int count = 1;
-				for (int n : NEIGHBOURS8) {
-					if (grass[i + n]) {
-						count++;
-					}
-				}
-				map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_GRASS : Terrain.GRASS;
-			}
-		}
-	}
-
-	protected abstract boolean[] water();
-	protected abstract boolean[] grass();
-
-	protected void placeTraps() {
-
-		int nTraps = nTraps();
-		float[] trapChances = trapChances();
-
-		for (int i=0; i < nTraps; i++) {
-
-			int trapPos = Random.Int( LENGTH );
-
-			if (map[trapPos] == Terrain.EMPTY) {
-				switch (Random.chances( trapChances )) {
-				case 0:
-					map[trapPos] = Terrain.SECRET_TOXIC_TRAP;
-					break;
-				case 1:
-					map[trapPos] = Terrain.SECRET_FIRE_TRAP;
-					break;
-				case 2:
-					map[trapPos] = Terrain.SECRET_PARALYTIC_TRAP;
-					break;
-				case 3:
-					map[trapPos] = Terrain.SECRET_POISON_TRAP;
-					break;
-				case 4:
-					map[trapPos] = Terrain.SECRET_ALARM_TRAP;
-					break;
-				case 5:
-					map[trapPos] = Terrain.SECRET_LIGHTNING_TRAP;
-					break;
-				case 6:
-					map[trapPos] = Terrain.SECRET_GRIPPING_TRAP;
-					break;
-				case 7:
-					map[trapPos] = Terrain.SECRET_SUMMONING_TRAP;
-					break;
 				}
 			}
 		}
 	}
 
-	protected int nTraps() {
-		return Dungeon.depth <= 1 ? 0 : Random.Int( 1, rooms.size() + Dungeon.depth );
-	}
-
-	protected float[] trapChances() {
-		float[] chances = { 1, 1, 1, 1, 1, 1, 1, 1 };
-		return chances;
-	}
-
-	protected int minRoomSize = 7;
-	protected int maxRoomSize = 9;
-
-	protected void split( Rect rect ) {
-
-		int w = rect.width();
-		int h = rect.height();
-
-		if (w > maxRoomSize && h < minRoomSize) {
-
-			int vw = Random.Int( rect.left + 3, rect.right - 3 );
-			split( new Rect( rect.left, rect.top, vw, rect.bottom ) );
-			split( new Rect( vw, rect.top, rect.right, rect.bottom ) );
-
-		} else 
-			if (h > maxRoomSize && w < minRoomSize) {
-
-				int vh = Random.Int( rect.top + 3, rect.bottom - 3 );
-				split( new Rect( rect.left, rect.top, rect.right, vh ) );
-				split( new Rect( rect.left, vh, rect.right, rect.bottom ) );
-
-			} else 	
-				if ((Math.random() <= (minRoomSize * minRoomSize / rect.square()) && w <= maxRoomSize && h <= maxRoomSize) || w < minRoomSize || h < minRoomSize) {
-
-					rooms.add( (Room)new Room().set( rect ) );
-
-				} else {
-
-					if (Random.Float() < (float)(w - 2) / (w + h - 4)) {
-						int vw = Random.Int( rect.left + 3, rect.right - 3 );
-						split( new Rect( rect.left, rect.top, vw, rect.bottom ) );
-						split( new Rect( vw, rect.top, rect.right, rect.bottom ) );
-					} else {
-						int vh = Random.Int( rect.top + 3, rect.bottom - 3 );
-						split( new Rect( rect.left, rect.top, rect.right, vh ) );
-						split( new Rect( rect.left, vh, rect.right, rect.bottom ) );
-					}
-
-				}
-	}
-
-	protected void paint() {
-
-		for (Room r : rooms) {
-			if (r.type != Type.NULL) {
-				Log.d("REGULARLEVEL PAINT", "BEFORE placing" );
-				placeDoors( r );
-				Log.d("REGULARLEVEL PAINT", "BEFORE PAINTING" );
-				r.type.paint( this, r );			
-				Log.d("REGULARLEVEL PAINT", "AFTER PAINTING" );
-			} else {
-				if (feeling == Feeling.CHASM && Random.Int( 2 ) == 0) {
-					Log.d("REGULARLEVEL PAINT", "BEFORE Filling" );
-					Painter.fill( this, r, Terrain.WALL );
-					Log.d("REGULARLEVEL PAINT", "AFTER Filling" );
-				}
-			}
-		}
-		Log.d("REGULARLEVEL PAINT", "AFTER FOR1" );
-		for (Room r : rooms) {
-			paintDoors( r );
-		}
-		Log.d("REGULARLEVEL PAINT", "AFTER FOR2" );
-	}
-
-	private void placeDoors( Room r ) {
-		for (Room n : r.connected.keySet()) {
-			Room.Door door = r.connected.get( n );
-			if (door == null) {
-
-				Rect i = r.intersect( n );
-				if (i.width() == 0) {
-					door = new Room.Door( 
-							i.left, 
-							Random.Int( i.top + 1, i.bottom ) );
-				} else {
-					door = new Room.Door( 
-							Random.Int( i.left + 1, i.right ),
-							i.top);
-				}
-
-				r.connected.put( n, door );
-				n.connected.put( r, door );
-			}
-		}
-	}
 	/**
-	 * Modified with a tutorial clause inside the BARRICADE case, to force barricades to always
-	 * be of the wood pile type. This is due to the fact that bookshelves can appear in other
-	 * situations, so linking a barricade prompt to bookshelves would not have made sense.
-	 * The wood pile cannot appear anywhere else in the game however.
+	 * Vanilla logic for assigning a random special room type to a given room.
+	 * 
+	 * @param r
 	 */
-	protected void paintDoors( Room r ) {
-		for (Room n : r.connected.keySet()) {
+	 private void assignSpecialRoomType(Room r) {
+		 if (pitRoomNeeded) {
 
-			if (joinRooms( r, n )) {
-				continue;
-			}
+			 r.type = Type.PIT;
+			 pitRoomNeeded = false;
 
-			Room.Door d = r.connected.get( n );
-			int door = d.x + d.y * WIDTH;
+			 specials.remove(Type.ARMORY);
+			 specials.remove(Type.CRYPT);
+			 specials.remove(Type.LABORATORY);
+			 specials.remove(Type.LIBRARY);
+			 specials.remove(Type.STATUE);
+			 specials.remove(Type.TREASURY);
+			 specials.remove(Type.VAULT);
+			 specials.remove(Type.WEAK_FLOOR);
 
-			switch (d.type) {
-			case EMPTY:
-				map[door] = Terrain.EMPTY;
-				break;
-			case TUNNEL:
-				map[door] =  tunnelTile();
-				break;
-			case REGULAR:
-				if (Dungeon.depth <= 1) {
-					map[door] = Terrain.DOOR;
-				} else {
-					boolean secret = (Dungeon.depth < 6 ? Random.Int( 12 - Dungeon.depth ) : Random.Int( 6 )) == 0;
-					map[door] = secret ? Terrain.SECRET_DOOR : Terrain.DOOR;
-					if (secret) {
-						secretDoors++;
-					}
-				}
-				break;
-			case UNLOCKED:
-				map[door] = Terrain.DOOR;
-				break;
-			case HIDDEN:
-				map[door] = Terrain.SECRET_DOOR;
-				break;
-			case BARRICADE:
-				if(Dungeon.isTutorial){
-					map[door] = Terrain.BARRICADE;
-				}
-				else{
-					map[door] = Random.Int( 3 ) == 0 ? Terrain.BOOKSHELF : Terrain.BARRICADE;
-				}
-				break;
-			case LOCKED:
-				map[door] = Terrain.LOCKED_DOOR;
-				break;
-			}
-		}
-	}
+		 } else if (Dungeon.depth % 5 == 2 && specials.contains(Type.LABORATORY)) {
 
-	protected boolean joinRooms( Room r, Room n ) {
+			 r.type = Type.LABORATORY;
 
-		if (r.type != Room.Type.STANDARD || n.type != Room.Type.STANDARD) {
-			return false;
-		}
+		 } else if (Dungeon.depth >= Dungeon.transmutation && specials.contains(Type.MAGIC_WELL)) {
 
-		Rect w = r.intersect( n );
-		if (w.left == w.right) {
+			 r.type = Type.MAGIC_WELL;
 
-			if (w.bottom - w.top < 3) {
-				return false;
-			}
+		 } else {
 
-			if (w.height() == Math.max( r.height(), n.height() )) {
-				return false;
-			}
+			 int n = specials.size();
+			 r.type = specials.get(Math.min(Random.Int(n), Random.Int(n)));
+			 if (r.type == Type.WEAK_FLOOR) {
+				 weakFloorCreated = true;
+			 }
 
-			if (r.width() + n.width() > maxRoomSize) {
-				return false;
-			}
+		 }
 
-			w.top += 1;
-			w.bottom -= 0;
+		 Room.useType(r.type);
+		 specials.remove(r.type);
+	 }
 
-			w.right++;
+	 /**
+	  * Further connects the given room. The room should not be a special room.
+	  * 
+	  * @param r
+	  */
+	 private void addRandomConnections(Room r) {
+		 HashSet<Room> neigbours = new HashSet<Room>();
+		 for (Room n : r.neigbours) {
+			 if (!r.connected.containsKey(n) && !Room.SPECIALS.contains(n.type)
+					 && n.type != Type.PIT) {
 
-			Painter.fill( this, w.left, w.top, 1, w.height(), Terrain.EMPTY );
+				 neigbours.add(n);
+			 }
+		 }
+		 if (neigbours.size() > 1) {
+			 r.connect(Random.element(neigbours));
+		 }
+	 }
 
-		} else {
+	 protected void paintWater() {
+		 boolean[] lake = water();
+		 for (int i=0; i < LENGTH; i++) {
+			 if (map[i] == Terrain.EMPTY && lake[i]) {
+				 map[i] = Terrain.WATER;
+			 }
+		 }
+	 }
 
-			if (w.right - w.left < 3) {
-				return false;
-			}
+	 protected void paintGrass() {
+		 boolean[] grass = grass();
 
-			if (w.width() == Math.max( r.width(), n.width() )) {
-				return false;
-			}
+		 if (feeling == Feeling.GRASS) {
 
-			if (r.height() + n.height() > maxRoomSize) {
-				return false;
-			}
+			 for (Room room : rooms) {
+				 if (room.type != Type.NULL && room.type != Type.PASSAGE && room.type != Type.TUNNEL) {
+					 grass[(room.left + 1) + (room.top + 1) * WIDTH] = true;
+					 grass[(room.right - 1) + (room.top + 1) * WIDTH] = true;
+					 grass[(room.left + 1) + (room.bottom - 1) * WIDTH] = true;
+					 grass[(room.right - 1) + (room.bottom - 1) * WIDTH] = true;
+				 }
+			 }
+		 }
 
-			w.left += 1;
-			w.right -= 0;
+		 for (int i=WIDTH+1; i < LENGTH-WIDTH-1; i++) {
+			 if (map[i] == Terrain.EMPTY && grass[i]) {
+				 int count = 1;
+				 for (int n : NEIGHBOURS8) {
+					 if (grass[i + n]) {
+						 count++;
+					 }
+				 }
+				 map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_GRASS : Terrain.GRASS;
+			 }
+		 }
+	 }
 
-			w.bottom++;
+	 protected abstract boolean[] water();
+	 protected abstract boolean[] grass();
 
-			Painter.fill( this, w.left, w.top, w.width(), 1, Terrain.EMPTY );
-		}
+	 protected void placeTraps() {
 
-		return true;
-	}
+		 int nTraps = nTraps();
+		 float[] trapChances = trapChances();
 
-	@Override
-	public int nMobs() {
-		if (LevelTemplate.currentLevelTemplate() != null) {
-			return LevelTemplate.currentLevelTemplate().maxMobs;
-		} else {
-			return 2 + Dungeon.depth % 5 + Random.Int(3);
-		}
-	}
+		 for (int i=0; i < nTraps; i++) {
 
-	@Override
-	protected void createMobs() {
-		int nMobs = nMobs();
-		for (int i=0; i < nMobs; i++) {
-			Mob mob = Bestiary.mob( Dungeon.depth );
-			do {
-				mob.pos = randomRespawnCell();
-			} while (mob.pos == -1);
-			mobs.add( mob );
-			Actor.occupyCell( mob );
-		}
-	}
+			 int trapPos = Random.Int( LENGTH );
 
-	@Override
-	public int randomRespawnCell() {
-		int count = 0;
-		int cell = -1;
+			 if (map[trapPos] == Terrain.EMPTY) {
+				 switch (Random.chances( trapChances )) {
+				 case 0:
+					 map[trapPos] = Terrain.SECRET_TOXIC_TRAP;
+					 break;
+				 case 1:
+					 map[trapPos] = Terrain.SECRET_FIRE_TRAP;
+					 break;
+				 case 2:
+					 map[trapPos] = Terrain.SECRET_PARALYTIC_TRAP;
+					 break;
+				 case 3:
+					 map[trapPos] = Terrain.SECRET_POISON_TRAP;
+					 break;
+				 case 4:
+					 map[trapPos] = Terrain.SECRET_ALARM_TRAP;
+					 break;
+				 case 5:
+					 map[trapPos] = Terrain.SECRET_LIGHTNING_TRAP;
+					 break;
+				 case 6:
+					 map[trapPos] = Terrain.SECRET_GRIPPING_TRAP;
+					 break;
+				 case 7:
+					 map[trapPos] = Terrain.SECRET_SUMMONING_TRAP;
+					 break;
+				 }
+			 }
+		 }
+	 }
 
-		while (true) {
+	 protected int nTraps() {
+		 return Dungeon.depth <= 1 ? 0 : Random.Int( 1, rooms.size() + Dungeon.depth );
+	 }
 
-			if (++count > 10) {
-				return -1;
-			}
+	 protected float[] trapChances() {
+		 float[] chances = { 1, 1, 1, 1, 1, 1, 1, 1 };
+		 return chances;
+	 }
 
-			Room room = randomRoom( Room.Type.STANDARD, 10 );
-			if (room == null) {
-				continue;
-			}
+	 protected int minRoomSize = 7;
+	 protected int maxRoomSize = 9;
 
-			cell = room.random();
-			if (!Dungeon.visible[cell] && Actor.findChar( cell ) == null && Level.passable[cell]) {
-				return cell;
-			}
+	 protected void split( Rect rect ) {
 
-		}
-	}
+		 int w = rect.width();
+		 int h = rect.height();
 
-	@Override
-	public int randomDestination() {
+		 if (w > maxRoomSize && h < minRoomSize) {
 
-		int cell = -1;
+			 int vw = Random.Int( rect.left + 3, rect.right - 3 );
+			 split( new Rect( rect.left, rect.top, vw, rect.bottom ) );
+			 split( new Rect( vw, rect.top, rect.right, rect.bottom ) );
 
-		while (true) {
+		 } else 
+			 if (h > maxRoomSize && w < minRoomSize) {
 
-			Room room = Random.element( rooms );
-			if (room == null) {
-				continue;
-			}
+				 int vh = Random.Int( rect.top + 3, rect.bottom - 3 );
+				 split( new Rect( rect.left, rect.top, rect.right, vh ) );
+				 split( new Rect( rect.left, vh, rect.right, rect.bottom ) );
 
-			cell = room.random();
-			if (Level.passable[cell]) {
-				return cell;
-			}
+			 } else 	
+				 if ((Math.random() <= (minRoomSize * minRoomSize / rect.square()) && w <= maxRoomSize && h <= maxRoomSize) || w < minRoomSize || h < minRoomSize) {
 
-		}
-	}
+					 rooms.add( (Room)new Room().set( rect ) );
 
-	@Override
-	protected void createItems() {
+				 } else {
 
-		int nItems = 3;
-		while (Random.Float() < 0.3f) {
-			nItems++;
-		}
+					 if (Random.Float() < (float)(w - 2) / (w + h - 4)) {
+						 int vw = Random.Int( rect.left + 3, rect.right - 3 );
+						 split( new Rect( rect.left, rect.top, vw, rect.bottom ) );
+						 split( new Rect( vw, rect.top, rect.right, rect.bottom ) );
+					 } else {
+						 int vh = Random.Int( rect.top + 3, rect.bottom - 3 );
+						 split( new Rect( rect.left, rect.top, rect.right, vh ) );
+						 split( new Rect( rect.left, vh, rect.right, rect.bottom ) );
+					 }
 
-		for (int i=0; i < nItems; i++) {
-			Heap.Type type = null;
-			switch (Random.Int( 20 )) {
-			case 0:
-				type = Heap.Type.SKELETON;
-				break;
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-				type = Heap.Type.CHEST;
-				break;
-			default:
-				type = Heap.Type.HEAP;
-			}
-			drop( Generator.random(), randomDropCell() ).type = type;
-		}
+				 }
+	 }
 
-		for (Item item : itemsToSpawn) {
-			int cell = randomDropCell();
-			if (item instanceof ScrollOfUpgrade) {
+	 protected void paint() {
 
-				while (map[cell] == Terrain.FIRE_TRAP || map[cell] == Terrain.SECRET_FIRE_TRAP) {
-					cell = randomDropCell();
-				}
-			}
+		 for (Room r : rooms) {
+			 if (r.type != Type.NULL) {
+				 Log.d("REGULARLEVEL PAINT", "BEFORE placing" );
+				 placeDoors( r );
+				 Log.d("REGULARLEVEL PAINT", "BEFORE PAINTING" );
+				 r.type.paint( this, r );			
+				 Log.d("REGULARLEVEL PAINT", "AFTER PAINTING" );
+			 } else {
+				 if (feeling == Feeling.CHASM && Random.Int( 2 ) == 0) {
+					 Log.d("REGULARLEVEL PAINT", "BEFORE Filling" );
+					 Painter.fill( this, r, Terrain.WALL );
+					 Log.d("REGULARLEVEL PAINT", "AFTER Filling" );
+				 }
+			 }
+		 }
+		 Log.d("REGULARLEVEL PAINT", "AFTER FOR1" );
+		 for (Room r : rooms) {
+			 paintDoors( r );
+		 }
+		 Log.d("REGULARLEVEL PAINT", "AFTER FOR2" );
+	 }
 
-			drop( item, cell ).type = Heap.Type.HEAP;
-		}
+	 private void placeDoors( Room r ) {
+		 for (Room n : r.connected.keySet()) {
+			 Room.Door door = r.connected.get( n );
+			 if (door == null) {
 
-		Item item = Bones.get();
-		if (item != null) {
-			drop( item, randomDropCell() ).type = Heap.Type.SKELETON;
-		}
-	}
+				 Rect i = r.intersect( n );
+				 if (i.width() == 0) {
+					 door = new Room.Door( 
+							 i.left, 
+							 Random.Int( i.top + 1, i.bottom ) );
+				 } else {
+					 door = new Room.Door( 
+							 Random.Int( i.left + 1, i.right ),
+							 i.top);
+				 }
 
-	protected Room randomRoom( Room.Type type, int tries ) {
-		for (int i=0; i < tries; i++) {
-			Room room = Random.element( rooms );
-			if (room.type == type) {
-				return room;
-			}
-		}
-		return null;
-	}
+				 r.connected.put( n, door );
+				 n.connected.put( r, door );
+			 }
+		 }
+	 }
+	 /**
+	  * Modified with a tutorial clause inside the BARRICADE case, to force barricades to always
+	  * be of the wood pile type. This is due to the fact that bookshelves can appear in other
+	  * situations, so linking a barricade prompt to bookshelves would not have made sense.
+	  * The wood pile cannot appear anywhere else in the game however.
+	  */
+	 protected void paintDoors( Room r ) {
+		 for (Room n : r.connected.keySet()) {
 
-	public Room room( int pos ) {
-		for (Room room : rooms) {
-			if (room.type != Type.NULL && room.inside( pos )) {
-				return room;
-			}
-		}
+			 if (joinRooms( r, n )) {
+				 continue;
+			 }
 
-		return null;
-	}
+			 Room.Door d = r.connected.get( n );
+			 int door = d.x + d.y * WIDTH;
 
-	protected int randomDropCell() {
-		while (true) {
-			Room room = randomRoom( Room.Type.STANDARD, 1 );
-			if(Dungeon.template != null && room == null){
-				room = randomRoom( Room.Type.TUNNEL, 1 );
-			}
-			if(Dungeon.template != null && room == null){
-				room = randomRoom( Room.Type.PASSAGE, 1 );
-			}
-			if (room != null) {
-				int pos = room.random();
-				if (passable[pos]) {
-					return pos;
-				}
-			}
-		}
-	}
+			 switch (d.type) {
+			 case EMPTY:
+				 map[door] = Terrain.EMPTY;
+				 break;
+			 case TUNNEL:
+				 map[door] =  tunnelTile();
+				 break;
+			 case REGULAR:
+				 if (Dungeon.depth <= 1) {
+					 map[door] = Terrain.DOOR;
+				 } else {
+					 boolean secret = (Dungeon.depth < 6 ? Random.Int( 12 - Dungeon.depth ) : Random.Int( 6 )) == 0;
+					 map[door] = secret ? Terrain.SECRET_DOOR : Terrain.DOOR;
+					 if (secret) {
+						 secretDoors++;
+					 }
+				 }
+				 break;
+			 case UNLOCKED:
+				 map[door] = Terrain.DOOR;
+				 break;
+			 case HIDDEN:
+				 map[door] = Terrain.SECRET_DOOR;
+				 break;
+			 case BARRICADE:
+				 if(Dungeon.isTutorial){
+					 map[door] = Terrain.BARRICADE;
+				 }
+				 else{
+					 map[door] = Random.Int( 3 ) == 0 ? Terrain.BOOKSHELF : Terrain.BARRICADE;
+				 }
+				 break;
+			 case LOCKED:
+				 map[door] = Terrain.LOCKED_DOOR;
+				 break;
+			 }
+		 }
+	 }
 
-	@Override
-	public int pitCell() {
-		for (Room room : rooms) {
-			if (room.type == Type.PIT) {
-				return room.random();
-			}
-		}
+	 protected boolean joinRooms( Room r, Room n ) {
 
-		return super.pitCell();
-	}
+		 if (r.type != Room.Type.STANDARD || n.type != Room.Type.STANDARD) {
+			 return false;
+		 }
 
-	@Override
-	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
-		bundle.put( "rooms", rooms );
-	}
+		 Rect w = r.intersect( n );
+		 if (w.left == w.right) {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public void restoreFromBundle( Bundle bundle ) {
-		super.restoreFromBundle( bundle );
+			 if (w.bottom - w.top < 3) {
+				 return false;
+			 }
 
-		rooms = new HashSet<Room>( (Collection<? extends Room>) bundle.getCollection( "rooms" ) );
-		for (Room r : rooms) {
-			if (r.type == Type.WEAK_FLOOR) {
-				weakFloorCreated = true;
-				break;
-			}
-		}
-	}
+			 if (w.height() == Math.max( r.height(), n.height() )) {
+				 return false;
+			 }
+
+			 if (r.width() + n.width() > maxRoomSize) {
+				 return false;
+			 }
+
+			 w.top += 1;
+			 w.bottom -= 0;
+
+			 w.right++;
+
+			 Painter.fill( this, w.left, w.top, 1, w.height(), Terrain.EMPTY );
+
+		 } else {
+
+			 if (w.right - w.left < 3) {
+				 return false;
+			 }
+
+			 if (w.width() == Math.max( r.width(), n.width() )) {
+				 return false;
+			 }
+
+			 if (r.height() + n.height() > maxRoomSize) {
+				 return false;
+			 }
+
+			 w.left += 1;
+			 w.right -= 0;
+
+			 w.bottom++;
+
+			 Painter.fill( this, w.left, w.top, w.width(), 1, Terrain.EMPTY );
+		 }
+
+		 return true;
+	 }
+
+	 @Override
+	 public int nMobs() {
+		 if (LevelTemplate.currentLevelTemplate() != null) {
+			 return LevelTemplate.currentLevelTemplate().maxMobs;
+		 } else {
+			 return 2 + Dungeon.depth % 5 + Random.Int(3);
+		 }
+	 }
+
+	 @Override
+	 protected void createMobs() {
+		 int nMobs = nMobs();
+		 for (int i=0; i < nMobs; i++) {
+			 Mob mob = Bestiary.mob( Dungeon.depth );
+			 do {
+				 mob.pos = randomRespawnCell();
+			 } while (mob.pos == -1);
+			 mobs.add( mob );
+			 Actor.occupyCell( mob );
+		 }
+	 }
+
+	 @Override
+	 public int randomRespawnCell() {
+		 int count = 0;
+		 int cell = -1;
+
+		 while (true) {
+
+			 if (++count > 10) {
+				 return -1;
+			 }
+
+			 Room room = randomRoom( Room.Type.STANDARD, 10 );
+			 if (room == null) {
+				 continue;
+			 }
+
+			 cell = room.random();
+			 if (!Dungeon.visible[cell] && Actor.findChar( cell ) == null && Level.passable[cell]) {
+				 return cell;
+			 }
+
+		 }
+	 }
+
+	 @Override
+	 public int randomDestination() {
+
+		 int cell = -1;
+
+		 while (true) {
+
+			 Room room = Random.element( rooms );
+			 if (room == null) {
+				 continue;
+			 }
+
+			 cell = room.random();
+			 if (Level.passable[cell]) {
+				 return cell;
+			 }
+
+		 }
+	 }
+
+	 @Override
+	 protected void createItems() {
+
+		 int nItems = 3;
+		 while (Random.Float() < 0.3f) {
+			 nItems++;
+		 }
+
+		 for (int i=0; i < nItems; i++) {
+			 Heap.Type type = null;
+			 switch (Random.Int( 20 )) {
+			 case 0:
+				 type = Heap.Type.SKELETON;
+				 break;
+			 case 1:
+			 case 2:
+			 case 3:
+			 case 4:
+				 type = Heap.Type.CHEST;
+				 break;
+			 default:
+				 type = Heap.Type.HEAP;
+			 }
+			 drop( Generator.random(), randomDropCell() ).type = type;
+		 }
+
+		 for (Item item : itemsToSpawn) {
+			 int cell = randomDropCell();
+			 if (item instanceof ScrollOfUpgrade) {
+
+				 while (map[cell] == Terrain.FIRE_TRAP || map[cell] == Terrain.SECRET_FIRE_TRAP) {
+					 cell = randomDropCell();
+				 }
+			 }
+
+			 drop( item, cell ).type = Heap.Type.HEAP;
+		 }
+
+		 Item item = Bones.get();
+		 if (item != null) {
+			 drop( item, randomDropCell() ).type = Heap.Type.SKELETON;
+		 }
+	 }
+
+	 protected Room randomRoom( Room.Type type, int tries ) {
+		 for (int i=0; i < tries; i++) {
+			 Room room = Random.element( rooms );
+			 if (room.type == type) {
+				 return room;
+			 }
+		 }
+		 return null;
+	 }
+
+	 public Room room( int pos ) {
+		 for (Room room : rooms) {
+			 if (room.type != Type.NULL && room.inside( pos )) {
+				 return room;
+			 }
+		 }
+
+		 return null;
+	 }
+
+	 protected int randomDropCell() {
+		 while (true) {
+			 Room room = randomRoom( Room.Type.STANDARD, 1 );
+			 if(Dungeon.template != null && room == null){
+				 room = randomRoom( Room.Type.TUNNEL, 1 );
+			 }
+			 if(Dungeon.template != null && room == null){
+				 room = randomRoom( Room.Type.PASSAGE, 1 );
+			 }
+			 if (room != null) {
+				 int pos = room.random();
+				 if (passable[pos]) {
+					 return pos;
+				 }
+			 }
+		 }
+	 }
+
+	 @Override
+	 public int pitCell() {
+		 for (Room room : rooms) {
+			 if (room.type == Type.PIT) {
+				 return room.random();
+			 }
+		 }
+
+		 return super.pitCell();
+	 }
+
+	 @Override
+	 public void storeInBundle( Bundle bundle ) {
+		 super.storeInBundle( bundle );
+		 bundle.put( "rooms", rooms );
+	 }
+
+	 @SuppressWarnings("unchecked")
+	 @Override
+	 public void restoreFromBundle( Bundle bundle ) {
+		 super.restoreFromBundle( bundle );
+
+		 rooms = new HashSet<Room>( (Collection<? extends Room>) bundle.getCollection( "rooms" ) );
+		 for (Room r : rooms) {
+			 if (r.type == Type.WEAK_FLOOR) {
+				 weakFloorCreated = true;
+				 break;
+			 }
+		 }
+	 }
 
 }
