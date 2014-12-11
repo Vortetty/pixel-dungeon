@@ -138,7 +138,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Weapons"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/weapons" />
 	
 	        <Button
 	            android:id="@+id/armorbutton"
@@ -146,7 +146,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Armor"
-	            android:drawableTop="@drawable/armor" />
+	            android:drawableTop="@drawable/armors" />
 	
 	        <Button
 	            android:id="@+id/potionbutton"
@@ -154,7 +154,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Potions"
-	            android:drawableTop="@drawable/potion" />
+	            android:drawableTop="@drawable/potions" />
 	
 	    </LinearLayout>
 	    
@@ -170,7 +170,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Scrolls"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/scrolls" />
 	
 	        <Button
 	            android:id="@+id/roomsbutton"
@@ -186,7 +186,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Seeds"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/seeds" />
 	
 	    </LinearLayout>
 	    <LinearLayout
@@ -201,7 +201,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Wands"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/wands" />
 	
 	        <Button
 	            android:id="@+id/ringbutton"
@@ -209,7 +209,7 @@
 	            android:layout_height="match_parent"
 	            android:layout_weight="1"
 	            android:text="Rings"
-	            android:drawableTop="@drawable/icon" />
+	            android:drawableTop="@drawable/rings" />
 	
 	        <Button
 	            android:id="@+id/consumablesbutton"
