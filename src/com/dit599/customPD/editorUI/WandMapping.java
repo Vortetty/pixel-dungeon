@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.wands.*;
+import com.dit599.customPD.levels.template.LevelTemplate.MagicItem;
 
 public abstract class WandMapping {
 	private static List<Class<? extends Item>> wandclasslist = null;
