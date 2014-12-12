@@ -260,11 +260,14 @@ public class FloorFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			Intent items = new Intent(getActivity(), ItemsActivity.class);  
-			Intent item=new Intent(getActivity(), MagicItemsActivity.class);
+			Intent magicItems = new Intent(getActivity(), MagicItemsActivity.class);
 			final MapEditActivity activity = (MapEditActivity) getActivity();
 			items.putExtra(MapEditActivity.EXTRA_FILENAME,
                     activity.templateHandler.getDungeon().name);
 			items.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
+			magicItems.putExtra(MapEditActivity.EXTRA_FILENAME,
+                    activity.templateHandler.getDungeon().name);
+			magicItems.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
 			
 			switch (v.getId()) {
 			case R.id.weaponbutton:
@@ -307,13 +310,11 @@ public class FloorFragment extends Fragment {
 				break;
 			case R.id.wandbutton:
 				chooseItemType="Wands";
-				item.putExtra("mapName", activity.templateHandler.getDungeon().name);
-				startActivity(item);
+				startActivity(magicItems);
 				break;
 			case R.id.ringbutton:
 				chooseItemType="Rings";
-				item.putExtra("mapName", activity.templateHandler.getDungeon().name);
-				startActivity(item);
+				startActivity(magicItems);
 				break;
 			}
 		}

@@ -30,7 +30,8 @@ public class MagicItemsActivity extends Activity {
         setContentView(R.layout.customizable_item_activity3);  
         
         layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout3);
-        level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
         mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view3);
         View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
         mItemListView.addFooterView(footer);
@@ -69,7 +70,8 @@ public class MagicItemsActivity extends Activity {
 			initMappings();
 		}
 		if (level == null){
-			level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+					 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(mItemAdapter.getCount() == 0){
 			if(FloorFragment.chooseItemType.equals("Wands")){
