@@ -13,8 +13,8 @@ public abstract class WeaponMapping {
 
 	public static void weaponMappingInit() {
 		weaponclasslist = new ArrayList<Class<? extends Item>>();
-		weaponclasslist.add(ShortSword.class);
 		weaponclasslist.add(Dagger.class);
+		weaponclasslist.add(ShortSword.class);
 		weaponclasslist.add(Knuckles.class);
 		weaponclasslist.add(Boomerang.class);
 		weaponclasslist.add(Quarterstaff.class);
@@ -27,8 +27,8 @@ public abstract class WeaponMapping {
 		weaponclasslist.add(WarHammer.class);
 
 		weaponnamelist = new ArrayList<String>();
-		weaponnamelist.add("Shortsword");
 		weaponnamelist.add("Dagger");
+		weaponnamelist.add("Shortsword");
 		weaponnamelist.add("Knuckleduster");
 		weaponnamelist.add("Boomerang");
 		weaponnamelist.add("Quarterstaff");
