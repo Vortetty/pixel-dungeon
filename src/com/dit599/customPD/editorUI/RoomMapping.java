@@ -46,8 +46,15 @@ public abstract class RoomMapping {
 
 	}
 
-	public static String getRoomName(int index) {
-		return roomnamelist.get(index);
+	public static String getRoomName(Room.Type roomType) {
+		for(int i=0;i<roomtypelist.size();i++)
+		 {
+			if(roomtypelist.get(i).equals(roomType))
+			{
+				return roomnamelist.get(i);
+			}
+		 }
+		return null;
 	}
 	public static Room.Type getRoomType(String roomname) {
 		for(int i=0;i<roomnamelist.size();i++)

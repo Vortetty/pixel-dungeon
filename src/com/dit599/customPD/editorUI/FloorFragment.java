@@ -255,6 +255,8 @@ public class FloorFragment extends Fragment {
 
 		@Override
 		public void onClick(View v) {
+			Intent items = new Intent(getActivity(), ItemsActivity.class);  
+			final MapEditActivity activity = (MapEditActivity) getActivity();
 			switch (v.getId()) {
 			case R.id.weaponbutton:
 				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
@@ -264,23 +266,28 @@ public class FloorFragment extends Fragment {
 				break;
 			case R.id.potionbutton:
 				chooseItemType="Potions";
-				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				startActivity(items);
 				break;
 			case R.id.scrollbutton:
 				chooseItemType="Scrolls";
-				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				startActivity(items);
 				break;
 			case R.id.roomsbutton:
 				chooseItemType="Rooms";
-				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				startActivity(items);
 				break;
 			case R.id.seedbutton:
 				chooseItemType="Seeds";
-				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				startActivity(items);
 				break;
 			case R.id.consumablesbutton:
 				chooseItemType="Other";
-				startActivity(new Intent(getActivity(), ItemsActivity.class));
+				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				startActivity(items);
 				break;
 			case R.id.wandbutton:
 				chooseItemType="Wands";

@@ -9,6 +9,7 @@ import com.dit599.customPD.actors.mobs.Gnoll;
 import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.armor.Armor;
+import com.dit599.customPD.items.food.Food;
 import com.dit599.customPD.items.food.Pasty;
 import com.dit599.customPD.items.potions.Potion;
 import com.dit599.customPD.items.potions.PotionOfMight;
@@ -62,7 +63,7 @@ public class TemplateFactory {
 		level.mobs.get(1).weight = 2;
 		level.weapons.add(new ShortSword());
 		level.weapons.add(new ShortSword());
-		level.consumables.add(new Pasty());
+		level.consumables.add(new Food());
 		level.rings.add(level.new MagicItem(RingOfEvasion.class, 2, true));
 		level.potions.add(PotionOfMight.class);
 
