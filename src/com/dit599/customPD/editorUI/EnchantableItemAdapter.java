@@ -79,9 +79,17 @@ public class EnchantableItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.customizable_item, null);
-        new ItemViewHolder(view, position);
-        return view;
+        ItemViewHolder holder;
+        if (convertView != null) {
+            holder = (ItemViewHolder) convertView.getTag();
+        } else {
+            convertView = inflater.inflate(R.layout.customizable_item, null);
+            holder = new ItemViewHolder(convertView);
+            convertView.setTag(holder);
+        }
+
+        holder.resetFields(position);
+        return convertView;
     }
 
     private class ItemViewHolder {
@@ -93,9 +101,12 @@ public class EnchantableItemAdapter extends BaseAdapter {
         public Button deleteBtn;
         public TextView type_tv;
         public TextView enchant_tv;
+        private ArrayAdapter<String> levelsAdapter;
 
-        public ItemViewHolder(View root, int position) {
-            this.position = position;
+        final List<String> weapons = WeaponMapping.getAllNames();
+        List<String> enchants = EnchantmentsMapping.getAllNames();
+
+        public ItemViewHolder(View root) {
             typeSpn = (Spinner) root.findViewById(R.id.item_type_spinner);
             levelSpn = (Spinner) root.findViewById(R.id.level_spinner);
             enchantSpn = (Spinner) root.findViewById(R.id.enchant_spinner);
@@ -104,16 +115,13 @@ public class EnchantableItemAdapter extends BaseAdapter {
             
             switch (type) {
             case EnchantableItemsActivity.WEAPON:
-                Weapon presentWeapon = (Weapon) getItem(position);
-                
-                final List<String> names = WeaponMapping.getAllNames();
-                ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(root.getContext(),
-                        android.R.layout.simple_spinner_item, names);
+
+                ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(context,
+                        android.R.layout.simple_spinner_item, weapons);
                 weaponAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 typeSpn.setAdapter(weaponAdapter);
-                typeSpn.setSelection(names.indexOf(WeaponMapping.getWeaponName(presentWeapon
-                        .getClass())));
+
                 typeSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int typeIndex,
@@ -121,7 +129,8 @@ public class EnchantableItemAdapter extends BaseAdapter {
                         Weapon oldWeapon = (Weapon) getItem(ItemViewHolder.this.position);
                         Weapon newWeapon = null;
                         try {
-                            newWeapon = (Weapon) WeaponMapping.getWeaponClass(names.get(typeIndex))
+                            newWeapon = (Weapon) WeaponMapping.getWeaponClass(
+                                    weapons.get(typeIndex))
                                     .newInstance();
                         } catch (InstantiationException e) {
                             e.printStackTrace();
@@ -139,20 +148,12 @@ public class EnchantableItemAdapter extends BaseAdapter {
                     }
                 });
                 
-                List<String> enchants = EnchantmentsMapping.getAllNames();
-                ArrayAdapter<String> enchantmentsAdapter = new ArrayAdapter<String>(
-                        root.getContext(), android.R.layout.simple_spinner_item, enchants);
+                
+                ArrayAdapter<String> enchantmentsAdapter = new ArrayAdapter<String>(context,
+                        android.R.layout.simple_spinner_item, enchants);
                 enchantmentsAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 enchantSpn.setAdapter(enchantmentsAdapter);
-                if (presentWeapon.enchantment != null) {
-                    int selection = enchants.indexOf(EnchantmentsMapping
-                            .getEnchantmentName(presentWeapon.enchantment.getClass()));
-                    enchantSpn.setSelection(selection);
-                } else {
-                    enchantSpn.setSelection(0);
-                }
-
                 enchantSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int enchantIndex,
@@ -180,12 +181,11 @@ public class EnchantableItemAdapter extends BaseAdapter {
                 });
 
                 String[] levels = context.getResources().getStringArray(R.array.item_levels);
-                ArrayAdapter<String> levelsAdapter = new ArrayAdapter<String>(root.getContext(),
+                levelsAdapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_spinner_item, levels);
                 levelsAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 levelSpn.setAdapter(levelsAdapter);
-                levelSpn.setSelection(levelsAdapter.getPosition(String.valueOf(presentWeapon.level)));
                 levelSpn.setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int levelIndex,
@@ -202,8 +202,8 @@ public class EnchantableItemAdapter extends BaseAdapter {
 
                 break;
             case EnchantableItemsActivity.ARMOR:
-
                 break;
+
             }
 
             deleteBtn.setOnClickListener(new OnClickListener() {
@@ -213,7 +213,36 @@ public class EnchantableItemAdapter extends BaseAdapter {
                     notifyDataSetChanged();
                 }
             });
+
         }
 
+        public void resetFields(int position) {
+
+            this.position = position;
+
+            switch (type) {
+            case EnchantableItemsActivity.WEAPON:
+                Weapon presentWeapon = (Weapon) getItem(position);
+
+                List<String> names = WeaponMapping.getAllNames();
+                typeSpn.setSelection(names.indexOf(WeaponMapping.getWeaponName(presentWeapon
+                        .getClass())));
+
+                if (presentWeapon.enchantment != null) {
+                    int selection = enchants.indexOf(EnchantmentsMapping
+                            .getEnchantmentName(presentWeapon.enchantment.getClass()));
+                    enchantSpn.setSelection(selection);
+                } else {
+                    enchantSpn.setSelection(0);
+                }
+
+                levelSpn.setSelection(levelsAdapter.getPosition(String.valueOf(presentWeapon.level)));
+
+                break;
+            case EnchantableItemsActivity.ARMOR:
+
+                break;
+            }
+        }
     }
 }
