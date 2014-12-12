@@ -75,6 +75,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+         <activity android:name="com.dit599.customPD.editorUI.MagicItemsActivity"
+            android:label="Items" >
+            <intent-filter>
+                <action android:name="com.dit599.customPD.editorUI.MagicItemsActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         
     </application>
 

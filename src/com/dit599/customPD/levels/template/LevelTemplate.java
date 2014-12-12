@@ -100,7 +100,7 @@ public class LevelTemplate implements Bundlable{
 			this.weight = weight;
 		}
 	}
-	public class MagicItem {
+	public static class MagicItem {
 		public Class<? extends Item> itemClass;
 		public int level;
 		public boolean cursed;

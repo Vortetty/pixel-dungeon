@@ -64,7 +64,7 @@ public class TemplateFactory {
 		level.weapons.add(new ShortSword());
 		level.weapons.add(new ShortSword());
 		level.consumables.add(new Food());
-		level.rings.add(level.new MagicItem(RingOfEvasion.class, 2, true));
+		level.rings.add(new MagicItem(RingOfEvasion.class, 2, true));
 		level.potions.add(PotionOfMight.class);
 
 		return level;

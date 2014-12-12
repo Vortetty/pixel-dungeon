@@ -291,11 +291,13 @@ public class FloorFragment extends Fragment {
 				break;
 			case R.id.wandbutton:
 				chooseItemType="Wands";
-				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				startActivity(new Intent(getActivity(), MagicItemsActivity.class));
 				break;
 			case R.id.ringbutton:
 				chooseItemType="Rings";
-				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				startActivity(new Intent(getActivity(), MagicItemsActivity.class));
 				break;
 			}
 		}
