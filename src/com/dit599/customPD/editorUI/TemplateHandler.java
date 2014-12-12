@@ -65,11 +65,7 @@ public class TemplateHandler {
      * @return
      */
     public LevelTemplate getLevel(int depth) {
-        current = getTemplate().levelTemplates.get(depth - 1); // handle 1-index
-        return getCurrentLevel();
-    }
-    public LevelTemplate getCurrentLevel() {
-        return current;
+        return getTemplate().levelTemplates.get(depth - 1); // handle 1-index
     }
 
 	public DungeonTemplate getTemplate() {

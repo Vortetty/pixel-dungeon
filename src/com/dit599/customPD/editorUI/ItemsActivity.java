@@ -32,7 +32,8 @@ public class ItemsActivity extends Activity {
 		setContentView(R.layout.customizable_item_activity2);  
 
 		layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout2);
-		level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view2);
 		View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
 		mItemListView.addFooterView(footer);
@@ -57,7 +58,6 @@ public class ItemsActivity extends Activity {
 		@Override
 		public boolean onChildClick(ExpandableListView parent, View v,
 				int groupPosition, int childPosition, long id) {
-			// TODO Auto-generated method stub
 			String msg = "parent_id = " + groupPosition + " child_id = "
 					+ childPosition;
 			Toast.makeText(ItemsActivity.this, msg,
@@ -71,7 +71,8 @@ public class ItemsActivity extends Activity {
 			initMappings();
 		}
 		if (level == null){
-			level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(mItemAdapter.getCount() == 0){
 			if(FloorFragment.chooseItemType.equals("Potions")){

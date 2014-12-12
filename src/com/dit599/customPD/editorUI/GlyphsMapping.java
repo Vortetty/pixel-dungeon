@@ -13,6 +13,7 @@ public abstract class GlyphsMapping {
 	
 	public static void glyphMappingInit() {
 		glyphclasslist = new ArrayList<Class<? extends Glyph>>();
+		glyphclasslist.add(null);
 		glyphclasslist.add(Affection.class);
 		glyphclasslist.add(AntiEntropy.class);
 		glyphclasslist.add(Bounce.class);
@@ -25,6 +26,7 @@ public abstract class GlyphsMapping {
 		glyphclasslist.add(Viscosity.class);
 
 		glyphnamelist = new ArrayList<String>();
+		glyphnamelist.add("None");
 		glyphnamelist.add("Affection");
 		glyphnamelist.add("Anti-Entropy");
 		glyphnamelist.add("Bounce");
@@ -40,7 +42,7 @@ public abstract class GlyphsMapping {
 	public static String getGlyphName(Class<? extends Glyph> glyph) {
 		for(int i=0;i<glyphclasslist.size();i++)
 		 {
-			if(glyphclasslist.get(i).getName().equals(glyph.getName()))
+			if(glyphclasslist.get(i) != null && glyphclasslist.get(i).getName().equals(glyph.getName()))
 			{
 				return glyphnamelist.get(i);
 			}

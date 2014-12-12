@@ -69,12 +69,13 @@ public class FloorFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 0);
-				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
+	                    activity.templateHandler.getDungeon().name);
+				intent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
 				startActivity(intent);
 			}
 		});
@@ -82,12 +83,13 @@ public class FloorFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 1);
-				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
+	                    activity.templateHandler.getDungeon().name);
+				intent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
 				startActivity(intent);
 			}
 		});
@@ -95,12 +97,13 @@ public class FloorFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 2);
-				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
+	                    activity.templateHandler.getDungeon().name);
+				intent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
 				startActivity(intent);
 			}
 		});
@@ -108,12 +111,13 @@ public class FloorFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				intent.setClass(v.getContext(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 3);
-				intent.putExtra("mapName", activity.templateHandler.getDungeon().name);
+				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
+	                    activity.templateHandler.getDungeon().name);
+				intent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
 				startActivity(intent);
 			}
 		});
@@ -257,6 +261,10 @@ public class FloorFragment extends Fragment {
 		public void onClick(View v) {
 			Intent items = new Intent(getActivity(), ItemsActivity.class);  
 			final MapEditActivity activity = (MapEditActivity) getActivity();
+			items.putExtra(MapEditActivity.EXTRA_FILENAME,
+                    activity.templateHandler.getDungeon().name);
+			items.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
+			
 			switch (v.getId()) {
 			case R.id.weaponbutton:
                 Intent weaponIntent = new Intent(getActivity(), EnchantableItemsActivity.class);
@@ -278,27 +286,22 @@ public class FloorFragment extends Fragment {
 				break;
 			case R.id.potionbutton:
 				chooseItemType="Potions";
-				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(items);
 				break;
 			case R.id.scrollbutton:
 				chooseItemType="Scrolls";
-				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(items);
 				break;
 			case R.id.roomsbutton:
 				chooseItemType="Rooms";
-				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(items);
 				break;
 			case R.id.seedbutton:
 				chooseItemType="Seeds";
-				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(items);
 				break;
 			case R.id.consumablesbutton:
 				chooseItemType="Other";
-				items.putExtra("mapName", activity.templateHandler.getDungeon().name);
 				startActivity(items);
 				break;
 			case R.id.wandbutton:

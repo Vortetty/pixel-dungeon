@@ -13,37 +13,40 @@ public abstract class EnchantmentsMapping {
 	
 	public static void EnchantmentsMappingInit() {
 		enchantmentsclasslist = new ArrayList<Class<? extends Enchantment>>();
-		enchantmentsclasslist.add(0, Death.class);
-		enchantmentsclasslist.add(1, Fire.class);
-		enchantmentsclasslist.add(2, Horror.class);
-		enchantmentsclasslist.add(3, Instability.class);
-		enchantmentsclasslist.add(4, Leech.class);
-		enchantmentsclasslist.add(5, Luck.class);
-		enchantmentsclasslist.add(6, Paralysis.class);
-		enchantmentsclasslist.add(7, Piercing.class);
-		enchantmentsclasslist.add(8, Poison.class);
-		enchantmentsclasslist.add(9, Slow.class);
-		enchantmentsclasslist.add(10, Swing.class);
+		enchantmentsclasslist.add(null);
+		enchantmentsclasslist.add(Death.class);
+		enchantmentsclasslist.add(Fire.class);
+		enchantmentsclasslist.add(Horror.class);
+		enchantmentsclasslist.add(Instability.class);
+		enchantmentsclasslist.add(Leech.class);
+		enchantmentsclasslist.add(Luck.class);
+		enchantmentsclasslist.add(Paralysis.class);
+		enchantmentsclasslist.add(Piercing.class);
+		enchantmentsclasslist.add(Poison.class);
+		enchantmentsclasslist.add(Slow.class);
+		enchantmentsclasslist.add(Swing.class);
 
 		enchantmentsnamelist = new ArrayList<String>();
-		enchantmentsnamelist.add(0, "Grim");
-		enchantmentsnamelist.add(1, "Blazing");
-		enchantmentsnamelist.add(2, "Eldritch");
-		enchantmentsnamelist.add(3, "Unstable");
-		enchantmentsnamelist.add(4, "Vampiric");
-		enchantmentsnamelist.add(5, "Lucky");
-		enchantmentsnamelist.add(6, "Stunning");
-		enchantmentsnamelist.add(7, "Piercing");
-		enchantmentsnamelist.add(8, "Venomous");
-		enchantmentsnamelist.add(9, "Chilling");
-		enchantmentsnamelist.add(10, "Wild");
+		enchantmentsnamelist.add("None");
+		enchantmentsnamelist.add("Grim");
+		enchantmentsnamelist.add("Blazing");
+		enchantmentsnamelist.add("Eldritch");
+		enchantmentsnamelist.add("Unstable");
+		enchantmentsnamelist.add("Vampiric");
+		enchantmentsnamelist.add("Lucky");
+		enchantmentsnamelist.add("Stunning");
+		enchantmentsnamelist.add("Piercing");
+		enchantmentsnamelist.add("Venomous");
+		enchantmentsnamelist.add("Chilling");
+		enchantmentsnamelist.add("Wild");
 
 	}
 
 	public static String getEnchantmentName(Class<? extends Enchantment> enchantment) {
+		
 		for(int i=0;i<enchantmentsclasslist.size();i++)
 		 {
-			if(enchantmentsclasslist.get(i).getName().equals(enchantment.getName()))
+			if(enchantmentsclasslist.get(i) != null && enchantmentsclasslist.get(i).getName().equals(enchantment.getName()))
 			{
 				return enchantmentsnamelist.get(i);
 			}

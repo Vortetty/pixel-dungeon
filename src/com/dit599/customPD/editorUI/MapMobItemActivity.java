@@ -30,7 +30,8 @@ public class MapMobItemActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+				.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		super.setContentView(R.layout.mobitem); 
 		this.mobconfimbt=(Button) this.findViewById(R.id.mobconfirmbutton);
 		this.mobcancelbt=(Button) this.findViewById(R.id.mobcancelbutton);
@@ -99,7 +100,8 @@ public class MapMobItemActivity extends Activity {
 	public void onStart(){
 		super.onStart();
 		if (level == null){
-			level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(MobMapping.getAllNames() == null){
 			MobMapping.mobMappingInit();
