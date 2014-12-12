@@ -36,7 +36,6 @@ public class MagicItemAdapter extends BaseAdapter {
 	private int mItemCount = 0;
 	private LevelTemplate level;
 	private MagicItemsActivity activity;
-	private static final int MAX_SPECIALS = 4;
 	public static final String[] MAGICITEM_LEVEL = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         "10", "-1", "-2", "-3", "-4", "-5" };
 	Context context;
@@ -68,14 +67,11 @@ public class MagicItemAdapter extends BaseAdapter {
 			
 		}
 		mItemCount++;
-		//Max specialrooms reached
-		
 		notifyDataSetChanged();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -134,14 +130,14 @@ public class MagicItemAdapter extends BaseAdapter {
 			}}); 
 		
 		levelspin.setAdapter(leveladapter);
-		levelspin.setSelection(getType(pos));
+		levelspin.setSelection(getLevel(pos));
 		levelspin.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				String type =parent.getItemAtPosition(position).toString();
-				setType(pos, type);
+				String choice =parent.getItemAtPosition(position).toString();
+				setLevel(pos, choice);
 			}
 
 			@Override
@@ -173,6 +169,28 @@ public class MagicItemAdapter extends BaseAdapter {
 			else if(FloorFragment.chooseItemType.equals("Rings")){
 				MagicItem ring=new MagicItem(RingMapping.getRingClass(type),0,false);
 				level.rings.set(position, ring);		
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	private int getLevel(int position){
+		if(FloorFragment.chooseItemType.equals("Wands")){
+			return level.wands.get(position).level;			
+		}
+		else if(FloorFragment.chooseItemType.equals("Rings")){
+			return level.rings.get(position).level;
+		}		
+		return 0;
+	}
+	private void setLevel(int position, String choice){
+		try{
+			if(FloorFragment.chooseItemType.equals("Wands")){
+				level.wands.get(position).level = Integer.parseInt(choice);		
+			}
+			else if(FloorFragment.chooseItemType.equals("Rings")){
+				level.rings.get(position).level = Integer.parseInt(choice);			
 			}
 		}
 		catch (Exception e){
