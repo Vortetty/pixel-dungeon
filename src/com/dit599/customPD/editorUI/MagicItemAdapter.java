@@ -37,7 +37,8 @@ public class MagicItemAdapter extends BaseAdapter {
 	private LevelTemplate level;
 	private MagicItemsActivity activity;
 	private static final int MAX_SPECIALS = 4;
-
+	public static final String[] MAGICITEM_LEVEL = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10", "-1", "-2", "-3", "-4", "-5" };
 	Context context;
 
 	public MagicItemAdapter(Context context, LevelTemplate l, MagicItemsActivity a) {
@@ -100,14 +101,14 @@ public class MagicItemAdapter extends BaseAdapter {
 		if(FloorFragment.chooseItemType.equals("Wands")){
 			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, WandMapping.getAllNames());    	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			leveladapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, R.array.magicitem_level);    	
+			leveladapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, MAGICITEM_LEVEL);    	
 			leveladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 		}else if(FloorFragment.chooseItemType.equals("Rings")){
 			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, RingMapping.getAllNames());    	   	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			leveladapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, R.array.magicitem_level);    	
+			leveladapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, MAGICITEM_LEVEL);    	
 			leveladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 

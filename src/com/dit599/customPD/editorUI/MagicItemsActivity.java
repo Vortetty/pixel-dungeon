@@ -27,7 +27,7 @@ public class MagicItemsActivity extends Activity {
 	@Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
-        setContentView(R.layout.customizable_item3);  
+        setContentView(R.layout.customizable_item_activity3);  
         
         layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout3);
         level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
@@ -47,7 +47,7 @@ public class MagicItemsActivity extends Activity {
                 mItemAdapter.addItem(true);
             }
         });
-
+        addButton.setEnabled(true);
     }
 
    OnChildClickListener stvClickEvent = new OnChildClickListener() {
@@ -63,4 +63,33 @@ public class MagicItemsActivity extends Activity {
  			return false;
  		}
  	};
+ 	public void onStart(){
+		super.onStart();
+		if(RingMapping.getAllNames()==null||WandMapping.getAllNames() == null){
+			initMappings();
+		}
+		if (level == null){
+			level = (TemplateHandler.getInstance(getIntent().getStringExtra("mapName"))).getCurrentLevel();
+		}
+		if(mItemAdapter.getCount() == 0){
+			if(FloorFragment.chooseItemType.equals("Wands")){
+				initItems(level.wands.size());	
+			}
+			else if(FloorFragment.chooseItemType.equals("Rings")){
+				initItems(level.rings.size());
+			}
+			
+		}
+	}
+	private void initMappings(){
+		WandMapping.wandMappingInit();
+		RingMapping.ringMappingInit();
+		
+	}
+	private void initItems(int i){
+		while (i > 0){
+			mItemAdapter.addItem(false);
+			i--;
+		}
+	}
 }
