@@ -23,7 +23,17 @@ import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.actors.hero.HeroClass;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.KindOfWeapon;
-import com.dit599.customPD.items.weapon.enchantments.*;
+import com.dit599.customPD.items.weapon.enchantments.Death;
+import com.dit599.customPD.items.weapon.enchantments.Fire;
+import com.dit599.customPD.items.weapon.enchantments.Horror;
+import com.dit599.customPD.items.weapon.enchantments.Instability;
+import com.dit599.customPD.items.weapon.enchantments.Leech;
+import com.dit599.customPD.items.weapon.enchantments.Luck;
+import com.dit599.customPD.items.weapon.enchantments.Paralysis;
+import com.dit599.customPD.items.weapon.enchantments.Piercing;
+import com.dit599.customPD.items.weapon.enchantments.Poison;
+import com.dit599.customPD.items.weapon.enchantments.Slow;
+import com.dit599.customPD.items.weapon.enchantments.Swing;
 import com.dit599.customPD.items.weapon.missiles.MissileWeapon;
 import com.dit599.customPD.sprites.ItemSprite;
 import com.dit599.customPD.utils.GLog;
@@ -51,7 +61,7 @@ public class Weapon extends KindOfWeapon {
 	
 	private int hitsToKnow = 20;
 	
-	protected Enchantment enchantment;
+    public Enchantment enchantment;
 	
 	@Override
 	public void proc( Char attacker, Char defender, int damage ) {

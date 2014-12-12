@@ -1,15 +1,10 @@
 package com.dit599.customPD.levels.template;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import android.util.Log;
-
 import com.dit599.customPD.Dungeon;
-import com.dit599.customPD.actors.Char;
 import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.actors.mobs.Rat;
 import com.dit599.customPD.items.Item;
@@ -21,7 +16,6 @@ import com.dit599.customPD.levels.Level;
 import com.dit599.customPD.levels.Level.Feeling;
 import com.dit599.customPD.levels.Room;
 import com.dit599.customPD.levels.SewerLevel;
-import com.watabou.noosa.Game;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;

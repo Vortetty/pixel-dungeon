@@ -259,10 +259,22 @@ public class FloorFragment extends Fragment {
 			final MapEditActivity activity = (MapEditActivity) getActivity();
 			switch (v.getId()) {
 			case R.id.weaponbutton:
-				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+                Intent weaponIntent = new Intent(getActivity(), EnchantableItemsActivity.class);
+                weaponIntent.putExtra(MapEditActivity.EXTRA_FILENAME,
+                        activity.templateHandler.getDungeon().name);
+                weaponIntent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
+                weaponIntent.putExtra(EnchantableItemsActivity.EXTRA_TYPE,
+                        EnchantableItemsActivity.WEAPON);
+                startActivity(weaponIntent);
 				break;
 			case R.id.armorbutton:
-				startActivity(new Intent(getActivity(), EnchantableItemsActivity.class));
+                Intent armorIntent = new Intent(getActivity(), EnchantableItemsActivity.class);
+                armorIntent.putExtra(MapEditActivity.EXTRA_FILENAME,
+                        activity.templateHandler.getDungeon().name);
+                armorIntent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
+                armorIntent.putExtra(EnchantableItemsActivity.EXTRA_TYPE,
+                        EnchantableItemsActivity.ARMOR);
+                startActivity(armorIntent);
 				break;
 			case R.id.potionbutton:
 				chooseItemType="Potions";
