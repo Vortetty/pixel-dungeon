@@ -56,8 +56,8 @@ public class MagicItemAdapter extends BaseAdapter {
 	private int mItemCount = 0;
 	private LevelTemplate level;
 	private MagicItemsActivity activity;
-	public static final String[] MAGICITEM_LEVEL = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-        "10", "11", "12", "13", "14", "15" };
+	public static final String[] MAGICITEM_LEVEL = {"-5", "-4", "-3", "-2", "-1",  "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10"};
 	Context context;
 
 	public MagicItemAdapter(Context context, LevelTemplate l, MagicItemsActivity a) {
@@ -150,7 +150,7 @@ public class MagicItemAdapter extends BaseAdapter {
 			}}); 
 		
 		levelspin.setAdapter(leveladapter);
-		levelspin.setSelection(getLevel(pos));
+		levelspin.setSelection(leveladapter.getPosition(getLevel(pos)));
 		levelspin.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			@Override
@@ -195,14 +195,14 @@ public class MagicItemAdapter extends BaseAdapter {
 			e.printStackTrace();
 		}
 	}
-	private int getLevel(int position){
+	private String getLevel(int position){
 		if(FloorFragment.chooseItemType.equals("Wands")){
-			return level.wands.get(position).level;			
+			return level.wands.get(position).level + "";			
 		}
 		else if(FloorFragment.chooseItemType.equals("Rings")){
-			return level.rings.get(position).level;
+			return level.rings.get(position).level + "";
 		}		
-		return 0;
+		return "0";
 	}
 	private void setLevel(int position, String choice){
 		try{
