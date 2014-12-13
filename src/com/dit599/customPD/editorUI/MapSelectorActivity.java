@@ -30,33 +30,38 @@ public class MapSelectorActivity extends Activity {
 
 
 	@Override  
-	public void onCreate(Bundle savedInstanceState) {  
+	public void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);  
-		setContentView(R.layout.mapselect);  
-		edv=(EditText)findViewById(R.id.mapselectet);
-		bt=(Button)this.findViewById(R.id.mapselectbut);
-		files = new ArrayList<String>();
-
-		for(String f : Game.instance.fileList()){
-			if(f.endsWith(".map")){
-				files.add(f.substring(0, f.length()-4));
-			}
+		if(Game.instance == null){
+			finish();
 		}
-		mlayout= (LinearLayout) findViewById(R.id.mapselectlinear);
-		bt.setOnClickListener(new OnClickListener(){
+		else{
+			setContentView(R.layout.mapselect);  
+			edv=(EditText)findViewById(R.id.mapselectet);
+			bt=(Button)this.findViewById(R.id.mapselectbut);
+			files = new ArrayList<String>();
 
-			@Override
-			public void onClick(View v) {
-				String temp = edv.getText().toString();
-				if(files.size() < 10 && !temp.equals("") && !files.contains(temp)){
-					Button but=new Button (MapSelectorActivity.this);
-					but.setOnClickListener(getListener());
-					but.setOnLongClickListener(getLongListener());
-					but.setText(temp);
-					mlayout.addView(but);
-					files.add(temp);
-					TemplateHandler.getInstance(temp);
-				}}});
+			for(String f : Game.instance.fileList()){
+				if(f.endsWith(".map")){
+					files.add(f.substring(0, f.length()-4));
+				}
+			}
+			mlayout= (LinearLayout) findViewById(R.id.mapselectlinear);
+			bt.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					String temp = edv.getText().toString();
+					if(files.size() < 10 && !temp.equals("") && !files.contains(temp)){
+						Button but=new Button (MapSelectorActivity.this);
+						but.setOnClickListener(getListener());
+						but.setOnLongClickListener(getLongListener());
+						but.setText(temp);
+						mlayout.addView(but);
+						files.add(temp);
+						TemplateHandler.getInstance(temp);
+					}}});
+		}
 	}   
 	@Override
 	public void onStart(){
@@ -118,7 +123,7 @@ public class MapSelectorActivity extends Activity {
 				for(String f : Game.instance.fileList()){
 					if(f.equals(temp + ".map")){
 						Dungeon.template = (TemplateHandler.getInstance(temp))
-										    .getDungeon();
+								.getDungeon();
 						Dungeon.deleteGame(HeroClass.WARRIOR, true);
 						Dungeon.deleteGame(HeroClass.MAGE, true);
 						Dungeon.deleteGame(HeroClass.ROGUE, true);

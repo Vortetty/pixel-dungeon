@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.LevelTemplate;
+import com.watabou.noosa.Game;
 public class EnchantableItemsActivity extends Activity {
 	
     public static final String EXTRA_DEPTH = "depth";
@@ -57,4 +58,11 @@ public class EnchantableItemsActivity extends Activity {
         });
 
     }
+	@Override
+	public void onStart(){
+		super.onStart();
+		if(Game.instance == null){
+			finish();
+		}
+	}
 }

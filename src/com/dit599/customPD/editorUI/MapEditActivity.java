@@ -8,6 +8,7 @@ import android.widget.TabHost.OnTabChangeListener;
 
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.LevelTemplate;
+import com.watabou.noosa.Game;
 
 
 public class MapEditActivity extends FragmentActivity{
@@ -107,6 +108,9 @@ public class MapEditActivity extends FragmentActivity{
 	@Override
 	public void onResume(){
 		super.onResume();
+		if(Game.instance == null){
+			finish();
+		}
         if (mapName == null) {
             mapName = getIntent().getStringExtra(EXTRA_FILENAME);
         }

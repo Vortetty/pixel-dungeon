@@ -3,6 +3,7 @@ package com.dit599.customPD.editorUI;
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.levels.template.LevelTemplate;
+import com.watabou.noosa.Game;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -99,6 +100,9 @@ public class MapMobItemActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
+		if(Game.instance == null){
+			finish();
+		}
 		if (level == null){
 			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
 					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));

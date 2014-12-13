@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.LevelTemplate;
+import com.watabou.noosa.Game;
 public class MagicItemsActivity extends Activity {
 	
 	public Spinner armtypespin,armechspin,armlevelspin=null;
@@ -64,8 +65,12 @@ public class MagicItemsActivity extends Activity {
  			return false;
  		}
  	};
- 	public void onStart(){
+	@Override
+	public void onStart(){
 		super.onStart();
+		if(Game.instance == null){
+			finish();
+		}
 		if(RingMapping.getAllNames()==null||WandMapping.getAllNames() == null){
 			initMappings();
 		}

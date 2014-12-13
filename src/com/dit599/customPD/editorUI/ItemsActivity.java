@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.dit599.customPD.R;
 import com.dit599.customPD.levels.template.LevelTemplate;
+import com.watabou.noosa.Game;
 public class ItemsActivity extends Activity {
 
 	public Spinner itemtypespin=null;
@@ -65,8 +66,12 @@ public class ItemsActivity extends Activity {
 			return false;
 		}
 	};
+	@Override
 	public void onStart(){
 		super.onStart();
+		if(Game.instance == null){
+			finish();
+		}
 		if(PotionMapping.getAllNames() == null){
 			initMappings();
 		}
