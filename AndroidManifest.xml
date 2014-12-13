@@ -3,8 +3,8 @@
 
    package="com.dit599.customPD"
     android:installLocation="auto"
-    android:versionCode="65"
-    android:versionName="0.9a" >
+    android:versionCode="66"
+    android:versionName="0.9b" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
