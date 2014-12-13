@@ -48,7 +48,7 @@ public class TemplateFactory {
 		boolean found = false;
 		try{
 			template.load(name);
-			if(template.levelTemplates.get(0).specialRooms.size() > 0){
+			if(template.levelTemplates.size() > 0){
 				found = true;
 				Log.d("SUCCESS", "Loaded .map");
 			}
