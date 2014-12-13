@@ -38,8 +38,6 @@ import android.widget.LinearLayout;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.R;
 import com.dit599.customPD.actors.hero.HeroClass;
-import com.dit599.customPD.levels.template.DungeonTemplate;
-import com.dit599.customPD.levels.template.TemplateFactory;
 import com.watabou.noosa.Game;
 
 public class MapSelectorActivity extends Activity {

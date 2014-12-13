@@ -66,7 +66,7 @@ public class TemplateFactory {
 //			template.levelTemplates.add(createSimpleLevel());
 //			template.levelTemplates.add(createSimpleLevel());
 //			template.levelTemplates.get(3).theme = SewerBossLevel.class;
-//			template.save(name);
+			template.save(name);
 			Log.d("NEW", "Created .map");
 		}
 		return template;

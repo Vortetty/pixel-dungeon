@@ -37,7 +37,6 @@
         <Button
             android:id="@+id/itemdeletbt"
             android:layout_width="wrap_content"
-            android:layout_marginRight="50px"
             android:layout_height="wrap_content"
             android:text="Delete"
             android:textSize="16sp"

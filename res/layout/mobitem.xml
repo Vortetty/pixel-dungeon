@@ -8,16 +8,16 @@
         android:id="@+id/mobtypespinner"
         android:layout_width="170dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="120px"
-        android:layout_marginTop="50px"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
         android:prompt="@string/theme" />
 
     <Spinner
         android:id="@+id/mobfrespinner"
         android:layout_width="170dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="120px"
-        android:layout_marginTop="20px"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:prompt="@string/theme" />
 
     <LinearLayout
@@ -28,20 +28,22 @@
         <Button
             android:id="@+id/mobconfirmbutton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="90px"
-            android:layout_marginTop="60px"
+            android:layout_height="wrap_content"        
+        	android:layout_gravity="center|top"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
             android:text="Done"
-            android:textSize="30px" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/mobcancelbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="70px"
-            android:layout_marginTop="60px"
+            android:layout_gravity="center|top"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp"
             android:text="Cancel"
-            android:textSize="30px" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>
