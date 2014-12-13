@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.scenes;
 
 import android.util.Log;
@@ -49,7 +49,7 @@ public class GameModeScene extends PixelScene{
 	private static final String TXT_CUSTOM			= "Custom";
 	private static final String TXT_MAP_EDITOR		= "Map Editor";
 	private static final String TXT_TUTORIAL		= "Tutorial";
-	
+
 	/**
 	 * Modified to use buttons that redirect to the correct game mode and sets some flags
 	 * & other values when onClick().
@@ -82,11 +82,11 @@ public class GameModeScene extends PixelScene{
 		placeTorch( title.x + 18, title.y + 20 );
 		placeTorch( title.x + title.width - 18, title.y + 20 );
 
-        DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 2) {
+		DashboardItem btnCustom = new DashboardItem(TXT_CUSTOM, 2) {
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
-                Dungeon.template = new DungeonTemplate();
+				Dungeon.template = new DungeonTemplate();
 				Dungeon.firePrompt = true;
 				Dungeon.encounteredMob = true;
 				Dungeon.foundHeap = true;
@@ -95,14 +95,14 @@ public class GameModeScene extends PixelScene{
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
 				Dungeon.collectedDrop = true;
-                CustomPD.switchNoFade( ChooseDungeonScene.class );
+				CustomPD.switchNoFade( ChooseDungeonScene.class );
 			}
 		};
 		btnCustom.setPos( w / 2 - btnCustom.width(), (h + height) / 2 - DashboardItem.SIZE );
 		add( btnCustom );
 
-        DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 3) {
-		
+		DashboardItem btnEditor = new DashboardItem(TXT_MAP_EDITOR, 3) {
+
 			@Override
 			protected void onClick() {
 				Dungeon.isTutorial = false;
@@ -115,7 +115,7 @@ public class GameModeScene extends PixelScene{
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
 				Dungeon.collectedDrop = true;
-                CustomPD.self.editMaps();
+				CustomPD.self.editMaps();
 			}
 
 		};
@@ -195,7 +195,7 @@ public class GameModeScene extends PixelScene{
 
 		private Image image;
 		private BitmapText label;
-        private boolean enabled = true;
+		private boolean enabled = true;
 
 		public DashboardItem( String text, int index ) {
 			super();
@@ -207,10 +207,10 @@ public class GameModeScene extends PixelScene{
 			setSize( SIZE, SIZE );
 		}
 
-        public DashboardItem(String text, int index, boolean enabled) {
-            this(text, index);
-            this.enabled = enabled;
-        }
+		public DashboardItem(String text, int index, boolean enabled) {
+			this(text, index);
+			this.enabled = enabled;
+		}
 
 		@Override
 		protected void createChildren() {
@@ -236,15 +236,18 @@ public class GameModeScene extends PixelScene{
 
 		@Override
 		protected void onTouchDown() {
-            if (enabled) {
-                image.brightness(1.5f);
-                Sample.INSTANCE.play(Assets.SND_CLICK, 1, 1, 0.8f);
-            }
+			if (enabled) {
+				image.brightness(1.5f);
+				Sample.INSTANCE.play(Assets.SND_CLICK, 1, 1, 0.8f);
+			}
 		}
 
 		@Override
 		protected void onTouchUp() {
 			image.resetColor();
 		}
+	}
+	protected void onBackPressed() {
+		CustomPD.switchNoFade( TitleScene.class );
 	}
 }

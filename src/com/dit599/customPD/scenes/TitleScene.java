@@ -188,4 +188,7 @@ public class TitleScene extends PixelScene {
 			image.resetColor();
 		}
 	}
+	protected void onBackPressed() {
+			Game.instance.finish();
+	}
 }
