@@ -34,7 +34,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.items.rings.RingOfAccuracy;
+import com.dit599.customPD.items.wands.WandOfAmok;
 import com.dit599.customPD.levels.template.LevelTemplate;
+import com.dit599.customPD.levels.template.LevelTemplate.MagicItem;
 import com.watabou.noosa.Game;
 public class MagicItemsActivity extends Activity {
 	
@@ -49,8 +52,8 @@ public class MagicItemsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.customizable_item_activity3);  
-        
         layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout3);
+		this.setTitle(FloorFragment.chooseItemType);
 		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
 				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
         mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view3);

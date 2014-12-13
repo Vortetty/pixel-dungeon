@@ -51,8 +51,8 @@ public class ItemsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {  
 		super.onCreate(savedInstanceState);  
 		setContentView(R.layout.customizable_item_activity2);  
-
 		layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout2);
+		this.setTitle(FloorFragment.chooseItemType);
 		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
 				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view2);
