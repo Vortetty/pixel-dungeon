@@ -588,11 +588,13 @@ public abstract class RegularLevel extends Level {
 		 int nMobs = nMobs();
 		 for (int i=0; i < nMobs; i++) {
 			 Mob mob = Bestiary.mob( Dungeon.depth );
+			 if(mob!=null){
 			 do {
 				 mob.pos = randomRespawnCell();
 			 } while (mob.pos == -1);
 			 mobs.add( mob );
 			 Actor.occupyCell( mob );
+		 }
 		 }
 	 }
 

@@ -93,6 +93,9 @@ public class LevelTemplate implements Bundlable{
 		for (MobProbability prob : mobs) {
 			totalWeight += prob.weight;
 		}
+		if(totalWeight == 0){
+			return null;
+		}
 		int rnd = Random.Int(totalWeight);
 		int index = 0;
 		while (rnd >= mobs.get(index).weight) {

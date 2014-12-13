@@ -195,7 +195,7 @@ public abstract class Level implements Bundlable {
 				switch (Random.Int( 10 )) {
 				case 0:
 					if (!Dungeon.isTutorial &&  
-					!Dungeon.bossLevel( Dungeon.depth + 1 )) {
+							!Dungeon.bossLevel( Dungeon.depth + 1 )) {
 						feeling = Feeling.CHASM;
 					}
 					break;
@@ -394,12 +394,14 @@ public abstract class Level implements Bundlable {
 				if (!Dungeon.isTutorial && mobs.size() < nMobs()) {
 
 					Mob mob = Bestiary.mutable( Dungeon.depth );
-					mob.state = mob.WANDERING;
-					mob.pos = randomRespawnCell();
-					if (Dungeon.hero.isAlive() && mob.pos != -1) {
-						GameScene.add( mob );
-						if (Statistics.amuletObtained) {
-							mob.beckon( Dungeon.hero.pos );
+					if(mob!=null){
+						mob.state = mob.WANDERING;
+						mob.pos = randomRespawnCell();
+						if (Dungeon.hero.isAlive() && mob.pos != -1) {
+							GameScene.add( mob );
+							if (Statistics.amuletObtained) {
+								mob.beckon( Dungeon.hero.pos );
+							}
 						}
 					}
 				}
