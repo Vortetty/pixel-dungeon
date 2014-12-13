@@ -144,27 +144,27 @@ public class ItemAdapter extends BaseAdapter {
 		// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// 			
 		if(FloorFragment.chooseItemType.equals("Potions")){
-			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, PotionMapping.getAllNames());    	
+			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, PotionMapping.getAllNames());    	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 		}else if(FloorFragment.chooseItemType.equals("Scrolls")){
-			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, ScrollMapping.getAllNames());    	   	
+			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, ScrollMapping.getAllNames());    	   	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 		}else if(FloorFragment.chooseItemType.equals("Rooms")){
-			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, RoomMapping.getAllNames());    	 	
+			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, RoomMapping.getAllNames());    	 	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 		}else if(FloorFragment.chooseItemType.equals("Seeds")){
-			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, SeedMapping.getAllNames());    	   	
+			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, SeedMapping.getAllNames());    	   	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
 		}else if(FloorFragment.chooseItemType.equals("Other")){
-			adapter= new ArrayAdapter<String> (context, android.R.layout.simple_spinner_item, ConsumableMapping.getAllNames());    	    	
+			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, ConsumableMapping.getAllNames());    	    	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 

@@ -137,7 +137,7 @@ public class EnchantableItemAdapter extends BaseAdapter {
             case EnchantableItemsActivity.WEAPON:
 
                 ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_spinner_item, weapons);
+                		R.layout.item_spinner, weapons);
                 weaponAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 typeSpn.setAdapter(weaponAdapter);
@@ -170,7 +170,7 @@ public class EnchantableItemAdapter extends BaseAdapter {
                 
                 
                 ArrayAdapter<String> enchantmentsAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_spinner_item, enchants);
+                        R.layout.item_spinner, enchants);
                 enchantmentsAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 enchantSpn.setAdapter(enchantmentsAdapter);
@@ -202,7 +202,7 @@ public class EnchantableItemAdapter extends BaseAdapter {
 
                 String[] levels = context.getResources().getStringArray(R.array.item_levels);
                 levelsAdapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_spinner_item, levels);
+                        R.layout.item_spinner, levels);
                 levelsAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 levelSpn.setAdapter(levelsAdapter);
