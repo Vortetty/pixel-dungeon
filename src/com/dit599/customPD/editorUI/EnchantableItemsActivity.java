@@ -48,7 +48,7 @@ public class EnchantableItemsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.customizable_item_activity);
-
+       
         String mapName = getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME);
         int depth = getIntent().getIntExtra(EXTRA_DEPTH, 0);
         if (depth == 0) {
@@ -57,7 +57,13 @@ public class EnchantableItemsActivity extends Activity {
         level = TemplateHandler.getInstance(mapName).getLevel(depth);
         
         int type = getIntent().getIntExtra(EXTRA_TYPE, 0);
-
+        
+        if (type == WEAPON){
+        	 setTitle("Weapons");
+        }
+        else{
+        	setTitle("Armor");
+        }
         layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout);
         
         mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view);

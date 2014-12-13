@@ -47,7 +47,7 @@ public abstract class EnchantmentsMapping {
 		enchantmentsclasslist.add(Swing.class);
 
 		enchantmentsnamelist = new ArrayList<String>();
-		enchantmentsnamelist.add("None");
+		enchantmentsnamelist.add("No Enchant");
 		enchantmentsnamelist.add("Grim");
 		enchantmentsnamelist.add("Blazing");
 		enchantmentsnamelist.add("Eldritch");

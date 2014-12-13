@@ -120,7 +120,7 @@ public class EnchantableItemAdapter extends BaseAdapter {
         public Spinner enchantSpn;
         public Button deleteBtn;
         public TextView type_tv;
-        public TextView enchant_tv;
+     //   public TextView enchant_tv;
         private ArrayAdapter<String> levelsAdapter;
 
         final List<String> weapons = WeaponMapping.getAllNames();
@@ -131,7 +131,7 @@ public class EnchantableItemAdapter extends BaseAdapter {
             levelSpn = (Spinner) root.findViewById(R.id.level_spinner);
             enchantSpn = (Spinner) root.findViewById(R.id.enchant_spinner);
             deleteBtn = (Button) root.findViewById(R.id.delete_btn);
-            enchant_tv = (TextView) root.findViewById(R.id.enchant_tv);
+          //  enchant_tv = (TextView) root.findViewById(R.id.enchant_tv);
             
             switch (type) {
             case EnchantableItemsActivity.WEAPON:

@@ -46,7 +46,7 @@ public abstract class GlyphsMapping {
 		glyphclasslist.add(Viscosity.class);
 
 		glyphnamelist = new ArrayList<String>();
-		glyphnamelist.add("None");
+		glyphnamelist.add("No Glyph");
 		glyphnamelist.add("Affection");
 		glyphnamelist.add("Anti-Entropy");
 		glyphnamelist.add("Bounce");
