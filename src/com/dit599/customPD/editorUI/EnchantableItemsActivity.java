@@ -91,4 +91,9 @@ public class EnchantableItemsActivity extends Activity {
 			finish();
 		}
 	}
+	@Override
+	public void onPause(){
+		super.onPause();
+		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME)).save();
+	}
 }

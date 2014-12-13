@@ -122,4 +122,9 @@ public class MagicItemsActivity extends Activity {
 			i--;
 		}
 	}
+	@Override
+	public void onPause(){
+		super.onPause();
+		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME)).save();
+	}
 }
