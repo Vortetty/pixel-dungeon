@@ -147,6 +147,16 @@ public class LevelTemplate implements Bundlable{
 				Wand w = (Wand) m.itemClass.newInstance();
 				w.cursed = m.cursed;
 				w.level = m.level;
+				if(m.level > 2){
+					if(m.level <= 9){//hadcoded Maxcharges in Wand
+						w.curCharges = m.level;
+						w.maxCharges = m.level;
+					}
+					else{
+						w.curCharges = 9;
+						w.maxCharges = 9;
+					}
+				}
 				items.add(w);
 			}
 			for (MagicItem m : rings) {
