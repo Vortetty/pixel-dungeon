@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.dit599.customPD.R;
 import com.dit599.customPD.items.Ankh;
+import com.dit599.customPD.items.Gold;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.potions.Potion;
 import com.dit599.customPD.items.potions.PotionOfHealing;
@@ -228,7 +229,11 @@ public class ItemAdapter extends BaseAdapter {
 				level.seeds.set(position, (Plant.Seed) SeedMapping.getSeedClass(type).newInstance());		
 			}
 			else if(FloorFragment.chooseItemType.equals("Other")){
-				level.consumables.set(position, (Item) ConsumableMapping.getConsumableClass(type).newInstance());		
+				Item temp = (Item) ConsumableMapping.getConsumableClass(type).newInstance();
+				if(temp instanceof Gold){
+					temp = temp.random();
+				}
+				level.consumables.set(position, temp);		
 			}
 		}
 		catch (Exception e){
