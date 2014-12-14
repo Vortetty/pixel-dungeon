@@ -90,7 +90,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(v.getContext(),
+				intent.setClass(getActivity(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 0);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
@@ -104,7 +104,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(v.getContext(),
+				intent.setClass(getActivity(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 1);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
@@ -118,7 +118,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(v.getContext(),
+				intent.setClass(getActivity(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 2);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
@@ -132,7 +132,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(v.getContext(),
+				intent.setClass(getActivity(),
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 3);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,

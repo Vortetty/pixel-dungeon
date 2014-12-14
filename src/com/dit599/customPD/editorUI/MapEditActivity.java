@@ -73,10 +73,6 @@ public class MapEditActivity extends FragmentActivity{
                 FloorFragment.class, null);
             depth++;
         }
-
-        if (mTabHost.getTabWidget().getTabCount() > 1) {
-            mTabHost.setCurrentTab(1);
-        }
         
         
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){
@@ -94,6 +90,11 @@ public class MapEditActivity extends FragmentActivity{
 			    	mTabHost.setCurrentTab(tabCount);	    	
 			    }
 		}});
+        
+
+        if (mTabHost.getTabWidget().getTabCount() > 1) {
+            mTabHost.setCurrentTab(1);
+        }
 	}
 	
     public void initMappings() {

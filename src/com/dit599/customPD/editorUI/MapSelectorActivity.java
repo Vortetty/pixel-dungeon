@@ -50,11 +50,11 @@ public class MapSelectorActivity extends Activity {
 	@Override  
 	public void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);  
+		setContentView(R.layout.mapselect);  
 		if(Game.instance == null){
 			finish();
 		}
 		else{
-			setContentView(R.layout.mapselect);  
 			edv=(EditText)findViewById(R.id.mapselectet);
 			bt=(Button)this.findViewById(R.id.mapselectbut);
 			files = new ArrayList<String>();

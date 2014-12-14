@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-   package="com.dit599.customPD"
+    package="com.dit599.customPD"
     android:installLocation="auto"
     android:versionCode="67"
     android:versionName="0.9c" >
@@ -25,64 +24,85 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo" >
-        
         <activity
             android:name="com.dit599.customPD.CustomPD"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="com.dit599.customPD.editorUI.FloorsListActivity">
+        <activity android:name="com.dit599.customPD.editorUI.FloorsListActivity" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.FloorsListActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".editorUI.MapEditActivity"
-            android:label="Map filename" />
-        
-        <activity android:name=".editorUI.MapMobItemActivity"
-              android:label="Set Mobtype"/>
-        
-        <activity android:name=".editorUI.MapSelectArmorActivity"/>
-        
-        <activity android:name=".editorUI.MapSelectorActivity"
-            android:label="Maps">
+        <activity
+            android:name="com.dit599.customPD.editorUI.MapEditActivity"
+            android:label="Map filename" >
             <intent-filter>
-                 <action android:name="SelectMapToEdit" />
-                 <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.dit599.customPD.editorUI.MapEditActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity"
+        <activity
+            android:name=".editorUI.MapMobItemActivity"
+            android:label="Set Mobtype" >
+            <intent-filter>
+                <action android:name="com.dit599.customPD.editorUI.MapMobItemActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".editorUI.MapSelectArmorActivity" >
+                        <intent-filter>
+                <action android:name="com.dit599.customPD.editorUI.MapSelectArmorActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.dit599.customPD.editorUI.MapSelectorActivity"
+            android:label="Maps" >
+            <intent-filter>
+                <action android:name="com.dit599.customPD.editorUI.MapSelectorActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity"
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-         <activity android:name="com.dit599.customPD.editorUI.ItemsActivity"
+        <activity
+            android:name="com.dit599.customPD.editorUI.ItemsActivity"
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.ItemsActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-         <activity android:name="com.dit599.customPD.editorUI.MagicItemsActivity"
+        <activity
+            android:name="com.dit599.customPD.editorUI.MagicItemsActivity"
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MagicItemsActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
     </application>
 
 </manifest>
