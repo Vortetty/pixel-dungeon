@@ -54,7 +54,7 @@ public class AboutScene extends PixelScene {
 	private static final String GPL_LNK = "gnu.org/copyleft/gpl.html";
 	
 	/**
-	 * Modified (as well as the static strings in this class) to presentrelevant links to the license
+	 * Modified (as well as the static strings in this class) to present relevant links to the license
 	 * and original game, as well as present how this is a modification.
 	 */
 	@Override
