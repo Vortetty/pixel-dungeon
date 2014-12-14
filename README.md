@@ -4,7 +4,7 @@ YourPD
 This is a modified version of the open-source game Pixel Dungeon, which 
 is a traditional roguelike game with pixel-art graphics and simple interface.
 This modification adds a tutorial to the game to help new players get started,
-and we are also working on adding a map editor/play custom map mode, to give
+and we have also added a map editor/play custom map mode, to give
 players the ability to modify their play experience.
 
 The source code of this modification is available here:
