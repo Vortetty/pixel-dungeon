@@ -51,7 +51,7 @@ public class MapMobItemActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 				.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		super.setContentView(R.layout.mobitem); 
 		this.mobconfimbt=(Button) this.findViewById(R.id.mobconfirmbutton);
@@ -120,11 +120,11 @@ public class MapMobItemActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		if(Game.instance == null){
+		if(this == null){
 			finish();
 		}
 		if (level == null){
-			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(MobMapping.getAllNames() == null){

@@ -54,7 +54,7 @@ public class EnchantableItemsActivity extends Activity {
         if (depth == 0) {
             throw new RuntimeException();
         }
-        level = TemplateHandler.getInstance(mapName).getLevel(depth);
+        level = TemplateHandler.getInstance(mapName, this).getLevel(depth);
         
         int type = getIntent().getIntExtra(EXTRA_TYPE, 0);
         
@@ -87,13 +87,13 @@ public class EnchantableItemsActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		if(Game.instance == null){
+		if(this == null){
 			finish();
 		}
 	}
 	@Override
 	public void onPause(){
 		super.onPause();
-		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME)).save();
+		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this).save(this);
 	}
 }

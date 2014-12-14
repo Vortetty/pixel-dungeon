@@ -54,7 +54,7 @@ public class MagicItemsActivity extends Activity {
         setContentView(R.layout.customizable_item_activity3);  
         layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout3);
 		this.setTitle(FloorFragment.chooseItemType);
-		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
         mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view3);
         View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
@@ -91,14 +91,14 @@ public class MagicItemsActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		if(Game.instance == null){
+		if(this == null){
 			finish();
 		}
 		if(RingMapping.getAllNames()==null||WandMapping.getAllNames() == null){
 			initMappings();
 		}
 		if (level == null){
-			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME))
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 					 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(mItemAdapter.getCount() == 0){
@@ -125,6 +125,6 @@ public class MagicItemsActivity extends Activity {
 	@Override
 	public void onPause(){
 		super.onPause();
-		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME)).save();
+		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this).save(this);
 	}
 }

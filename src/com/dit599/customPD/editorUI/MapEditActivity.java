@@ -53,7 +53,7 @@ public class MapEditActivity extends FragmentActivity{
         }
         setTitle(mapName);
 
-        templateHandler = TemplateHandler.getInstance(mapName);
+        templateHandler = TemplateHandler.getInstance(mapName, this);
 
         if (templateHandler == null || templateHandler.getDungeon() == null) {
             throw new NullPointerException();
@@ -81,7 +81,7 @@ public class MapEditActivity extends FragmentActivity{
                 if (tabSpec.equals(TAB_ADD_FLOOR)) {
 			    	int tabCount = mTabHost.getTabWidget().getTabCount();
                     String tab_name = "Floor " + tabCount;
-                    templateHandler = TemplateHandler.getInstance(mapName);
+                    templateHandler = TemplateHandler.getInstance(mapName, getApplicationContext());
                     templateHandler.addLevel();
 			    	mTabHost.addTab(
                             mTabHost.newTabSpec(String.valueOf(tabCount)).setIndicator(tab_name,
@@ -114,22 +114,22 @@ public class MapEditActivity extends FragmentActivity{
     }
 
 	public void onBackPressed() {
-		templateHandler = TemplateHandler.getInstance(mapName);
-		templateHandler.save();
+		templateHandler = TemplateHandler.getInstance(mapName, this);
+		templateHandler.save(this);
 		super.onBackPressed();
 	}
 
 	@Override
 	public void onPause(){
 		super.onPause();
-		templateHandler = TemplateHandler.getInstance(mapName);
-		templateHandler.save();
+		templateHandler = TemplateHandler.getInstance(mapName,this);
+		templateHandler.save(this);
 	}
 	
 	@Override
 	public void onResume(){
 		super.onResume();
-		if(Game.instance == null){
+		if(this == null){
 			finish();
 		}
         if (mapName == null) {
@@ -137,7 +137,7 @@ public class MapEditActivity extends FragmentActivity{
         }
         setTitle(mapName);
         if (templateHandler == null || templateHandler.getDungeon() == null) {
-        	 templateHandler = TemplateHandler.getInstance(mapName);
+        	 templateHandler = TemplateHandler.getInstance(mapName, this);
         }
 		if(MobMapping.getAllNames() == null){
 	        initMappings();

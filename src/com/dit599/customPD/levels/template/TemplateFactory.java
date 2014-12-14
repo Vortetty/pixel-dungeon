@@ -23,6 +23,7 @@ package com.dit599.customPD.levels.template;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.dit599.customPD.actors.mobs.Gnoll;
@@ -43,11 +44,11 @@ import com.dit599.customPD.levels.template.LevelTemplate.MagicItem;
 
 public class TemplateFactory {
 
-	public static DungeonTemplate createSimpleDungeon(String name) {
+	public static DungeonTemplate createSimpleDungeon(String name, Context c) {
 		DungeonTemplate template = new DungeonTemplate();
 		boolean found = false;
 		try{
-			template.load(name);
+			template.load(name, c);
 			if(template.levelTemplates.size() > 0){
 				found = true;
 				Log.d("SUCCESS", "Loaded .map");
@@ -66,7 +67,7 @@ public class TemplateFactory {
 //			template.levelTemplates.add(createSimpleLevel());
 //			template.levelTemplates.add(createSimpleLevel());
 //			template.levelTemplates.get(3).theme = SewerBossLevel.class;
-			template.save(name);
+			template.save(name, c);
 			Log.d("NEW", "Created .map");
 		}
 		return template;

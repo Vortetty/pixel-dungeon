@@ -51,7 +51,7 @@ public class MapSelectorActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);  
 		setContentView(R.layout.mapselect);  
-		if(Game.instance == null){
+		if(this == null){
 			finish();
 		}
 		else{
@@ -59,7 +59,7 @@ public class MapSelectorActivity extends Activity {
 			bt=(Button)this.findViewById(R.id.mapselectbut);
 			files = new ArrayList<String>();
 
-			for(String f : Game.instance.fileList()){
+			for(String f : this.fileList()){
 				if(f.endsWith(".map")){
 					files.add(f.substring(0, f.length()-4));
 				}
@@ -77,7 +77,7 @@ public class MapSelectorActivity extends Activity {
 						but.setText(temp);
 						mlayout.addView(but);
 						files.add(temp);
-						TemplateHandler.getInstance(temp);
+						TemplateHandler.getInstance(temp, getApplicationContext());
 					}}});
 		}
 	}   
@@ -87,7 +87,7 @@ public class MapSelectorActivity extends Activity {
 		if(files == null){
 			files = new ArrayList<String>();
 
-			for(String f : Game.instance.fileList()){
+			for(String f : this.fileList()){
 				if(f.endsWith(".map")){
 					files.add(f.substring(0, f.length()-4));
 				}
@@ -138,9 +138,9 @@ public class MapSelectorActivity extends Activity {
 				String temp = ((Button)v).getText().toString();
 				files.remove(temp);
 				mlayout.removeView(v);
-				for(String f : Game.instance.fileList()){
+				for(String f : getApplicationContext().fileList()){
 					if(f.equals(temp + ".map")){
-						Dungeon.template = (TemplateHandler.getInstance(temp))
+						Dungeon.template = (TemplateHandler.getInstance(temp, getApplicationContext()))
 								.getDungeon();
 						Dungeon.deleteGame(HeroClass.WARRIOR, true);
 						Dungeon.deleteGame(HeroClass.MAGE, true);

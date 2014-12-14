@@ -89,7 +89,7 @@ public class ChooseDungeonScene extends PixelScene {
 					@Override
 					protected void onClick() {
 						Log.d("SELECTION", f.substring(0, f.length() - 4));
-						Dungeon.template = TemplateFactory.createSimpleDungeon(f.substring(0, f.length() - 4));
+						Dungeon.template = TemplateFactory.createSimpleDungeon(f.substring(0, f.length() - 4), Game.instance);
 						CustomPD.switchNoFade( StartScene.class );
 					}
 				};

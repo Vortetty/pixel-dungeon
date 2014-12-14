@@ -23,6 +23,8 @@ package com.dit599.customPD.editorUI;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+import android.content.Context;
+
 import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.levels.template.LevelTemplate;
 import com.dit599.customPD.levels.template.TemplateFactory;
@@ -49,29 +51,29 @@ public class TemplateHandler {
      * @return
      * @throws FileNotFoundException
      */
-    public static TemplateHandler getInstance(String mapName) {
+    public static TemplateHandler getInstance(String mapName, Context c) {
         TemplateHandler instance = instances.get(mapName);
         if (instance == null) {
-            instance = new TemplateHandler(mapName);
+            instance = new TemplateHandler(mapName, c);
             instances.put(mapName, instance);
         }
         return instance;
     }
 
-    private TemplateHandler(String mapName) {
+    private TemplateHandler(String mapName, Context c) {
         this.mapName = mapName;
-        loadFromFile();
+        loadFromFile(c);
     }
 
     /**
      * Synchronously loads the specified template.
      */
-    private void loadFromFile() {
-        setTemplate(TemplateFactory.createSimpleDungeon(mapName));
+    private void loadFromFile(Context c) {
+        setTemplate(TemplateFactory.createSimpleDungeon(mapName, c));
     }
 
-    public void save() {
-    	getTemplate().save(mapName);
+    public void save(Context c) {
+    	getTemplate().save(mapName, c);
     }
 
     public DungeonTemplate getDungeon() {

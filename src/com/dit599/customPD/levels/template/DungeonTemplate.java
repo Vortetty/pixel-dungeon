@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.watabou.noosa.Game;
@@ -46,8 +47,8 @@ public class DungeonTemplate implements Bundlable{
 //    	}
     }
 
-    public DungeonTemplate(String file) {
-        load(file);
+    public DungeonTemplate(String file, Context c) {
+        load(file, c);
     }
 
     public void reset(){
@@ -73,23 +74,23 @@ public class DungeonTemplate implements Bundlable{
 	}
 
 
-	public void save(String file) {
+	public void save(String file, Context c) {
 		Bundle bundle = new Bundle();
 		name = file;
 		storeInBundle(bundle);
 		try {
-			OutputStream output = Game.instance.openFileOutput(name + ".map", Game.MODE_PRIVATE );
+			OutputStream output = c.openFileOutput(name + ".map", Game.MODE_PRIVATE );
 			Bundle.write( bundle, output );
 			output.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public void load(String file) {
+	public void load(String file, Context c) {
 		Bundle  bundle = null;
 		name = file;
 		try {
-			InputStream input = Game.instance.openFileInput(name + ".map");
+			InputStream input = c.openFileInput(name + ".map");
 			bundle = Bundle.read( input );
 			input.close();
 			if(bundle == null){
