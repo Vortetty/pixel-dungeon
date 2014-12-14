@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.dit599.customPD.actors.Actor;
@@ -825,6 +826,19 @@ public class Dungeon {
 		if (deleteLevels) {
 			int depth = 1;
 			while (Game.instance.deleteFile( Utils.format( depthFile( cl ), depth ) )) {
+				depth++;
+			}
+		}
+
+		GamesInProgress.delete( cl );
+	}
+	public static void deleteGameWithContext( HeroClass cl, boolean deleteLevels,  Context c) {
+
+		c.deleteFile( gameFile( cl ) );
+
+		if (deleteLevels) {
+			int depth = 1;
+			while (c.deleteFile( Utils.format( depthFile( cl ), depth ) )) {
 				depth++;
 			}
 		}

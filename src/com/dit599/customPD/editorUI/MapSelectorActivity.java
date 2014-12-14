@@ -142,11 +142,11 @@ public class MapSelectorActivity extends Activity {
 					if(f.equals(temp + ".map")){
 						Dungeon.template = (TemplateHandler.getInstance(temp, getApplicationContext()))
 								.getDungeon();
-						Dungeon.deleteGame(HeroClass.WARRIOR, true);
-						Dungeon.deleteGame(HeroClass.MAGE, true);
-						Dungeon.deleteGame(HeroClass.ROGUE, true);
-						Dungeon.deleteGame(HeroClass.HUNTRESS, true);
-						Game.instance.deleteFile(f);
+						Dungeon.deleteGameWithContext(HeroClass.WARRIOR, true, getApplicationContext());
+						Dungeon.deleteGameWithContext(HeroClass.MAGE, true, getApplicationContext());
+						Dungeon.deleteGameWithContext(HeroClass.ROGUE, true, getApplicationContext());
+						Dungeon.deleteGameWithContext(HeroClass.HUNTRESS, true, getApplicationContext());
+						getApplicationContext().deleteFile(f);
 						Dungeon.template = null;
 						break;
 					}
