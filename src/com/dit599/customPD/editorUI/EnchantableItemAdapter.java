@@ -36,6 +36,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.editorUI.Mappings.ArmorMapping;
+import com.dit599.customPD.editorUI.Mappings.EnchantmentsMapping;
+import com.dit599.customPD.editorUI.Mappings.GlyphsMapping;
+import com.dit599.customPD.editorUI.Mappings.WeaponMapping;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.armor.Armor;
 import com.dit599.customPD.items.armor.Armor.Glyph;

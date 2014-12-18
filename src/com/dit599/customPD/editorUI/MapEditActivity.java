@@ -27,6 +27,19 @@ import android.support.v4.app.FragmentTabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.editorUI.Mappings.ArmorMapping;
+import com.dit599.customPD.editorUI.Mappings.ConsumableMapping;
+import com.dit599.customPD.editorUI.Mappings.EnchantmentsMapping;
+import com.dit599.customPD.editorUI.Mappings.GlyphsMapping;
+import com.dit599.customPD.editorUI.Mappings.LevelMapping;
+import com.dit599.customPD.editorUI.Mappings.MobMapping;
+import com.dit599.customPD.editorUI.Mappings.PotionMapping;
+import com.dit599.customPD.editorUI.Mappings.RingMapping;
+import com.dit599.customPD.editorUI.Mappings.RoomMapping;
+import com.dit599.customPD.editorUI.Mappings.ScrollMapping;
+import com.dit599.customPD.editorUI.Mappings.SeedMapping;
+import com.dit599.customPD.editorUI.Mappings.WandMapping;
+import com.dit599.customPD.editorUI.Mappings.WeaponMapping;
 import com.dit599.customPD.levels.template.LevelTemplate;
 import com.watabou.noosa.Game;
 

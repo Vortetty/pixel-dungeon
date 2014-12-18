@@ -21,6 +21,7 @@
 package com.dit599.customPD.editorUI;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.editorUI.Mappings.MobMapping;
 import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.levels.template.LevelTemplate;
 import com.watabou.noosa.Game;

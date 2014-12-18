@@ -34,6 +34,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.editorUI.Mappings.RingMapping;
+import com.dit599.customPD.editorUI.Mappings.WandMapping;
 import com.dit599.customPD.items.rings.RingOfAccuracy;
 import com.dit599.customPD.items.wands.WandOfAmok;
 import com.dit599.customPD.levels.template.LevelTemplate;

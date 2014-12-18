@@ -39,6 +39,7 @@ import android.widget.Spinner;
 import android.widget.TabHost.TabSpec;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.editorUI.Mappings.LevelMapping;
 import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.levels.template.LevelTemplate;
 

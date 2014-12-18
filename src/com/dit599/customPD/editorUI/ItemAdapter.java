@@ -33,6 +33,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.editorUI.Mappings.ConsumableMapping;
+import com.dit599.customPD.editorUI.Mappings.PotionMapping;
+import com.dit599.customPD.editorUI.Mappings.RoomMapping;
+import com.dit599.customPD.editorUI.Mappings.ScrollMapping;
+import com.dit599.customPD.editorUI.Mappings.SeedMapping;
 import com.dit599.customPD.items.Ankh;
 import com.dit599.customPD.items.Gold;
 import com.dit599.customPD.items.Item;
