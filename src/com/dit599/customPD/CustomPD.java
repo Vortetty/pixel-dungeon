@@ -101,6 +101,7 @@ public class CustomPD extends Game {
 		com.watabou.utils.Bundle.addAlias( 
 			com.dit599.customPD.plants.Dreamweed.Seed.class,
 			"com.dit599.customPD.plants.Blindweed$Seed" );
+		self = this;
 	}
 	
 	@Override
@@ -181,6 +182,7 @@ public class CustomPD extends Game {
 	
 	@SuppressLint("NewApi")
 	public static void updateImmersiveMode() {
+		try{
 		if (android.os.Build.VERSION.SDK_INT >= 19) {
 			instance.getWindow().getDecorView().setSystemUiVisibility( 
 				immersed() ?
@@ -192,6 +194,10 @@ public class CustomPD extends Game {
 				View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY 
 				:
 				0 );
+		}
+		}
+		catch(Exception e){
+			//Catching immersive mode failure, will hopefully prevent crash?
 		}
 	}
 	

@@ -75,6 +75,9 @@ public class MeleeWeapon extends Weapon {
 	}
 	
 	public int typicalSTR() {
+		if(this instanceof ShortSword){
+			return 11;
+		}
 		return 8 + tier * 2;
 	}
 	
