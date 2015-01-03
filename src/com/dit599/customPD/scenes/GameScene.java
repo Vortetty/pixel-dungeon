@@ -590,7 +590,12 @@ public class GameScene extends PixelScene {
 	
 	public static void selectCell( CellSelector.Listener listener ) {
 		cellSelector.listener = listener;
-		scene.prompt( listener.prompt() );
+		try{
+			scene.prompt( listener.prompt() );
+		}
+		catch(Exception e){
+			//Added trycatch to solve rare crash, unknown if this is enough.
+		}
 	}
 	
 	private static boolean cancelCellSelector() {

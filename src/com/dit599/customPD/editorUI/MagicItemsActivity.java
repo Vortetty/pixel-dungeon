@@ -55,14 +55,18 @@ public class MagicItemsActivity extends Activity {
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.customizable_item_activity3);  
         layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout3);
-		this.setTitle(FloorFragment.chooseItemType);
+        String type = getIntent().getStringExtra(EnchantableItemsActivity.EXTRA_TYPE);
+        if(type == null || type.equals("")){
+        	type = "Wands";
+        }
+		this.setTitle(type);
 		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
         mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view3);
         View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
         mItemListView.addFooterView(footer);
 
-        mItemAdapter = new MagicItemAdapter(getApplicationContext(), this.level, this);
+        mItemAdapter = new MagicItemAdapter(getApplicationContext(), this.level, this, type);
         mItemListView.setAdapter(mItemAdapter);
         
         Button addButton = (Button) footer.findViewById(R.id.add_button);
@@ -93,9 +97,10 @@ public class MagicItemsActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		if(this == null){
-			finish();
-		}
+        String type = getIntent().getStringExtra(EnchantableItemsActivity.EXTRA_TYPE);
+        if(type == null || type.equals("")){
+        	type = "Wands";
+        }
 		if(RingMapping.getAllNames()==null||WandMapping.getAllNames() == null){
 			initMappings();
 		}
@@ -104,10 +109,10 @@ public class MagicItemsActivity extends Activity {
 					 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(mItemAdapter.getCount() == 0){
-			if(FloorFragment.chooseItemType.equals("Wands")){
+			if(type.equals("Wands")){
 				initItems(level.wands.size());	
 			}
-			else if(FloorFragment.chooseItemType.equals("Rings")){
+			else if(type.equals("Rings")){
 				initItems(level.rings.size());
 			}
 			

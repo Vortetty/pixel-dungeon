@@ -56,7 +56,7 @@ public class FloorFragment extends Fragment {
     private ArrayAdapter<String> frequencyAdapter, mobLimitAdapter;
 	private ImageButton mobbut1, mobbut2, mobbut3, mobbut4 = null;
 	private Button roomButton = null;
-	public static String chooseItemType=null;
+	//public static String chooseItemType=null;
 	public DungeonTemplate template;
 	public int depth;
     public LevelTemplate activeLevelTemplate;
@@ -225,7 +225,7 @@ public class FloorFragment extends Fragment {
 
 		initItemCategoryButtons(root);
 
-        loadTemplateToUI();
+       // loadTemplateToUI();
 
 		return root;
 	}
@@ -310,35 +310,45 @@ public class FloorFragment extends Fragment {
                 startActivity(armorIntent);
 				break;
 			case R.id.potionbutton:
-				chooseItemType="Potions";
+				items.putExtra(EnchantableItemsActivity.EXTRA_TYPE, "Potions");
 				startActivity(items);
 				break;
 			case R.id.scrollbutton:
-				chooseItemType="Scrolls";
+				items.putExtra(EnchantableItemsActivity.EXTRA_TYPE, "Scrolls");
 				startActivity(items);
 				break;
 			case R.id.roomsbutton:
-				chooseItemType="Rooms";
+				items.putExtra(EnchantableItemsActivity.EXTRA_TYPE, "Rooms");
 				startActivity(items);
 				break;
 			case R.id.seedbutton:
-				chooseItemType="Seeds";
+				items.putExtra(EnchantableItemsActivity.EXTRA_TYPE, "Seeds");
 				startActivity(items);
 				break;
 			case R.id.consumablesbutton:
-				chooseItemType="Other";
+				items.putExtra(EnchantableItemsActivity.EXTRA_TYPE, "Other");
 				startActivity(items);
 				break;
 			case R.id.wandbutton:
-				chooseItemType="Wands";
+				magicItems.putExtra(EnchantableItemsActivity.EXTRA_TYPE, "Wands");
 				startActivity(magicItems);
 				break;
 			case R.id.ringbutton:
-				chooseItemType="Rings";
+				magicItems.putExtra(EnchantableItemsActivity.EXTRA_TYPE, "Rings");
 				startActivity(magicItems);
 				break;
 			}
 		}
 
+	}
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+	    outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+	    super.onSaveInstanceState(outState);
+	}
+	@Override
+	public void onStart(){
+		super.onStart();
+		loadTemplateToUI();
 	}
 }

@@ -58,43 +58,44 @@ public class ItemAdapter extends BaseAdapter {
 	private int mItemCount = 0;
 	private LevelTemplate level;
 	private ItemsActivity activity;
+	private String type;
 	private static final int MAX_SPECIALS = 4;
 
 	Context context;
 
-	public ItemAdapter(Context context, LevelTemplate l, ItemsActivity a) {
+	public ItemAdapter(Context context, LevelTemplate l, ItemsActivity a, String t) {
 		this.context = context;
 		this.level = l;
 		this.activity = a;
+		this.type = t;
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mItemCount;
 	}
 
 	public void addItem(boolean inLists) {
 		if(inLists){
-			if(FloorFragment.chooseItemType.equals("Potions")){
+			if(type.equals("Potions")){
 				level.potions.add(PotionOfHealing.class);
 			}
-			else if(FloorFragment.chooseItemType.equals("Scrolls")){
+			else if(type.equals("Scrolls")){
 				level.scrolls.add(ScrollOfIdentify.class);		
 			}
-			else if(FloorFragment.chooseItemType.equals("Rooms")){
+			else if(type.equals("Rooms")){
 				level.specialRooms.add(Room.Type.ARMORY);		
 			}
-			else if(FloorFragment.chooseItemType.equals("Seeds")){
+			else if(type.equals("Seeds")){
 				level.seeds.add(new Dreamweed.Seed());		
 			}
-			else if(FloorFragment.chooseItemType.equals("Other")){
+			else if(type.equals("Other")){
 				level.consumables.add(new Ankh());		
 			}
 		}
 		mItemCount++;
 		//Max specialrooms reached
-		if(FloorFragment.chooseItemType.equals("Rooms") && mItemCount == MAX_SPECIALS){
+		if(type.equals("Rooms") && mItemCount == MAX_SPECIALS){
 			activity.addButton.setEnabled(false);
 		}
 		notifyDataSetChanged();
@@ -124,52 +125,27 @@ public class ItemAdapter extends BaseAdapter {
 	}
 	public void ItemTypesFilter(Spinner spin, final int pos)
 	{
-
-		//TODO Choose between xml style and mappings class style, XML should be more efficient but we have to initialize Mappings anyway
-		// in order to retrieve correct class.
-		//    	if(FloorFragment.ChooseItemType.equals("Potions")){
-		//    		adapter=ArrayAdapter.createFromResource(context, R.array.potiontype, android.R.layout.simple_spinner_item);    	
-		// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// 		}else if(FloorFragment.ChooseItemType.equals("Scrolls")){
-		// 			adapter=ArrayAdapter.createFromResource(context, R.array.scrolltype, android.R.layout.simple_spinner_item);    	
-		// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// 			
-		// 			
-		// 		}else if(FloorFragment.ChooseItemType.equals("Rooms")){
-		// 			adapter=ArrayAdapter.createFromResource(context, R.array.roomtype, android.R.layout.simple_spinner_item);    	
-		// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// 			
-		// 			
-		// 		}else if(FloorFragment.ChooseItemType.equals("Seeds")){
-		// 			adapter=ArrayAdapter.createFromResource(context, R.array.seedtype, android.R.layout.simple_spinner_item);    	
-		// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// 			
-		// 			
-		// 		}else if(FloorFragment.ChooseItemType.equals("Other")){
-		// 			adapter=ArrayAdapter.createFromResource(context, R.array.consumabltetype, android.R.layout.simple_spinner_item);    	
-		// 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// 			
-		if(FloorFragment.chooseItemType.equals("Potions")){
+		if(type.equals("Potions")){
 			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, PotionMapping.getAllNames());    	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-		}else if(FloorFragment.chooseItemType.equals("Scrolls")){
+		}else if(type.equals("Scrolls")){
 			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, ScrollMapping.getAllNames());    	   	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-		}else if(FloorFragment.chooseItemType.equals("Rooms")){
+		}else if(type.equals("Rooms")){
 			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, RoomMapping.getAllNames());    	 	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-		}else if(FloorFragment.chooseItemType.equals("Seeds")){
+		}else if(type.equals("Seeds")){
 			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, SeedMapping.getAllNames());    	   	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-		}else if(FloorFragment.chooseItemType.equals("Other")){
+		}else if(type.equals("Other")){
 			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, ConsumableMapping.getAllNames());    	    	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -197,44 +173,44 @@ public class ItemAdapter extends BaseAdapter {
 
 	}
 	private int getType(int position){
-		if(FloorFragment.chooseItemType.equals("Potions")){
+		if(type.equals("Potions")){
 			return PotionMapping.getAllNames().indexOf(
 					PotionMapping.getPotionName(level.potions.get(position)));			
 		}
-		else if(FloorFragment.chooseItemType.equals("Scrolls")){
+		else if(type.equals("Scrolls")){
 			return ScrollMapping.getAllNames().indexOf(
 					ScrollMapping.getScrollName(level.scrolls.get(position)));	
 		}
-		else if(FloorFragment.chooseItemType.equals("Rooms")){
+		else if(type.equals("Rooms")){
 			return RoomMapping.getAllNames().indexOf(
 					RoomMapping.getRoomName(level.specialRooms.get(position)));	
 		}
-		else if(FloorFragment.chooseItemType.equals("Seeds")){
+		else if(type.equals("Seeds")){
 			return SeedMapping.getAllNames().indexOf(
 					SeedMapping.getSeedName((level.seeds.get(position)).getClass()));	
 		}
-		else if(FloorFragment.chooseItemType.equals("Other")){
+		else if(type.equals("Other")){
 			return ConsumableMapping.getAllNames().indexOf(
 					ConsumableMapping.getConsumableName((level.consumables.get(position)).getClass()));		
 		}
 		return 0;
 	}
-	private void setType(int position, String type){
+	private void setType(int position, String subClass){
 		try{
-			if(FloorFragment.chooseItemType.equals("Potions")){
-				level.potions.set(position, (Class<? extends Potion>) PotionMapping.getPotionClass(type));			
+			if(type.equals("Potions")){
+				level.potions.set(position, (Class<? extends Potion>) PotionMapping.getPotionClass(subClass));			
 			}
-			else if(FloorFragment.chooseItemType.equals("Scrolls")){
-				level.scrolls.set(position, (Class<? extends Scroll>) ScrollMapping.getScrollClass(type));		
+			else if(type.equals("Scrolls")){
+				level.scrolls.set(position, (Class<? extends Scroll>) ScrollMapping.getScrollClass(subClass));		
 			}
-			else if(FloorFragment.chooseItemType.equals("Rooms")){
-				level.specialRooms.set(position, RoomMapping.getRoomType(type));		
+			else if(type.equals("Rooms")){
+				level.specialRooms.set(position, RoomMapping.getRoomType(subClass));		
 			}
-			else if(FloorFragment.chooseItemType.equals("Seeds")){
-				level.seeds.set(position, (Plant.Seed) SeedMapping.getSeedClass(type).newInstance());		
+			else if(type.equals("Seeds")){
+				level.seeds.set(position, (Plant.Seed) SeedMapping.getSeedClass(subClass).newInstance());		
 			}
-			else if(FloorFragment.chooseItemType.equals("Other")){
-				Item temp = (Item) ConsumableMapping.getConsumableClass(type).newInstance();
+			else if(type.equals("Other")){
+				Item temp = (Item) ConsumableMapping.getConsumableClass(subClass).newInstance();
 				if(temp instanceof Gold){
 					temp = temp.random();
 				}
@@ -250,20 +226,20 @@ public class ItemAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				if(FloorFragment.chooseItemType.equals("Potions")){
+				if(type.equals("Potions")){
 					level.potions.remove(pos);
 				}
-				else if(FloorFragment.chooseItemType.equals("Scrolls")){
+				else if(type.equals("Scrolls")){
 					level.scrolls.remove(pos);	
 				}
-				else if(FloorFragment.chooseItemType.equals("Rooms")){
+				else if(type.equals("Rooms")){
 					level.specialRooms.remove(pos);		
 					activity.addButton.setEnabled(true);
 				}
-				else if(FloorFragment.chooseItemType.equals("Seeds")){
+				else if(type.equals("Seeds")){
 					level.seeds.remove(pos);	
 				}
-				else if(FloorFragment.chooseItemType.equals("Other")){
+				else if(type.equals("Other")){
 					level.consumables.remove(pos);	
 				}
 				mItemCount--;

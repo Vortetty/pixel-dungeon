@@ -57,15 +57,17 @@ public class MagicItemAdapter extends BaseAdapter {
 	public ArrayAdapter<String> adapter,leveladapter;
 	private int mItemCount = 0;
 	private LevelTemplate level;
+	private String type;
 	private MagicItemsActivity activity;
 	public static final String[] MAGICITEM_LEVEL = {"-5", "-4", "-3", "-2", "-1",  "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         "10"};
 	Context context;
 
-	public MagicItemAdapter(Context context, LevelTemplate l, MagicItemsActivity a) {
+	public MagicItemAdapter(Context context, LevelTemplate l, MagicItemsActivity a, String t) {
 		this.context = context;
 		this.level = l;
 		this.activity = a;
+		this.type = t;
 	}
 
 	@Override
@@ -76,12 +78,12 @@ public class MagicItemAdapter extends BaseAdapter {
 
 	public void addItem(boolean inLists) {
 		if(inLists){
-			if(FloorFragment.chooseItemType.equals("Wands")){
+			if(type.equals("Wands")){
 				MagicItem wand =new MagicItem(WandOfAmok.class,0,false);
 				level.wands.add(wand);
 			   
 			}
-			else if(FloorFragment.chooseItemType.equals("Rings")){
+			else if(type.equals("Rings")){
 				MagicItem ring=new MagicItem(RingOfAccuracy.class,0,false);	
 				level.rings.add(ring);
 			}
@@ -116,14 +118,14 @@ public class MagicItemAdapter extends BaseAdapter {
 	}
 	public void ItemTypesFilter(Spinner spin,Spinner levelspin, final int pos)
 	{
-		if(FloorFragment.chooseItemType.equals("Wands")){
+		if(type.equals("Wands")){
 			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, WandMapping.getAllNames());    	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			leveladapter= new ArrayAdapter<String> (context, R.layout.item_spinner, MAGICITEM_LEVEL);    	
 			leveladapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-		}else if(FloorFragment.chooseItemType.equals("Rings")){
+		}else if(type.equals("Rings")){
 			adapter= new ArrayAdapter<String> (context, R.layout.item_spinner, RingMapping.getAllNames());    	   	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			leveladapter= new ArrayAdapter<String> (context, R.layout.item_spinner, MAGICITEM_LEVEL);    	
@@ -171,25 +173,25 @@ public class MagicItemAdapter extends BaseAdapter {
 
 	}
 	private int getType(int position){
-		if(FloorFragment.chooseItemType.equals("Wands")){
+		if(type.equals("Wands")){
 			return WandMapping.getAllNames().indexOf(
 					WandMapping.getWandName(level.wands.get(position).itemClass));			
 		}
-		else if(FloorFragment.chooseItemType.equals("Rings")){
+		else if(type.equals("Rings")){
 			return RingMapping.getAllNames().indexOf(
 					RingMapping.getRingName(level.rings.get(position).itemClass));	
 		}
 		
 		return 0;
 	}
-	private void setType(int position, String type){
+	private void setType(int position, String subClass){
 		try{
-			if(FloorFragment.chooseItemType.equals("Wands")){
-				MagicItem wand=new MagicItem(WandMapping.getWandClass(type),0,false);
+			if(type.equals("Wands")){
+				MagicItem wand=new MagicItem(WandMapping.getWandClass(subClass),0,false);
 				level.wands.set(position, wand);			
 			}
-			else if(FloorFragment.chooseItemType.equals("Rings")){
-				MagicItem ring=new MagicItem(RingMapping.getRingClass(type),0,false);
+			else if(type.equals("Rings")){
+				MagicItem ring=new MagicItem(RingMapping.getRingClass(subClass),0,false);
 				level.rings.set(position, ring);		
 			}
 		}
@@ -198,20 +200,20 @@ public class MagicItemAdapter extends BaseAdapter {
 		}
 	}
 	private String getLevel(int position){
-		if(FloorFragment.chooseItemType.equals("Wands")){
+		if(type.equals("Wands")){
 			return level.wands.get(position).level + "";			
 		}
-		else if(FloorFragment.chooseItemType.equals("Rings")){
+		else if(type.equals("Rings")){
 			return level.rings.get(position).level + "";
 		}		
 		return "0";
 	}
 	private void setLevel(int position, String choice){
 		try{
-			if(FloorFragment.chooseItemType.equals("Wands")){
+			if(type.equals("Wands")){
 				level.wands.get(position).level = Integer.parseInt(choice);		
 			}
-			else if(FloorFragment.chooseItemType.equals("Rings")){
+			else if(type.equals("Rings")){
 				level.rings.get(position).level = Integer.parseInt(choice);			
 			}
 		}
@@ -224,10 +226,10 @@ public class MagicItemAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				if(FloorFragment.chooseItemType.equals("Wands")){
+				if(type.equals("Wands")){
 					level.wands.remove(pos);
 				}
-				else if(FloorFragment.chooseItemType.equals("Rings")){
+				else if(type.equals("Rings")){
 					level.rings.remove(pos);	
 				}
 				

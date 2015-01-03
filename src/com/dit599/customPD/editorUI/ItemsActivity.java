@@ -40,7 +40,7 @@ import com.dit599.customPD.editorUI.Mappings.RoomMapping;
 import com.dit599.customPD.editorUI.Mappings.ScrollMapping;
 import com.dit599.customPD.editorUI.Mappings.SeedMapping;
 import com.dit599.customPD.levels.template.LevelTemplate;
-import com.watabou.noosa.Game;
+
 public class ItemsActivity extends Activity {
 
 	public Spinner itemtypespin=null;
@@ -57,14 +57,18 @@ public class ItemsActivity extends Activity {
 		super.onCreate(savedInstanceState);  
 		setContentView(R.layout.customizable_item_activity2);  
 		layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout2);
-		this.setTitle(FloorFragment.chooseItemType);
+        String type = getIntent().getStringExtra(EnchantableItemsActivity.EXTRA_TYPE);
+        if(type == null || type.equals("")){
+        	type = "Rooms";
+        }
+		this.setTitle(type);
 		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view2);
 		View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
 		mItemListView.addFooterView(footer);
 
-		mItemAdapter = new ItemAdapter(getApplicationContext(), this.level, this);
+		mItemAdapter = new ItemAdapter(getApplicationContext(), this.level, this, type);
 		mItemListView.setAdapter(mItemAdapter);
 		itemtypespin=(Spinner) this.findViewById(R.id.itemtypespinner);              
 		addButton = (Button) footer.findViewById(R.id.add_button);
@@ -94,9 +98,6 @@ public class ItemsActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		if(this == null){
-			finish();
-		}
 		if(PotionMapping.getAllNames() == null){
 			initMappings();
 		}
@@ -104,20 +105,24 @@ public class ItemsActivity extends Activity {
 			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
+        String type = getIntent().getStringExtra(EnchantableItemsActivity.EXTRA_TYPE);
+        if(type == null || type.equals("")){
+        	type = "Rooms";
+        }
 		if(mItemAdapter.getCount() == 0){
-			if(FloorFragment.chooseItemType.equals("Potions")){
+			if(type.equals("Potions")){
 				initItems(level.potions.size());	
 			}
-			else if(FloorFragment.chooseItemType.equals("Scrolls")){
+			else if(type.equals("Scrolls")){
 				initItems(level.scrolls.size());
 			}
-			else if(FloorFragment.chooseItemType.equals("Rooms")){
+			else if(type.equals("Rooms")){
 				initItems(level.specialRooms.size());
 			}
-			else if(FloorFragment.chooseItemType.equals("Seeds")){
+			else if(type.equals("Seeds")){
 				initItems(level.seeds.size());
 			}
-			else if(FloorFragment.chooseItemType.equals("Other")){
+			else if(type.equals("Other")){
 				initItems(level.consumables.size()); 			
 			}
 		}

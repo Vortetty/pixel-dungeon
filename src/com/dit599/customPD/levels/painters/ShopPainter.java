@@ -92,13 +92,14 @@ public class ShopPainter extends Painter {
 	private static Item[] range() {
 
 		ArrayList<Item> items = new ArrayList<Item>();
-//		if (Dungeon.template == null){
-			if (Dungeon.isTutorial){
-				items.add( new LeatherArmor().identify() );
-				items.add( new SeedPouch() );
-				items.add( new ScrollHolder() );
-			}
-			else{
+		//		if (Dungeon.template == null){
+		if (Dungeon.isTutorial){
+			items.add( new LeatherArmor().identify() );
+			items.add( new SeedPouch() );
+			items.add( new ScrollHolder() );
+		}
+		else{
+			if (Dungeon.template == null){
 				switch (Dungeon.depth) {
 
 				case 6:
@@ -139,21 +140,28 @@ public class ShopPainter extends Painter {
 					break;
 				}
 			}
-			items.add( new PotionOfHealing() );
-			for (int i=0; i < 3; i++) {
-				items.add( Generator.random( Generator.Category.POTION ) );
+			else{
+				items.add( new ScrollHolder() );
+				items.add( new WandHolster() );
+				items.add( new SeedPouch() );
+				items.add( new Weightstone() );
 			}
+		}
+		items.add( new PotionOfHealing() );
+		for (int i=0; i < 3; i++) {
+			items.add( Generator.random( Generator.Category.POTION ) );
+		}
 
-			items.add( new ScrollOfIdentify() );
-			items.add( new ScrollOfRemoveCurse() );
-			items.add( new ScrollOfMagicMapping() );
-			items.add( Generator.random( Generator.Category.SCROLL ) );
+		items.add( new ScrollOfIdentify() );
+		items.add( new ScrollOfRemoveCurse() );
+		items.add( new ScrollOfMagicMapping() );
+		items.add( Generator.random( Generator.Category.SCROLL ) );
 
-			items.add( new OverpricedRation() );
-			items.add( new OverpricedRation() );
+		items.add( new OverpricedRation() );
+		items.add( new OverpricedRation() );
 
-			items.add( new Ankh() );
-//		}
+		items.add( new Ankh() );
+		//		}
 		Item[] range =items.toArray( new Item[0] );
 		Random.shuffle( range );
 		return range;

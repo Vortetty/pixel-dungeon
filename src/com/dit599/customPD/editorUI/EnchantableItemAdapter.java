@@ -78,7 +78,8 @@ public class EnchantableItemAdapter extends BaseAdapter {
         return activeList.size();
     }
 
-    public void addItem() {
+    public void addItem(boolean inLists) {
+    	if(inLists){
         switch (type) {
         case EnchantableItemsActivity.WEAPON:
             activeList.add(new Dagger());
@@ -87,7 +88,7 @@ public class EnchantableItemAdapter extends BaseAdapter {
             activeList.add(new LeatherArmor());
             break;
         }
-
+    	}
         notifyDataSetChanged();
     }
 

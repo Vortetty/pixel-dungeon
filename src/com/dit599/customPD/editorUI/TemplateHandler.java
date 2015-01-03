@@ -100,5 +100,7 @@ public class TemplateHandler {
 	public void addLevel(){
 		this.template.levelTemplates.add(TemplateFactory.createSimpleLevel());
 	}
-
+	public static void reset(String mapName){
+		instances.put(mapName, null);
+	}
 }

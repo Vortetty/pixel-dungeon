@@ -29,8 +29,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.dit599.customPD.R;
+import com.dit599.customPD.editorUI.Mappings.ArmorMapping;
+import com.dit599.customPD.editorUI.Mappings.EnchantmentsMapping;
+import com.dit599.customPD.editorUI.Mappings.GlyphsMapping;
+import com.dit599.customPD.editorUI.Mappings.WeaponMapping;
 import com.dit599.customPD.levels.template.LevelTemplate;
-import com.watabou.noosa.Game;
+
 public class EnchantableItemsActivity extends Activity {
 	
     public static final String EXTRA_DEPTH = "depth";
@@ -79,7 +83,7 @@ public class EnchantableItemsActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                mItemAdapter.addItem();
+                mItemAdapter.addItem(true);
             }
         });
 
@@ -87,8 +91,8 @@ public class EnchantableItemsActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		if(this == null){
-			finish();
+		if(WeaponMapping.getAllNames()==null || ArmorMapping.getAllNames()==null){
+			initMappings();
 		}
 	}
 	@Override
@@ -96,4 +100,17 @@ public class EnchantableItemsActivity extends Activity {
 		super.onPause();
 		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this).save(this);
 	}
+	private void initMappings(){
+		ArmorMapping.armorMappingInit();
+		WeaponMapping.weaponMappingInit();
+		GlyphsMapping.glyphMappingInit();
+		EnchantmentsMapping.EnchantmentsMappingInit();
+	}
+	private void initItems(int i){
+		while (i > 0){
+			mItemAdapter.addItem(false);
+			i--;
+		}
+	}
 }
+

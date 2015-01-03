@@ -121,9 +121,6 @@ public class MapMobItemActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
-		if(this == null){
-			finish();
-		}
 		if (level == null){
 			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
 					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));

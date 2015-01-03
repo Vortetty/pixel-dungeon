@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.editorUI;
 
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ import android.widget.LinearLayout;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.R;
 import com.dit599.customPD.actors.hero.HeroClass;
-import com.watabou.noosa.Game;
 
 public class MapSelectorActivity extends Activity {
 	public EditText edv=null;
@@ -51,36 +50,32 @@ public class MapSelectorActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);  
 		setContentView(R.layout.mapselect);  
-		if(this == null){
-			finish();
-		}
-		else{
-			edv=(EditText)findViewById(R.id.mapselectet);
-			bt=(Button)this.findViewById(R.id.mapselectbut);
-			files = new ArrayList<String>();
+		edv=(EditText)findViewById(R.id.mapselectet);
+		bt=(Button)this.findViewById(R.id.mapselectbut);
+		files = new ArrayList<String>();
 
-			for(String f : this.fileList()){
-				if(f.endsWith(".map")){
-					files.add(f.substring(0, f.length()-4));
-				}
+		for(String f : this.fileList()){
+			if(f.endsWith(".map")){
+				files.add(f.substring(0, f.length()-4));
 			}
-			mlayout= (LinearLayout) findViewById(R.id.mapselectlinear);
-			bt.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					String temp = edv.getText().toString();
-					if(files.size() < 10 && !temp.equals("") && !files.contains(temp)){
-						Button but=new Button (MapSelectorActivity.this);
-						but.setOnClickListener(getListener());
-						but.setOnLongClickListener(getLongListener());
-						but.setText(temp);
-						mlayout.addView(but);
-						files.add(temp);
-						TemplateHandler.getInstance(temp, getApplicationContext());
-					}}});
 		}
-	}   
+		mlayout= (LinearLayout) findViewById(R.id.mapselectlinear);
+		bt.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				String temp = edv.getText().toString();
+				if(files.size() < 10 && !temp.equals("") && !files.contains(temp)){
+					Button but=new Button (MapSelectorActivity.this);
+					but.setOnClickListener(getListener());
+					but.setOnLongClickListener(getLongListener());
+					but.setText(temp);
+					mlayout.addView(but);
+					files.add(temp);
+					TemplateHandler.getInstance(temp, getApplicationContext());
+				}}});
+	}
+	
 	@Override
 	public void onStart(){
 		super.onStart();
