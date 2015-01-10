@@ -108,13 +108,21 @@ public class MagicItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = LayoutInflater.from(context);
-		View view = inflater.inflate(R.layout.customizable_item3, null);
-		Spinner typespin=(Spinner)view.findViewById(R.id.wand_ring_typespinner);
-		Spinner levelspin=(Spinner)view.findViewById(R.id.wand_ring_level_spinner);
-		Button delete = (Button) view.findViewById(R.id.wand_ring_deletbt); 
-		delete.setOnClickListener(deleteItem(position));
+		Spinner typespin;
+		Spinner levelspin;
+		if(convertView != null){
+			typespin=(Spinner)convertView.findViewById(R.id.wand_ring_typespinner);
+			levelspin=(Spinner)convertView.findViewById(R.id.wand_ring_level_spinner);
+		}
+		else{
+			convertView = inflater.inflate(R.layout.customizable_item3, null);
+			typespin=(Spinner)convertView.findViewById(R.id.wand_ring_typespinner);
+			levelspin=(Spinner)convertView.findViewById(R.id.wand_ring_level_spinner);
+			Button delete = (Button) convertView.findViewById(R.id.wand_ring_deletbt); 
+			delete.setOnClickListener(deleteItem(position));
+		}
 		ItemTypesFilter(typespin, levelspin,position);
-		return view;
+		return convertView;
 	}
 	public void ItemTypesFilter(Spinner spin,Spinner levelspin, final int pos)
 	{

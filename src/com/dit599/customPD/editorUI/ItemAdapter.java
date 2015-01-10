@@ -116,12 +116,19 @@ public class ItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = LayoutInflater.from(context);
-		View view = inflater.inflate(R.layout.customizable_item2, null);
-		Spinner spin=(Spinner)view.findViewById(R.id.itemtypespinner);
-		Button delete = (Button) view.findViewById(R.id.itemdeletbt); 
-		delete.setOnClickListener(deleteItem(position));
+		Spinner spin;
+		if(convertView != null){
+			spin=(Spinner)convertView.findViewById(R.id.itemtypespinner);
+		}
+		else{
+			convertView = inflater.inflate(R.layout.customizable_item2, null);
+			spin=(Spinner)convertView.findViewById(R.id.itemtypespinner);
+			Button delete = (Button) convertView.findViewById(R.id.itemdeletbt); 
+			delete.setOnClickListener(deleteItem(position));
+		}
+		
 		ItemTypesFilter(spin, position);
-		return view;
+		return convertView;
 	}
 	public void ItemTypesFilter(Spinner spin, final int pos)
 	{
