@@ -336,7 +336,6 @@ public class GameScene extends PixelScene {
 		
 		scene = null;
 		Badges.saveGlobal();
-		Log.d("DESTROY", "BADGES SAVED");
 		super.destroy();
 	}
 	
