@@ -19,6 +19,7 @@ package com.dit599.customPD.windows;
 
 import java.io.IOException;
 
+import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.scenes.GameScene;
@@ -31,7 +32,7 @@ import com.dit599.customPD.ui.Window;
 import com.watabou.noosa.Game;
 
 public class WndGame extends Window {
-	
+
 	private static final String TXT_SETTINGS	= "Settings";
 	private static final String TXT_CHALLEGES	= "Challenges";
 	private static final String TXT_RANKINGS	= "Rankings";
@@ -39,17 +40,17 @@ public class WndGame extends Window {
 	private static final String TXT_MENU		= "Main Menu";
 	private static final String TXT_EXIT		= "Exit Game";
 	private static final String TXT_RETURN		= "Return to Game";
-	
+
 	private static final int WIDTH		= 120;
 	private static final int BTN_HEIGHT	= 20;
 	private static final int GAP		= 2;
-	
+
 	private int pos;
-	
+
 	public WndGame() {
-		
+
 		super();
-		
+
 		addButton( new RedButton( TXT_SETTINGS ) {
 			@Override
 			protected void onClick() {
@@ -57,7 +58,7 @@ public class WndGame extends Window {
 				GameScene.show( new WndSettings( true ) );
 			}
 		} );
-		
+
 		if (Dungeon.challenges > 0) {
 			addButton( new RedButton( TXT_CHALLEGES ) {
 				@Override
@@ -67,9 +68,9 @@ public class WndGame extends Window {
 				}
 			} );
 		}
-		
+
 		if (!Dungeon.hero.isAlive()) {
-			
+
 			RedButton btnStart;
 			addButton( btnStart = new RedButton( TXT_START ) {
 				@Override
@@ -82,7 +83,7 @@ public class WndGame extends Window {
 				}
 			} );
 			btnStart.icon( Icons.get( Dungeon.hero.heroClass ) );
-			
+
 			addButton( new RedButton( TXT_RANKINGS ) {
 				@Override
 				protected void onClick() {
@@ -91,36 +92,54 @@ public class WndGame extends Window {
 				}
 			} );
 		}
-				
+
 		addButton( new RedButton( TXT_MENU ) {
 			@Override
 			protected void onClick() {
 				try {
 					Dungeon.saveAll();
 				} catch (IOException e) {
-					//
+					e.printStackTrace();
 				}
 				Game.switchScene( TitleScene.class );
 			}
 		} );
-		
+
 		addButton( new RedButton( TXT_EXIT ) {
 			@Override
 			protected void onClick() {
+				try {
+					Dungeon.saveAll();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				Game.instance.finish();
 			}
 		} );
-		
+		if (Dungeon.hero.isAlive()) {
+			addButton( new RedButton( "Save Game" ) {
+				@Override
+				protected void onClick() {
+					try {
+						Dungeon.saveAll();
+						Badges.saveGlobal();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					hide();
+				}
+			} );
+		}
 		addButton( new RedButton( TXT_RETURN ) {
 			@Override
 			protected void onClick() {
 				hide();
 			}
 		} );
-		
+
 		resize( WIDTH, pos );
 	}
-	
+
 	private void addButton( RedButton btn ) {
 		add( btn );
 		btn.setRect( 0, pos > 0 ? pos += GAP : 0, WIDTH, BTN_HEIGHT );

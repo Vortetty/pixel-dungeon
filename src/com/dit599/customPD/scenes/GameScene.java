@@ -22,6 +22,8 @@ package com.dit599.customPD.scenes;
 
 import java.io.IOException;
 
+import android.util.Log;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
@@ -334,7 +336,7 @@ public class GameScene extends PixelScene {
 		
 		scene = null;
 		Badges.saveGlobal();
-		
+		Log.d("DESTROY", "BADGES SAVED");
 		super.destroy();
 	}
 	
@@ -344,8 +346,9 @@ public class GameScene extends PixelScene {
 			Dungeon.saveAll();
 			Badges.saveGlobal();
 		} catch (IOException e) {
-			//
+			e.printStackTrace();
 		}
+		Log.d("HOME2", "SAVED AGAIN");
 	}
 	
 	@Override
@@ -373,7 +376,6 @@ public class GameScene extends PixelScene {
 			add( new WndGame() );
 		}
 	}
-	
 	@Override
 	protected void onMenuPressed() {
 		if (Dungeon.hero.ready) {

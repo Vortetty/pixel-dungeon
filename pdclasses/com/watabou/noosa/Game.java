@@ -17,11 +17,15 @@
 
 package com.watabou.noosa;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.dit599.customPD.Badges;
+import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.scenes.GameScene;
 import com.watabou.glscripts.Script;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.Keys;
@@ -131,6 +135,14 @@ public class Game extends Activity implements GLSurfaceView.Renderer, View.OnTou
 		super.onPause();
 		
 		if (scene != null) {
+			if(scene instanceof GameScene){
+				try {
+					Dungeon.saveAll();
+					Badges.saveGlobal();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			scene.pause();
 		}
 		
