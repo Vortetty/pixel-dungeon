@@ -172,7 +172,7 @@ public abstract class Level implements Bundlable {
 		blobs = new HashMap<Class<? extends Blob>,Blob>();
 		plants = new SparseArray<Plant>();
 
-		if (Dungeon.template != null) {
+		if (!(this instanceof LastLevel) && Dungeon.template != null) {
 			feeling = LevelTemplate.currentLevelTemplate().feeling;
 		}
 		if (!Dungeon.bossLevel()) {
@@ -219,7 +219,7 @@ public abstract class Level implements Bundlable {
 
 		} while (!build());
 
-		if(LevelTemplate.currentLevelTemplate() != null){
+		if(!(this instanceof LastLevel) && LevelTemplate.currentLevelTemplate() != null){
 			for (Item item : LevelTemplate.currentLevelTemplate().getAllItems()) {
 				addItemToSpawn(item);
 			}
@@ -405,7 +405,7 @@ public abstract class Level implements Bundlable {
 						}
 					}
 				}
-				if (LevelTemplate.currentLevelTemplate() != null) {
+				if (!(Level.this instanceof LastLevel) && LevelTemplate.currentLevelTemplate() != null) {
 					TIME_TO_RESPAWN = LevelTemplate.currentLevelTemplate().timeToRespawn;
 				}
 				spend( Dungeon.nightMode || Statistics.amuletObtained ? TIME_TO_RESPAWN / 2 : TIME_TO_RESPAWN );

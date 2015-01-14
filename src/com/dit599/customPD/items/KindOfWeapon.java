@@ -64,7 +64,8 @@ public class KindOfWeapon extends EquipableItem {
 			hero.belongings.weapon = this;
 			activate( hero );
 			
-			QuickSlot.refresh();
+			QuickSlot.refresh(true);
+			QuickSlot.refresh(false);
 			
 			cursedKnown = true;
 			if (cursed) {

@@ -20,6 +20,8 @@
 */
 package com.dit599.customPD.ui;
 
+import android.util.Log;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.DungeonTilemap;
@@ -56,6 +58,7 @@ public class Toolbar extends Component {
 	private Tool btnResume;
 	private Tool btnInventory;
 	private Tool btnQuick;
+	private Tool btnQuick2;
 	
 	private PickedUpItem pickedUp;
 	
@@ -135,7 +138,8 @@ public class Toolbar extends Component {
 			};
 		} );
 		
-		add( btnQuick = new QuickslotTool( 105, 7, 22, 24 ) );
+		add( btnQuick = new QuickslotTool( 105, 7, 22, 24, 1 ) );
+		add( btnQuick2 = new QuickslotTool2( 105, 7, 22, 24, 0 ) );
 		
 		add( pickedUp = new PickedUpItem() );
 	}
@@ -145,9 +149,10 @@ public class Toolbar extends Component {
 		btnWait.setPos( x, y );
 		btnSearch.setPos( btnWait.right(), y );
 		btnInfo.setPos( btnSearch.right(), y );
-		btnResume.setPos( btnInfo.right(), y );
 		btnQuick.setPos( width - btnQuick.width(), y );
-		btnInventory.setPos( btnQuick.left() - btnInventory.width(), y );
+		btnQuick2.setPos( btnQuick.left() - btnQuick2.width(), y );
+		btnInventory.setPos( btnQuick2.left() - btnInventory.width(), y );
+		btnResume.setPos(btnSearch.right(), y);
 	}
 	
 	@Override
@@ -289,18 +294,50 @@ public class Toolbar extends Component {
 	
 	private static class QuickslotTool extends Tool {
 		
-		private QuickSlot slot;
+		private static QuickSlot slot;
+		private static int id;
 		
-		public QuickslotTool( int x, int y, int width, int height ) {
+		public QuickslotTool( int x, int y, int width, int height , int i) {
 			super( x, y, width, height );
+			id = i;
+			Log.d("IDtool", "" + id);
+			slot = new QuickSlot(id);
+			add( slot );
 		}
 		
 		@Override
 		protected void createChildren() {
 			super.createChildren();
-			
-			slot = new QuickSlot();
+		}
+		
+		@Override
+		protected void layout() {
+			super.layout();
+			slot.setRect( x + 1, y + 2, width - 2, height - 2 );
+		}
+		
+		@Override
+		public void enable( boolean value ) {
+			slot.enable( value );
+			active = value;
+		}
+	}
+	private static class QuickslotTool2 extends Tool {
+		
+		private static QuickSlot slot;
+		private static int id;
+		
+		public QuickslotTool2( int x, int y, int width, int height , int i) {
+			super( x, y, width, height );
+			id = i;
+			Log.d("IDtool2", "" + id);
+			slot = new QuickSlot(id);
 			add( slot );
+		}
+		
+		@Override
+		protected void createChildren() {
+			super.createChildren();
 		}
 		
 		@Override

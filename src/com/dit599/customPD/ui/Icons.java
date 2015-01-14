@@ -48,6 +48,7 @@ public enum Icons {
 	SEED_POUCH,
 	SCROLL_HOLDER,
 	WAND_HOLSTER,
+	KEY_RING,
 	CHECKED,
 	UNCHECKED,
 	EXIT,
@@ -127,6 +128,10 @@ public enum Icons {
 			break;
 		case WAND_HOLSTER:
 			icon.frame( icon.texture.uvRect( 88, 0, 98, 10 ) );
+			break;
+		case KEY_RING:
+			icon = new Image( Assets.KEY_RING );
+			icon.frame( icon.texture.uvRect( 0, 0, 10, 10 ) );
 			break;
 		case CHECKED:
 			icon.frame( icon.texture.uvRect( 54, 12, 66, 24 ) );

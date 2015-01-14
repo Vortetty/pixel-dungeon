@@ -66,6 +66,7 @@ import com.dit599.customPD.levels.template.DungeonTemplate;
 import com.dit599.customPD.levels.template.LevelTemplate;
 import com.dit599.customPD.scenes.GameScene;
 import com.dit599.customPD.scenes.StartScene;
+import com.dit599.customPD.ui.QuickSlot;
 import com.dit599.customPD.utils.BArray;
 import com.dit599.customPD.utils.Utils;
 import com.dit599.customPD.windows.WndResurrect;
@@ -148,7 +149,8 @@ public class Dungeon {
 	public static DungeonTemplate template = null;
 
 	// Either Item or Class<? extends Item>
-	public static Object quickslot;
+	public static Object qsRight;
+	public static Object qsLeft;
 
 	public static int depth;
 	public static int gold;
@@ -273,8 +275,8 @@ public class Dungeon {
 		if (template != null) {
 			try {
 				level = LevelTemplate.currentLevelTemplate().theme.newInstance();
-			} catch (InstantiationException e) {
-			} catch (IllegalAccessException e) {
+			} catch (Exception e){
+				level = new LastLevel();
 			}
 		} else if (isTutorial) {
 			switch (depth) {
@@ -401,7 +403,7 @@ public class Dungeon {
 		if(Dungeon.template != null && depth <= Dungeon.template.levelTemplates.size()){
 			Class<? extends Level> temp = Dungeon.template.levelTemplates.get(depth-1).theme;
 			return temp.equals(SewerBossLevel.class) || temp.equals(PrisonBossLevel.class) || 
-				   temp.equals(CavesBossLevel.class) || temp.equals(CityBossLevel.class) || temp.equals(HallsBossLevel.class);
+					temp.equals(CavesBossLevel.class) || temp.equals(CityBossLevel.class) || temp.equals(HallsBossLevel.class);
 		}
 		else if(Dungeon.template == null){
 			return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
@@ -494,7 +496,8 @@ public class Dungeon {
 	private static final String HERO		= "hero";
 	private static final String GOLD		= "gold";
 	private static final String DEPTH		= "depth";
-	private static final String QUICKSLOT	= "quickslot";
+	private static final String QSRIGHT	= "qsRight";
+	private static final String QSLEFT	= "qsLeft";
 	private static final String LEVEL		= "level";
 	private static final String POS			= "potionsOfStrength";
 	private static final String SOU			= "scrollsOfEnhancement";
@@ -642,8 +645,11 @@ public class Dungeon {
 			Statistics.storeInBundle( bundle );
 			Journal.storeInBundle( bundle );
 
-			if (quickslot instanceof Class) {
-				bundle.put( QUICKSLOT, ((Class<?>)quickslot).getName() );
+			if (qsRight instanceof Class) {
+				bundle.put( QSRIGHT, ((Class<?>)qsRight).getName() );
+			}
+			if (qsLeft instanceof Class) {
+				bundle.put( QSLEFT, ((Class<?>)qsLeft).getName() );
 			}
 
 			Scroll.save( bundle );
@@ -780,14 +786,24 @@ public class Dungeon {
 			Badges.reset();
 		}
 
-		String qsClass = bundle.getString( QUICKSLOT );
+		String qsClass = bundle.getString( QSRIGHT );
 		if (qsClass != null) {
 			try {
-				quickslot = Class.forName( qsClass );
+				qsRight = Class.forName( qsClass );
 			} catch (ClassNotFoundException e) {
 			}
 		} else {
-			quickslot = null;
+			qsRight = null;
+		}
+		
+		qsClass = bundle.getString( QSLEFT );
+		if (qsClass != null) {
+			try {
+				qsLeft = Class.forName( qsClass );
+			} catch (ClassNotFoundException e) {
+			}
+		} else {
+			qsLeft = null;
 		}
 
 		@SuppressWarnings("unused")

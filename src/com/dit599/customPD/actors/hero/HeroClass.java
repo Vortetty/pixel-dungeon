@@ -22,6 +22,7 @@ import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.TomeOfMastery;
 import com.dit599.customPD.items.armor.ClothArmor;
+import com.dit599.customPD.items.bags.KeyRing;
 import com.dit599.customPD.items.food.Food;
 import com.dit599.customPD.items.potions.PotionOfStrength;
 import com.dit599.customPD.items.rings.RingOfDetection;
@@ -142,7 +143,10 @@ public enum HeroClass {
 		(hero.belongings.weapon = new ShortSword()).identify();
 		new Dart( 8 ).identify().collect();
 		
-		Dungeon.quickslot = Dart.class;
+		Dungeon.qsRight = Dart.class;
+		Dungeon.qsLeft = Dart.class;
+		
+		new KeyRing().collect();
 		
 		new PotionOfStrength().setKnown();
 	}
@@ -153,7 +157,10 @@ public enum HeroClass {
 		WandOfMagicMissile wand = new WandOfMagicMissile();
 		wand.identify().collect();
 		
-		Dungeon.quickslot = wand;
+		Dungeon.qsRight = wand;
+		Dungeon.qsLeft = wand;
+		
+		new KeyRing().collect();
 		
 		new ScrollOfIdentify().setKnown();
 	}
@@ -165,7 +172,10 @@ public enum HeroClass {
 		
 		hero.belongings.ring1.activate( hero );
 		
-		Dungeon.quickslot = Dart.class;
+		Dungeon.qsRight = Dart.class;
+		Dungeon.qsLeft = Dart.class;
+		
+		new KeyRing().collect();
 		
 		new ScrollOfMagicMapping().setKnown();
 	}
@@ -178,7 +188,11 @@ public enum HeroClass {
 		Boomerang boomerang = new Boomerang();
 		boomerang.identify().collect();
 		
-		Dungeon.quickslot = boomerang;
+		Dungeon.qsRight = boomerang;
+		Dungeon.qsLeft = boomerang;
+		
+		new KeyRing().collect();
+		
 	}
 	
 	public String title() {

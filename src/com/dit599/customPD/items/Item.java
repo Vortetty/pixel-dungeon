@@ -172,8 +172,14 @@ public class Item implements Bundlable {
 				Badges.validateItemLevelAquired( this );
 			}
 			
-			items.add( this );	
-			QuickSlot.refresh();
+			items.add( this );
+			try{
+			QuickSlot.refresh(true);
+			QuickSlot.refresh(false);
+			}
+			catch(Exception e){
+				//
+			}
 			Collections.sort( items, itemComparator );
 			return true;
 			
@@ -221,7 +227,8 @@ public class Item implements Bundlable {
 			if (item == this) {
 				container.items.remove( this );
 				item.onDetach( );
-				QuickSlot.refresh();
+				QuickSlot.refresh(true);
+				QuickSlot.refresh(false);
 				return this;
 			} else if (item instanceof Bag) {
 				Bag bag = (Bag)item;
@@ -376,8 +383,11 @@ public class Item implements Bundlable {
 	}
 	
 	public void updateQuickslot() {
-		if ((stackable && Dungeon.quickslot == getClass()) || Dungeon.quickslot == this) {
-			QuickSlot.refresh();
+		if ((stackable && Dungeon.qsRight == getClass()) || Dungeon.qsRight == this) {
+			QuickSlot.refresh(true);
+		}
+		if ((stackable && Dungeon.qsLeft == getClass()) || Dungeon.qsLeft == this) {
+			QuickSlot.refresh(false);
 		}
 	}
 	
@@ -386,7 +396,8 @@ public class Item implements Bundlable {
 	private static final String LEVEL_KNOWN		= "levelKnown";
 	private static final String CURSED			= "cursed";
 	private static final String CURSED_KNOWN	= "cursedKnown";
-	private static final String QUICKSLOT		= "quickslot";
+	private static final String QSLEFT		= "leftQS";
+	private static final String QSRIGHT		= "rightQS";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -395,8 +406,11 @@ public class Item implements Bundlable {
 		bundle.put( LEVEL_KNOWN, levelKnown );
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
-		if (this == Dungeon.quickslot) {
-			bundle.put( QUICKSLOT, true );
+		if (this == Dungeon.qsRight) {
+			bundle.put( QSRIGHT, true );
+		}
+		if (this == Dungeon.qsLeft) {
+			bundle.put( QSLEFT, true );
 		}
 	}
 	
@@ -415,8 +429,11 @@ public class Item implements Bundlable {
 		
 		cursed	= bundle.getBoolean( CURSED );
 		
-		if (bundle.getBoolean( QUICKSLOT )) {
-			Dungeon.quickslot = this;
+		if (bundle.getBoolean( QSRIGHT )) {
+			Dungeon.qsRight = this;
+		}
+		else if (bundle.getBoolean( QSLEFT )) {
+			Dungeon.qsLeft = this;
 		}
 	}
 	
@@ -427,7 +444,12 @@ public class Item implements Bundlable {
 		user.busy();
 		
 		Char enemy = Actor.findChar( cell );
-		QuickSlot.target( this, enemy );
+		if(this.equals(Dungeon.qsRight)){
+			QuickSlot.target( this, enemy );
+		}
+		else{
+			QuickSlot.target( this, enemy );
+		}
 		
 		float delay = TIME_TO_THROW;
 		if (this instanceof MissileWeapon) {

@@ -26,6 +26,7 @@ import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
 import com.dit599.customPD.ui.PrefsButton;
+import com.dit599.customPD.ui.QuickSlot;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
