@@ -113,6 +113,8 @@ public class MagicItemAdapter extends BaseAdapter {
 		if(convertView != null){
 			typespin=(Spinner)convertView.findViewById(R.id.wand_ring_typespinner);
 			levelspin=(Spinner)convertView.findViewById(R.id.wand_ring_level_spinner);
+			Button delete = (Button) convertView.findViewById(R.id.wand_ring_deletbt); 
+			delete.setOnClickListener(deleteItem(position));
 		}
 		else{
 			convertView = inflater.inflate(R.layout.customizable_item3, null);

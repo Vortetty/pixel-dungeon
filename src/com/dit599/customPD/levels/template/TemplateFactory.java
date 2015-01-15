@@ -76,17 +76,17 @@ public class TemplateFactory {
 	public static LevelTemplate createSimpleLevel() {
 		LevelTemplate level = new LevelTemplate();
 		level.theme = SewerLevel.class;
-		level.maxMobs = 5;
+		level.maxMobs = 0;
 		level.timeToRespawn = 40;
-		level.specialRooms.add(Type.TREASURY);
-		level.specialRooms.add(Type.ARMORY);
-		level.mobs.get(1).mobClass = Gnoll.class;
-		level.mobs.get(1).weight = 2;
-		level.weapons.add(new ShortSword());
-		level.weapons.add(new ShortSword());
-		level.consumables.add(new Food());
-		level.rings.add(new MagicItem(RingOfEvasion.class, 2, true));
-		level.potions.add(PotionOfMight.class);
+//		level.specialRooms.add(Type.TREASURY);
+//		level.specialRooms.add(Type.ARMORY);
+//		level.mobs.get(1).mobClass = Gnoll.class;
+//		level.mobs.get(1).weight = 2;
+//		level.weapons.add(new ShortSword());
+//		level.weapons.add(new ShortSword());
+//		level.consumables.add(new Food());
+//		level.rings.add(new MagicItem(RingOfEvasion.class, 2, true));
+//		level.potions.add(PotionOfMight.class);
 
 		return level;
 	}

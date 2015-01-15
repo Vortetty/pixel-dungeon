@@ -66,7 +66,7 @@ public class LevelTemplate implements Bundlable{
 	public List<MobProbability> mobs = new ArrayList<MobProbability>(4);
 
 	public LevelTemplate() {
-		mobs.add(new MobProbability(Rat.class, 3));
+		mobs.add(new MobProbability(Rat.class, 0));
 		mobs.add(new MobProbability(Rat.class, 0));
 		mobs.add(new MobProbability(Rat.class, 0));
 		mobs.add(new MobProbability(Rat.class, 0));

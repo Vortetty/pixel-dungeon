@@ -95,7 +95,7 @@ public class ItemAdapter extends BaseAdapter {
 		}
 		mItemCount++;
 		//Max specialrooms reached
-		if(type.equals("Rooms") && mItemCount == MAX_SPECIALS){
+		if(type.equals("Rooms") && level.specialRooms.size() == MAX_SPECIALS){
 			activity.addButton.setEnabled(false);
 		}
 		notifyDataSetChanged();
@@ -119,6 +119,8 @@ public class ItemAdapter extends BaseAdapter {
 		Spinner spin;
 		if(convertView != null){
 			spin=(Spinner)convertView.findViewById(R.id.itemtypespinner);
+			Button delete = (Button) convertView.findViewById(R.id.itemdeletbt); 
+			delete.setOnClickListener(deleteItem(position));
 		}
 		else{
 			convertView = inflater.inflate(R.layout.customizable_item2, null);
@@ -205,23 +207,28 @@ public class ItemAdapter extends BaseAdapter {
 	private void setType(int position, String subClass){
 		try{
 			if(type.equals("Potions")){
-				level.potions.set(position, (Class<? extends Potion>) PotionMapping.getPotionClass(subClass));			
+				level.potions.remove(position);
+				level.potions.add(position, (Class<? extends Potion>) PotionMapping.getPotionClass(subClass));			
 			}
 			else if(type.equals("Scrolls")){
-				level.scrolls.set(position, (Class<? extends Scroll>) ScrollMapping.getScrollClass(subClass));		
+				level.scrolls.remove(position);
+				level.scrolls.add(position, (Class<? extends Scroll>) ScrollMapping.getScrollClass(subClass));		
 			}
 			else if(type.equals("Rooms")){
-				level.specialRooms.set(position, RoomMapping.getRoomType(subClass));		
+				level.specialRooms.remove(position);
+				level.specialRooms.add(position, RoomMapping.getRoomType(subClass));		
 			}
 			else if(type.equals("Seeds")){
-				level.seeds.set(position, (Plant.Seed) SeedMapping.getSeedClass(subClass).newInstance());		
+				level.seeds.remove(position); 
+				level.seeds.add(position, (Plant.Seed) SeedMapping.getSeedClass(subClass).newInstance());		
 			}
 			else if(type.equals("Other")){
 				Item temp = (Item) ConsumableMapping.getConsumableClass(subClass).newInstance();
 				if(temp instanceof Gold){
 					temp = temp.random();
 				}
-				level.consumables.set(position, temp);		
+				level.consumables.remove(position);	
+				level.consumables.add(position, temp);		
 			}
 		}
 		catch (Exception e){
@@ -250,7 +257,7 @@ public class ItemAdapter extends BaseAdapter {
 					level.consumables.remove(pos);	
 				}
 				mItemCount--;
-				notifyDataSetChanged();
+				ItemAdapter.this.notifyDataSetChanged();
 			}
 		};
 	}

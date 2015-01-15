@@ -21,6 +21,7 @@
 package com.dit599.customPD.editorUI;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,10 +29,13 @@ import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.widget.Button;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
+import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.R;
+import com.dit599.customPD.actors.hero.HeroClass;
 import com.dit599.customPD.editorUI.Mappings.ArmorMapping;
 import com.dit599.customPD.editorUI.Mappings.ConsumableMapping;
 import com.dit599.customPD.editorUI.Mappings.EnchantmentsMapping;
@@ -185,6 +189,20 @@ public class MapEditActivity extends FragmentActivity{
 
 			@Override
 			public boolean onLongClick(View v) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(MapEditActivity.this)
+				.setTitle("Delete Map")
+				.setPositiveButton("Yes", deleteConfirm(v))
+				.setNegativeButton("No", null);
+				AlertDialog alert = builder.create(); 
+				alert.show(); 
+				return true;
+			}};
+	}
+	private DialogInterface.OnClickListener deleteConfirm(final View v){
+		return new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface d, int j) {
 				if(mTabHost.getTabWidget().getTabCount() > 2){
 					templateHandler = TemplateHandler.getInstance(mapName, MapEditActivity.this);
 					templateHandler.getDungeon().levelTemplates.remove(mTabHost.getTabWidget().indexOfChild(v)-1);
@@ -204,7 +222,6 @@ public class MapEditActivity extends FragmentActivity{
 					}
 					//
 				}
-				return true;
 			}};
 	}
 }
