@@ -53,6 +53,7 @@ public class ShopPainter extends Painter {
 
 	private static int pasWidth;
 	private static int pasHeight;
+	private static final int MAX_TRIES = 10;
 
 	public static void paint( Level level, Room room ) {
 
@@ -65,24 +66,24 @@ public class ShopPainter extends Painter {
 
 		Item[] range = range();
 
+		placeShopkeeper( level, room );
 		int pos = xy2p( room, room.entrance() ) + (per - range.length) / 2;
 		for (int i=0; i < range.length; i++) {
-
+			int tries = MAX_TRIES;
 			Point xy = p2xy( room, (pos + per) % per );
 			int cell = xy.x + xy.y * Level.WIDTH;
 
 			if (level.heaps.get( cell ) != null) {
 				do {
 					cell = room.random();
-				} while (level.heaps.get( cell ) != null);
+					tries--;
+				} while (level.heaps.get( cell ) != null && tries > 0);
 			}
 
 			level.drop( range[i], cell ).type = Heap.Type.FOR_SALE;
 
 			pos++;
 		}
-
-		placeShopkeeper( level, room );
 
 		for (Room.Door door : room.connected.values()) {
 			door.set( Room.Door.Type.REGULAR );
@@ -147,6 +148,7 @@ public class ShopPainter extends Painter {
 				items.add( new Weightstone() );
 			}
 		}
+		items.add( new Ankh() );
 		items.add( new PotionOfHealing() );
 		for (int i=0; i < 3; i++) {
 			items.add( Generator.random( Generator.Category.POTION ) );
@@ -159,8 +161,6 @@ public class ShopPainter extends Painter {
 
 		items.add( new OverpricedRation() );
 		items.add( new OverpricedRation() );
-
-		items.add( new Ankh() );
 		//		}
 		Item[] range =items.toArray( new Item[0] );
 		Random.shuffle( range );

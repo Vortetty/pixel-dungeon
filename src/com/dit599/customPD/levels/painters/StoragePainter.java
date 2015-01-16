@@ -17,7 +17,6 @@
  */
 package com.dit599.customPD.levels.painters;
 
-import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.items.Generator;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.potions.PotionOfLiquidFlame;

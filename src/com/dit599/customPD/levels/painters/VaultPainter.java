@@ -50,8 +50,8 @@ public class VaultPainter extends Painter {
 
 			case 1:
 				Item i1, i2;
+				i1 = prize( level );
 				do {
-					i1 = prize( level );
 					i2 = prize( level );
 				} while (i1.getClass() == i2.getClass());
 				level.drop( i1, c ).type = Type.CRYSTAL_CHEST;

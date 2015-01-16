@@ -392,6 +392,9 @@ public class Dungeon {
 	}
 
 	public static boolean shopOnLevel() {
+		if(Dungeon.template != null){
+			return false;
+		}
 		return depth == 6 || depth == 11 || depth == 16;
 	}
 
