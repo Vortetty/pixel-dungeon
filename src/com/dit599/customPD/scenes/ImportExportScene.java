@@ -51,9 +51,13 @@ public class ImportExportScene extends PixelScene {
 
 	//private static final String TXT_TITLE = "Import/Export Custom Maps";
 	private static final String TXT_WARNING	= 
-			"Importing/Exporting will overwrite maps with the same name.\n\n" +
-			"You can only have 10 maps ingame due to UI limitations.\n\n" +
-			"Import will still overwrite existing files with same name when you have 10 maps.\n\n";
+			"Importing/Exporting will overwrite maps with the same name. You will need to press one of " +
+			"these buttons to create the public YourPD folder if you do not have it yet.\n\n" +
+			"You can only have 10 maps ingame due to UI limitations. Import will still overwrite existing " +
+			"files with same name when you have 10 maps.\n\n" +
+			"Upload your exported maps wherever you choose by copying the file from the public folder " +
+			"to your pc. You of course place other peoples' maps in the same folder in order to be able to import them.\n\n";
+	
 
 	private static final int BTN_HEIGHT	= 20;
 	private static final int GAP 		= 2;
@@ -93,6 +97,7 @@ public class ImportExportScene extends PixelScene {
 		RedButton imp = new RedButton( "Import Maps" ) {
 			@Override
 			protected void onClick() {
+				int count = 0;
 				ArrayList<String> files = new ArrayList<String>();
 
 				for(String f : Game.instance.fileList()){
@@ -129,6 +134,7 @@ public class ImportExportScene extends PixelScene {
 							template.save(f.substring(0, f.length() - 4), Game.instance);
 							//If map from empty bundle created, default layout will overwrite instead.
 							TemplateFactory.createSimpleDungeon(f.substring(0, f.length() - 4), Game.instance);
+							count++;
 						}
 						catch(Exception e){
 							e.printStackTrace();
@@ -136,7 +142,7 @@ public class ImportExportScene extends PixelScene {
 						}
 					}
 				}
-				WndStory.showChapter("Maps were imported!");
+				WndStory.showChapter(count + " Maps were imported!");
 			}
 		};
 		add( imp.setRect(left, pos * BTN_HEIGHT + top + (GAP/2) * pos, w - left * 2, BTN_HEIGHT) );
@@ -145,7 +151,7 @@ public class ImportExportScene extends PixelScene {
 		RedButton exp = new RedButton( "Export Maps" ) {
 			@Override
 			protected void onClick() {
-
+				int count = 0;
 				ArrayList<String> files = new ArrayList<String>();
 
 				for(String f : Game.instance.fileList()){
@@ -164,13 +170,14 @@ public class ImportExportScene extends PixelScene {
 						DungeonTemplate template = new DungeonTemplate();
 						template.load(f.substring(0, f.length() - 4), Game.instance);
 						template.save(DEFAULT_PATH + f.substring(0, f.length() - 4), Game.instance);
+						count++;
 					}
 					catch(Exception e){
 						e.printStackTrace();
 						Log.d("FAILED EXPORT", f);
 					}
 				}
-				WndStory.showChapter("Maps were exported!");
+				WndStory.showChapter(count + " Maps were exported!");
 			}
 		};
 		add( exp.setRect(left, pos * BTN_HEIGHT + top + (GAP/2) * pos, w - left * 2, BTN_HEIGHT) );	
