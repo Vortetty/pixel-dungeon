@@ -30,6 +30,10 @@ import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 
 import com.watabou.noosa.Game;
@@ -83,8 +87,11 @@ public class DungeonTemplate implements Bundlable{
 		storeInBundle(bundle);
 		OutputStream output;
 		try {
+			File temp = null;
 			if(file.contains("/")){
-				File temp = new File(file + ".map");
+				temp = new File(file + ".map");
+				temp.canWrite();
+				temp.setWritable(true);
 				output = new FileOutputStream(temp);
 			}
 			else{
@@ -92,6 +99,23 @@ public class DungeonTemplate implements Bundlable{
 			}
 			Bundle.write( bundle, output );
 			output.close();
+			
+			if(file.contains("/")){
+				if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
+					Intent mediaScanIntent = new Intent(
+							Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+					String mCurrentFilePath = "file://" + temp.getPath();
+					File f = new File(mCurrentFilePath);
+					Uri contentUri = Uri.fromFile(f);
+					mediaScanIntent.setData(contentUri);
+					Game.instance.sendBroadcast(mediaScanIntent);
+				} else {
+					Game.instance.sendBroadcast(new Intent(
+							Intent.ACTION_MEDIA_MOUNTED,
+							Uri.parse("file://"
+									+ Environment.getExternalStorageDirectory())));
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
