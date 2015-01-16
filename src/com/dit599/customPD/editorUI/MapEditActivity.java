@@ -190,9 +190,10 @@ public class MapEditActivity extends FragmentActivity{
 			@Override
 			public boolean onLongClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(MapEditActivity.this)
-				.setTitle("Delete Floor?")
-				.setPositiveButton("Yes", deleteConfirm(v))
-				.setNegativeButton("No", null);
+				.setTitle("Delete/Copy Floor?")
+				.setPositiveButton("Delete", deleteConfirm(v))
+				.setNegativeButton("Cancel", null)
+				.setNeutralButton("Copy", copyConfirm(v));
 				AlertDialog alert = builder.create(); 
 				alert.show(); 
 				return true;
@@ -211,9 +212,8 @@ public class MapEditActivity extends FragmentActivity{
 					mTabHost.addTab(mTabHost.newTabSpec(TAB_ADD_FLOOR).setIndicator("Add floor", null),
 							Fragment.class, null);
 					for(int i = 1; i < temp; i++){
-						mTabHost.addTab(
-								mTabHost.newTabSpec(String.valueOf(i)).setIndicator("Floor " + i,
-										null),FloorFragment.class, null);
+						mTabHost.addTab(mTabHost.newTabSpec(String.valueOf(i)).setIndicator("Floor " + i, null),
+								FloorFragment.class, null);
 						mTabHost.getTabWidget().getChildTabViewAt(i).setLongClickable(true);
 						mTabHost.getTabWidget().getChildTabViewAt(i).setOnLongClickListener(deleteTab());
 						if(mTabHost.getCurrentTab() != i){
@@ -222,6 +222,25 @@ public class MapEditActivity extends FragmentActivity{
 					}
 					//
 				}
+			}};
+	}
+	private DialogInterface.OnClickListener copyConfirm(final View v){
+		return new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface d, int j) {
+				int tabCount = mTabHost.getTabWidget().getTabCount();
+				String tab_name = "Floor " + tabCount;
+
+				templateHandler = TemplateHandler.getInstance(mapName, getApplicationContext());
+				LevelTemplate copy = new LevelTemplate(templateHandler.getDungeon().
+						             levelTemplates.get(mTabHost.getTabWidget().indexOfChild(v)-1));
+				templateHandler.getDungeon().levelTemplates.add(copy);
+				mTabHost.addTab(mTabHost.newTabSpec(String.valueOf(tabCount)).setIndicator(tab_name, null),
+						        FloorFragment.class, null);
+				mTabHost.getTabWidget().getChildTabViewAt(tabCount).setLongClickable(true);
+				mTabHost.getTabWidget().getChildTabViewAt(tabCount).setOnLongClickListener(deleteTab());
+				mTabHost.setCurrentTab(tabCount);	
 			}};
 	}
 }

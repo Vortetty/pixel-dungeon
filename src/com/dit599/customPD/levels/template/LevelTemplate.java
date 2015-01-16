@@ -72,6 +72,26 @@ public class LevelTemplate implements Bundlable{
 		mobs.add(new MobProbability(Rat.class, 0));
 	}
 
+	public LevelTemplate(LevelTemplate copy) {
+		this.maxMobs = copy.maxMobs;
+		this.timeToRespawn = copy.timeToRespawn;
+		try {
+			this.theme = (copy.theme.newInstance()).getClass();
+			this.weapons= new ArrayList<Item>(copy.weapons);
+			this.armor= new ArrayList<Item>(copy.armor);
+			this.consumables= new ArrayList<Item>(copy.consumables);
+			this.seeds= new ArrayList<Item>(copy.seeds);
+			this.potions= new ArrayList<Class<? extends Potion>>(copy.potions);
+			this.scrolls= new ArrayList<Class<? extends Scroll>>(copy.scrolls);
+			this.wands= new ArrayList<LevelTemplate.MagicItem>(copy.wands);
+			this.rings= new ArrayList<LevelTemplate.MagicItem>(copy.rings);
+			this.specialRooms= new ArrayList<Room.Type>(copy.specialRooms);
+			this.mobs = new ArrayList<LevelTemplate.MobProbability> (copy.mobs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Gives you the current level based on Dungeon.depth.
 	 *
