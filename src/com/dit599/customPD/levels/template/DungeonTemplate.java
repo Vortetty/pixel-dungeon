@@ -20,6 +20,9 @@
 */
 package com.dit599.customPD.levels.template;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -78,8 +81,15 @@ public class DungeonTemplate implements Bundlable{
 		Bundle bundle = new Bundle();
 		name = file;
 		storeInBundle(bundle);
+		OutputStream output;
 		try {
-			OutputStream output = c.openFileOutput(name + ".map", Game.MODE_PRIVATE );
+			if(file.contains("/")){
+				File temp = new File(file + ".map");
+				output = new FileOutputStream(temp);
+			}
+			else{
+				output = c.openFileOutput(name + ".map", Game.MODE_PRIVATE );
+			}
 			Bundle.write( bundle, output );
 			output.close();
 		} catch (Exception e) {
@@ -89,8 +99,15 @@ public class DungeonTemplate implements Bundlable{
 	public void load(String file, Context c) {
 		Bundle  bundle = null;
 		name = file;
+		InputStream input; 
 		try {
-			InputStream input = c.openFileInput(name + ".map");
+			if(file.contains("/")){
+				File temp = new File(file + ".map");
+				input = new FileInputStream(temp);
+			}
+			else{
+				input = c.openFileInput(name + ".map");
+			}
 			bundle = Bundle.read( input );
 			input.close();
 			if(bundle == null){

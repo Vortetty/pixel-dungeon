@@ -117,7 +117,7 @@ public class MapSelectorActivity extends Activity {
 			@Override
 			public boolean onLongClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(MapSelectorActivity.this)
-				.setTitle("Delete Map")
+				.setTitle("Delete Map?")
 				.setPositiveButton("Yes", deleteMap(v))
 				.setNegativeButton("No", null);
 				AlertDialog alert = builder.create(); 
@@ -147,5 +147,15 @@ public class MapSelectorActivity extends Activity {
 					}
 				}
 			}};
+	}
+	@Override
+	public void onBackPressed(){
+		TemplateHandler.resetAll();
+		super.onBackPressed();
+	}
+	@Override
+	public void onPause() {
+		super.onPause();
+		TemplateHandler.resetAll();
 	}
 }

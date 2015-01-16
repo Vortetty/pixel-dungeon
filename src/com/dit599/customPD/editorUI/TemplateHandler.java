@@ -103,4 +103,7 @@ public class TemplateHandler {
 	public static void reset(String mapName){
 		instances.put(mapName, null);
 	}
+	public static void resetAll(){
+		instances = new HashMap<String, TemplateHandler>();
+	}
 }

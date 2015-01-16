@@ -17,16 +17,20 @@
  */
 package com.dit599.customPD.scenes;
 
+import android.util.Log;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
+import com.dit599.customPD.levels.template.TemplateFactory;
 import com.dit599.customPD.ui.Archs;
 import com.dit599.customPD.ui.ExitButton;
 import com.dit599.customPD.ui.PrefsButton;
 import com.dit599.customPD.ui.QuickSlot;
+import com.dit599.customPD.ui.RedButton;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -119,6 +123,14 @@ public class TitleScene extends PixelScene {
 		version.x = w - version.width();
 		version.y = h - version.height();
 		add( version );
+		
+		RedButton temp = new RedButton( "Import/Export" ) {
+			@Override
+			protected void onClick() {
+				CustomPD.switchNoFade( ImportExportScene.class );
+			}
+		};
+		add( temp.setRect(w / 2 - 25, btnBadges.bottom(), 50, 20) );
 		
 		PrefsButton btnPrefs = new PrefsButton();
 		btnPrefs.setPos( 0, 0 );

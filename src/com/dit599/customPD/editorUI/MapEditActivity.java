@@ -190,7 +190,7 @@ public class MapEditActivity extends FragmentActivity{
 			@Override
 			public boolean onLongClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(MapEditActivity.this)
-				.setTitle("Delete Map")
+				.setTitle("Delete Floor?")
 				.setPositiveButton("Yes", deleteConfirm(v))
 				.setNegativeButton("No", null);
 				AlertDialog alert = builder.create(); 

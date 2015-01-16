@@ -51,7 +51,7 @@ public class TemplateFactory {
 			template.load(name, c);
 			if(template.levelTemplates.size() > 0){
 				found = true;
-				Log.d("SUCCESS", "Loaded .map");
+				Log.d("SUCCESS", "Loaded .map " + name);
 			}
 		}
 		catch(Exception e){
