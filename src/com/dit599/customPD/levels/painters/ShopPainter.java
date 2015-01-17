@@ -67,7 +67,6 @@ public class ShopPainter extends Painter {
 
 		Item[] range = range();
 
-		placeShopkeeper( level, room );
 		int pos = xy2p( room, room.entrance() ) + (per - range.length) / 2;
 		for (int i=0; i < range.length; i++) {
 			int tries = MAX_TRIES;
@@ -80,12 +79,14 @@ public class ShopPainter extends Painter {
 					tries--;
 				} while ((level.heaps.get( cell ) != null || Actor.findChar( cell ) != null) && tries > 0);
 			}
-			if(!(level.heaps.get( cell ) != null || Actor.findChar( cell ) != null)){
+			if(level.heaps.get( cell ) == null && Actor.findChar( cell ) == null){
 				level.drop( range[i], cell ).type = Heap.Type.FOR_SALE;
 			}
 
 			pos++;
 		}
+
+		placeShopkeeper( level, room );
 
 		for (Room.Door door : room.connected.values()) {
 			door.set( Room.Door.Type.REGULAR );
