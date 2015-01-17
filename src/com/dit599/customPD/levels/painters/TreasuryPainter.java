@@ -27,7 +27,7 @@ import com.dit599.customPD.levels.Terrain;
 import com.watabou.utils.Random;
 
 public class TreasuryPainter extends Painter {
-	
+
 	private static final int MAX_TRIES = 10;
 
 	public static void paint( Level level, Room room ) {
@@ -39,30 +39,34 @@ public class TreasuryPainter extends Painter {
 
 		Heap.Type heapType = Random.Int( 2 ) == 0 ? Heap.Type.CHEST : Heap.Type.HEAP;
 
-//		if(Dungeon.template == null){
-			int n = Random.IntRange( 2, 3 );
-			for (int i=0; i < n; i++) {
+		//		if(Dungeon.template == null){
+		int n = Random.IntRange( 2, 3 );
+		for (int i=0; i < n; i++) {
+			int pos;
+			int tries = MAX_TRIES;
+			do {
+				pos = room.random();
+				tries--;
+			} while ((level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null) && tries > 0);
+			if(!(level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null)){
+				level.drop( new Gold().random(), pos ).type = heapType;
+			}
+		}
+
+		if (heapType == Heap.Type.HEAP) {
+			for (int i=0; i < 6; i++) {
 				int pos;
 				int tries = MAX_TRIES;
 				do {
 					pos = room.random();
 					tries--;
-				} while ((level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null) && tries > 0);
-				level.drop( new Gold().random(), pos ).type = heapType;
-			}
-
-			if (heapType == Heap.Type.HEAP) {
-				for (int i=0; i < 6; i++) {
-					int pos;
-					int tries = MAX_TRIES;
-					do {
-						pos = room.random();
-						tries--;
-					} while (level.map[pos] != Terrain.EMPTY && tries > 0);
+				} while (level.map[pos] != Terrain.EMPTY && tries > 0);
+				if(!(level.map[pos] != Terrain.EMPTY)){
 					level.drop( new Gold( Random.IntRange( 1, 3 ) ), pos );
 				}
 			}
-//		}
+		}
+		//		}
 		room.entrance().set( Room.Door.Type.LOCKED );
 		level.addItemToSpawn( new IronKey() );
 	}

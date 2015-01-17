@@ -34,7 +34,7 @@ import com.watabou.utils.Rect;
 public class Painter {
 
 	private static final int MAX_TRIES = 10;
-	
+
 	public static void set( Level level, int cell, int value ) {
 		level.map[cell] = value;
 	}
@@ -100,7 +100,9 @@ public class Painter {
 				pos = room.random();
 				tries--;
 			} while ((level.map[pos] != terrain || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null) && tries > 0);
-			level.drop(i, pos );
+			if(!(level.map[pos] != terrain || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null)){
+				level.drop(i, pos );
+			}
 		}
 	}
 	public static void placeHeap(Item[] items, int pos, Level level, Heap.Type type){
@@ -121,9 +123,11 @@ public class Painter {
 				pos = room.random();
 				tries--;
 			} while ((level.map[pos] != terrain || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null) && tries > 0);
-			m.pos = pos;
-			level.mobs.add( m );
-			Actor.occupyCell( m );
+			if(!(level.map[pos] != terrain || level.heaps.get( pos ) != null || Actor.findChar( pos ) != null)){
+				m.pos = pos;
+				level.mobs.add( m );
+				Actor.occupyCell( m );
+			}
 		}
 	}
 }

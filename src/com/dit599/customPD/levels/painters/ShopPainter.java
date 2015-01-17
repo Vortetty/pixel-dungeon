@@ -23,6 +23,7 @@ package com.dit599.customPD.levels.painters;
 import java.util.ArrayList;
 
 import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.actors.mobs.npcs.ImpShopkeeper;
 import com.dit599.customPD.actors.mobs.npcs.Shopkeeper;
@@ -77,10 +78,11 @@ public class ShopPainter extends Painter {
 				do {
 					cell = room.random();
 					tries--;
-				} while (level.heaps.get( cell ) != null && tries > 0);
+				} while ((level.heaps.get( cell ) != null || Actor.findChar( cell ) != null) && tries > 0);
 			}
-
-			level.drop( range[i], cell ).type = Heap.Type.FOR_SALE;
+			if(!(level.heaps.get( cell ) != null || Actor.findChar( cell ) != null)){
+				level.drop( range[i], cell ).type = Heap.Type.FOR_SALE;
+			}
 
 			pos++;
 		}
@@ -148,23 +150,22 @@ public class ShopPainter extends Painter {
 				items.add( new Weightstone() );
 			}
 		}
-		items.add( new Ankh() );
+		items.add( new ScrollOfMagicMapping() );
 		items.add( new PotionOfHealing() );
+		items.add( new Ankh() );
+		items.add( new ScrollOfIdentify() );
+		items.add( new ScrollOfRemoveCurse() );
 		for (int i=0; i < 3; i++) {
 			items.add( Generator.random( Generator.Category.POTION ) );
 		}
-
-		items.add( new ScrollOfIdentify() );
-		items.add( new ScrollOfRemoveCurse() );
-		items.add( new ScrollOfMagicMapping() );
 		items.add( Generator.random( Generator.Category.SCROLL ) );
 
 		items.add( new OverpricedRation() );
 		items.add( new OverpricedRation() );
 		//		}
-		Item[] range =items.toArray( new Item[0] );
-		Random.shuffle( range );
-		return range;
+//		Item[] range =items.toArray( new Item[0] );
+//		Random.shuffle( range );
+		return items.toArray( new Item[0] );
 	}
 
 	private static void placeShopkeeper( Level level, Room room ) {
