@@ -20,11 +20,13 @@
  */
 package com.dit599.customPD.scenes;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.editorUI.MapSelectorActivity;
 import com.dit599.customPD.effects.BannerSprites;
 import com.dit599.customPD.effects.Fireball;
 import com.dit599.customPD.levels.template.DungeonTemplate;
@@ -115,7 +117,9 @@ public class GameModeScene extends PixelScene{
 				Dungeon.hungerNotified = true;
 				Dungeon.starvingNotified = true;
 				Dungeon.collectedDrop = true;
-				CustomPD.self.editMaps();
+				//CustomPD.self.editMaps();
+				Intent intent = new Intent(Game.instance, MapSelectorActivity.class);
+				Game.instance.startActivity(intent);
 			}
 
 		};

@@ -39,10 +39,6 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 
 public class CustomPD extends Game {
-	/**
-	 * Used to access app context when switching from game to map editor.
-	 */
-	public static CustomPD self;
 	
 	public CustomPD() {
 		super( TitleScene.class );
@@ -101,7 +97,6 @@ public class CustomPD extends Game {
 		com.watabou.utils.Bundle.addAlias( 
 			com.dit599.customPD.plants.Dreamweed.Seed.class,
 			"com.dit599.customPD.plants.Blindweed$Seed" );
-		self = this;
 	}
 	
 	@Override
@@ -120,7 +115,6 @@ public class CustomPD extends Game {
 		
 		Music.INSTANCE.enable( music() );
 		Sample.INSTANCE.enable( soundFx() );
-		self = this;
 	}
 	
 	@Override
@@ -314,13 +308,4 @@ public class CustomPD extends Game {
 	public static void reportException( Exception e ) {
 		Log.e( "PD", Log.getStackTraceString( e ) ); 
 	}
-	/**
-	 * Used to launch the map editor.
-	 */
-	public void editMaps() {
-		startActivity(new Intent("com.dit599.customPD.editorUI.MapSelectorActivity"));
-	}
-	
-
-
 }
