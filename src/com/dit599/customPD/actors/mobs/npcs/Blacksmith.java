@@ -308,7 +308,7 @@ public class Blacksmith extends NPC {
 		 * Modified to not spawn in tutorialmode.
 		 */
 		public static void spawn( Collection<Room> rooms ) {
-			if (!Dungeon.isTutorial && !spawned && Dungeon.depth > 11 && Random.Int( 15 - Dungeon.depth ) == 0) {
+			if (!Dungeon.isTutorial && !spawned && (Dungeon.depth > 11 && Random.Int( 15 - Dungeon.depth ) == 0 || Dungeon.template != null)) {
 				
 				Room blacksmith = null;
 				for (Room r : rooms) {

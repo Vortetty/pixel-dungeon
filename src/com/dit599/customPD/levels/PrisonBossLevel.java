@@ -24,7 +24,6 @@ import com.dit599.customPD.Bones;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.actors.Actor;
 import com.dit599.customPD.actors.Char;
-import com.dit599.customPD.actors.mobs.Bestiary;
 import com.dit599.customPD.actors.mobs.Mob;
 import com.dit599.customPD.actors.mobs.Tengu;
 import com.dit599.customPD.items.Heap;

@@ -44,7 +44,7 @@ public class StandardPainter extends Painter {
 		if (!Dungeon.bossLevel() && Random.Int( 5 ) == 0) {
 			switch (Random.Int( 6 )) {
 			case 0:
-				if (level.feeling != Level.Feeling.GRASS && !Dungeon.isTutorial && Dungeon.template == null) {
+				if (level.feeling != Level.Feeling.GRASS && !Dungeon.isTutorial) {
 					if (Math.min( room.width(), room.height() ) >= 4 && Math.max( room.width(), room.height() ) >= 6) {
 						paintGraveyard( level, room );
 						return;
@@ -54,7 +54,7 @@ public class StandardPainter extends Painter {
 					// Burned room
 				}
 			case 1:
-				if (Dungeon.depth > 1 && !Dungeon.isTutorial && Dungeon.template == null) {
+				if (Dungeon.depth > 1 && !Dungeon.isTutorial) {
 					paintBurned( level, room );
 					return;
 				}

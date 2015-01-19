@@ -38,7 +38,6 @@ import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.scrolls.ScrollOfUpgrade;
 import com.dit599.customPD.levels.Room.Type;
 import com.dit599.customPD.levels.painters.Painter;
-import com.dit599.customPD.levels.painters.ShopPainter;
 import com.dit599.customPD.levels.template.LevelTemplate;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
