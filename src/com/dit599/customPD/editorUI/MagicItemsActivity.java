@@ -24,27 +24,19 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dit599.customPD.R;
 import com.dit599.customPD.editorUI.Mappings.RingMapping;
 import com.dit599.customPD.editorUI.Mappings.WandMapping;
-import com.dit599.customPD.items.rings.RingOfAccuracy;
-import com.dit599.customPD.items.wands.WandOfAmok;
 import com.dit599.customPD.levels.template.LevelTemplate;
-import com.dit599.customPD.levels.template.LevelTemplate.MagicItem;
-import com.watabou.noosa.Game;
 public class MagicItemsActivity extends Activity {
 	
-	public Spinner armtypespin,armechspin,armlevelspin=null;
-	public ArrayAdapter<CharSequence> adapter1,adapter2,adapter3=null;
     public LinearLayout layout;
     public ListView mItemListView = null;
     private LevelTemplate level;
@@ -54,19 +46,19 @@ public class MagicItemsActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
         setContentView(R.layout.customizable_item_activity3);  
-        layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout3);
+        layout = (LinearLayout) MagicItemsActivity.this.findViewById(R.id.enchantable_base_layout3);
         String type = getIntent().getStringExtra(EnchantableItemsActivity.EXTRA_TYPE);
         if(type == null || type.equals("")){
         	type = "Wands";
         }
-		this.setTitle(type);
-		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
+        MagicItemsActivity.this.setTitle(type);
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), MagicItemsActivity.this)
 				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
-        mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view3);
+        mItemListView = (ListView) MagicItemsActivity.this.findViewById(R.id.enchantable_list_view3);
         View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
         mItemListView.addFooterView(footer);
 
-        mItemAdapter = new MagicItemAdapter(getApplicationContext(), this.level, this, type);
+        mItemAdapter = new MagicItemAdapter(MagicItemsActivity.this, MagicItemsActivity.this.level, MagicItemsActivity.this, type);
         mItemListView.setAdapter(mItemAdapter);
         
         Button addButton = (Button) footer.findViewById(R.id.add_button);
@@ -105,7 +97,7 @@ public class MagicItemsActivity extends Activity {
 			initMappings();
 		}
 		if (level == null){
-			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), MagicItemsActivity.this)
 					 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(mItemAdapter.getCount() == 0){
@@ -132,6 +124,6 @@ public class MagicItemsActivity extends Activity {
 	@Override
 	public void onPause(){
 		super.onPause();
-		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this).save(this);
+		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), MagicItemsActivity.this).save(MagicItemsActivity.this);
 	}
 }

@@ -91,7 +91,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(getActivity(),
+				intent.setClass(activity,
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 0);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
@@ -105,7 +105,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(getActivity(),
+				intent.setClass(activity,
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 1);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
@@ -119,7 +119,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(getActivity(),
+				intent.setClass(activity,
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 2);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
@@ -133,7 +133,7 @@ public class FloorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(getActivity(),
+				intent.setClass(activity,
 						MapMobItemActivity.class);
 				intent.putExtra("mobIndex", 3);
 				intent.putExtra(MapEditActivity.EXTRA_FILENAME,
@@ -280,9 +280,10 @@ public class FloorFragment extends Fragment {
 
 		@Override
 		public void onClick(View v) {
-			Intent items = new Intent(getActivity(), ItemsActivity.class);  
-			Intent magicItems = new Intent(getActivity(), MagicItemsActivity.class);
+
 			final MapEditActivity activity = (MapEditActivity) getActivity();
+			Intent items = new Intent(activity, ItemsActivity.class);  
+			Intent magicItems = new Intent(activity, MagicItemsActivity.class);
 			items.putExtra(MapEditActivity.EXTRA_FILENAME,
                     activity.templateHandler.getDungeon().name);
 			items.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
@@ -292,7 +293,7 @@ public class FloorFragment extends Fragment {
 			
 			switch (v.getId()) {
 			case R.id.weaponbutton:
-                Intent weaponIntent = new Intent(getActivity(), EnchantableItemsActivity.class);
+                Intent weaponIntent = new Intent(activity, EnchantableItemsActivity.class);
                 weaponIntent.putExtra(MapEditActivity.EXTRA_FILENAME,
                         activity.templateHandler.getDungeon().name);
                 weaponIntent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);
@@ -301,7 +302,7 @@ public class FloorFragment extends Fragment {
                 startActivity(weaponIntent);
 				break;
 			case R.id.armorbutton:
-                Intent armorIntent = new Intent(getActivity(), EnchantableItemsActivity.class);
+                Intent armorIntent = new Intent(activity, EnchantableItemsActivity.class);
                 armorIntent.putExtra(MapEditActivity.EXTRA_FILENAME,
                         activity.templateHandler.getDungeon().name);
                 armorIntent.putExtra(EnchantableItemsActivity.EXTRA_DEPTH, depth);

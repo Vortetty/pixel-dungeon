@@ -75,7 +75,7 @@ public class MapEditActivity extends FragmentActivity{
 		}
 		setTitle(mapName);
 
-		templateHandler = TemplateHandler.getInstance(mapName, this);
+		templateHandler = TemplateHandler.getInstance(mapName, MapEditActivity.this);
 
 		if (templateHandler == null || templateHandler.getDungeon() == null) {
 			throw new NullPointerException();
@@ -84,7 +84,7 @@ public class MapEditActivity extends FragmentActivity{
 		initMappings();
 
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-		mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
+		mTabHost.setup(MapEditActivity.this, getSupportFragmentManager(), android.R.id.tabcontent);
 
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_ADD_FLOOR).setIndicator("Add floor", null),
 				Fragment.class, null);
@@ -103,7 +103,7 @@ public class MapEditActivity extends FragmentActivity{
 				if (tabSpec.equals(TAB_ADD_FLOOR)) {
 					int tabCount = mTabHost.getTabWidget().getTabCount();
 					String tab_name = "Floor " + tabCount;
-					templateHandler = TemplateHandler.getInstance(mapName, getApplicationContext());
+					templateHandler = TemplateHandler.getInstance(mapName, MapEditActivity.this);
 					templateHandler.addLevel();
 					mTabHost.addTab(
 							mTabHost.newTabSpec(String.valueOf(tabCount)).setIndicator(tab_name,
@@ -141,22 +141,22 @@ public class MapEditActivity extends FragmentActivity{
 	}
 
 	public void onBackPressed() {
-		templateHandler = TemplateHandler.getInstance(mapName, this);
-		templateHandler.save(this);
+		templateHandler = TemplateHandler.getInstance(mapName, MapEditActivity.this);
+		templateHandler.save(MapEditActivity.this);
 		super.onBackPressed();
 	}
 
 	@Override
 	public void onPause(){
 		super.onPause();
-		templateHandler = TemplateHandler.getInstance(mapName,this);
-		templateHandler.save(this);
+		templateHandler = TemplateHandler.getInstance(mapName,MapEditActivity.this);
+		templateHandler.save(MapEditActivity.this);
 	}
 
 	@Override
 	public void onResume(){
 		super.onResume();
-		if(this == null){
+		if(MapEditActivity.this == null){
 			finish();
 		}
 		if (mapName == null) {
@@ -164,7 +164,7 @@ public class MapEditActivity extends FragmentActivity{
 		}
 		setTitle(mapName);
 		if (templateHandler == null || templateHandler.getDungeon() == null) {
-			templateHandler = TemplateHandler.getInstance(mapName, this);
+			templateHandler = TemplateHandler.getInstance(mapName, MapEditActivity.this);
 		}
 		if(MobMapping.getAllNames() == null){
 			initMappings();
@@ -232,7 +232,7 @@ public class MapEditActivity extends FragmentActivity{
 				int tabCount = mTabHost.getTabWidget().getTabCount();
 				String tab_name = "Floor " + tabCount;
 
-				templateHandler = TemplateHandler.getInstance(mapName, getApplicationContext());
+				templateHandler = TemplateHandler.getInstance(mapName, MapEditActivity.this);
 				LevelTemplate copy = new LevelTemplate(templateHandler.getDungeon().
 						             levelTemplates.get(mTabHost.getTabWidget().indexOfChild(v)-1));
 				templateHandler.getDungeon().levelTemplates.add(copy);

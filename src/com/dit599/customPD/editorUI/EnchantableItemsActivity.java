@@ -58,7 +58,7 @@ public class EnchantableItemsActivity extends Activity {
         if (depth == 0) {
             throw new RuntimeException();
         }
-        level = TemplateHandler.getInstance(mapName, this).getLevel(depth);
+        level = TemplateHandler.getInstance(mapName, EnchantableItemsActivity.this).getLevel(depth);
         
         int type = getIntent().getIntExtra(EXTRA_TYPE, 0);
         
@@ -68,13 +68,13 @@ public class EnchantableItemsActivity extends Activity {
         else{
         	setTitle("Armor");
         }
-        layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout);
+        layout = (LinearLayout) EnchantableItemsActivity.this.findViewById(R.id.enchantable_base_layout);
         
-        mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view);
+        mItemListView = (ListView) EnchantableItemsActivity.this.findViewById(R.id.enchantable_list_view);
         View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
         mItemListView.addFooterView(footer);
 
-        mItemAdapter = new EnchantableItemAdapter(this, level, type);
+        mItemAdapter = new EnchantableItemAdapter(EnchantableItemsActivity.this, level, type);
         mItemListView.setAdapter(mItemAdapter);
         
         Button addButton = (Button) footer.findViewById(R.id.add_button);
@@ -98,7 +98,7 @@ public class EnchantableItemsActivity extends Activity {
 	@Override
 	public void onPause(){
 		super.onPause();
-		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this).save(this);
+		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), EnchantableItemsActivity.this).save(this);
 	}
 	private void initMappings(){
 		ArmorMapping.armorMappingInit();

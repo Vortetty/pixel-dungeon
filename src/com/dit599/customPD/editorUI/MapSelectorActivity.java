@@ -51,10 +51,10 @@ public class MapSelectorActivity extends Activity {
 		super.onCreate(savedInstanceState);  
 		setContentView(R.layout.mapselect);  
 		edv=(EditText)findViewById(R.id.mapselectet);
-		bt=(Button)this.findViewById(R.id.mapselectbut);
+		bt=(Button)MapSelectorActivity.this.findViewById(R.id.mapselectbut);
 		files = new ArrayList<String>();
 
-		for(String f : this.fileList()){
+		for(String f : MapSelectorActivity.this.fileList()){
 			if(f.endsWith(".map")){
 				files.add(f.substring(0, f.length()-4));
 			}
@@ -72,7 +72,7 @@ public class MapSelectorActivity extends Activity {
 					but.setText(temp);
 					mlayout.addView(but);
 					files.add(temp);
-					TemplateHandler.getInstance(temp, getApplicationContext());
+					TemplateHandler.getInstance(temp, MapSelectorActivity.this);
 				}}});
 	}
 	
@@ -82,7 +82,7 @@ public class MapSelectorActivity extends Activity {
 		if(files == null){
 			files = new ArrayList<String>();
 
-			for(String f : this.fileList()){
+			for(String f : MapSelectorActivity.this.fileList()){
 				if(f.endsWith(".map")){
 					files.add(f.substring(0, f.length()-4));
 				}
@@ -133,15 +133,15 @@ public class MapSelectorActivity extends Activity {
 				String temp = ((Button)v).getText().toString();
 				files.remove(temp);
 				mlayout.removeView(v);
-				for(String f : getApplicationContext().fileList()){
+				for(String f : MapSelectorActivity.this.fileList()){
 					if(f.equals(temp + ".map")){
-						Dungeon.template = (TemplateHandler.getInstance(temp, getApplicationContext()))
+						Dungeon.template = (TemplateHandler.getInstance(temp, MapSelectorActivity.this))
 								.getDungeon();
-						Dungeon.deleteGameWithContext(HeroClass.WARRIOR, true, getApplicationContext());
-						Dungeon.deleteGameWithContext(HeroClass.MAGE, true, getApplicationContext());
-						Dungeon.deleteGameWithContext(HeroClass.ROGUE, true, getApplicationContext());
-						Dungeon.deleteGameWithContext(HeroClass.HUNTRESS, true, getApplicationContext());
-						getApplicationContext().deleteFile(f);
+						Dungeon.deleteGameWithContext(HeroClass.WARRIOR, true, MapSelectorActivity.this);
+						Dungeon.deleteGameWithContext(HeroClass.MAGE, true, MapSelectorActivity.this);
+						Dungeon.deleteGameWithContext(HeroClass.ROGUE, true, MapSelectorActivity.this);
+						Dungeon.deleteGameWithContext(HeroClass.HUNTRESS, true, MapSelectorActivity.this);
+						MapSelectorActivity.this.deleteFile(f);
 						Dungeon.template = null;
 						break;
 					}

@@ -56,21 +56,21 @@ public class ItemsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {  
 		super.onCreate(savedInstanceState);  
 		setContentView(R.layout.customizable_item_activity2);  
-		layout = (LinearLayout) this.findViewById(R.id.enchantable_base_layout2);
+		layout = (LinearLayout) ItemsActivity.this.findViewById(R.id.enchantable_base_layout2);
         String type = getIntent().getStringExtra(EnchantableItemsActivity.EXTRA_TYPE);
         if(type == null || type.equals("")){
         	type = "Rooms";
         }
-		this.setTitle(type);
-		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
+        ItemsActivity.this.setTitle(type);
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), ItemsActivity.this)
 				 .getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
-		mItemListView = (ListView) this.findViewById(R.id.enchantable_list_view2);
+		mItemListView = (ListView) ItemsActivity.this.findViewById(R.id.enchantable_list_view2);
 		View footer = getLayoutInflater().inflate(R.layout.item_list_footer, null);
 		mItemListView.addFooterView(footer);
 
-		mItemAdapter = new ItemAdapter(getApplicationContext(), this.level, this, type);
+		mItemAdapter = new ItemAdapter(ItemsActivity.this, ItemsActivity.this.level, ItemsActivity.this, type);
 		mItemListView.setAdapter(mItemAdapter);
-		itemtypespin=(Spinner) this.findViewById(R.id.itemtypespinner);              
+		itemtypespin=(Spinner) ItemsActivity.this.findViewById(R.id.itemtypespinner);              
 		addButton = (Button) footer.findViewById(R.id.add_button);
 
 		addButton.setOnClickListener(new OnClickListener() {
@@ -102,7 +102,7 @@ public class ItemsActivity extends Activity {
 			initMappings();
 		}
 		if (level == null){
-			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), ItemsActivity.this)
 					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
         String type = getIntent().getStringExtra(EnchantableItemsActivity.EXTRA_TYPE);
@@ -143,6 +143,6 @@ public class ItemsActivity extends Activity {
 	@Override
 	public void onPause(){
 		super.onPause();
-		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this).save(this);
+		TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), ItemsActivity.this).save(ItemsActivity.this);
 	}
 }

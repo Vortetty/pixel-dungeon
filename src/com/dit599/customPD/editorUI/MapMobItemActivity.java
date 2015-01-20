@@ -52,13 +52,13 @@ public class MapMobItemActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
+		level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), MapMobItemActivity.this)
 				.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		super.setContentView(R.layout.mobitem); 
-		this.mobconfimbt=(Button) this.findViewById(R.id.mobconfirmbutton);
-		this.mobcancelbt=(Button) this.findViewById(R.id.mobcancelbutton);
+		MapMobItemActivity.this.mobconfimbt=(Button) MapMobItemActivity.this.findViewById(R.id.mobconfirmbutton);
+		MapMobItemActivity.this.mobcancelbt=(Button) MapMobItemActivity.this.findViewById(R.id.mobcancelbutton);
 
-		this.mobconfimbt.setOnClickListener(new OnClickListener(){
+		MapMobItemActivity.this.mobconfimbt.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -67,18 +67,18 @@ public class MapMobItemActivity extends Activity {
 				finish();
 			}});
 
-		this.mobcancelbt.setOnClickListener(new OnClickListener(){
+		MapMobItemActivity.this.mobcancelbt.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				onBackPressed();
 			}});
-		this.mobtypespin=(Spinner)this.findViewById(R.id.mobtypespinner);
-		this.mobfrespin=(Spinner)this.findViewById(R.id.mobfrespinner);
+		MapMobItemActivity.this.mobtypespin=(Spinner)MapMobItemActivity.this.findViewById(R.id.mobtypespinner);
+		MapMobItemActivity.this.mobfrespin=(Spinner)MapMobItemActivity.this.findViewById(R.id.mobfrespinner);
 
 		MobMapping.mobMappingInit();
 
-		typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, MobMapping.getAllNames());
+		typeAdapter = new ArrayAdapter<String>(MapMobItemActivity.this, android.R.layout.simple_spinner_item, MobMapping.getAllNames());
 		typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
 		mobtypespin.setAdapter(typeAdapter); 
 		mobtypespin.setSelection(MobMapping.getAllNames().indexOf(MobMapping.getMobName(level
@@ -97,7 +97,7 @@ public class MapMobItemActivity extends Activity {
 
 			}}); 
 
-		freqAdapter = ArrayAdapter.createFromResource(this, 
+		freqAdapter = ArrayAdapter.createFromResource(MapMobItemActivity.this, 
 				R.array.mobfrequ, android.R.layout.simple_spinner_item); 
 		freqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
 		mobfrespin.setAdapter(freqAdapter); 
@@ -122,7 +122,7 @@ public class MapMobItemActivity extends Activity {
 	public void onStart(){
 		super.onStart();
 		if (level == null){
-			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), this)
+			level = TemplateHandler.getInstance(getIntent().getStringExtra(MapEditActivity.EXTRA_FILENAME), MapMobItemActivity.this)
 					.getLevel(getIntent().getIntExtra(EnchantableItemsActivity.EXTRA_DEPTH, 0));
 		}
 		if(MobMapping.getAllNames() == null){
