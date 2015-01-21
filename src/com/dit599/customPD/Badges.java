@@ -29,6 +29,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import android.util.Log;
+
 import com.dit599.customPD.actors.mobs.Acidic;
 import com.dit599.customPD.actors.mobs.Albino;
 import com.dit599.customPD.actors.mobs.Bandit;
@@ -728,7 +730,6 @@ public class Badges {
 		if (!global.contains( badge )) {
 			global.add( badge );
 			saveNeeded = true;
-			saveGlobal();
 		}
 	}
 
@@ -906,6 +907,9 @@ public class Badges {
 	}
 
 	public static boolean isUnlocked( Badge badge ) {
+		for(Badge b : global){
+			Log.d("BADGES", "" + b.name());
+		}
 		return global.contains( badge );
 	}
 
