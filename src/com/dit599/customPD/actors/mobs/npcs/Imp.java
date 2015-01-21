@@ -215,7 +215,7 @@ public class Imp extends NPC {
 		 * Modified to not spawn in tutorialmode.
 		 */
 		public static void spawn( CityLevel level, Room room ) {
-			if (!Dungeon.isTutorial && !spawned && (Dungeon.depth > 16 && Random.Int( 20 - Dungeon.depth ) == 0) || Dungeon.template != null) {
+			if (!Dungeon.isTutorial && !spawned && (Dungeon.depth > 16 && Random.Int( 20 - Dungeon.depth ) == 0 || Dungeon.template != null)) {
 				
 				Imp npc = new Imp();
 				do {

@@ -220,7 +220,7 @@ public class Wandmaker extends NPC {
 		 * Modified to not spawn in tutorialmode.
 		 */
 		public static void spawn( PrisonLevel level, Room room ) {
-			if (!Dungeon.isTutorial && !spawned && (Dungeon.depth > 6 && Random.Int( 10 - Dungeon.depth ) == 0)|| Dungeon.template != null) {
+			if (!Dungeon.isTutorial && !spawned && (Dungeon.depth > 6 && Random.Int( 10 - Dungeon.depth ) == 0 || Dungeon.template != null)) {
 				
 				Wandmaker npc = new Wandmaker();
 				do {

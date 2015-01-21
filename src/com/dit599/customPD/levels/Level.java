@@ -221,6 +221,15 @@ public abstract class Level implements Bundlable {
 
 		if(!(this instanceof LastLevel) && LevelTemplate.currentLevelTemplate() != null){
 			for (Item item : LevelTemplate.currentLevelTemplate().getAllItems()) {
+				if(item instanceof PotionOfStrength){
+					Dungeon.potionOfStrength++;
+				}
+				else if(item instanceof Stylus){
+					Dungeon.arcaneStyli++;
+				}
+				else if(item instanceof ScrollOfUpgrade){
+					Dungeon.scrollsOfUpgrade++;
+				}
 				addItemToSpawn(item);
 			}
 		}
