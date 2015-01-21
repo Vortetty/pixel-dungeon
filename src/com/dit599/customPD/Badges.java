@@ -728,6 +728,7 @@ public class Badges {
 		if (!global.contains( badge )) {
 			global.add( badge );
 			saveNeeded = true;
+			saveGlobal();
 		}
 	}
 
