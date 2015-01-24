@@ -11,7 +11,7 @@ The source code of this modification is available here:
 https://github.com/QuattroX/pixel-dungeon/tree/master
 
 The original game is available here:
-https://play.google.com/store/apps/details?id=com.dit599.customPD
+https://play.google.com/store/apps/details?id=com.watabou.pixeldungeon
 
 And the source code of the original game is available here:
 https://github.com/watabou/pixel-dungeon

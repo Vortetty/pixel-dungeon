@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo" >
         <activity
-            android:name="com.dit599.customPD.CustomPD"
+            android:name="com.watabou.pixeldungeon.CustomPD"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dit599.customPD.editorUI.FloorsListActivity" >
+        <activity android:ncom.watabou.pixeldungeon.editorUI.FloorsListActivityivity" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.FloorsListActivity" />
 
@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.MapEditActivity"
+            android:ncom.watabou.pixeldungeon.editorUI.MapEditActivityivity"
             android:label="Map filename" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapEditActivity" />
@@ -54,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".editorUI.MapMobItemActivity"
+            android:ncom.watabou.pixeldungeon.editorUI.MapMobItemActivityivity"
             android:label="Set Mobtype" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapMobItemActivity" />
@@ -62,7 +62,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".editorUI.MapSelectArmorActivity" >
+        <activity android:ncom.watabou.pixeldungeon.editorUI.MapSelectArmorActivityivity" >
                         <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapSelectArmorActivity" />
 
@@ -70,7 +70,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.MapSelectorActivity"
+            android:ncom.watabou.pixeldungeon.editorUI.MapSelectorActivityivity"
             android:label="Maps" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapSelectorActivity" />
@@ -79,7 +79,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity"
+            android:ncom.watabou.pixeldungeon.editorUI.EnchantableItemsActivityivity"
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity" />
@@ -88,7 +88,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.ItemsActivity"
+            android:ncom.watabou.pixeldungeon.editorUI.ItemsActivityivity"
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.ItemsActivity" />
@@ -97,7 +97,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.MagicItemsActivity"
+            android:ncom.watabou.pixeldungeon.editorUI.MagicItemsActivityivity"
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MagicItemsActivity" />
