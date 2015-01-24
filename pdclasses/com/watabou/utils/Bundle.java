@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,8 +32,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
-import android.util.Log;
 
 public class Bundle {
 
@@ -290,15 +288,11 @@ public class Bundle {
 		
 		try {
 			BufferedReader reader = new BufferedReader( new InputStreamReader( stream ) );
-			String line = reader.readLine();
-			JSONTokener t = new JSONTokener( line );
-			boolean b = t !=null;
-			JSONObject json = (JSONObject)t.nextValue();
+			JSONObject json = (JSONObject)new JSONTokener( reader.readLine() ).nextValue();
 			reader.close();
 			
 			return new Bundle( json );
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 	}

@@ -907,9 +907,6 @@ public class Badges {
 	}
 
 	public static boolean isUnlocked( Badge badge ) {
-		for(Badge b : global){
-			Log.d("BADGES", "" + b.name());
-		}
 		return global.contains( badge );
 	}
 

@@ -26,7 +26,9 @@ import java.util.List;
 import com.dit599.customPD.items.*;
 import com.dit599.customPD.items.bags.*;
 import com.dit599.customPD.items.food.*;
+import com.dit599.customPD.items.keys.SkeletonKey;
 import com.dit599.customPD.items.weapon.missiles.*;
+import com.dit599.customPD.levels.painters.BossExitPainter;
 import com.dit599.customPD.plants.*;
 
 
@@ -56,6 +58,7 @@ public abstract class ConsumableMapping {
 		consumableclasslist.add(Shuriken.class);
 		consumableclasslist.add(Javelin.class);
 		consumableclasslist.add(Tamahawk.class);
+		consumableclasslist.add(SkeletonKey.class);
 
 		consumablenamelist = new ArrayList<String>();
 		consumablenamelist.add("Ankh");
@@ -78,6 +81,7 @@ public abstract class ConsumableMapping {
 		consumablenamelist.add("Shuriken");
 		consumablenamelist.add("Javelin");
 		consumablenamelist.add("Tomahawk");
+		consumablenamelist.add("Skeleton Key");
 	}
 
 	public static String getConsumableName(Class<? extends Item> consumable) {
