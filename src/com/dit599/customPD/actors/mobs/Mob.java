@@ -157,9 +157,11 @@ public abstract class Mob extends Char {
 		}
 		
 		enemy = chooseEnemy();
+		boolean enemyInFOV = false;
 		
-		boolean enemyInFOV = enemy.isAlive() && Level.fieldOfView[enemy.pos] && enemy.invisible <= 0;
-		
+		if(enemy != null){
+		enemyInFOV = enemy.isAlive() && Level.fieldOfView[enemy.pos] && enemy.invisible <= 0;
+		}
 		return state.act( enemyInFOV, justAlerted );
 	}
 	
