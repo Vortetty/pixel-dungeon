@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import com.watabou.noosa.audio.Sample;
+import com.watabou.pixeldungeon.effects.Degradation;
 import com.watabou.pixeldungeon.Assets;
 import com.watabou.pixeldungeon.Badges;
 import com.watabou.pixeldungeon.Dungeon;
@@ -30,11 +31,16 @@ import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.buffs.SnipersMark;
 import com.watabou.pixeldungeon.actors.hero.Hero;
 import com.watabou.pixeldungeon.effects.Speck;
+import com.watabou.pixeldungeon.items.armor.Armor;
 import com.watabou.pixeldungeon.items.bags.Bag;
+import com.watabou.pixeldungeon.items.rings.Ring;
+import com.watabou.pixeldungeon.items.wands.Wand;
+import com.watabou.pixeldungeon.items.weapon.Weapon;
 import com.watabou.pixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.watabou.pixeldungeon.mechanics.Ballistica;
 import com.watabou.pixeldungeon.scenes.CellSelector;
 import com.watabou.pixeldungeon.scenes.GameScene;
+import com.watabou.pixeldungeon.sprites.CharSprite;
 import com.watabou.pixeldungeon.sprites.ItemSprite;
 import com.watabou.pixeldungeon.sprites.MissileSprite;
 import com.watabou.pixeldungeon.ui.QuickSlot;
@@ -43,15 +49,21 @@ import com.watabou.pixeldungeon.utils.Utils;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PointF;
 
 public class Item implements Bundlable {
 
 	private static final String TXT_PACK_FULL = "Your pack is too full for the %s";
 	
+	private static final String TXT_DEGRADED		= "Because of frequent use, your %s has degraded.";
+	private static final String TXT_GONNA_DEGRADE	= "Because of frequent use, your %s is going to degrade soon.";
+	
 	private static final String TXT_TO_STRING		= "%s";
 	private static final String TXT_TO_STRING_X		= "%s x%d";
 	private static final String TXT_TO_STRING_LVL	= "%s%+d";
 	private static final String TXT_TO_STRING_LVL_X	= "%s%+d x%d";
+	
+	private static final float DURABILITY_WARNING_LEVEL	= 1/6f;
 	
 	protected static final float TIME_TO_THROW		= 1.0f;
 	protected static final float TIME_TO_PICK_UP	= 1.0f;
@@ -70,6 +82,7 @@ public class Item implements Bundlable {
 	
 	public int level = 0;
 	public boolean levelKnown = false;
+	private int durability = maxDurability();
 	
 	public boolean cursed;
 	public boolean cursedKnown;
@@ -249,6 +262,7 @@ public class Item implements Bundlable {
 		cursed = false;
 		cursedKnown = true;
 		this.level++;
+		fix();
 		
 		return this;
 	}
@@ -264,6 +278,7 @@ public class Item implements Bundlable {
 	public Item degrade() {
 		
 		this.level--;
+		fix();
 		
 		return this;
 	}
@@ -275,6 +290,58 @@ public class Item implements Bundlable {
 		
 		return this;
 	}
+	
+	public void use() {
+		if (level > 0) {
+			int threshold = (int)(maxDurability() * DURABILITY_WARNING_LEVEL);
+			if (durability-- >= threshold && threshold > durability) {
+				GLog.w( TXT_GONNA_DEGRADE, name() );
+			}
+			if (durability <= 0) {
+				degrade();
+				if (levelKnown) {
+					GLog.n( TXT_DEGRADED, name() );
+					Dungeon.hero.interrupt();
+					
+					CharSprite sprite = Dungeon.hero.sprite;
+					PointF point = sprite.center().offset( 0, -16 );
+					if (this instanceof Weapon) {
+						sprite.parent.add( Degradation.weapon( point ) );
+					} else if (this instanceof Armor) {
+						sprite.parent.add( Degradation.armor( point ) );
+					} else if (this instanceof Ring) {
+						sprite.parent.add( Degradation.ring( point ) );
+					} else if (this instanceof Wand) {
+						sprite.parent.add( Degradation.wand( point ) );
+					}
+					Sample.INSTANCE.play( Assets.SND_DEGRADE );
+				}
+			}
+		}
+	}
+	
+	public void fix() {
+		durability = maxDurability();
+	}
+	
+	public void polish() {
+		if (durability < maxDurability()) {
+			durability++;
+		}
+	}
+	
+	public int durability() {
+		return durability;
+	}
+	
+	public int maxDurability( int lvl ) {
+		return 1;
+	}
+	
+	final public int maxDurability() {
+		return maxDurability( level );
+	}
+	
 	
 	public int visiblyUpgraded() {
 		return levelKnown ? level : 0;
@@ -398,6 +465,7 @@ public class Item implements Bundlable {
 	private static final String CURSED_KNOWN	= "cursedKnown";
 	private static final String QSLEFT		= "leftQS";
 	private static final String QSRIGHT		= "rightQS";
+	private static final String DURABILITY		= "durability";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -435,6 +503,13 @@ public class Item implements Bundlable {
 		else if (bundle.getBoolean( QSLEFT )) {
 			Dungeon.qsLeft = this;
 		}
+//		if (isUpgradable()) {
+//			durability = bundle.getInt( DURABILITY );
+//		}
+//		if (durability <= 0) {
+//			durability = maxDurability( level );
+//		}
+		durability = 1;
 	}
 	
 	public void cast( final Hero user, int dst ) {
@@ -442,6 +517,8 @@ public class Item implements Bundlable {
 		final int cell = Ballistica.cast( user.pos, dst, false, true );
 		user.sprite.zap( cell );
 		user.busy();
+		
+		Sample.INSTANCE.play( Assets.SND_MISS, 0.6f, 0.6f, 1.5f );
 		
 		Char enemy = Actor.findChar( cell );
 		if(this.equals(Dungeon.qsRight)){
@@ -451,13 +528,18 @@ public class Item implements Bundlable {
 			QuickSlot.target( this, enemy );
 		}
 		
+		// FIXME!!!
 		float delay = TIME_TO_THROW;
 		if (this instanceof MissileWeapon) {
-
-			// FIXME
 			delay *= ((MissileWeapon)this).speedFactor( user );
-			if (enemy != null && enemy.buff( SnipersMark.class ) != null) {
-				delay *= 0.5f;
+			if (enemy != null) {
+				SnipersMark mark = user.buff( SnipersMark.class );
+				if (mark != null) {
+					if (mark.object == enemy.id()) {
+						delay *= 0.5f;
+					}
+					user.remove( mark );
+				}
 			}
 		}
 		final float finalDelay = delay;

@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ public class GamesInProgress {
 	private static HashMap<HeroClass, Info> c_state = new HashMap<HeroClass, Info>();
 
 	public static Info check( HeroClass cl ) {
-		
+
 		if(Dungeon.isTutorial && t_state.containsKey( cl )){
 			return t_state.get( cl );
 		}
@@ -67,11 +67,11 @@ public class GamesInProgress {
 			return info;
 		}
 	}
-
-	public static void set( HeroClass cl, int depth, int level ) {
+	public static void set( HeroClass cl, int depth, int level, boolean challenges ) {
 		Info info = new Info();
 		info.depth = depth;
 		info.level = level;
+		info.challenges = challenges;
 		if(Dungeon.isTutorial){
 			t_state.put( cl, info );
 		}
@@ -112,5 +112,6 @@ public class GamesInProgress {
 		public int depth;
 		public int level;
 		public String name;
+		public boolean challenges;
 	}
 }

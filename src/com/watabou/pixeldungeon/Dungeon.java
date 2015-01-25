@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ package com.watabou.pixeldungeon;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -42,6 +43,7 @@ import com.watabou.pixeldungeon.actors.mobs.npcs.Ghost;
 import com.watabou.pixeldungeon.actors.mobs.npcs.Imp;
 import com.watabou.pixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.watabou.pixeldungeon.items.Ankh;
+import com.watabou.pixeldungeon.items.Item;
 import com.watabou.pixeldungeon.items.potions.Potion;
 import com.watabou.pixeldungeon.items.rings.Ring;
 import com.watabou.pixeldungeon.items.scrolls.Scroll;
@@ -71,9 +73,11 @@ import com.watabou.pixeldungeon.ui.QuickSlot;
 import com.watabou.pixeldungeon.utils.BArray;
 import com.watabou.pixeldungeon.utils.Utils;
 import com.watabou.pixeldungeon.windows.WndResurrect;
+import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+import com.watabou.utils.SparseArray;
 
 public class Dungeon {
 
@@ -136,9 +140,10 @@ public class Dungeon {
 	private static final String TXT_DEAD_END = 
 			"What are you doing here?!";
 
+
 	public static int potionOfStrength;
 	public static int scrollsOfUpgrade;
-	public static int arcaneStyli;
+	public static int scrollsOfEnchantment;
 	public static boolean dewVial;		// true if the dew vial can be spawned
 	public static int transmutation;	// depth number for a well of transmutation
 
@@ -151,7 +156,6 @@ public class Dungeon {
 	// Either Item or Class<? extends Item>
 	public static Object qsRight;
 	public static Object qsLeft;
-
 	public static int depth;
 	public static int gold;
 	// Reason of death
@@ -205,6 +209,9 @@ public class Dungeon {
 	 */
 	public static long timeStamp = 0;
 
+	
+	public static SparseArray<ArrayList<Item>> droppedItems;
+	
 	public static void init() {
 
 		challenges = CustomPD.challenges();
@@ -223,10 +230,10 @@ public class Dungeon {
 
 		depth = 0;
 		gold = 0;
-
+		droppedItems = new SparseArray<ArrayList<Item>>();
 		potionOfStrength = 0;
 		scrollsOfUpgrade = 0;
-		arcaneStyli = 0;
+		scrollsOfEnchantment = 0;
 		dewVial = true;
 		transmutation = Random.IntRange( 6, 14 );
 
@@ -390,7 +397,6 @@ public class Dungeon {
 			}
 		}
 	}
-
 	public static boolean shopOnLevel() {
 		if(Dungeon.template != null){
 			return false;
@@ -442,17 +448,29 @@ public class Dungeon {
 		Log.d("In Dungeon", "END OF SAVE/NEW/SWITCH");
 		observe();
 	}
-
+	
+	public static void dropToChasm( Item item ) {
+		int depth = Dungeon.depth + 1;
+		ArrayList<Item> dropped = (ArrayList<Item>)Dungeon.droppedItems.get( depth );
+		if (dropped == null) {
+			Dungeon.droppedItems.put( depth, dropped = new ArrayList<Item>() ); 
+		}
+		dropped.add( item );
+	}
+	
 	public static boolean posNeeded() {
 		int[] quota = {4, 2, 9, 4, 14, 6, 19, 8, 24, 9};
 		return chance( quota, potionOfStrength );
 	}
-
-	public static boolean soeNeeded() {
+	
+	public static boolean souNeeded() {
 		int[] quota = {5, 3, 10, 6, 15, 9, 20, 12, 25, 13};
 		return chance( quota, scrollsOfUpgrade );
 	}
-
+	
+	public static boolean soeNeeded() {
+		return Random.Int( 12 * (1 + scrollsOfEnchantment) ) < depth;
+	}
 	private static boolean chance( int[] quota, int number ) {
 
 		for (int i=0; i < quota.length; i += 2) {
@@ -465,11 +483,6 @@ public class Dungeon {
 
 		return false;
 	}
-
-	public static boolean asNeeded() {
-		return Random.Int( 12 * (1 + arcaneStyli) ) < depth;
-	}
-
 	private static final String RG_GAME_FILE	= "game.dat";
 	private static final String RG_DEPTH_FILE	= "depth%d.dat";
 
@@ -502,9 +515,10 @@ public class Dungeon {
 	private static final String QSRIGHT	= "qsRight";
 	private static final String QSLEFT	= "qsLeft";
 	private static final String LEVEL		= "level";
+	private static final String DROPPED		= "dropped%d";
 	private static final String POS			= "potionsOfStrength";
 	private static final String SOU			= "scrollsOfEnhancement";
-	private static final String AS			= "arcaneStyli";
+	private static final String SOE			= "scrollsOfEnchantment";
 	private static final String DV			= "dewVial";
 	private static final String WT			= "transmutation";
 	private static final String CHAPTERS	= "chapters";
@@ -622,10 +636,12 @@ public class Dungeon {
 			bundle.put( HERO, hero );
 			bundle.put( GOLD, gold );
 			bundle.put( DEPTH, depth );
-
+			for (int d : droppedItems.keyArray()) {
+				bundle.put( String.format( DROPPED, d ), droppedItems.get( d ) );
+			}
 			bundle.put( POS, potionOfStrength );
 			bundle.put( SOU, scrollsOfUpgrade );
-			bundle.put( AS, arcaneStyli );
+			bundle.put( SOE, scrollsOfEnchantment );
 			bundle.put( DV, dewVial );
 			bundle.put( WT, transmutation );
 
@@ -654,7 +670,7 @@ public class Dungeon {
 			if (qsLeft instanceof Class) {
 				bundle.put( QSLEFT, ((Class<?>)qsLeft).getName() );
 			}
-
+			
 			Scroll.save( bundle );
 			Potion.save( bundle );
 			Wand.save( bundle );
@@ -700,11 +716,11 @@ public class Dungeon {
 
 			Actor.fixTime();
 
-			GamesInProgress.set( hero.heroClass, depth, hero.lvl );
-
 			saveGame( gameFile( hero.heroClass ) );
 			saveLevel();
-
+			
+			GamesInProgress.set( hero.heroClass, depth, hero.lvl, challenges != 0 );
+			
 		} else if (WndResurrect.instance != null) {
 
 			WndResurrect.instance.hide();
@@ -743,7 +759,7 @@ public class Dungeon {
 
 		potionOfStrength = bundle.getInt( POS );
 		scrollsOfUpgrade = bundle.getInt( SOU );
-		arcaneStyli = bundle.getInt( AS );
+		scrollsOfEnchantment = bundle.getInt( SOE );
 		dewVial = bundle.getBoolean( DV );
 		transmutation = bundle.getInt( WT );
 		isTutorial = bundle.getBoolean("tutorial");
@@ -788,7 +804,6 @@ public class Dungeon {
 		} else {
 			Badges.reset();
 		}
-
 		String qsClass = bundle.getString( QSRIGHT );
 		if (qsClass != null) {
 			try {
@@ -798,6 +813,7 @@ public class Dungeon {
 		} else {
 			qsRight = null;
 		}
+		
 		
 		qsClass = bundle.getString( QSLEFT );
 		if (qsClass != null) {
@@ -814,7 +830,8 @@ public class Dungeon {
 
 		hero = null;
 		hero = (Hero)bundle.get( HERO );
-
+		
+		
 		gold = bundle.getInt( GOLD );
 		depth = bundle.getInt( DEPTH );
 
@@ -823,7 +840,17 @@ public class Dungeon {
 
 		if(template != null){
 			template = (DungeonTemplate) bundle.get("dungeonTemplate");
-		}
+		
+		droppedItems = new SparseArray<ArrayList<Item>>();
+		for (int i=2; i <= Statistics.deepestFloor + 1; i++) {
+			ArrayList<Item> dropped = new ArrayList<Item>();
+			for (Bundlable b : bundle.getCollection( String.format( DROPPED, i ) ) ) {
+				dropped.add( (Item)b );
+			}
+			if (!dropped.isEmpty()) {
+				droppedItems.put( i, dropped );
+			}
+		}}
 	}
 
 	public static Level loadLevel( HeroClass cl ) throws IOException {
@@ -876,6 +903,7 @@ public class Dungeon {
 
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
 		info.depth = bundle.getInt( DEPTH );
+		info.challenges = (bundle.getInt( CHALLENGES ) != 0);
 		if (info.depth == -1) {
 			info.depth = bundle.getInt( "maxDepth" );	// FIXME
 		}
@@ -890,7 +918,8 @@ public class Dungeon {
 	}
 
 	public static void win( String desc ) {
-
+		
+		hero.belongings.identify();
 		if (challenges != 0) {
 			Badges.validateChampion();
 		}

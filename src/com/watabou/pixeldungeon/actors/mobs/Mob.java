@@ -26,6 +26,7 @@ import com.watabou.pixeldungeon.Badges;
 import com.watabou.pixeldungeon.Challenges;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.Statistics;
+import com.watabou.pixeldungeon.actors.Actor;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.buffs.Amok;
 import com.watabou.pixeldungeon.actors.buffs.Buff;
@@ -45,11 +46,13 @@ import com.watabou.pixeldungeon.windows.WndOptions;
 import com.watabou.pixeldungeon.windows.WndStory;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+import com.watabou.pixeldungeon.utils.Utils;
 
 public abstract class Mob extends Char {
 	
 	private static final String	TXT_DIED	= "You hear something died in the distance";
 	
+	protected static final String	TXT_ECHO	= "echo of ";
 	protected static final String TXT_NOTICE1	= "?!";
 	protected static final String TXT_RAGE		= "#$%^";
 	protected static final String TXT_EXP		= "%+dEXP";
@@ -175,17 +178,18 @@ public abstract class Mob extends Char {
 					return Random.element( enemies );
 				}
 				
-			} else {
-				return enemy;
 			}
 		}
 		
 		Terror terror = (Terror)buff( Terror.class );
 		if (terror != null) {
-			return terror.source;
+			Char source = (Char)Actor.findById( terror.object );
+			if (source != null) {
+				return source;
+			}
 		}
-		
-		return Dungeon.hero;
+
+		return enemy != null && enemy.isAlive() ? enemy : Dungeon.hero;
 	}
 	
 	protected boolean moveSprite( int from, int to ) {
@@ -228,7 +232,7 @@ public abstract class Mob extends Char {
 	}
 	
 	protected boolean canAttack( Char enemy ) {
-		return Level.adjacent( pos, enemy.pos ) && !pacified;
+		return Level.adjacent( pos, enemy.pos ) && !isCharmedBy( enemy );
 	}
 	
 	protected boolean getCloser( int target ) {
@@ -312,6 +316,10 @@ public abstract class Mob extends Char {
 			Wound.hit( this );
 		}
 		return damage;
+	}
+	
+	public void aggro( Char ch ) {
+		enemy = ch;
 	}
 	
 	@Override
@@ -462,7 +470,7 @@ public abstract class Mob extends Char {
 		
 		@Override
 		public String status() {
-			return String.format( "This %s is sleeping", name );
+			return Utils.format( "This %s is sleeping", name );
 		}
 	}
 	
@@ -499,7 +507,7 @@ public abstract class Mob extends Char {
 		
 		@Override
 		public String status() {
-			return String.format( "This %s is wandering", name );
+			return Utils.format( "This %s is wandering", name );
 		}
 	}
 	
@@ -538,7 +546,7 @@ public abstract class Mob extends Char {
 		
 		@Override
 		public String status() {
-			return String.format( "This %s is hunting", name );
+			return Utils.format( "This %s is hunting", name );
 		}
 	}
 	
@@ -573,7 +581,7 @@ public abstract class Mob extends Char {
 		
 		@Override
 		public String status() {
-			return String.format( "This %s is fleeing", name );
+			return Utils.format( "This %s is fleeing", name );
 		}
 	}
 	
@@ -590,7 +598,7 @@ public abstract class Mob extends Char {
 		
 		@Override
 		public String status() {
-			return String.format( "This %s is passive", name );
+			return Utils.format( "This %s is passive", name );
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /*
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@ package com.watabou.pixeldungeon.actors.mobs.npcs;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.buffs.Buff;
+
 import com.watabou.pixeldungeon.sprites.RatKingSprite;
 
 public class RatKing extends NPC {
@@ -43,7 +44,7 @@ public class RatKing extends NPC {
 	
 	@Override
 	protected Char chooseEnemy() {
-		return DUMMY;
+		return null;
 	}
 	
 	@Override

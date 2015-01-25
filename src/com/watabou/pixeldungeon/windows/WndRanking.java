@@ -40,6 +40,7 @@ import com.watabou.pixeldungeon.ui.ItemSlot;
 import com.watabou.pixeldungeon.ui.RedButton;
 import com.watabou.pixeldungeon.ui.ScrollPane;
 import com.watabou.pixeldungeon.utils.Utils;
+import com.watabou.pixeldungeon.ui.QuickSlot;
 
 public class WndRanking extends WndTabbed {
 	
@@ -50,7 +51,7 @@ public class WndRanking extends WndTabbed {
 	private static final String TXT_BADGES	= "Badges";
 	
 	private static final int WIDTH			= 112;
-	private static final int HEIGHT			= 144;
+	private static final int HEIGHT			= 134;
 	
 	private static final int TAB_WIDTH	= 40;
 	
@@ -226,6 +227,7 @@ public class WndRanking extends WndTabbed {
 	private class ItemsTab extends Group {
 		
 		private float pos;
+		private int count;
 		
 		public ItemsTab() {
 			super();
@@ -270,10 +272,11 @@ public class WndRanking extends WndTabbed {
 		
 		private void addItem( Item item ) {
 			ItemButton slot = new ItemButton( item );
-			slot.setRect( 0, pos, width, ItemButton.HEIGHT );
+			slot.setRect( 0, pos, width, ItemButton.SIZE );
 			add( slot );
 			
 			pos += slot.height() + 1;
+			count++;
 		}
 	}
 	
@@ -294,6 +297,7 @@ public class WndRanking extends WndTabbed {
 	private class ItemButton extends Button {
 		
 		public static final int HEIGHT	= 28;
+		public static final int SIZE	= 26;
 		
 		private Item item;
 		
@@ -320,14 +324,11 @@ public class WndRanking extends WndTabbed {
 		@Override
 		protected void createChildren() {	
 			
-			bg = new ColorBlock( HEIGHT, HEIGHT, 0xFF4A4D44 );
+			bg = new ColorBlock( SIZE, SIZE, 0xFF4A4D44 );
 			add( bg );
 			
 			slot = new ItemSlot();
 			add( slot );
-			
-			name = PixelScene.createText( "?", 7 );
-			add( name );
 			
 			super.createChildren();
 		}
@@ -337,21 +338,7 @@ public class WndRanking extends WndTabbed {
 			bg.x = x;
 			bg.y = y;
 			
-			slot.setRect( x, y, HEIGHT, HEIGHT );
-			
-			name.x = slot.right() + 2;
-			name.y = y + (height - name.baseLine()) / 2;
-			
-			String str = Utils.capitalize( item.name() );
-			name.text( str );
-			name.measure();
-			if (name.width() > width - name.x) {
-				do {
-					str = str.substring( 0, str.length() - 1 );
-					name.text( str + "..." );
-					name.measure();
-				} while (name.width() > width - name.x);
-			}
+			slot.setRect( x, y, SIZE, SIZE );
 			
 			super.layout();
 		}
@@ -371,4 +358,5 @@ public class WndRanking extends WndTabbed {
 			Game.scene().add( new WndItem( null, item ) );
 		}
 	}
+	
 }

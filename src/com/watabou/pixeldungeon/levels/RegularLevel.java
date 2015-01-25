@@ -181,7 +181,7 @@ public abstract class RegularLevel extends Level {
 		int specialRooms = 0;
 		Room[] temp = rooms.toArray(new Room[0]);
 		Random.shuffle(temp);
-		
+
 		for (Room r : temp) {
 			if (r.type == Type.NULL && 
 					r.connected.size() == 1) {
@@ -201,13 +201,28 @@ public abstract class RegularLevel extends Level {
 							}
 						}
 
-					} else if (specials.size() > 0 && Random.Int( specialRooms * specialRooms + 2 ) == 0){
+					} 
+					else if (specials.size() > 0 && Random.Int( specialRooms * specialRooms + 2 ) == 0){
+
 						assignSpecialRoomType(r);
 						specialRooms++;
+
+					} 
+					else if (Random.Int( 2 ) == 0){
+
+						HashSet<Room> neigbours = new HashSet<Room>();
+						for (Room n : r.neigbours) {
+							if (!r.connected.containsKey( n ) && 
+									!Room.SPECIALS.contains( n.type ) &&
+									n.type != Type.PIT) {
+
+								neigbours.add( n );
+							}
+						}
+						if (neigbours.size() > 1) {
+							r.connect( Random.element( neigbours ) );
+						}
 					}
-				}
-				if (r.type == Type.NULL && Random.Int(2) == 0) {
-					addRandomConnections(r);
 				}
 			}
 		}
@@ -219,10 +234,12 @@ public abstract class RegularLevel extends Level {
 					int connections = r.connected.size();
 					if (connections == 0) {
 
-					} else if (Random.Int( connections * connections ) == 0) {
+					} 
+					else if (Random.Int( connections * connections ) == 0) {
 						r.type = Type.STANDARD;
 						count++;
-					} else {
+					} 
+					else {
 						r.type = Type.TUNNEL; 
 					}
 				}
@@ -280,24 +297,24 @@ public abstract class RegularLevel extends Level {
 		specials.remove(r.type);
 	}
 
-	/**
-	 * Further connects the given room. The room should not be a special room.
-	 * 
-	 * @param r
-	 */
-	private void addRandomConnections(Room r) {
-		HashSet<Room> neigbours = new HashSet<Room>();
-		for (Room n : r.neigbours) {
-			if (!r.connected.containsKey(n) && !Room.SPECIALS.contains(n.type)
-					&& n.type != Type.PIT) {
-
-				neigbours.add(n);
-			}
-		}
-		if (neigbours.size() > 1) {
-			r.connect(Random.element(neigbours));
-		}
-	}
+	//	/**
+	//	 * Further connects the given room. The room should not be a special room.
+	//	 * 
+	//	 * @param r
+	//	 */
+	//	private void addRandomConnections(Room r) {
+	//		HashSet<Room> neigbours = new HashSet<Room>();
+	//		for (Room n : r.neigbours) {
+	//			if (!r.connected.containsKey(n) && !Room.SPECIALS.contains(n.type)
+	//					&& n.type != Type.PIT) {
+	//
+	//				neigbours.add(n);
+	//			}
+	//		}
+	//		if (neigbours.size() > 1) {
+	//			r.connect(Random.element(neigbours));
+	//		}
+	//	}
 
 	protected void paintWater() {
 		boolean[] lake = water();
@@ -669,6 +686,9 @@ public abstract class RegularLevel extends Level {
 			case 3:
 			case 4:
 				type = Heap.Type.CHEST;
+				break;
+			case 5:
+				type = Dungeon.depth > 1 ? Heap.Type.MIMIC : Heap.Type.CHEST;
 				break;
 			default:
 				type = Heap.Type.HEAP;

@@ -23,6 +23,7 @@ package com.watabou.pixeldungeon.actors;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.pixeldungeon.Assets;
 import com.watabou.pixeldungeon.Dungeon;
@@ -31,6 +32,7 @@ import com.watabou.pixeldungeon.actors.buffs.Amok;
 import com.watabou.pixeldungeon.actors.buffs.Bleeding;
 import com.watabou.pixeldungeon.actors.buffs.Buff;
 import com.watabou.pixeldungeon.actors.buffs.Burning;
+import com.watabou.pixeldungeon.actors.buffs.Charm;
 import com.watabou.pixeldungeon.actors.buffs.Cripple;
 import com.watabou.pixeldungeon.actors.buffs.Frost;
 import com.watabou.pixeldungeon.actors.buffs.Invisibility;
@@ -54,13 +56,13 @@ import com.watabou.pixeldungeon.effects.particles.PoisonParticle;
 import com.watabou.pixeldungeon.levels.Level;
 import com.watabou.pixeldungeon.levels.Terrain;
 import com.watabou.pixeldungeon.levels.features.Door;
-import com.watabou.pixeldungeon.scenes.GameScene;
 import com.watabou.pixeldungeon.sprites.CharSprite;
 import com.watabou.pixeldungeon.utils.GLog;
 import com.watabou.pixeldungeon.utils.Utils;
 import com.watabou.pixeldungeon.windows.WndStory;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
 
 public abstract class Char extends Actor {
@@ -163,6 +165,9 @@ public abstract class Char extends Actor {
 
 			if (enemy == Dungeon.hero) {
 				Dungeon.hero.interrupt();
+				if (effectiveDamage > enemy.HT / 4) {
+					Camera.main.shake( GameMath.gate( 1, effectiveDamage / (enemy.HT / 4), 5), 0.3f );
+				}
 			}
 			
 			enemy.sprite.bloodBurstA( sprite.center(), effectiveDamage );
@@ -173,11 +178,11 @@ public abstract class Char extends Actor {
 					
 					if (Dungeon.hero.killerGlyph != null) {
 						
-						Dungeon.fail( Utils.format( ResultDescriptions.GLYPH, Dungeon.hero.killerGlyph.name(), Dungeon.depth ) );
-						GLog.n( TXT_KILL, Dungeon.hero.killerGlyph.name() );
+//						Dungeon.fail( Utils.format( ResultDescriptions.GLYPH, Dungeon.hero.killerGlyph.name(), Dungeon.depth ) );
+//						GLog.n( TXT_KILL, Dungeon.hero.killerGlyph.name() );
 						
 					} else {
-						if (Bestiary.isUnique( this )) {
+						if (Bestiary.isBoss( this )) {
 							if(Dungeon.isTutorial && name.equals("Goo")){
 								WndStory.showChapter("Regrettably you were defeated by the Goo, " +
 										"but if you go play the standard game you can get your revenge on depth " +
@@ -346,6 +351,15 @@ public abstract class Char extends Actor {
 		return null;
 	}
 	
+	public boolean isCharmedBy( Char ch ) {
+		int chID = ch.id();
+		for (Buff b : buffs) {
+			if (b instanceof Charm && ((Charm)b).object == chID) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public void add( Buff buff ) {
 		
@@ -470,16 +484,11 @@ public abstract class Char extends Actor {
 	
 	public void move( int step ) {
 		
-		if (buff( Vertigo.class ) != null) {
-			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int dir : Level.NEIGHBOURS8) {
-				int p = pos + dir;
-				if ((Level.passable[p] || Level.avoid[p]) && Actor.findChar( p ) == null) {
-					candidates.add( p );
-				}
+		if (Level.adjacent( step, pos ) && buff( Vertigo.class ) != null) {
+			step = pos + Level.NEIGHBOURS8[Random.Int( 8 )];
+			if (!(Level.passable[step] || Level.avoid[step]) || Actor.findChar( step ) != null) {
+				return;
 			}
-			
-			step = Random.element( candidates );
 		}
 		
 		if (Dungeon.level.map[pos] == Terrain.OPEN_DOOR) {

@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@
 */
 package com.watabou.pixeldungeon.items.scrolls;
 
-import com.watabou.noosa.audio.Sample;
 import com.watabou.pixeldungeon.Assets;
 import com.watabou.pixeldungeon.Badges;
 import com.watabou.pixeldungeon.Dungeon;
@@ -32,6 +31,7 @@ import com.watabou.pixeldungeon.scenes.GameScene;
 import com.watabou.pixeldungeon.utils.GLog;
 import com.watabou.pixeldungeon.windows.WndBag;
 import com.watabou.pixeldungeon.windows.WndStory;
+import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfWeaponUpgrade extends InventoryScroll {
 

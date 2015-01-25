@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,6 +54,7 @@ public enum Rankings {
 	public ArrayList<Record> records;
 	public int lastRecord;
 	public int totalNumber;
+	public int wonNumber;
 	
 	/**
 	 * Creates rankings. Modified with a clause to ensure rankings are saved to a
@@ -109,6 +110,9 @@ public enum Rankings {
 		}
 		
 		totalNumber++;
+		if (win) {
+			wonNumber++;
+		}
 		
 		Badges.validateGamesPlayed();
 		
@@ -125,12 +129,14 @@ public enum Rankings {
 	private static final String RECORDS	= "records";
 	private static final String LATEST	= "latest";
 	private static final String TOTAL	= "total";
+	private static final String WON		= "won";
 	
 	public void save() {
 		Bundle bundle = new Bundle();
 		bundle.put( RECORDS, records );
 		bundle.put( LATEST, lastRecord );
 		bundle.put( TOTAL, totalNumber );
+		bundle.put( WON, wonNumber );
 		
 		try {
 			OutputStream output;
@@ -184,6 +190,14 @@ public enum Rankings {
 			totalNumber = bundle.getInt( TOTAL );
 			if (totalNumber == 0) {
 				totalNumber = records.size();
+			}
+			wonNumber = bundle.getInt( WON );
+			if (wonNumber == 0) {
+				for (Record rec : records) {
+					if (rec.win) {
+						wonNumber++;
+					}
+				}
 			}
 			
 		} catch (Exception e) {

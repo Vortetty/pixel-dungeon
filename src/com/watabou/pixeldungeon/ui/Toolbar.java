@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,8 +64,12 @@ public class Toolbar extends Component {
 	
 	private boolean lastEnabled = true;
 	
+	private static Toolbar instance;
+	
 	public Toolbar() {
 		super();
+		
+		instance = this;
 		
 		height = btnInventory.height();
 	}
@@ -101,14 +105,7 @@ public class Toolbar extends Component {
 			}
 		} );
 		
-		add( btnResume = new Tool( 61, 7, 21, 24 ) {
-			@Override
-			protected void onClick() {
-				Dungeon.hero.resume();
-			}
-		} );
-		
-		add( btnInventory = new Tool( 82, 7, 23, 24 ) {
+		add( btnInventory = new Tool( 60, 7, 23, 24 ) {
 			private GoldIndicator gold;
 			@Override
 			protected void onClick() {
@@ -169,8 +166,6 @@ public class Toolbar extends Component {
 			}
 		}
 		
-		btnResume.visible = Dungeon.hero.lastAction != null;
-		
 		if (!Dungeon.hero.isAlive()) {
 			btnInventory.enable( true );
 		}
@@ -180,6 +175,17 @@ public class Toolbar extends Component {
 		pickedUp.reset( item, 
 			btnInventory.centerX(), 
 			btnInventory.centerY() );
+	}
+	
+	public static boolean secondQuickslot() {
+		return instance.btnQuick2.visible;
+	}
+	
+	public static void secondQuickslot( boolean value ) {
+		instance.btnQuick2.visible = 
+		instance.btnQuick2.active = 
+			value;
+		instance.layout();
 	}
 	
 	private static CellSelector.Listener informer = new CellSelector.Listener() {
@@ -239,7 +245,7 @@ public class Toolbar extends Component {
 		
 		private static final int BGCOLOR = 0x7B8073;
 		
-		private Image base;
+		protected Image base;
 		
 		public Tool( int x, int y, int width, int height ) {
 			super();
@@ -349,7 +355,7 @@ public class Toolbar extends Component {
 		@Override
 		public void enable( boolean value ) {
 			slot.enable( value );
-			active = value;
+			super.enable( value );
 		}
 	}
 	

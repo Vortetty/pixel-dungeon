@@ -18,6 +18,7 @@
 package com.watabou.pixeldungeon.levels;
 
 import com.watabou.noosa.Scene;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.pixeldungeon.Assets;
 import com.watabou.pixeldungeon.Bones;
 import com.watabou.pixeldungeon.Dungeon;
@@ -190,6 +191,7 @@ public class CityBossLevel extends Level {
 			enteredArena = true;
 			Mob boss = new King();
 			boss.state = boss.HUNTING;
+			int count = 0;
 			do {
 				boss.pos = Random.Int( LENGTH );
 			} while (
@@ -197,6 +199,12 @@ public class CityBossLevel extends Level {
 				!outsideEntraceRoom( boss.pos ) ||
 				Dungeon.visible[boss.pos]);
 			GameScene.add( boss );
+			
+			if (Dungeon.visible[boss.pos]) {
+				boss.notice();
+				boss.sprite.alpha( 0 );
+				boss.sprite.parent.add( new AlphaTweener( boss.sprite, 1, 0.1f ) );
+			}
 			
 			set( arenaDoor, Terrain.LOCKED_DOOR );
 			GameScene.updateMap( arenaDoor );

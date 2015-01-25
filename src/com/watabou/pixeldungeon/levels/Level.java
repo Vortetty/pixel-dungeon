@@ -53,6 +53,7 @@ import com.watabou.pixeldungeon.items.Gold;
 import com.watabou.pixeldungeon.items.Heap;
 import com.watabou.pixeldungeon.items.Item;
 import com.watabou.pixeldungeon.items.Stylus;
+import com.watabou.pixeldungeon.items.scrolls.ScrollOfEnchantment;
 import com.watabou.pixeldungeon.items.armor.Armor;
 import com.watabou.pixeldungeon.items.food.Food;
 import com.watabou.pixeldungeon.items.potions.PotionOfHealing;
@@ -63,14 +64,10 @@ import com.watabou.pixeldungeon.levels.features.Door;
 import com.watabou.pixeldungeon.levels.features.HighGrass;
 import com.watabou.pixeldungeon.levels.painters.Painter;
 import com.watabou.pixeldungeon.levels.template.LevelTemplate;
-import com.watabou.pixeldungeon.levels.traps.AlarmTrap;
-import com.watabou.pixeldungeon.levels.traps.FireTrap;
-import com.watabou.pixeldungeon.levels.traps.GrippingTrap;
-import com.watabou.pixeldungeon.levels.traps.LightningTrap;
-import com.watabou.pixeldungeon.levels.traps.ParalyticTrap;
-import com.watabou.pixeldungeon.levels.traps.PoisonTrap;
-import com.watabou.pixeldungeon.levels.traps.SummoningTrap;
-import com.watabou.pixeldungeon.levels.traps.ToxicTrap;
+import com.watabou.pixeldungeon.levels.traps.*;
+import com.watabou.pixeldungeon.items.bags.ScrollHolder;
+import com.watabou.pixeldungeon.items.bags.SeedPouch;
+import com.watabou.pixeldungeon.items.scrolls.Scroll;
 import com.watabou.pixeldungeon.mechanics.ShadowCaster;
 import com.watabou.pixeldungeon.plants.Plant;
 import com.watabou.pixeldungeon.scenes.GameScene;
@@ -182,13 +179,13 @@ public abstract class Level implements Bundlable {
 					addItemToSpawn( new PotionOfStrength() );
 					Dungeon.potionOfStrength++;
 				}
-				if (Dungeon.soeNeeded()) {
+				if (Dungeon.souNeeded()) {
 					addItemToSpawn( new ScrollOfUpgrade() );
 					Dungeon.scrollsOfUpgrade++;
 				}
-				if (Dungeon.asNeeded()) {
-					addItemToSpawn( new Stylus() );
-					Dungeon.arcaneStyli++;
+				if (Dungeon.soeNeeded()) {
+					addItemToSpawn( new ScrollOfEnchantment() );
+					Dungeon.scrollsOfEnchantment++;
 				}
 			}
 			if (Dungeon.depth > 1) {
@@ -224,8 +221,8 @@ public abstract class Level implements Bundlable {
 				if(item instanceof PotionOfStrength){
 					Dungeon.potionOfStrength++;
 				}
-				else if(item instanceof Stylus){
-					Dungeon.arcaneStyli++;
+				else if(item instanceof Stylus || item instanceof ScrollOfEnchantment){
+					Dungeon.scrollsOfEnchantment++;
 				}
 				else if(item instanceof ScrollOfUpgrade){
 					Dungeon.scrollsOfUpgrade++;
@@ -555,13 +552,21 @@ public abstract class Level implements Bundlable {
 
 		if (Dungeon.isChallenged( Challenges.NO_FOOD ) && item instanceof Food) {
 			item = new Gold( item.price() );
+		} else if (Dungeon.isChallenged( Challenges.NO_ARMOR ) && item instanceof Armor) {
+			item = new Gold( item.price() );
+		} else if (Dungeon.isChallenged( Challenges.NO_HEALING ) && item instanceof PotionOfHealing) {
+			item = new Gold( item.price() );
+		}
+		else if (Dungeon.isChallenged( Challenges.NO_HERBALISM ) && item instanceof SeedPouch) {
+			item = new Gold( item.price() );
 		} else
-			if (Dungeon.isChallenged( Challenges.NO_ARMOR ) && item instanceof Armor) {
-				item = new Gold( item.price() );
-			} else
-				if (Dungeon.isChallenged( Challenges.NO_HEALING ) && item instanceof PotionOfHealing) {
+			if (Dungeon.isChallenged( Challenges.NO_SCROLLS ) && (item instanceof Scroll || item instanceof ScrollHolder)) {
+				if (item instanceof ScrollOfUpgrade) {
+					// These scrolls still can be found
+				} else {
 					item = new Gold( item.price() );
 				}
+			}
 
 		if ((map[cell] == Terrain.ALCHEMY) && !(item instanceof Plant.Seed)) {
 			int n;
@@ -577,6 +582,7 @@ public abstract class Level implements Bundlable {
 			heap = new Heap();
 			heap.pos = cell;
 			if (map[cell] == Terrain.CHASM || (Dungeon.level != null && pit[cell])) {
+				Dungeon.dropToChasm( item );
 				GameScene.discard( heap );
 			} else {
 				heaps.put( cell, heap );

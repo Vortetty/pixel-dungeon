@@ -3,7 +3,7 @@
  * Copyright (C) 2014 CustomPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -202,9 +202,8 @@ public class ShopPainter extends Painter {
 		} else if (xy.y == room.bottom) {
 
 			return (room.right - xy.x - 1) + pasWidth + pasHeight;
-
-		} else {
-
+		} 
+		else {
 			if (xy.y == room.top + 1) {
 				return 0;
 			} else {

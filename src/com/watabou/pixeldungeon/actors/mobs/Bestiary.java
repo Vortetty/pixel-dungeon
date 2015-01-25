@@ -41,9 +41,9 @@ public class Bestiary {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public static Mob mutable( int depth ) {
-
+		@SuppressWarnings("unchecked")
 		Class<? extends Mob> cl = (Class<? extends Mob>)mobClass( depth );
 		if (Random.Int( 30 ) == 0) {
 			if (cl == Rat.class) {
@@ -227,7 +227,7 @@ public class Bestiary {
 		return classes[ Random.chances( chances )];
 	}
 
-	public static boolean isUnique( Char mob ) {
+	public static boolean isBoss( Char mob ) {
 		return mob instanceof Goo || mob instanceof Tengu || mob instanceof DM300 || mob instanceof King || mob instanceof Yog;
 	}
 }

@@ -49,7 +49,7 @@ public class TreasuryPainter extends Painter {
 				tries--;
 			} while ((level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null) && tries > 0);
 			if(!(level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null)){
-				level.drop( new Gold().random(), pos ).type = heapType;
+				level.drop( new Gold().random(), pos ).type = (i == 0 && heapType == Heap.Type.CHEST ? Heap.Type.MIMIC : heapType);
 			}
 		}
 

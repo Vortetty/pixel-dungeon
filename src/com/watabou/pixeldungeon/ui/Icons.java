@@ -48,12 +48,13 @@ public enum Icons {
 	SEED_POUCH,
 	SCROLL_HOLDER,
 	WAND_HOLSTER,
-	KEY_RING,
+	KEYRING,
 	CHECKED,
 	UNCHECKED,
 	EXIT,
 	CHALLENGE_OFF,
-	CHALLENGE_ON;
+	CHALLENGE_ON,
+	RESUME;
 	
 	public Image get() {
 		return get( this );
@@ -129,9 +130,8 @@ public enum Icons {
 		case WAND_HOLSTER:
 			icon.frame( icon.texture.uvRect( 88, 0, 98, 10 ) );
 			break;
-		case KEY_RING:
-			icon = new Image( Assets.KEY_RING );
-			icon.frame( icon.texture.uvRect( 0, 0, 10, 10 ) );
+		case KEYRING:
+			icon.frame( icon.texture.uvRect( 64, 29, 74, 39 ) );
 			break;
 		case CHECKED:
 			icon.frame( icon.texture.uvRect( 54, 12, 66, 24 ) );
@@ -147,6 +147,9 @@ public enum Icons {
 			break;
 		case CHALLENGE_ON:
 			icon.frame( icon.texture.uvRect( 102, 16, 126, 40 ) );
+			break;
+		case RESUME:
+			icon.frame( icon.texture.uvRect( 114, 0, 126, 11 ) );
 			break;
 		}
 		return icon;

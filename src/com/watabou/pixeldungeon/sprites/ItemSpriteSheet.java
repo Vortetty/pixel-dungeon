@@ -157,7 +157,11 @@ public class ItemSpriteSheet {
 	public static final int POUCH	= 83;
 	public static final int HOLDER	= 104;
 	public static final int HOLSTER	= 111;
-	public static final int KEYRING	= 117;
+	public static final int KEYRING	= 126;
+	
+	// UNUSED
+	public static final int SPARK_UPGRADE	= 117;
+	public static final int SPARK_ENCHANT	= 118;
 	
 	// Misc
 	public static final int ANKH	= 1;
@@ -171,4 +175,6 @@ public class ItemSpriteSheet {
 	public static final int AMULET	= 87;
 	public static final int VIAL	= 120;
 	public static final int WEIGHT	= 123;
+	public static final int BOMB	= 124;
+	public static final int HONEYPOT= 125;
 }

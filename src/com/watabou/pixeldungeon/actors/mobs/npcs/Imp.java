@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.watabou.pixeldungeon.actors.mobs.npcs;
 
 import com.watabou.pixeldungeon.Dungeon;
@@ -50,7 +50,7 @@ public class Imp extends NPC {
 	
 	private static final String TXT_GOLEMS1	=
 		"Are you an adventurer? I love adventurers! You can always rely on them " +
-		"if something needs to be killed. Am I right? For bounty of course ;)\n" +
+		"if something needs to be killed. Am I right? For a bounty, of course ;)\n" +
 		"In my case this is _golems_ who need to be killed. You see, I'm going to start a " +
 		"little business here, but these stupid golems are bad for business! " +
 		"It's very hard to negotiate with wandering lumps of granite, damn them! " +
@@ -58,7 +58,7 @@ public class Imp extends NPC {
 	
 	private static final String TXT_MONKS1	=
 		"Are you an adventurer? I love adventurers! You can always rely on them " +
-		"if something needs to be killed. Am I right? For bounty of course ;)\n" +
+		"if something needs to be killed. Am I right? For a bounty, of course ;)\n" +
 		"In my case this is _monks_ who need to be killed. You see, I'm going to start a " +
 		"little business here, but these lunatics don't buy anything themselves and " +
 		"will scare away other customers. " +

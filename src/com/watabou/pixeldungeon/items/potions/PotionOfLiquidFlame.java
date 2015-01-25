@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,15 +36,16 @@ public class PotionOfLiquidFlame extends Potion {
 	}
 	
 	@Override
-	protected void shatter( int cell ) {
+	public void shatter( int cell ) {
 		
-		setKnown();
+		if (Dungeon.visible[cell]) {
+			setKnown();
+			
+			splash( cell );
+			Sample.INSTANCE.play( Assets.SND_SHATTER );
+		}
 		
-		splash( cell );
-		Sample.INSTANCE.play( Assets.SND_SHATTER );
-		
-		Fire fire = Blob.seed( cell, 2, Fire.class );
-		GameScene.add( fire );
+		GameScene.add( Blob.seed( cell, 2, Fire.class ) );
 	}
 	
 	@Override

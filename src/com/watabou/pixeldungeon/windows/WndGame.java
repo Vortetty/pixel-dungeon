@@ -145,4 +145,11 @@ public class WndGame extends Window {
 		btn.setRect( 0, pos > 0 ? pos += GAP : 0, WIDTH, BTN_HEIGHT );
 		pos += BTN_HEIGHT;
 	}
+	private void addButtons( RedButton btn1, RedButton btn2 ) {
+		add( btn1 );
+		btn1.setRect( 0, pos > 0 ? pos += GAP : 0, (WIDTH - GAP) / 2, BTN_HEIGHT );
+		add( btn2 );
+		btn2.setRect( btn1.right() + GAP, btn1.top(), WIDTH - btn1.right() - GAP, BTN_HEIGHT );
+		pos += BTN_HEIGHT;
+	}
 }

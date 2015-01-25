@@ -1,6 +1,6 @@
 /*
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,17 +39,24 @@ public class RatKingPainter extends Painter {
 		Room.Door entrance = room.entrance();
 		entrance.set( Room.Door.Type.HIDDEN );
 		int door = entrance.x + entrance.y * Level.WIDTH;
-//		if(Dungeon.template == null){
-			for (int i=room.left + 1; i < room.right; i++) {
-				addChest( level, (room.top + 1) * Level.WIDTH + i, door );
-				addChest( level, (room.bottom - 1) * Level.WIDTH + i, door );
-			}
 
-			for (int i=room.top + 2; i < room.bottom - 1; i++) {
-				addChest( level, i * Level.WIDTH + room.left + 1, door );
-				addChest( level, i * Level.WIDTH + room.right - 1, door );
+		for (int i=room.left + 1; i < room.right; i++) {
+			addChest( level, (room.top + 1) * Level.WIDTH + i, door );
+			addChest( level, (room.bottom - 1) * Level.WIDTH + i, door );
+		}
+		
+		for (int i=room.top + 2; i < room.bottom - 1; i++) {
+			addChest( level, i * Level.WIDTH + room.left + 1, door );
+			addChest( level, i * Level.WIDTH + room.right - 1, door );
+		}
+		
+		while (true) {
+			Heap chest = level.heaps.get( room.random() );
+			if (chest != null) {
+				chest.type = Heap.Type.MIMIC;
+				break;
 			}
-//		}
+		}
 		RatKing king = new RatKing();
 		king.pos = room.random( 1 );
 		level.mobs.add( king );

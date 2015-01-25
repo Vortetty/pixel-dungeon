@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.watabou.pixeldungeon.Dungeon;
+import com.watabou.pixeldungeon.actors.buffs.Vertigo;
+import com.watabou.pixeldungeon.Statistics;
 import com.watabou.pixeldungeon.ResultDescriptions;
 import com.watabou.pixeldungeon.actors.Actor;
 import com.watabou.pixeldungeon.actors.Char;
@@ -267,6 +269,7 @@ public class Yog extends Mob {
 			IMMUNITIES.add( Sleep.class );
 			IMMUNITIES.add( Terror.class );
 			IMMUNITIES.add( Poison.class );
+			IMMUNITIES.add( Vertigo.class );
 		}
 		
 		@Override

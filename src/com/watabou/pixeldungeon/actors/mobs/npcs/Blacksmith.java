@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.watabou.pixeldungeon.actors.mobs.npcs;
 
 import java.util.Collection;
@@ -183,7 +183,7 @@ public class Blacksmith extends NPC {
 		}
 		
 		if (item1.level < 0 || item2.level < 0) {
-			return "It's a junk, the quality is too poor!";
+			return "It's junk, the quality is too poor!";
 		}
 		
 		if (!item1.isUpgradable() || !item2.isUpgradable()) {
@@ -207,7 +207,7 @@ public class Blacksmith extends NPC {
 		Sample.INSTANCE.play( Assets.SND_EVOKE );
 		ScrollOfUpgrade.upgrade( Dungeon.hero );
 		Item.evoke( Dungeon.hero );
-		
+
 		if (first.isEquipped( Dungeon.hero )) {
 			((EquipableItem)first).doUnequip( Dungeon.hero, true );
 		}
@@ -215,12 +215,12 @@ public class Blacksmith extends NPC {
 		GLog.p( TXT_LOOKS_BETTER, first.name() );
 		Dungeon.hero.spendAndNext( 2f );
 		Badges.validateItemLevelAquired( first );
-		
+
 		if (second.isEquipped( Dungeon.hero )) {
 			((EquipableItem)second).doUnequip( Dungeon.hero, false );
 		}
 		second.detachAll( Dungeon.hero.belongings.backpack );
-		
+
 		Quest.reforged = true;
 		
 		Journal.remove( Journal.Feature.TROLL );

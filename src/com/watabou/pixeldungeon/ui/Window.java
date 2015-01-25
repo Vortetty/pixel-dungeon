@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.TouchArea;
 import com.watabou.pixeldungeon.Chrome;
 import com.watabou.pixeldungeon.Dungeon;
+import com.watabou.pixeldungeon.effects.ShadowBox;
 import com.watabou.pixeldungeon.scenes.PixelScene;
 import com.watabou.utils.Signal;
 
@@ -42,6 +43,7 @@ public class Window extends Group implements Signal.Listener<Key> {
 	protected int height;
 	
 	protected TouchArea blocker;
+	protected ShadowBox shadow;
 	protected NinePatch chrome;
 	
 	public static final int TITLE_COLOR = 0xFFFF44;
@@ -81,6 +83,12 @@ public class Window extends Group implements Signal.Listener<Key> {
 		this.width = width;
 		this.height = height;
 		
+		shadow = new ShadowBox();
+		shadow.am = 0.5f;
+		shadow.camera = PixelScene.uiCamera.visible ? 
+			PixelScene.uiCamera : Camera.main;
+		add( shadow );
+		
 		chrome.x = -chrome.marginLeft();
 		chrome.y = -chrome.marginTop();
 		chrome.size( 
@@ -97,6 +105,11 @@ public class Window extends Group implements Signal.Listener<Key> {
 		camera.scroll.set( chrome.x, chrome.y );
 		Camera.add( camera );
 		
+		shadow.boxRect( 
+			camera.x / camera.zoom, 
+			camera.y / camera.zoom, 
+			chrome.width(), chrome.height );
+		
 		Keys.event.add( this );
 	}
 	
@@ -111,6 +124,8 @@ public class Window extends Group implements Signal.Listener<Key> {
 		camera.resize( (int)chrome.width, (int)chrome.height );
 		camera.x = (int)(Game.width - camera.screenWidth()) / 2;
 		camera.y = (int)(Game.height - camera.screenHeight()) / 2;
+		
+		shadow.boxRect( camera.x / camera.zoom, camera.y / camera.zoom, chrome.width(), chrome.height );
 	}
 	
 	public void hide() {

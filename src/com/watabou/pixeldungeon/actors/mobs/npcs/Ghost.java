@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.watabou.pixeldungeon.actors.mobs.npcs;
 
 import java.util.HashSet;
@@ -105,7 +105,7 @@ public class Ghost extends NPC {
 	
 	@Override
 	protected Char chooseEnemy() {
-		return DUMMY;
+		return null;
 	}
 	
 	@Override
@@ -136,7 +136,7 @@ public class Ghost extends NPC {
 				GameScene.show( new WndSadGhost( this, item ) );
 			} else {
 				GameScene.show( new WndQuest( this, Quest.alternative ? TXT_RAT2 : TXT_ROSE2 ) );
-				
+
 				int newPos = -1;
 				for (int i=0; i < 10; i++) {
 					newPos = Dungeon.level.randomRespawnCell();
@@ -182,11 +182,11 @@ public class Ghost extends NPC {
 	}
 	
 	public static class Quest {
-		
+
 		private static boolean spawned;
-		
+
 		private static boolean alternative;
-		
+
 		private static boolean given;
 
 		private static boolean processed;
@@ -284,29 +284,29 @@ public class Ghost extends NPC {
 				processed = false;
 				depth = Dungeon.depth;
 				
-				do {
-					weapon = (Weapon)Generator.random( Generator.Category.WEAPON );
-				} while (weapon instanceof MissileWeapon);
+				for (int i=0; i < 4; i++) {
+					Item another;
+					do {
+						another = (Weapon)Generator.random( Generator.Category.WEAPON );
+					} while (another instanceof MissileWeapon);
+					
+					if (weapon == null || another.level > weapon.level) {
+						weapon = (Weapon)another;
+					}
+				}
 				
 				if (Dungeon.isChallenged( Challenges.NO_ARMOR )) {
 					armor = (Armor)new ClothArmor().degrade();
 				} else {
 					armor = (Armor)Generator.random( Generator.Category.ARMOR );
-				}
-					
-				for (int i=0; i < 3; i++) {
-					Item another;
-					do {
-						another = Generator.random( Generator.Category.WEAPON );
-					} while (another instanceof MissileWeapon);
-					if (another.level > weapon.level) {
-						weapon = (Weapon)another;
-					}
-					another = Generator.random( Generator.Category.ARMOR );
-					if (another.level > armor.level) {
-						armor = (Armor)another;
+					for (int i=0; i < 3; i++) {
+						Item another = Generator.random( Generator.Category.ARMOR );
+						if (another.level > armor.level) {
+							armor = (Armor)another;
+						}
 					}
 				}
+				
 				weapon.identify();
 				armor.identify();
 			}

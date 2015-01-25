@@ -3,7 +3,7 @@
  * Copyright (C) 2014 YourPD team
  * This is a modification of source code from: 
  * Pixel Dungeon
- * Copyright (C) 2012-2014 Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.watabou.pixeldungeon.levels;
 
 import java.lang.reflect.Method;
@@ -153,7 +153,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	};
 	
 	public static final ArrayList<Type> SPECIALS = new ArrayList<Type>( Arrays.asList(
-		Type.WEAK_FLOOR, Type.MAGIC_WELL, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.ARMORY,
+		Type.ARMORY, Type.WEAK_FLOOR, Type.MAGIC_WELL, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY,
 		Type.TREASURY, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.LABORATORY, Type.VAULT
 	) );
 	
@@ -251,6 +251,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		return neigbours;
 	} 
 	
+	// FIXME: use proper string constants
+	
 	@Override
 	public void storeInBundle( Bundle bundle ) {	
 		bundle.put( "left", left );
@@ -328,17 +330,3 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

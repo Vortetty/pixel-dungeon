@@ -1,6 +1,6 @@
 /*
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +26,12 @@ import com.watabou.pixeldungeon.DungeonTilemap;
 import com.watabou.pixeldungeon.actors.Actor;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.items.Dewdrop;
+import com.watabou.pixeldungeon.actors.hero.Belongings;
 import com.watabou.pixeldungeon.items.Item;
 import com.watabou.pixeldungeon.scenes.GameScene;
 import com.watabou.pixeldungeon.scenes.PixelScene;
 import com.watabou.pixeldungeon.windows.WndBag;
+import com.watabou.utils.Bundle;
 
 public class QuickSlot extends Button implements WndBag.Listener {
 
@@ -37,7 +39,6 @@ public class QuickSlot extends Button implements WndBag.Listener {
 
 	private static QuickSlot rightInstance;
 	private static QuickSlot leftInstance;
-
 	private Item itemInSlot;
 	private ItemSlot slot;
 	private int id;
@@ -67,10 +68,8 @@ public class QuickSlot extends Button implements WndBag.Listener {
 	@Override
 	public void destroy() {
 		super.destroy();
-
 		rightInstance = null;
 		leftInstance = null;
-
 		lastItem = null;
 		lastTarget = null;
 	}
@@ -232,7 +231,6 @@ public class QuickSlot extends Button implements WndBag.Listener {
 			}
 		}
 	}
-
 	public static void refresh(boolean rightSlot) {
 		if (rightSlot && rightInstance != null) {
 			rightInstance.item( select(rightSlot) );

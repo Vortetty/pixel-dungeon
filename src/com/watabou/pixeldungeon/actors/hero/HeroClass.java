@@ -22,7 +22,7 @@ import com.watabou.pixeldungeon.Badges;
 import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.items.TomeOfMastery;
 import com.watabou.pixeldungeon.items.armor.ClothArmor;
-import com.watabou.pixeldungeon.items.bags.KeyRing;
+import com.watabou.pixeldungeon.items.bags.Keyring;
 import com.watabou.pixeldungeon.items.food.Food;
 import com.watabou.pixeldungeon.items.potions.PotionOfStrength;
 import com.watabou.pixeldungeon.items.rings.RingOfDetection;
@@ -122,6 +122,7 @@ public enum HeroClass {
 			hero.belongings.ring2.activate( hero );
 		}
 		new Food().identify().collect();
+		new Keyring().collect();
 	}
 	
 	public Badges.Badge masteryBadge() {
@@ -147,8 +148,6 @@ public enum HeroClass {
 		Dungeon.qsRight = Dart.class;
 		Dungeon.qsLeft = Dart.class;
 		
-		new KeyRing().collect();
-		
 		new PotionOfStrength().setKnown();
 	}
 	
@@ -160,8 +159,6 @@ public enum HeroClass {
 		
 		Dungeon.qsRight = wand;
 		Dungeon.qsLeft = wand;
-		
-		new KeyRing().collect();
 		
 		new ScrollOfIdentify().setKnown();
 	}
@@ -176,8 +173,6 @@ public enum HeroClass {
 		Dungeon.qsRight = Dart.class;
 		Dungeon.qsLeft = Dart.class;
 		
-		new KeyRing().collect();
-		
 		new ScrollOfMagicMapping().setKnown();
 	}
 	
@@ -191,8 +186,6 @@ public enum HeroClass {
 		
 		Dungeon.qsRight = boomerang;
 		Dungeon.qsLeft = boomerang;
-		
-		new KeyRing().collect();
 		
 	}
 	

@@ -57,7 +57,8 @@ public class Armor extends EquipableItem {
 	public int STR;
 	public int DR;
 	
-	private int hitsToKnow = 10;
+	private static final int HITS_TO_KNOW	= 10;
+	private int hitsToKnow = HITS_TO_KNOW;
 	
 	public Glyph glyph;
 	
@@ -69,18 +70,23 @@ public class Armor extends EquipableItem {
 		DR = typicalDR();
 	}
 	
+	private static final String UNFAMILIRIARITY	= "unfamiliarity";
 	private static final String GLYPH	= "glyph";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
+		bundle.put( UNFAMILIRIARITY, hitsToKnow );
 		bundle.put( GLYPH, glyph );
 	}
 	
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
-		glyph = (Glyph)bundle.get( GLYPH );
+		if ((hitsToKnow = bundle.getInt( UNFAMILIRIARITY )) == 0) {
+			hitsToKnow = HITS_TO_KNOW;
+		}
+		inscribe( (Glyph)bundle.get( GLYPH ) );
 	}
 	
 	@Override
@@ -115,7 +121,7 @@ public class Armor extends EquipableItem {
 			
 			((HeroSprite)hero.sprite).updateArmor();
 			
-			hero.spendAndNext( 2 * time2equip( hero ) );
+			hero.spendAndNext( time2equip( hero ) );
 			return true;
 			
 		} else {
@@ -128,7 +134,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	protected float time2equip( Hero hero ) {
-		return hero.speed();
+		return 2 / hero.speed();
 	}
 	
 	@Override
@@ -166,7 +172,7 @@ public class Armor extends EquipableItem {
 			}
 		} else {
 			if (inscribe) {
-				inscribe( Glyph.random() );
+				inscribe();
 			}
 		};
 		
@@ -186,6 +192,11 @@ public class Armor extends EquipableItem {
 		STR++;
 		
 		return super.degrade();
+	}
+	
+	@Override
+	public int maxDurability( int lvl ) {
+		return 6 * (lvl < 16 ? 16 - lvl : 1);
 	}
 	
 	public int proc( Char attacker, Char defender, int damage ) {
@@ -248,7 +259,7 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (glyph != null) {
-			info.append( "It is inscribed." );
+			info.append( "It is enchanted." );
 		}
 		
 		if (isEquipped( Dungeon.hero )) {
@@ -282,7 +293,7 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (Random.Int( 10 ) == 0) {
-			inscribe( Glyph.random() );
+			inscribe();
 		}
 		
 		return this;
@@ -329,6 +340,16 @@ public class Armor extends EquipableItem {
 		this.glyph = glyph;
 		
 		return this;
+	}
+	public Armor inscribe() {
+		
+		Class<? extends Glyph> oldGlyphClass = glyph != null ? glyph.getClass() : null;
+		Glyph gl = Glyph.random();
+		while (gl.getClass() == oldGlyphClass) {
+			gl = Armor.Glyph.random();
+		}
+		
+		return inscribe( gl );
 	}
 	
 	public boolean isInscribed() {

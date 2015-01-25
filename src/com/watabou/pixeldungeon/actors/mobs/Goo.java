@@ -22,6 +22,7 @@ import java.util.HashSet;
 import com.watabou.noosa.Camera;
 import com.watabou.pixeldungeon.Badges;
 import com.watabou.pixeldungeon.Dungeon;
+import com.watabou.pixeldungeon.Statistics;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.blobs.ToxicGas;
 import com.watabou.pixeldungeon.actors.buffs.Buff;
@@ -34,18 +35,20 @@ import com.watabou.pixeldungeon.items.weapon.enchantments.Death;
 import com.watabou.pixeldungeon.levels.Level;
 import com.watabou.pixeldungeon.levels.SewerBossLevel;
 import com.watabou.pixeldungeon.levels.TutorialBossLevel;
+import com.watabou.pixeldungeon.mechanics.Ballistica;
 import com.watabou.pixeldungeon.scenes.GameScene;
 import com.watabou.pixeldungeon.sprites.CharSprite;
 import com.watabou.pixeldungeon.sprites.GooSprite;
 import com.watabou.pixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
+import com.watabou.utils.Callback;
 
 public class Goo extends Mob {
 
 	private static final float PUMP_UP_DELAY	= 2f;
 	
 	{
-		name = "Goo";
+		name = Dungeon.depth == Statistics.deepestFloor ? "Goo" : "spawn of Goo";
 		HP = HT = 80;
 		EXP = 10;
 		defenseSkill = 12;
@@ -56,6 +59,7 @@ public class Goo extends Mob {
 	}
 	
 	private boolean pumpedUp = false;
+	private boolean jumped		= false;
 	
 	@Override
 	public int damageRoll() {
@@ -68,7 +72,7 @@ public class Goo extends Mob {
 	
 	@Override
 	public int attackSkill( Char target ) {
-		return pumpedUp ? 30 : 15;
+		return pumpedUp && !jumped ? 30 : 15;
 	}
 	
 	@Override
@@ -99,21 +103,62 @@ public class Goo extends Mob {
 			enemy.sprite.burst( 0x000000, 5 );
 		}
 		
-		if (pumpedUp) {
-			Camera.main.shake( 3, 0.2f );
-		}
-		
 		return damage;
 	}
 	
 	@Override
-	protected boolean doAttack( Char enemy ) {		
-		if (pumpedUp || Random.Int( 3 ) > 0) {
+	protected boolean doAttack( final Char enemy ) {		
+		if (pumpedUp) {
+			
+			if (Level.adjacent( pos, enemy.pos )) {
+				
+				// Pumped up attack WITHOUT accuracy penalty
+				jumped = false;
+				return super.doAttack( enemy );
+				
+			} else {
+				
+				// Pumped up attack WITH accuracy penalty
+				jumped = true;
+				if (Ballistica.cast( pos, enemy.pos, false, true ) == enemy.pos) {
+					final int dest = Ballistica.trace[Ballistica.distance - 2];
+					
+					Callback afterJump = new Callback() {
+						@Override
+						public void call() {
+							move( dest );
+							Dungeon.level.mobPress( Goo.this );
+							Goo.super.doAttack( enemy );
+						}
+					};
+					
+					if (Dungeon.visible[pos] || Dungeon.visible[dest]) {
+						
+						sprite.jump( pos, dest, afterJump );
+						return false;
+						
+					} else {
+						
+						afterJump.call();
+						return true;
+						
+					}
+				} else {
+					
+					sprite.idle();
+					pumpedUp = false;
+					return true;
+				}
+			}
+			
+		} else if (Random.Int( 3 ) > 0) {
 		
+			// Normal attack
 			return super.doAttack( enemy );
 
 		} else {
 			
+			// Pumping up
 			pumpedUp = true;
 			spend( PUMP_UP_DELAY );
 			

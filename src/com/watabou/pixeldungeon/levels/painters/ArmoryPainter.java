@@ -26,6 +26,7 @@ import com.watabou.pixeldungeon.levels.Room;
 import com.watabou.pixeldungeon.levels.Terrain;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
+import com.watabou.pixeldungeon.items.Bomb;
 
 public class ArmoryPainter extends Painter {
 
@@ -50,7 +51,7 @@ public class ArmoryPainter extends Painter {
 		}
 
 //		if(Dungeon.template == null){
-			int n = Random.IntRange( 2, 3 );
+		int n = 3 + (Random.Int( 4 ) == 0 ? 1 : 0);
 			Item [] items = new Item[n]; 
 			for (int i=0; i < n; i++) {
 				items[i] = prize( level );
@@ -62,7 +63,9 @@ public class ArmoryPainter extends Painter {
 	}
 
 	private static Item prize( Level level ) {
-		return Generator.random( Random.oneOf( 
+		return Random.Int( 6 ) == 0 ?
+				new Bomb().random() :
+				Generator.random( Random.oneOf( 
 				Generator.Category.ARMOR, 
 				Generator.Category.WEAPON
 				) );

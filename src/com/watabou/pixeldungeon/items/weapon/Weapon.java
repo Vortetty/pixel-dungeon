@@ -23,17 +23,7 @@ import com.watabou.pixeldungeon.actors.hero.Hero;
 import com.watabou.pixeldungeon.actors.hero.HeroClass;
 import com.watabou.pixeldungeon.items.Item;
 import com.watabou.pixeldungeon.items.KindOfWeapon;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Death;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Fire;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Horror;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Instability;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Leech;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Luck;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Paralysis;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Piercing;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Poison;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Slow;
-import com.watabou.pixeldungeon.items.weapon.enchantments.Swing;
+import com.watabou.pixeldungeon.items.weapon.enchantments.*;
 import com.watabou.pixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.watabou.pixeldungeon.sprites.ItemSprite;
 import com.watabou.pixeldungeon.utils.GLog;
@@ -59,7 +49,8 @@ public class Weapon extends KindOfWeapon {
 	}
 	public Imbue imbue = Imbue.NONE;
 	
-	private int hitsToKnow = 20;
+	private static final int HITS_TO_KNOW	= 20;
+	private int hitsToKnow = HITS_TO_KNOW;
 	
     public Enchantment enchantment;
 	
@@ -77,14 +68,16 @@ public class Weapon extends KindOfWeapon {
 				Badges.validateItemLevelAquired( this );
 			}
 		}
+		use();
 	}
-	
+	private static final String UNFAMILIRIARITY	= "unfamiliarity";
 	private static final String ENCHANTMENT	= "enchantment";
 	private static final String IMBUE		= "imbue";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
+		bundle.put( UNFAMILIRIARITY, hitsToKnow );
 		bundle.put( ENCHANTMENT, enchantment );
 		bundle.put( IMBUE, imbue );
 	}
@@ -92,6 +85,9 @@ public class Weapon extends KindOfWeapon {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
+		if ((hitsToKnow = bundle.getInt( UNFAMILIRIARITY )) == 0) {
+			hitsToKnow = HITS_TO_KNOW;
+		}
 		enchantment = (Enchantment)bundle.get( ENCHANTMENT );
 		imbue = bundle.getEnum( IMBUE, Imbue.class );
 	}
@@ -154,11 +150,16 @@ public class Weapon extends KindOfWeapon {
 			}
 		} else {
 			if (enchant) {
-				enchant( Enchantment.random() );
+				enchant();
 			}
 		}
 		
 		return super.upgrade();
+	}
+	
+	@Override
+	public int maxDurability( int lvl ) {
+		return 4 * (lvl < 16 ? 16 - lvl : 1);
 	}
 	
 	@Override
@@ -196,6 +197,17 @@ public class Weapon extends KindOfWeapon {
 		return this;
 	}
 	
+	public Weapon enchant() {
+		
+		Class<? extends Enchantment> oldEnchantment = enchantment != null ? enchantment.getClass() : null;
+		Enchantment ench = Enchantment.random();
+		while (ench.getClass() == oldEnchantment) {
+			ench = Enchantment.random();
+		}
+		
+		return enchant( ench );
+	}
+	
 	public boolean isEnchanted() {
 		return enchantment != null;
 	}
@@ -209,8 +221,8 @@ public class Weapon extends KindOfWeapon {
 		
 		private static final Class<?>[] enchants = new Class<?>[]{ 
 			Fire.class, Poison.class, Death.class, Paralysis.class, Leech.class, 
-			Slow.class, Swing.class, Piercing.class, Instability.class, Horror.class, Luck.class };
-		private static final float[] chances= new float[]{ 10, 10, 1, 2, 1, 2, 3, 3, 3, 2, 2 };
+			Slow.class, Shock.class, Swing.class, Piercing.class, Instability.class, Horror.class, Luck.class, Tempering.class };
+		private static final float[] chances= new float[]{ 10, 10, 1, 2, 1, 2, 6, 3, 3, 3, 2, 2,0 };
 			
 		public abstract boolean proc( Weapon weapon, Char attacker, Char defender, int damage );
 		
