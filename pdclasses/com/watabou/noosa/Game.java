@@ -22,14 +22,14 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.dit599.customPD.Dungeon;
+import com.dit599.customPD.scenes.GameScene;
 import com.watabou.glscripts.Script;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.Keys;
 import com.watabou.input.Touchscreen;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.pixeldungeon.Dungeon;
-import com.watabou.pixeldungeon.scenes.GameScene;
 import com.watabou.utils.BitmapCache;
 import com.watabou.utils.SystemTime;
 
