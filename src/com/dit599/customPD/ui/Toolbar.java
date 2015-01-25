@@ -17,7 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>
-*/
+ */
 package com.dit599.customPD.ui;
 
 import android.util.Log;
@@ -55,22 +55,21 @@ public class Toolbar extends Component {
 	private Tool btnWait;
 	private Tool btnSearch;
 	private Tool btnInfo;
-	private Tool btnResume;
 	private Tool btnInventory;
 	private Tool btnQuick;
 	private Tool btnQuick2;
-	
+
 	private PickedUpItem pickedUp;
-	
+
 	private boolean lastEnabled = true;
-	
+
 	private static Toolbar instance;
-	
+
 	public Toolbar() {
 		super();
-		
+
 		instance = this;
-		
+
 		height = btnInventory.height();
 	}
 	/**
@@ -79,7 +78,7 @@ public class Toolbar extends Component {
 	 */
 	@Override
 	protected void createChildren() {
-		
+
 		add( btnWait = new Tool( 0, 7, 20, 24 ) {
 			@Override
 			protected void onClick() {
@@ -90,27 +89,27 @@ public class Toolbar extends Component {
 				return true;
 			};
 		} );
-		
+
 		add( btnSearch = new Tool( 20, 7, 20, 24 ) {
 			@Override
 			protected void onClick() {
 				Dungeon.hero.search( true );
 			}
 		} );
-		
+
 		add( btnInfo = new Tool( 40, 7, 21, 24 ) {
 			@Override
 			protected void onClick() {
 				GameScene.selectCell( informer );
 			}
 		} );
-		
+
 		add( btnInventory = new Tool( 60, 7, 23, 24 ) {
 			private GoldIndicator gold;
 			@Override
 			protected void onClick() {
 				GameScene.show( new WndBag( Dungeon.hero.belongings.backpack, null, WndBag.Mode.ALL, null ) );
-				
+
 				if(Dungeon.isTutorial && !Dungeon.invOpened){
 					Dungeon.invOpened = true;
 					WndStory.showChapter("This is your inventory. press on an item to get options for what " +
@@ -134,13 +133,13 @@ public class Toolbar extends Component {
 				gold.fill( this );
 			};
 		} );
-		
+
 		add( btnQuick = new QuickslotTool( 105, 7, 22, 24, 1 ) );
 		add( btnQuick2 = new QuickslotTool2( 105, 7, 22, 24, 0 ) );
-		
+
 		add( pickedUp = new PickedUpItem() );
 	}
-	
+
 	@Override
 	protected void layout() {
 		btnWait.setPos( x, y );
@@ -149,74 +148,73 @@ public class Toolbar extends Component {
 		btnQuick.setPos( width - btnQuick.width(), y );
 		btnQuick2.setPos( btnQuick.left() - btnQuick2.width(), y );
 		btnInventory.setPos( btnQuick2.left() - btnInventory.width(), y );
-		btnResume.setPos(btnSearch.right(), y);
 	}
-	
+
 	@Override
 	public void update() {
 		super.update();
-		
+
 		if (lastEnabled != Dungeon.hero.ready) {
 			lastEnabled = Dungeon.hero.ready;
-			
+
 			for (Gizmo tool : members) {
 				if (tool instanceof Tool) {
 					((Tool)tool).enable( lastEnabled );
 				}
 			}
 		}
-		
+
 		if (!Dungeon.hero.isAlive()) {
 			btnInventory.enable( true );
 		}
 	}
-	
+
 	public void pickup( Item item ) {
 		pickedUp.reset( item, 
-			btnInventory.centerX(), 
-			btnInventory.centerY() );
+				btnInventory.centerX(), 
+				btnInventory.centerY() );
 	}
-	
+
 	public static boolean secondQuickslot() {
 		return instance.btnQuick2.visible;
 	}
-	
+
 	public static void secondQuickslot( boolean value ) {
 		instance.btnQuick2.visible = 
-		instance.btnQuick2.active = 
-			value;
+				instance.btnQuick2.active = 
+				value;
 		instance.layout();
 	}
-	
+
 	private static CellSelector.Listener informer = new CellSelector.Listener() {
 		@Override
 		public void onSelect( Integer cell ) {
-			
+
 			if (cell == null) {
 				return;
 			}
-			
+
 			if (cell < 0 || cell > Level.LENGTH || (!Dungeon.level.visited[cell] && !Dungeon.level.mapped[cell])) {
 				GameScene.show( new WndMessage( "You don't know what is there." ) ) ;
 				return;
 			}
-			
+
 			if (!Dungeon.visible[cell]) {
 				GameScene.show( new WndInfoCell( cell ) );
 				return;
 			}
-			
+
 			if (cell == Dungeon.hero.pos) {
 				GameScene.show( new WndHero() );
 				return;
 			}
-			
+
 			Mob mob = (Mob)Actor.findChar( cell );
 			if (mob != null) {
 				GameScene.show( new WndInfoMob( mob ) );
 				return;
 			}
-			
+
 			Heap heap = Dungeon.level.heaps.get( cell );
 			if (heap != null) {
 				if (heap.type == Heap.Type.FOR_SALE && heap.size() == 1 && heap.peek().price() > 0) {
@@ -226,13 +224,13 @@ public class Toolbar extends Component {
 				}
 				return;
 			}
-			
+
 			Plant plant = Dungeon.level.plants.get( cell );
 			if (plant != null) {
 				GameScene.show( new WndInfoPlant( plant ) );
 				return;
 			}
-			
+
 			GameScene.show( new WndInfoCell( cell ) );
 		}	
 		@Override
@@ -240,43 +238,43 @@ public class Toolbar extends Component {
 			return "Select a cell to examine";
 		}
 	};
-	
+
 	private static class Tool extends Button {
-		
+
 		private static final int BGCOLOR = 0x7B8073;
-		
+
 		protected Image base;
-		
+
 		public Tool( int x, int y, int width, int height ) {
 			super();
-			
+
 			base.frame( x, y, width, height );
-			
+
 			this.width = width;
 			this.height = height;
 		}
-		
+
 		@Override
 		protected void createChildren() {
 			super.createChildren();
-			
+
 			base = new Image( Assets.TOOLBAR );
 			add( base );
 		}
-		
+
 		@Override
 		protected void layout() {
 			super.layout();
-			
+
 			base.x = x;
 			base.y = y;
 		}
-		
+
 		@Override
 		protected void onTouchDown() {
 			base.brightness( 1.4f );
 		}
-		
+
 		@Override
 		protected void onTouchUp() {
 			if (active) {
@@ -285,7 +283,7 @@ public class Toolbar extends Component {
 				base.tint( BGCOLOR, 0.7f );
 			}
 		}
-		
+
 		public void enable( boolean value ) {
 			if (value != active) {
 				if (value) {
@@ -297,12 +295,12 @@ public class Toolbar extends Component {
 			}
 		}
 	}
-	
+
 	private static class QuickslotTool extends Tool {
-		
+
 		private static QuickSlot slot;
 		private static int id;
-		
+
 		public QuickslotTool( int x, int y, int width, int height , int i) {
 			super( x, y, width, height );
 			id = i;
@@ -310,18 +308,18 @@ public class Toolbar extends Component {
 			slot = new QuickSlot(id);
 			add( slot );
 		}
-		
+
 		@Override
 		protected void createChildren() {
 			super.createChildren();
 		}
-		
+
 		@Override
 		protected void layout() {
 			super.layout();
 			slot.setRect( x + 1, y + 2, width - 2, height - 2 );
 		}
-		
+
 		@Override
 		public void enable( boolean value ) {
 			slot.enable( value );
@@ -329,10 +327,10 @@ public class Toolbar extends Component {
 		}
 	}
 	private static class QuickslotTool2 extends Tool {
-		
+
 		private static QuickSlot slot;
 		private static int id;
-		
+
 		public QuickslotTool2( int x, int y, int width, int height , int i) {
 			super( x, y, width, height );
 			id = i;
@@ -340,70 +338,70 @@ public class Toolbar extends Component {
 			slot = new QuickSlot(id);
 			add( slot );
 		}
-		
+
 		@Override
 		protected void createChildren() {
 			super.createChildren();
 		}
-		
+
 		@Override
 		protected void layout() {
 			super.layout();
 			slot.setRect( x + 1, y + 2, width - 2, height - 2 );
 		}
-		
+
 		@Override
 		public void enable( boolean value ) {
 			slot.enable( value );
 			super.enable( value );
 		}
 	}
-	
+
 	private static class PickedUpItem extends ItemSprite {
-		
+
 		private static final float DISTANCE = DungeonTilemap.SIZE;
 		private static final float DURATION = 0.2f;
-		
+
 		private float dstX;
 		private float dstY;
 		private float left;
-		
+
 		public PickedUpItem() {
 			super();
-			
+
 			originToCenter();
-			
+
 			active = 
-			visible = 
-				false;
+					visible = 
+					false;
 		}
-		
+
 		public void reset( Item item, float dstX, float dstY ) {
 			view( item.image(), item.glowing() );
-			
+
 			active = 
-			visible = 
-				true;
-			
+					visible = 
+					true;
+
 			this.dstX = dstX - ItemSprite.SIZE / 2;
 			this.dstY = dstY - ItemSprite.SIZE / 2;
 			left = DURATION;
-			
+
 			x = this.dstX - DISTANCE;
 			y = this.dstY - DISTANCE;
 			alpha( 1 );
 		}
-		
+
 		@Override
 		public void update() {
 			super.update();
-			
+
 			if ((left -= Game.elapsed) <= 0) {
-				
+
 				visible = 
-				active = 
-					false;
-				
+						active = 
+						false;
+
 			} else {
 				float p = left / DURATION; 
 				scale.set( (float)Math.sqrt( p ) );

@@ -29,6 +29,7 @@ import com.dit599.customPD.items.Heap;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.items.keys.IronKey;
 import com.dit599.customPD.items.scrolls.Scroll;
+import com.dit599.customPD.items.scrolls.ScrollOfEnchantment;
 import com.dit599.customPD.items.scrolls.ScrollOfIdentify;
 import com.dit599.customPD.items.scrolls.ScrollOfMagicMapping;
 import com.dit599.customPD.items.scrolls.ScrollOfMirrorImage;
@@ -89,7 +90,7 @@ public class ScrollRoomPainter extends Painter {
 			int pos;
 			Scroll  [] scrolls = {
 					new ScrollOfIdentify(), new ScrollOfMagicMapping(), new ScrollOfMagicMapping(),
-					new ScrollOfRemoveCurse(), new ScrollOfUpgrade(), new ScrollOfWeaponUpgrade()
+					new ScrollOfRemoveCurse(), new ScrollOfUpgrade(), new ScrollOfEnchantment()
 			};
 			for(Scroll s : scrolls){
 				s.setKnown();

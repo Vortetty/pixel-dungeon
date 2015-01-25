@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name ="com.dit599.customPD.editorUI.FloorsListActivityivity">            
+        <activity android:name ="com.dit599.customPD.editorUI.FloorsListActivity">            
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.FloorsListActivity" />
 
@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.MapEditActivityivity"          
+            android:name="com.dit599.customPD.editorUI.MapEditActivity"          
             android:label="Map filename" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapEditActivity" />
@@ -54,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name ="com.dit599.customPD.editorUI.MapMobItemActivityivity"
+            android:name ="com.dit599.customPD.editorUI.MapMobItemActivity"
             android:label="Set Mobtype" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapMobItemActivity" />
@@ -62,7 +62,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dit599.customPD.editorUI.MapSelectArmorActivityivity">                        
+        <activity android:name="com.dit599.customPD.editorUI.MapSelectArmorActivity">                        
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapSelectArmorActivity" />
 
@@ -70,7 +70,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.MapSelectorActivityivity"          
+            android:name="com.dit599.customPD.editorUI.MapSelectorActivity"          
             android:label="Maps" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MapSelectorActivity" />
@@ -79,7 +79,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.EnchantableItemsActivityivity"          
+            android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity"          
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.EnchantableItemsActivity" />
@@ -88,7 +88,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.ItemsActivityivity"          
+            android:name="com.dit599.customPD.editorUI.ItemsActivity"          
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.ItemsActivity" />
@@ -97,7 +97,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dit599.customPD.editorUI.MagicItemsActivityivity"          
+            android:name="com.dit599.customPD.editorUI.MagicItemsActivity"          
             android:label="Items" >
             <intent-filter>
                 <action android:name="com.dit599.customPD.editorUI.MagicItemsActivity" />

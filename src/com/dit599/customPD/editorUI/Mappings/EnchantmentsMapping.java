@@ -45,6 +45,8 @@ public abstract class EnchantmentsMapping {
 		enchantmentsclasslist.add(Poison.class);
 		enchantmentsclasslist.add(Slow.class);
 		enchantmentsclasslist.add(Swing.class);
+		enchantmentsclasslist.add(Shock.class);
+		enchantmentsclasslist.add(Tempering.class);
 
 		enchantmentsnamelist = new ArrayList<String>();
 		enchantmentsnamelist.add("No Enchant");
@@ -59,6 +61,8 @@ public abstract class EnchantmentsMapping {
 		enchantmentsnamelist.add("Venomous");
 		enchantmentsnamelist.add("Chilling");
 		enchantmentsnamelist.add("Wild");
+		enchantmentsnamelist.add("Shocking");
+		enchantmentsnamelist.add("Tempered");
 
 	}
 

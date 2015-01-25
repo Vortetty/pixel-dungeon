@@ -43,6 +43,7 @@ public abstract class ConsumableMapping {
 		consumableclasslist.add(Gold.class);
 		consumableclasslist.add(Food.class);
 		consumableclasslist.add(MysteryMeat.class);
+		consumableclasslist.add(Pasty.class);
 		consumableclasslist.add(ScrollHolder.class);
 		consumableclasslist.add(SeedPouch.class);
 		consumableclasslist.add(WandHolster.class);
@@ -59,6 +60,8 @@ public abstract class ConsumableMapping {
 		consumableclasslist.add(Javelin.class);
 		consumableclasslist.add(Tamahawk.class);
 		consumableclasslist.add(SkeletonKey.class);
+		consumableclasslist.add(Bomb.class);
+		consumableclasslist.add(Honeypot.class);
 
 		consumablenamelist = new ArrayList<String>();
 		consumablenamelist.add("Ankh");
@@ -66,6 +69,7 @@ public abstract class ConsumableMapping {
 		consumablenamelist.add("Gold");
 		consumablenamelist.add("Food");
 		consumablenamelist.add("Mystery Meat");
+		consumablenamelist.add("Pasty");
 		consumablenamelist.add("Scroll Holder");
 		consumablenamelist.add("Seed Pouch");
 		consumablenamelist.add("Wand Holster");
@@ -82,6 +86,8 @@ public abstract class ConsumableMapping {
 		consumablenamelist.add("Javelin");
 		consumablenamelist.add("Tomahawk");
 		consumablenamelist.add("Skeleton Key");
+		consumablenamelist.add("Bomb");
+		consumablenamelist.add("Honey Pot");
 	}
 
 	public static String getConsumableName(Class<? extends Item> consumable) {

@@ -53,6 +53,7 @@ public abstract class MobMapping {
 		mobsclasslist.add(Eye.class);
 		mobsclasslist.add(Scorpio.class);
 		mobsclasslist.add(Acidic.class);
+		//mobsclasslist.add(Mimic.class);
 		//mobsclasslist.add(DM300.class);
 		//mobsclasslist.add(Goo.class);
 		//mobsclasslist.add(King.class);
@@ -85,6 +86,7 @@ public abstract class MobMapping {
 		mobsnamelist.add("Evil Eye");
 		mobsnamelist.add("Scorpio");
 		mobsnamelist.add("Acidic Scorpio");
+		//mobsnamelist.add("Mimic");
 		//mobsnamelist.add("DM300");
 		//mobsnamelist.add("Goo");
 		//mobsnamelist.add("King");

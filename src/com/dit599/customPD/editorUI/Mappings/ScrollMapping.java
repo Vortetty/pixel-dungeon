@@ -37,6 +37,7 @@ public abstract class ScrollMapping {
 		scrollclasslist.add(ScrollOfMagicMapping.class);
 		scrollclasslist.add(ScrollOfUpgrade.class);
 		scrollclasslist.add(ScrollOfEnchantment.class);
+		//scrollclasslist.add(ScrollOfWeaponUpgrade.class);
 		scrollclasslist.add(ScrollOfRecharging.class);
 		scrollclasslist.add(ScrollOfTeleportation.class);
 		scrollclasslist.add(ScrollOfChallenge.class);
@@ -51,6 +52,7 @@ public abstract class ScrollMapping {
 		scrollnamelist.add("Scroll of Magic Mapping");
 		scrollnamelist.add("Scroll of Upgrade");
 		scrollnamelist.add("Scroll of Enchantment");
+		//scrollnamelist.add("Scroll of Weapon Upgrade");
 		scrollnamelist.add("Scroll of Recharging");
 		scrollnamelist.add("Scroll of Teleportation");
 		scrollnamelist.add("Scroll of Challenge");
