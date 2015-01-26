@@ -19,11 +19,15 @@ package com.dit599.customPD.windows;
 
 import java.util.Locale;
 
+import android.preference.Preference;
+
 import com.dit599.customPD.Assets;
 import com.dit599.customPD.Badges;
+import com.dit599.customPD.CustomPD;
 import com.dit599.customPD.Dungeon;
 import com.dit599.customPD.Statistics;
 import com.dit599.customPD.actors.hero.Belongings;
+import com.dit599.customPD.actors.hero.Hero;
 import com.dit599.customPD.items.Item;
 import com.dit599.customPD.scenes.PixelScene;
 import com.dit599.customPD.sprites.HeroSprite;
@@ -163,7 +167,14 @@ public class WndRanking extends WndTabbed {
 		public StatsTab() {
 			super();
 			
-			String heroClass = Dungeon.hero.className();
+
+			String heroClass = "Not Found";
+			if(Dungeon.hero != null){
+				heroClass = Dungeon.hero.className();
+			}
+			else{
+				Dungeon.hero = new Hero();
+			}
 			
 			IconTitle title = new IconTitle();
 			title.icon( HeroSprite.avatar( Dungeon.hero.heroClass, Dungeon.hero.tier() ) );
