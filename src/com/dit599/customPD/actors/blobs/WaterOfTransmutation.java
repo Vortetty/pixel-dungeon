@@ -31,6 +31,7 @@ import com.dit599.customPD.items.rings.Ring;
 import com.dit599.customPD.items.scrolls.Scroll;
 import com.dit599.customPD.items.scrolls.ScrollOfEnchantment;
 import com.dit599.customPD.items.scrolls.ScrollOfUpgrade;
+import com.dit599.customPD.items.scrolls.ScrollOfWeaponUpgrade;
 import com.dit599.customPD.items.wands.Wand;
 import com.dit599.customPD.items.weapon.melee.*;
 import com.dit599.customPD.plants.Plant;
@@ -181,7 +182,7 @@ public class WaterOfTransmutation extends WellWater {
 	private Scroll changeScroll( Scroll s ) {
 		if (s instanceof ScrollOfUpgrade) {
 			
-			return new ScrollOfEnchantment();
+			return new ScrollOfWeaponUpgrade();
 			
 		} else if (s instanceof ScrollOfEnchantment) {
 			

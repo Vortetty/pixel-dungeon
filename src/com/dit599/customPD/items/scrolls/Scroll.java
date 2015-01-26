@@ -49,10 +49,11 @@ public abstract class Scroll extends Item {
 		ScrollOfPsionicBlast.class,
 		ScrollOfMirrorImage.class,
 		ScrollOfUpgrade.class,
-		ScrollOfEnchantment.class
+		ScrollOfEnchantment.class,
+		ScrollOfWeaponUpgrade.class
 	};
 	private static final String[] runes = 
-		{"KAUNAN", "SOWILO", "LAGUZ", "YNGVI", "GYFU", "RAIDO", "ISAZ", "MANNAZ", "NAUDIZ", "BERKANAN", "ODAL", "TIWAZ"};
+		{"KAUNAN", "SOWILO", "LAGUZ", "YNGVI", "GYFU", "RAIDO", "ISAZ", "MANNAZ", "NAUDIZ", "BERKANAN", "ODAL", "TIWAZ", "CIRE"};
 	private static final Integer[] images = {
 		ItemSpriteSheet.SCROLL_KAUNAN, 
 		ItemSpriteSheet.SCROLL_SOWILO, 
@@ -65,7 +66,8 @@ public abstract class Scroll extends Item {
 		ItemSpriteSheet.SCROLL_NAUDIZ, 
 		ItemSpriteSheet.SCROLL_BERKANAN, 
 		ItemSpriteSheet.SCROLL_ODAL, 
-		ItemSpriteSheet.SCROLL_TIWAZ};
+		ItemSpriteSheet.SCROLL_TIWAZ,
+		ItemSpriteSheet.SCROLL_CIRE};
 	
 	private static ItemStatusHandler<Scroll> handler;
 	

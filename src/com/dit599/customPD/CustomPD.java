@@ -98,19 +98,19 @@ public class CustomPD extends Game {
 			com.dit599.customPD.plants.Dreamweed.Seed.class,
 			"com.dit599.customPD.plants.Blindweed$Seed" );
 		// 1.7.4
-		com.watabou.utils.Bundle.addAlias( 
-			com.dit599.customPD.items.weapon.enchantments.Shock.class,
-			"com.dit599.customPD.items.weapon.enchantments.Piercing" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.dit599.customPD.items.weapon.enchantments.Shock.class,
-			"com.dit599.customPD.items.weapon.enchantments.Swing" );
-		com.watabou.utils.Bundle.addAlias( 
-			com.dit599.customPD.items.scrolls.ScrollOfEnchantment.class,
-			"com.dit599.customPD.items.scrolls.ScrollOfWeaponUpgrade" );
+//		com.watabou.utils.Bundle.addAlias( 
+//			com.dit599.customPD.items.weapon.enchantments.Shock.class,
+//			"com.dit599.customPD.items.weapon.enchantments.Piercing" );
+//		com.watabou.utils.Bundle.addAlias( 
+//			com.dit599.customPD.items.weapon.enchantments.Shock.class,
+//			"com.dit599.customPD.items.weapon.enchantments.Swing" );
+//		com.watabou.utils.Bundle.addAlias( 
+//			com.dit599.customPD.items.scrolls.ScrollOfEnchantment.class,
+//			"com.dit599.customPD.items.scrolls.ScrollOfWeaponUpgrade" );
 		// 1.7.5
-		com.watabou.utils.Bundle.addAlias( 
-			com.dit599.customPD.items.scrolls.ScrollOfEnchantment.class,
-			"com.dit599.customPD.items.Stylus" );
+//		com.watabou.utils.Bundle.addAlias( 
+//			com.dit599.customPD.items.scrolls.ScrollOfEnchantment.class,
+//			"com.dit599.customPD.items.Stylus" );
 	}
 	
 	@Override

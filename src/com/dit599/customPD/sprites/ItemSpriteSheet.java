@@ -119,6 +119,7 @@ public class ItemSpriteSheet {
 	public static final int SCROLL_BERKANAN	= 77;
 	public static final int SCROLL_ODAL		= 78;
 	public static final int SCROLL_TIWAZ	= 79;
+	public static final int SCROLL_CIRE	= 119;
 	
 	// Seeds
 	public static final int SEED_FIREBLOOM	= 88;

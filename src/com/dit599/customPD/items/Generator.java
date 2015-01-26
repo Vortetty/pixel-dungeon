@@ -93,8 +93,9 @@ public class Generator {
 			ScrollOfPsionicBlast.class,
 			ScrollOfMirrorImage.class,
 			ScrollOfUpgrade.class,
-			ScrollOfEnchantment.class };
-		Category.SCROLL.probs = new float[]{ 30, 10, 15, 10, 15, 12, 8, 8, 4, 6, 0, 1 };
+			ScrollOfEnchantment.class,
+			ScrollOfWeaponUpgrade.class};
+		Category.SCROLL.probs = new float[]{ 30, 10, 15, 10, 15, 12, 8, 8, 4, 6, 0, 1, 0 };
 		
 		Category.POTION.classes = new Class<?>[]{ 
 			PotionOfHealing.class, 
