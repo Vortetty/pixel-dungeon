@@ -68,9 +68,7 @@ public class DungeonTemplate implements Bundlable{
 	public void restoreFromBundle(Bundle bundle) {
 		levelTemplates = new ArrayList<LevelTemplate>(MAX_DEPTH);
 		levelTemplates.addAll((Collection<? extends LevelTemplate>) bundle.getCollection("levelTemplates"));
-		if (name == null || name.equals("")){
-			name = bundle.getString("templateName");
-		}
+		name = bundle.getString("templateName");
 		Log.d("DTRESTORE", levelTemplates.size() + "");
 	}
 	@Override

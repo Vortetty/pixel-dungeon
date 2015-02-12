@@ -112,6 +112,9 @@ public abstract class ConsumableMapping {
 	}
 	public static List<String> getAllNames()
 	{
+		if(consumablenamelist == null){
+			consumableMappingInit();
+		}
 		return consumablenamelist;
 		
 	}

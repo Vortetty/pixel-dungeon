@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dit599.customPD"
     android:installLocation="auto"
-    android:versionCode="88"
-    android:versionName="1.0b" >
+    android:versionCode="89"
+    android:versionName="1.0c" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

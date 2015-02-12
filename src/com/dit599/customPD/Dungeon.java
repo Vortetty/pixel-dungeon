@@ -742,6 +742,10 @@ public class Dungeon {
 	public static void loadGame( String fileName, boolean fullLoad ) throws IOException {
 
 		Bundle bundle = gameBundle( fileName );
+		
+		if(template != null){
+			template = (DungeonTemplate) bundle.get("dungeonTemplate");
+		}
 
 		Dungeon.challenges = bundle.getInt( CHALLENGES );
 
@@ -837,9 +841,6 @@ public class Dungeon {
 
 		Statistics.restoreFromBundle( bundle );
 		Journal.restoreFromBundle( bundle );
-
-		if(template != null){
-			template = (DungeonTemplate) bundle.get("dungeonTemplate");
 		
 		droppedItems = new SparseArray<ArrayList<Item>>();
 		for (int i=2; i <= Statistics.deepestFloor + 1; i++) {
@@ -850,7 +851,7 @@ public class Dungeon {
 			if (!dropped.isEmpty()) {
 				droppedItems.put( i, dropped );
 			}
-		}}
+		}
 	}
 
 	public static Level loadLevel( HeroClass cl ) throws IOException {
