@@ -19,3 +19,5 @@ https://github.com/watabou/pixel-dungeon
 In order to use the source code you will need to right click on the project in eclipse, 
 choose build path then link source tab, then add a new source that targets the pdclasses
 folder.
+
+Main contributors: Eric Britsman, Özgür Tanriverdi, Anton Grönlund
