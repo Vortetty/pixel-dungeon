@@ -46,6 +46,6 @@ public class Ankh extends Item {
 	
 	@Override
 	public int price() {
-		return 50 * quantity;
+		return 1 * quantity;
 	}
 }
