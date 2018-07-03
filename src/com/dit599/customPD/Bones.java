@@ -57,9 +57,9 @@ public class Bones {
 		}
 		if (item == null) {
 			if (Dungeon.gold > 0) {
-				item = new Gold( Random.IntRange( 1, Dungeon.gold ) );
+				item = new Gold( Random.IntRange( 1, Dungeon.gold*5) );
 			} else {
-				item = new Gold( 1 );
+				item = new Gold( 10 );
 			}
 		}
 		
