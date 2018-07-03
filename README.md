@@ -1,4 +1,4 @@
-YourPD
+YourPD OP Edition
 =============
 
 This is a modified version of the open-source game Pixel Dungeon, which 
